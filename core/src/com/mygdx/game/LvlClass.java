@@ -20,11 +20,12 @@ public class LvlClass extends BaseScreen {
 
     public LvlClass(MyGdxGame game) {
         super(game);
-        npcList = new ArrayList<Npc>();
     }
 
     @Override
     public void create() {
+        npcList = new ArrayList<Npc>();
+        
         bgTexture = new Texture(Gdx.files.internal("background.png"));
         hero = new Hero(new Texture(Gdx.files.internal("badlogic.jpg")));
         npcList.add(new Npc(new Texture(Gdx.files.internal("badlogic.jpg"))));
