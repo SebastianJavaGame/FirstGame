@@ -16,6 +16,7 @@ public class Npc extends Character {
 
     public void collisionDo(){
         System.out.println("Collision!!!");
+
         //TODO implement work if object collision
     }
 }

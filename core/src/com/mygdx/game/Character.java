@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 
 public abstract class Character extends Actor{
-    protected Rectangle collision;
+    public Rectangle collision;
+
     protected Texture texture;
 
     public Character(Texture texture){
@@ -17,6 +18,7 @@ public abstract class Character extends Actor{
         collision = new Rectangle();
 
         setOrigin(texture.getWidth() /2, texture.getHeight() /2);
+        setPosition(10, 10);
     }
 
     public void collisionUpdate(){
