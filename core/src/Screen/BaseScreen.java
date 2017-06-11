@@ -7,9 +7,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
  * Created by Sebastian on 2017-05-31.
@@ -21,20 +20,18 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     public final static int VIEW_HEIGHT = 480;
 
     protected Game game;
-    protected SpriteBatch spriteBatch;
     protected OrthographicCamera camera;
-
-    private Viewport viewport;
+    protected Stage mapStage;
 
     public BaseScreen(Game g)
     {
         game = g;
-        spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
-        viewport = new ExtendViewport(VIEW_WIDTH, VIEW_HEIGHT, camera);
         camera.setToOrtho(false, VIEW_WIDTH, VIEW_HEIGHT);
 
-        InputMultiplexer im = new InputMultiplexer(this);
+        mapStage = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
+
+        InputMultiplexer im = new InputMultiplexer(this, mapStage);
         Gdx.input.setInputProcessor(im);
     }
 
@@ -45,25 +42,24 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     // this is the gameloop. update, then render.
     public void render(float dt)
     {
-        spriteBatch.setProjectionMatrix(camera.combined);
+        mapStage.act(dt);
 
         // render
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        spriteBatch.begin();
+        mapStage.draw();
         update(dt);
-        spriteBatch.end();
     }
 
     public void resize(int width, int height) {
-        viewport.update(width, height);
+       mapStage.getViewport().update(width, height);
     }
 
     public void pause()   {  }
     public void resume()  {  }
     public void dispose() {
         game.dispose();
-        spriteBatch.dispose();
+       mapStage.dispose();
     }
     public void show()    {  }
     public void hide()    {  }

@@ -19,11 +19,16 @@ public class Map_02 extends BaseMap {
 
     @Override
     public void generateMap() {
+        bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
         npcList.add(new Npc(new Texture(Gdx.files.internal("badlogic.jpg"))));
+        mapStage.addActor(bgTexture);
+        mapStage.addActor(npcList.get(0));
+        mapStage.addActor(hero);
     }
 
     @Override
     public void collisionEndMap() {
+        System.out.println("map 01");
         game.setScreen(new Map_01(game));
     }
 }

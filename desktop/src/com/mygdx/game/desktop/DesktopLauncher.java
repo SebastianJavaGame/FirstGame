@@ -2,8 +2,9 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import Screen.BaseScreen;
 import com.mygdx.game.MyGdxGame;
+
+import Screen.BaseScreen;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
