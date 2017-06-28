@@ -36,7 +36,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     }
 
     public abstract void create();
-
     public abstract void update(float dt);
 
     // this is the gameloop. update, then render.
@@ -46,7 +45,8 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
         // render
         Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
         mapStage.draw();
         update(dt);
     }

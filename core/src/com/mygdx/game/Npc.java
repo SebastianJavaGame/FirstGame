@@ -11,11 +11,10 @@ public class Npc extends Character {
     public Npc(Texture texture) {
         super(texture);
         setPosition(400, 450);
-        //TODO random position at map location - npc
     }
 
     public void collisionDo(){
-        System.out.println("Collision!!!");
+        //System.out.println("Collision!!!");
 
         //TODO implement work if object collision
     }

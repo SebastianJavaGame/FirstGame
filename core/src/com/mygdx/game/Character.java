@@ -23,11 +23,10 @@ public abstract class Character extends Actor{
         collision = new Rectangle();
 
         setOrigin(texture.getWidth() /2, texture.getHeight() /2);
-        setPosition(10, 10);
     }
 
     public void collisionUpdate(){
-        collision.set(getX(), getY(), texture.getRegionWidth(), texture.getRegionHeight());
+        collision.set(getX(), getY(), this.getWidth(), this.getHeight());
     }
 
     public void draw(Batch batch, float parentAlpha)
@@ -46,9 +45,5 @@ public abstract class Character extends Actor{
         setWidth( w );
         setHeight( h );
         texture.setRegion( t );
-    }
-
-    public TextureRegion getTexture(){
-        return texture;
     }
 }
