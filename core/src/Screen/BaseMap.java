@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,13 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mygdx.game.Equipment;
+import com.mygdx.game.Bag;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
 import com.mygdx.game.Npc;
-import com.mygdx.game.RenderCollisionLine_Test;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -69,10 +68,10 @@ public abstract class BaseMap extends BaseScreen {
     private Label expLabel;
     private Label levelLabel;
 
-    private RenderCollisionLine_Test testRender;
+    //private RenderCollisionLine_Test testRender;
 
     protected ArrayList<Polygon> objectPolygon;
-    protected ArrayList<Point[]> verticalPolygon;
+    protected ArrayList<Vector2[]> verticalPolygon;
 
     private Hero3D hero3D;
 
@@ -115,7 +114,7 @@ public abstract class BaseMap extends BaseScreen {
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
         mapStage.addActor(hero);
 
-        testRender = new RenderCollisionLine_Test(camera, hero);
+        //testRender = new RenderCollisionLine_Test(camera, hero);
     }
 
     @Override
@@ -137,7 +136,7 @@ public abstract class BaseMap extends BaseScreen {
             stageCard.draw();
         }
 
-        testRender.draw();
+        //testRender.draw();
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
             System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
@@ -190,10 +189,12 @@ public abstract class BaseMap extends BaseScreen {
                 if(windowStatsOpen){
                     stopGame = false;
                     windowStatsOpen = false;
+                    stageStats.clear();
+                    stageCard.clear();
                 }else{
                     windowStatsOpen = true;
                     stopGame = true;
-                    new Equipment(stageStats, stageCard, hero);
+                    new Bag(stageStats, stageCard, hero);
                 }
                 System.out.println(windowStatsOpen);
                 return false;
@@ -231,16 +232,16 @@ public abstract class BaseMap extends BaseScreen {
 
     private void uiUpdate() {
         levelLabel.setText(String.valueOf(hero.getLevel()));
-        hpLabel.setText(hero.getHp() + " / " + hero.getMaxHp());
+        hpLabel.setText(hero.getHp() + " / " + hero.getFullHp());
         expLabel.setText(hero.getExp() + " / " + hero.getMaxExp());
-        moneyLabel.setText(hero.getMoney());
+        moneyLabel.setText(hero.getMoneyString());
 
         hpLabel.setPosition(uiBarEmptyHp.getX() + uiBarEmptyHp.getWidth() /2 - ((String.valueOf(hero.getHp()).length() + 3
                 + String.valueOf(hero.getMaxHp()).length()) *3 +1), 460 + uiBarEmptyHp.getHeight() /2);
         expLabel.setPosition(uiBarEmptyExp.getX() + uiBarEmptyExp.getWidth() /2 - ((String.valueOf(hero.getExp()).length() + 3
                 + String.valueOf(hero.getMaxExp()).length()) *3 +1), 435 + uiBarEmptyExp.getHeight() /2);
 
-        uiBarHp.setSize((float) hero.getHp() / hero.getMaxHp() * 100, uiBarHp.getHeight());
+        uiBarHp.setSize((float) hero.getHp() / hero.getFullHp() * 100, uiBarHp.getHeight());
         uiBarExp.setSize((float) hero.getExp() / hero.getMaxExp() * 100, uiBarExp.getHeight());
     }
 

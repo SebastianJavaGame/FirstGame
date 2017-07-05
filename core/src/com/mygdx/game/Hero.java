@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,10 +9,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import Screen.BaseMap;
@@ -25,8 +27,8 @@ public class Hero extends Character {
     private Hero3D hero3D;
 
     private ArrayList<Polygon> objectMap;
-    private ArrayList<Point[]> vertical;
-    private ArrayList<Point> queueWay = null;
+    private ArrayList<Vector2[]> vertical;
+    private ArrayList<Vector2> queueWay = null;
 
     private Polygon actualCollision;
     private Polygon actualPointObject;
@@ -35,8 +37,8 @@ public class Hero extends Character {
 
     private Rectangle rectangle;
 
-    private Point start = new Point(0, 0);
-    private Point end = new Point(0 ,0);
+    private Vector2 start;
+    private Vector2 end;
 
     private boolean moveStop;
     private boolean aroundMove;
@@ -46,43 +48,67 @@ public class Hero extends Character {
 
     private int level;
     private int money;
-    private int hp;
     private int maxHp;
     private int exp;
     private int maxExp;
 
-    public int strong = 10;
-    public int wiedza = 10;
-    public int defense = 10;
+    private int fullHp;
+    private int hp;
+    public int strong;
+    public int wiedza;
+    public int speedAttack;
+    public int defenseFiz;
+    public int defenseMag;
 
-    public int hpEq = 100 + 25;
-    public int strongEq = strong +5;
-    public int wiedzaEq = wiedza +5;
-    public int defenseEq = defense +5;
+    private int hpNonEq;
+    public int hpEq;
+    public int strongEq;
+    public int wiedzaEq;
+    public int speedAttackEq;
+    public int defenseFizEq;
+    public int defenseMagEq;
 
-    public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Point[]> vertical, Camera camera, Hero3D hero3D) {
+    public int point;
+
+    public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D) {
         super(texture);
         this.objectMap = objectMap;
         this.vertical = vertical;
         this.camera = camera;
         this.rectangle = new Rectangle();
         this.hero3D = hero3D;
+        start = new Vector2();
+        end = new Vector2();
         create();
     }
 
     private void create(){
-        setMaxExp(140);
-        setMoney(184420);
-        setMaxHp(1200);
-        setHp(800);
-        setExp(100);
+        Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
         setLevel(25);
+
+        setMaxHp(preferences.getInteger("MAX_HP"));
+        setHpNonEq(getMaxHp());
+        setHp(getHpNonEq());
+        strong = preferences.getInteger("STRONG");
+        wiedza = preferences.getInteger("WIEDZA");
+        speedAttack = preferences.getInteger("SPEED_ATTACK");
+        defenseFiz = preferences.getInteger("DEFENSE_FIZ");
+        defenseMag = preferences.getInteger("DEFENSE_MAG");
+
+        setExp(preferences.getInteger("EXP"));
+        setMaxExp(preferences.getInteger("MAX_EXP"));
+        setMoney(preferences.getInteger("MONEY"));
+        point = preferences.getInteger("FREE_POINT");
+
+        try {
+            new UpdateHeroStats(this);
+        } catch (CloneNotSupportedException e) {}
     }
 
     public void move(final float posX, final float posY) {
         clearActions();
-        start.setLocation((int) getX() + getWidth() / 2, (int) getY() + getHeight() / 2);
-        end.setLocation((int) posX + getWidth() / 2, (int) posY + getHeight() / 2);
+        start.set((int) getX() + getWidth() / 2, (int) getY() + getHeight() / 2);
+        end.set((int) posX + getWidth() / 2, (int) posY + getHeight() / 2);
         Polygon track = new Polygon(new float[]{start.x - 1, start.y, end.x - 1,
                 end.y, end.x + 1, end.y, start.x + 1, start.y});
         Polygon point = new Polygon(new float[]{end.x - 1, end.y - 1, end.x - 1, end.y + 1, end.x + 1, end.y + 1, end.x + 1, end.y - 1});
@@ -112,7 +138,7 @@ public class Hero extends Character {
         int allObject = objectMap.size();
         for (Polygon object : objectMap) {
             i++;
-            Point[] verticalObject = vertical.get(i);
+            Vector2[] verticalObject = vertical.get(i);
             if (!moveStop && countCollision < 2) {
                 setActualCollision(object);
                 if (Intersector.overlapConvexPolygons(point, object)) {
@@ -161,7 +187,7 @@ public class Hero extends Character {
             if (Intersector.overlapConvexPolygons(track, object) && !Intersector.overlapConvexPolygons(point, object)) {
                 actualPointObject = null;
                 setActualCollision(object);
-                queueWay = new ArrayList<Point>();
+                queueWay = new ArrayList<Vector2>();
                 queueWay.add(null);
 
                 heroPolygonUpdate();
@@ -172,13 +198,13 @@ public class Hero extends Character {
                     }
 
                     if(Intersector.overlapConvexPolygons(heroPolygon, object))
-                        setActualCollision(object);//TODO rework objectPoint -> object
+                        setActualCollision(object);
                 }
 
                 float shorterWay = 999;
                 int indexShorterWay = -1;
                 int amountVertical = verticalObject.length;
-                Point vertical = null;
+                Vector2 vertical = null;
 
                 for (int j = 0; j < amountVertical; j++) {
                     Polygon lineEndVertical = new Polygon(new float[]{end.x - 1, end.y, end.x + 1, end.y,
@@ -188,8 +214,8 @@ public class Hero extends Character {
                         if (duration < shorterWay) {
                             shorterWay = duration;
                             indexShorterWay = j;
-                            queueWay.set(0, new Point(verticalObject[j].x, verticalObject[j].y));
-                            vertical = new Point(verticalObject[j].x, verticalObject[j].y);
+                            queueWay.set(0, new Vector2(verticalObject[j].x, verticalObject[j].y));
+                            vertical = new Vector2(verticalObject[j].x, verticalObject[j].y);
                         }
                     }
                 }
@@ -276,7 +302,7 @@ public class Hero extends Character {
                             index++;
                         else
                             index = 0;
-                        queueWay.add(new Point(verticalObject[index].x, verticalObject[index].y));
+                        queueWay.add(new Vector2(verticalObject[index].x, verticalObject[index].y));
                         lineStartVertical = new Polygon(new float[]{start.x - 1, start.y, start.x + 1, start.y,
                                 verticalObject[index].x + 1, verticalObject[index].y, verticalObject[index].x - 1, verticalObject[index].y});
                     } else {
@@ -284,7 +310,7 @@ public class Hero extends Character {
                             index = amountVertical - 1;
                         else
                             index--;
-                        queueWay.add(new Point(verticalObject[index].x, verticalObject[index].y));
+                        queueWay.add(new Vector2(verticalObject[index].x, verticalObject[index].y));
                         lineStartVertical = new Polygon(new float[]{start.x - 1, start.y, start.x + 1, start.y,
                                 verticalObject[index].x + 1, verticalObject[index].y, verticalObject[index].x - 1, verticalObject[index].y});
                     }
@@ -531,6 +557,10 @@ public class Hero extends Character {
         this.finishWalkPosition = position;
     }
 
+    public void setFullHp(int fullHp) {
+        this.fullHp = fullHp;
+    }
+
     public void setHp(int hp){
         this.hp = hp;
     }
@@ -580,6 +610,22 @@ public class Hero extends Character {
         hero3D.setPlayAnimation();
     }
 
+    public void setHpNonEq(int hpNonEq) {
+        this.hpNonEq = hpNonEq;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getFullHp() {
+        return fullHp;
+    }
+
+    public int getHpNonEq() {
+        return hpNonEq;
+    }
+
     public Polygon getFinishWalkPosition(){
         return finishWalkPosition;
     }
@@ -592,7 +638,11 @@ public class Hero extends Character {
         return level;
     }
 
-    public String getMoney() {
+    public int getMoney(){
+        return money;
+    }
+
+    public String getMoneyString() {
         if(money >= 1000000)
             return " " + money / 1000000 + " KK";
         else if(money >= 1000)
@@ -615,6 +665,10 @@ public class Hero extends Character {
 
     public int getMaxExp() {
         return maxExp;
+    }
+
+    public int getPoint() {
+        return point;
     }
 
     public Polygon getActualCollision(){
