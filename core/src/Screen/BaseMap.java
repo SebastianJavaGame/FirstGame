@@ -171,7 +171,7 @@ public abstract class BaseMap extends BaseScreen {
         uiBackground.setSize(VIEW_WIDTH, uiBackground.getHeight() + 3);
         addImageToStageUi("uiHp.png", 60, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
         addImageToStageUi("uiExp.png", 60, 430, ICON_ITEM_SIZE, ICON_ITEM_SIZE);
-        addImageToStageUi("uiMoney.png", 195, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
+        addImageToStageUi("uiMoney.png", 194, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
 
         uiBarEmptyHp = addImageToStageUi("barEmpty.png", 80, 460, 118, 20);
         uiBarEmptyExp = addImageToStageUi("barEmpty.png", 80, 435, 118, 20);
