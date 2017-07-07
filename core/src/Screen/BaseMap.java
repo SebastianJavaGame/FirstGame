@@ -59,6 +59,7 @@ public abstract class BaseMap extends BaseScreen {
     private Image uiBarEmptyHp, uiBarEmptyExp;
     private Image uiBarHp;
     private Image uiBarExp;
+    private Image slotLvl;
 
     private ImageButton uiStats;
 
@@ -167,21 +168,22 @@ public abstract class BaseMap extends BaseScreen {
         labelStyle.font = font;
 
         uiBackground = addImageToStageUi("uiBackground.png", 0, 430);
-        uiBackground.setSize(VIEW_WIDTH, uiBackground.getHeight());
-        addImageToStageUi("uiHp.png", 55, 455, ICON_ITEM_SIZE, ICON_ITEM_SIZE);
-        addImageToStageUi("uiExp.png", 55, 430, ICON_ITEM_SIZE, ICON_ITEM_SIZE);
-        addImageToStageUi("uiMoney.png", 190, 455, ICON_ITEM_SIZE, ICON_ITEM_SIZE);
+        uiBackground.setSize(VIEW_WIDTH, uiBackground.getHeight() + 3);
+        addImageToStageUi("uiHp.png", 60, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
+        addImageToStageUi("uiExp.png", 60, 430, ICON_ITEM_SIZE, ICON_ITEM_SIZE);
+        addImageToStageUi("uiMoney.png", 195, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
 
-        uiBarEmptyHp = addImageToStageUi("barEmpty.png", 75, 460, 118, 20);
-        uiBarEmptyExp = addImageToStageUi("barEmpty.png", 75, 435, 118, 20);
-        uiBarHp = addImageToStageUi("barHp.png", 81, 465, 100, 10);
-        uiBarExp = addImageToStageUi("barExp.png", 81, 440, 100, 10);
-        moneyLabel = addLabelToStageUi(215, 470, 0.9f);
-        hpLabel = addLabelToStageUi(0, 0, 0.85f);
-        expLabel = addLabelToStageUi(0, 0 , 0.85f);
-        Label levelNameLabel = addLabelToStageUi(5, 470, 1);
-        levelNameLabel.setText("Poziom");
-        levelLabel = addLabelToStageUi(20, 450, 1.25f);
+        uiBarEmptyHp = addImageToStageUi("barEmpty.png", 80, 460, 118, 20);
+        uiBarEmptyExp = addImageToStageUi("barEmpty.png", 80, 435, 118, 20);
+        uiBarHp = addImageToStageUi("barHp.png", 86, 465, 100, 10);
+        uiBarExp = addImageToStageUi("barExp.png", 86, 440, 100, 10);
+        moneyLabel = addLabelToStageUi(220, 470, 0.9f);
+        hpLabel = addLabelToStageUi(5, 0, 0.85f);
+        expLabel = addLabelToStageUi(5, 0 , 0.85f);
+        slotLvl = addImageToStageUi("slotLvl.png", 7, 431, 52, 48);
+        Label levelNameLabel = addLabelToStageUi(11, 464, 1);
+        levelNameLabel.setText("LEVEL");
+        levelLabel = addLabelToStageUi(23, 447, 1.25f);
 
         uiStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("uiStats.png")))));
         uiStats.addListener(new InputListener(){
@@ -201,7 +203,7 @@ public abstract class BaseMap extends BaseScreen {
             }
 
         });
-        uiStats.setPosition(260, 430);
+        uiStats.setPosition(267, 430);
         uiStats.setSize(50, 50);
 
         stageUi.addActor(uiStats);

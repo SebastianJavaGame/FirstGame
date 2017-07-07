@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Screen.BaseMap;
@@ -32,13 +32,14 @@ public class Equipment {
     public static final String[] PATH_DEFAULT_IMAGE = new String[]{
             "helm.png", "zbroja.png", "spodnie.png", "buty.png", "bron.png", "tarcza.png", "pierscien.png", "rekawice.png"
     };
+    //TODO change icon wapon to tarcza
     public static final Item.ItemType[] ITEM_TYPES = new Item.ItemType[]{
             Item.ItemType.HELMET, Item.ItemType.ARMOR, Item.ItemType.PANTS, Item.ItemType.SHOES, Item.ItemType.WAPON, Item.ItemType.ITEM_BLOCK, Item.ItemType.RING, Item.ItemType.HAND_ITEM
     };
     public static final int BLOCK_POSITION[][] = new int[][]{{BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 324}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 271},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 165},
-            {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 271}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 271},
-            {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 218}};
+            {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 271}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 271},
+            {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 218}};
 
     private static final Preferences pref = Gdx.app.getPreferences(PREF_NAME_EQ);
 
@@ -77,13 +78,13 @@ public class Equipment {
                 imageAddListener(block[i], block[i].getImage(), block[i].getPathImage());
                 updatePositionFitIn(block[i]);
                 updateStats();
-                emptyBlock[i].setBounds(block[i].getImage().getX(), block[i].getImage().getY(), Item.BLOCK_SIZE, Item.BLOCK_SIZE);
+                emptyBlock[i].setBounds(block[i].getImage().getX() -2, block[i].getImage().getY() -2, Item.BLOCK_SIZE +4, Item.BLOCK_SIZE +4);
                 card.addActor(emptyBlock[i]);
                 card.addActor(block[i].getImage());
             }else{
                 blockEmpty[i] = false;
                 Item item = new Item(PATH_DEFAULT_IMAGE[i], ITEM_TYPES[i]);
-                emptyBlock[i].setBounds(BLOCK_POSITION[i][0], BLOCK_POSITION[i][1], Item.BLOCK_SIZE, Item.BLOCK_SIZE);
+                emptyBlock[i].setBounds(BLOCK_POSITION[i][0] -2, BLOCK_POSITION[i][1] -2, Item.BLOCK_SIZE +4, Item.BLOCK_SIZE +4);
                 card.addActor(emptyBlock[i]);
                 updatePositionFitIn(item);
             }
@@ -235,20 +236,29 @@ public class Equipment {
             public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                 if (!blockClick) {
                     blockClick = true;
-                    final ImageButton takeOn = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png")))));
-                    final ImageButton takeOff = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png")))));
-                    final ImageButton drop = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png")))));
-                    final ImageButton cancel = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png")))));
+
+                    BitmapFont font = new BitmapFont();
+                    final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();
+                    textStyle.font = font;
+                    textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
+
+                    final TextButton takeOn = new TextButton("Take on", textStyle);
+                    final TextButton takeOff = new TextButton("Take off", textStyle);
+                    final TextButton drop = new TextButton("Drop", textStyle);
+                    final TextButton cancel = new TextButton("Cancel", textStyle);
                     final Image backgroundUp = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
                     backgroundUp.setBounds(0, 240, BaseMap.VIEW_WIDTH, 190);
 
-                    BitmapFont font = new BitmapFont();
                     Label.LabelStyle style = new Label.LabelStyle();
                     style.font = font;
 
+                    Label.LabelStyle styleGreen = new Label.LabelStyle();
+                    styleGreen.font = font;
+                    styleGreen.fontColor = new Color(Color.LIGHT_GRAY);
+
                     final Image itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
-                    final Label itemName = new Label("Name: " + item.getItemName(), style);
-                    final Label itemType = new Label("Type: " + item.getItemType().toString(), style);
+                    final Label itemName = new Label("" + item.getItemName(), style);
+                    final Label itemType = new Label("" + item.getItemType().toString(), style);
                     final Label itemHp = new Label("Hp :" + item.getHp(), style);
                     final Label itemStrong = new Label("Strong: " + item.getStrong(), style);
                     final Label itemWiedza = new Label("Wiedza: " + item.getWiedza(), style);
@@ -256,10 +266,14 @@ public class Equipment {
                     final Label itemDefenseFiz = new Label("Defense physics: " + item.getDefenseFiz(), style);
                     final Label itemDefenseMag = new Label("Defense magic: " + item.getDefenseMag(), style);
                     final Label itemPrice = new Label("Price: " + item.getCashValue(), style);
+                    final Label infoStorage = new Label("BAG", styleGreen);
+                    final Image itemBackground = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
+                    final Image barName = new Image(new Texture(Gdx.files.internal("nameBar.png")));
+                    final Image barPrice = new Image(new Texture(Gdx.files.internal("barX.png")));
 
-                    itemImage.setBounds(20, backgroundUp.getY() + 130, 60, 60);
-                    itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 165);
-                    itemType.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 135);
+                    itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
+                    itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
+                    itemType.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
                     itemHp.setPosition(20, backgroundUp.getY() + 100);
                     itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 100);
                     itemWiedza.setPosition(20, backgroundUp.getY() + 70);
@@ -267,6 +281,10 @@ public class Equipment {
                     itemDefenseFiz.setPosition(20, backgroundUp.getY() + 40);
                     itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 40);
                     itemPrice.setPosition(BaseMap.VIEW_WIDTH / 2 - itemPrice.getWidth() /2, backgroundUp.getY() + 10);
+                    infoStorage.setPosition(5, itemPrice.getY());
+                    barName.setBounds(itemName.getX() -20, itemName.getY() -16, itemName.getWidth() +40, itemName.getHeight() +30);
+                    itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
+                    barPrice.setBounds(0, itemPrice.getY() -4, BaseMap.VIEW_WIDTH +15, 25);
 
                     switch (item.getStan()) {
                         case BAG:
@@ -279,8 +297,8 @@ public class Equipment {
                                     Item itemUp = LoadAllItemToGame.getItem(pref.getString(item.getItemType().toString()));
                                     itemUp.setStan(Item.Stan.BAG);
                                     final Image itemImageDown = new Image(new Texture(Gdx.files.internal(itemUp.getPathImage())));
-                                    final Label itemNameDown = new Label("Name: " + itemUp.getItemName(), style);
-                                    final Label itemTypeDown = new Label("Type: " + itemUp.getItemType().toString(), style);
+                                    final Label itemNameDown = new Label("" + itemUp.getItemName(), style);
+                                    final Label itemTypeDown = new Label("" + itemUp.getItemType().toString(), style);
                                     final Label itemHpDown = new Label("Hp :" + itemUp.getHp(), style);
                                     final Label itemStrongDown = new Label("Strong: " + itemUp.getStrong(), style);
                                     final Label itemWiedzaDown = new Label("Wiedza: " + itemUp.getWiedza(), style);
@@ -288,11 +306,15 @@ public class Equipment {
                                     final Label itemDefenseFizDown = new Label("Defense physics: " + itemUp.getDefenseFiz(), style);
                                     final Label itemDefenseMagDown = new Label("Defense magic: " + itemUp.getDefenseMag(), style);
                                     final Label itemPriceDown = new Label("Price: " + itemUp.getCashValue(), style);
+                                    final Label infoStorageDown = new Label("HUMAN", styleGreen);
+                                    final Image itemBackgroundDown = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
+                                    final Image barNameDown = new Image(new Texture(Gdx.files.internal("nameBar.png")));
+                                    final Image barPriceDown = new Image(new Texture(Gdx.files.internal("barX.png")));
 
                                     //Item INFO
-                                    itemImageDown.setBounds(20, backgroundDown.getY() + 130, 60, 60);
-                                    itemNameDown.setPosition((BaseMap.VIEW_WIDTH + 70) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 165);
-                                    itemTypeDown.setPosition((BaseMap.VIEW_WIDTH + 70) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 135);
+                                    itemImageDown.setBounds(20, backgroundDown.getY() + 120, 60, 60);
+                                    itemNameDown.setPosition((BaseMap.VIEW_WIDTH + 70) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 160);
+                                    itemTypeDown.setPosition((BaseMap.VIEW_WIDTH + 70) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 132);
                                     itemHpDown.setPosition(20, backgroundDown.getY() + 100);
                                     itemStrongDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 100);
                                     itemWiedzaDown.setPosition(20, backgroundDown.getY() + 70);
@@ -300,6 +322,10 @@ public class Equipment {
                                     itemDefenseFizDown.setPosition(20, backgroundDown.getY() + 40);
                                     itemDefenseMagDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 40);
                                     itemPriceDown.setPosition(BaseMap.VIEW_WIDTH / 2 - itemPrice.getWidth() /2, backgroundDown.getY() + 10);
+                                    infoStorageDown.setPosition(5, itemPriceDown.getY());
+                                    barNameDown.setBounds(itemNameDown.getX() -20, itemNameDown.getY() -16, itemNameDown.getWidth() +40, itemNameDown.getHeight() +30);
+                                    itemBackgroundDown.setBounds(15, backgroundDown.getY() + 115, 70, 70);
+                                    barPriceDown.setBounds(0, itemPriceDown.getY() -4, BaseMap.VIEW_WIDTH +15, 25);
 
                                     takeOn.setBounds(0, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     takeOn.addListener(new InputListener() {
@@ -350,6 +376,14 @@ public class Equipment {
                                             itemPriceDown.remove();
                                             backgroundUp.remove();
                                             backgroundDown.remove();
+                                            barName.remove();
+                                            barNameDown.remove();
+                                            itemBackground.remove();
+                                            itemBackgroundDown.remove();
+                                            barPrice.remove();
+                                            barPriceDown.remove();
+                                            infoStorage.remove();
+                                            infoStorageDown.remove();
                                             return false;
                                         }
                                     });
@@ -396,6 +430,14 @@ public class Equipment {
                                             itemPriceDown.remove();
                                             backgroundUp.remove();
                                             backgroundDown.remove();
+                                            barName.remove();
+                                            barNameDown.remove();
+                                            itemBackground.remove();
+                                            itemBackgroundDown.remove();
+                                            barPrice.remove();
+                                            barPriceDown.remove();
+                                            infoStorage.remove();
+                                            infoStorageDown.remove();
                                             return false;
                                         }
                                     });
@@ -429,14 +471,22 @@ public class Equipment {
                                             itemPriceDown.remove();
                                             backgroundUp.remove();
                                             backgroundDown.remove();
+                                            barName.remove();
+                                            barNameDown.remove();
+                                            itemBackground.remove();
+                                            itemBackgroundDown.remove();
+                                            barPrice.remove();
+                                            barPriceDown.remove();
+                                            infoStorage.remove();
+                                            infoStorageDown.remove();
                                             return false;
                                         }
                                     });
                                     //Add actor on stage
-                                    addAllActorToStage(backgroundUp, backgroundDown, itemImage, itemName, itemType, itemHp, itemStrong,
-                                            itemWiedza, itemSpeedAttack, itemDefenseFiz, itemDefenseMag, itemPrice, itemImageDown,
+                                    addAllActorToStage(backgroundUp, backgroundDown, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong,
+                                            itemWiedza, itemSpeedAttack, itemDefenseFiz, itemDefenseMag, barPrice, infoStorage, itemPrice, itemBackgroundDown, itemImageDown, barNameDown,
                                             itemNameDown, itemTypeDown, itemHpDown, itemStrongDown, itemWiedzaDown, itemSpeedAttackDown,
-                                            itemDefenseFizDown, itemDefenseMagDown, itemPriceDown, takeOn, drop, cancel);
+                                            itemDefenseFizDown, itemDefenseMagDown, barPriceDown, itemPriceDown, infoStorageDown, takeOn,  drop, cancel);
                                 } else {
                                     takeOn.setBounds(0, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     takeOn.addListener(new InputListener() {
@@ -477,6 +527,10 @@ public class Equipment {
                                             itemDefenseMag.remove();
                                             itemPrice.remove();
                                             backgroundUp.remove();
+                                            barName.remove();
+                                            itemBackground.remove();
+                                            barPrice.remove();
+                                            infoStorage.remove();
                                             return false;
                                         }
                                     });
@@ -513,6 +567,10 @@ public class Equipment {
                                             itemDefenseMag.remove();
                                             itemPrice.remove();
                                             backgroundUp.remove();
+                                            barName.remove();
+                                            itemBackground.remove();
+                                            barPrice.remove();
+                                            infoStorage.remove();
                                             return false;
                                         }
                                     });
@@ -535,12 +593,16 @@ public class Equipment {
                                             itemDefenseMag.remove();
                                             itemPrice.remove();
                                             backgroundUp.remove();
+                                            barName.remove();
+                                            itemBackground.remove();
+                                            barPrice.remove();
+                                            infoStorage.remove();
                                             return false;
                                         }
                                     });
                                     //Add Actor on stage
-                                    addAllActorToStage(backgroundUp, itemImage, itemName, itemType, itemHp, itemStrong, itemWiedza,
-                                            itemSpeedAttack, itemDefenseFiz, itemDefenseMag, itemPrice, takeOn, drop, cancel);
+                                    addAllActorToStage(backgroundUp, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong, itemWiedza,
+                                            itemSpeedAttack, itemDefenseFiz, itemDefenseMag, barPrice, itemPrice, infoStorage, takeOn,  drop, cancel);
                                 }
                                 break;
                             } catch (CloneNotSupportedException e) {
@@ -585,6 +647,10 @@ public class Equipment {
                                         itemDefenseMag.remove();
                                         itemPrice.remove();
                                         backgroundUp.remove();
+                                        barName.remove();
+                                        itemBackground.remove();
+                                        barPrice.remove();
+                                        infoStorage.remove();
                                         return false;
                                     }else {
                                         updatePositionFitOut(item);
@@ -607,6 +673,10 @@ public class Equipment {
                                         itemDefenseMag.remove();
                                         itemPrice.remove();
                                         backgroundUp.remove();
+                                        barName.remove();
+                                        itemBackground.remove();
+                                        barPrice.remove();
+                                        infoStorage.remove();
                                         return false;
                                     }
                                 }
@@ -629,12 +699,16 @@ public class Equipment {
                                     itemDefenseMag.remove();
                                     itemPrice.remove();
                                     backgroundUp.remove();
+                                    barName.remove();
+                                    itemBackground.remove();
+                                    barPrice.remove();
+                                    infoStorage.remove();
                                     return false;
                                 }
                             });
                             //Add Actor on stage
-                            addAllActorToStage(backgroundUp, itemImage, itemName, itemType, itemHp, itemStrong, itemWiedza,
-                                    itemSpeedAttack, itemDefenseFiz, itemDefenseMag, itemPrice, takeOff, cancel);
+                            addAllActorToStage(backgroundUp, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong, itemWiedza,
+                                    itemSpeedAttack, itemDefenseFiz, itemDefenseMag, barPrice, itemPrice, infoStorage, takeOff, cancel);
                             //
                             break;
                         default:
