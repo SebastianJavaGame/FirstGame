@@ -31,7 +31,7 @@ public class MyGdxGame extends Game {
             prefStats.putInteger("MONEY", 10000);
 
             prefStats.putInteger("MAX_HP", 200);
-            prefStats.putInteger("DMG", 10);
+            prefStats.putInteger("ARMOR", 10);
             prefStats.putInteger("STRONG", 10);
             prefStats.putInteger("WIEDZA", 10);
             prefStats.putInteger("DEFENSE_FIZ", 2);

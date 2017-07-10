@@ -48,11 +48,6 @@ public abstract class Character extends Actor{
     }
 
     public Polygon convertRectangleToPolygon(){
-        System.out.println(rectangle.getX());
-        System.out.println(rectangle.getY());
-        System.out.println(rectangle.getWidth());
-        System.out.println(rectangle.getHeight());
-
         return new Polygon(new float[]{rectangle.getX(), rectangle.getY(), rectangle.getX(),
                 rectangle.getY() + rectangle.getHeight(), rectangle.getX() + rectangle.getHeight(),
                 rectangle.getY() + rectangle.getWidth(), rectangle.getX() + rectangle.getWidth(), rectangle.getY()});

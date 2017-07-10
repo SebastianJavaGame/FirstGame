@@ -58,21 +58,21 @@ public class Hero extends Character {
 
     private int fullHp;
     private int hp;
-    public int strong;
-    public int wiedza;
-    public int dmg;
-    public int defenseFiz;
-    public int defenseMag;
+    private int strong;
+    private int wiedza;
+    private int armor;
+    private int defenseFiz;
+    private int defenseMag;
 
     private int hpNonEq;
-    public int hpEq;
-    public int strongEq;
-    public int wiedzaEq;
-    public int dmgEq;
-    public int defenseFizEq;
-    public int defenseMagEq;
+    private int hpEq;
+    private int strongEq;
+    private int wiedzaEq;
+    private int armorEq;
+    private int defenseFizEq;
+    private int defenseMagEq;
 
-    public int point;
+    private int point;
 
     public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D, ArrayList<Enemy> enemy) {
         super(texture);
@@ -90,14 +90,14 @@ public class Hero extends Character {
 
     private void create(){
         Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
-        setLevel(25);
+        setLevel(26);
 
         setMaxHp(preferences.getInteger("MAX_HP"));
         setHpNonEq(getMaxHp());
         setHp(getHpNonEq());
         strong = preferences.getInteger("STRONG");
         wiedza = preferences.getInteger("WIEDZA");
-        dmg = preferences.getInteger("SPEED_ATTACK");
+        armor = preferences.getInteger("SPEED_ATTACK");
         defenseFiz = preferences.getInteger("DEFENSE_FIZ");
         defenseMag = preferences.getInteger("DEFENSE_MAG");
 
@@ -587,75 +587,6 @@ public class Hero extends Character {
     /**
      * Getters and Setters
      */
-    public void setFinishWalkPosition(Polygon position){
-        this.finishWalkPosition = position;
-    }
-
-    public void setFullHp(int fullHp) {
-        this.fullHp = fullHp;
-    }
-
-    public void setHp(int hp){
-        this.hp = hp;
-    }
-
-    public void setMaxHp(int maxHp){
-        this.maxHp = maxHp;
-    }
-
-    public void setExp(int exp){
-        this.exp = exp;
-    }
-
-    public void setMaxExp(int maxExp){
-        this.maxExp = maxExp;
-    }
-
-    public void setLevel(int level){
-        this.level = level;
-    }
-
-    public void setMoney(int money){
-        this.money = money;
-    }
-
-    public void  setActualCollision(Polygon polygon){
-        actualCollision = polygon;
-    }
-
-    public void setNpcCollision(boolean npcCollision) {
-        this.npcCollision = npcCollision;
-    }
-
-    public void setMoveStop(boolean value){
-        moveStop = value;
-    }
-
-    public void setChangeTrack(boolean changeTrack) {
-        this.changeTrack = changeTrack;
-    }
-
-    public void setAroundMove(boolean aroundMove){
-        this.aroundMove = aroundMove;
-    }
-
-    public void setActualPointObject(Polygon actualPointObject) {
-        this.actualPointObject = actualPointObject;
-    }
-
-    public void setAnimationPlayTrue(){
-        this.animationPlay = true;
-        hero3D.setPlayAnimation();
-    }
-
-    public void setHpNonEq(int hpNonEq) {
-        this.hpNonEq = hpNonEq;
-    }
-
-    public void setPoint(int point) {
-        this.point = point;
-    }
-
     public int getFullHp() {
         return fullHp;
     }
@@ -740,4 +671,162 @@ public class Hero extends Character {
     public boolean isNpcCollision() {
         return npcCollision;
     }
+
+    public int getStrong() {
+        return strong;
+    }
+
+    public void setStrong(int strong) {
+        this.strong = strong;
+    }
+
+    public int getWiedza() {
+        return wiedza;
+    }
+
+    public void setWiedza(int wiedza) {
+        this.wiedza = wiedza;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+
+    public int getDefenseFiz() {
+        return defenseFiz;
+    }
+
+    public void setDefenseFiz(int defenseFiz) {
+        this.defenseFiz = defenseFiz;
+    }
+
+    public int getDefenseMag() {
+        return defenseMag;
+    }
+
+    public void setDefenseMag(int defenseMag) {
+        this.defenseMag = defenseMag;
+    }
+
+    public int getHpEq() {
+        return hpEq;
+    }
+
+    public void setHpEq(int hpEq) {
+        this.hpEq = hpEq;
+    }
+
+    public int getStrongEq() {
+        return strongEq;
+    }
+
+    public void setStrongEq(int strongEq) {
+        this.strongEq = strongEq;
+    }
+
+    public int getWiedzaEq() {
+        return wiedzaEq;
+    }
+
+    public void setWiedzaEq(int wiedzaEq) {
+        this.wiedzaEq = wiedzaEq;
+    }
+
+    public int getArmorEq() {
+        return armorEq;
+    }
+
+    public void setArmorEq(int armorEq) {
+        this.armorEq = armorEq;
+    }
+
+    public int getDefenseFizEq() {
+        return defenseFizEq;
+    }
+
+    public void setDefenseFizEq(int defenseFizEq) {
+        this.defenseFizEq = defenseFizEq;
+    }
+
+    public int getDefenseMagEq() {
+        return defenseMagEq;
+    }
+
+    public void setDefenseMagEq(int defenseMagEq) {
+        this.defenseMagEq = defenseMagEq;
+    }
+
+    public void setFinishWalkPosition(Polygon position){
+        this.finishWalkPosition = position;
+    }
+
+    public void setFullHp(int fullHp) {
+        this.fullHp = fullHp;
+    }
+
+    public void setHp(int hp){
+        this.hp = hp;
+    }
+
+    public void setMaxHp(int maxHp){
+        this.maxHp = maxHp;
+    }
+
+    public void setExp(int exp){
+        this.exp = exp;
+    }
+
+    public void setMaxExp(int maxExp){
+        this.maxExp = maxExp;
+    }
+
+    public void setLevel(int level){
+        this.level = level;
+    }
+
+    public void setMoney(int money){
+        this.money = money;
+    }
+
+    public void  setActualCollision(Polygon polygon){
+        actualCollision = polygon;
+    }
+
+    public void setNpcCollision(boolean npcCollision) {
+        this.npcCollision = npcCollision;
+    }
+
+    public void setMoveStop(boolean value){
+        moveStop = value;
+    }
+
+    public void setChangeTrack(boolean changeTrack) {
+        this.changeTrack = changeTrack;
+    }
+
+    public void setAroundMove(boolean aroundMove){
+        this.aroundMove = aroundMove;
+    }
+
+    public void setActualPointObject(Polygon actualPointObject) {
+        this.actualPointObject = actualPointObject;
+    }
+
+    public void setAnimationPlayTrue(){
+        this.animationPlay = true;
+        hero3D.setPlayAnimation();
+    }
+
+    public void setHpNonEq(int hpNonEq) {
+        this.hpNonEq = hpNonEq;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
 }
