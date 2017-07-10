@@ -22,18 +22,20 @@ import Screen.BaseMap;
  */
 
 public class Hero extends Character {
-    public final static int SPEED_MOVE = 30;
+    public final static int SPEED_MOVE = 25;
     private Camera camera;
     private Hero3D hero3D;
 
     private ArrayList<Polygon> objectMap;
     private ArrayList<Vector2[]> vertical;
     private ArrayList<Vector2> queueWay = null;
+    private ArrayList<Enemy> enemy;
 
     private Polygon actualCollision;
     private Polygon actualPointObject;
     private Polygon heroPolygon;
     private Polygon finishWalkPosition;
+    private Polygon track;
 
     private Rectangle rectangle;
 
@@ -43,8 +45,10 @@ public class Hero extends Character {
     private boolean moveStop;
     private boolean aroundMove;
     private boolean animationPlay;
-
     private boolean changeTrack;
+    private boolean npcCollision;
+
+    private int actualIndexNpc;
 
     private int level;
     private int money;
@@ -56,7 +60,7 @@ public class Hero extends Character {
     private int hp;
     public int strong;
     public int wiedza;
-    public int speedAttack;
+    public int dmg;
     public int defenseFiz;
     public int defenseMag;
 
@@ -64,19 +68,21 @@ public class Hero extends Character {
     public int hpEq;
     public int strongEq;
     public int wiedzaEq;
-    public int speedAttackEq;
+    public int dmgEq;
     public int defenseFizEq;
     public int defenseMagEq;
 
     public int point;
 
-    public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D) {
+    public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D, ArrayList<Enemy> enemy) {
         super(texture);
         this.objectMap = objectMap;
         this.vertical = vertical;
         this.camera = camera;
         this.rectangle = new Rectangle();
+        this.enemy = enemy;
         this.hero3D = hero3D;
+        hero3D.setRenderHero3d(true);
         start = new Vector2();
         end = new Vector2();
         create();
@@ -91,7 +97,7 @@ public class Hero extends Character {
         setHp(getHpNonEq());
         strong = preferences.getInteger("STRONG");
         wiedza = preferences.getInteger("WIEDZA");
-        speedAttack = preferences.getInteger("SPEED_ATTACK");
+        dmg = preferences.getInteger("SPEED_ATTACK");
         defenseFiz = preferences.getInteger("DEFENSE_FIZ");
         defenseMag = preferences.getInteger("DEFENSE_MAG");
 
@@ -109,8 +115,28 @@ public class Hero extends Character {
         clearActions();
         start.set((int) getX() + getWidth() / 2, (int) getY() + getHeight() / 2);
         end.set((int) posX + getWidth() / 2, (int) posY + getHeight() / 2);
-        Polygon track = new Polygon(new float[]{start.x - 1, start.y, end.x - 1,
+        track = new Polygon(new float[]{start.x - 1, start.y, end.x - 1,
                 end.y, end.x + 1, end.y, start.x + 1, start.y});
+        for(int i = 0; i < enemy.size(); i++) {
+            actualIndexNpc = i;
+            enemy.get(i).collisionUpdate();
+            heroPolygonUpdate();
+            if (Intersector.overlapConvexPolygons(heroPolygon, enemy.get(i).convertRectangleToPolygon()))
+                setNpcCollision(true);
+            if(Intersector.overlapConvexPolygons(enemy.get(i).convertRectangleToPolygon(), track)){
+                if(isNpcCollision()){
+                    enemy.get(i).collisionDo(this);
+                    return;
+                }else {
+                    setNpcCollision(true);
+                    break;
+                }
+            }else {
+                setNpcCollision(false);
+                break;
+            }
+        }
+
         Polygon point = new Polygon(new float[]{end.x - 1, end.y - 1, end.x - 1, end.y + 1, end.x + 1, end.y + 1, end.x + 1, end.y - 1});
         setFinishWalkPosition(point);
 
@@ -147,7 +173,6 @@ public class Hero extends Character {
                             calculateRotate(posX, posY),
                             Actions.moveTo(end.x - getWidth() / 2, end.y - getHeight() / 2, timeSpeed(getX(), getY(), end.x - getWidth() / 2, end.y - getHeight() / 2))));
                     setMoveStop(true);
-                    System.out.println(0.1);
                     break;
                 }
             }
@@ -438,6 +463,15 @@ public class Hero extends Character {
         }
     }
 
+    public void collisionEnemy() {
+        if(Intersector.overlapConvexPolygons(heroPolygon, enemy.get(getActualIndexNpc()).convertRectangleToPolygon())){
+            clearActions();
+            enemy.get(getActualIndexNpc()).collisionDo(this);
+            setNpcCollision(false);
+            hero3D.setStopAnimation();
+        }
+    }
+
     public void changeTrack(){
         Polygon lineHeroEnd = new Polygon(new float[]{getX() + getWidth() /2 -1, getY() + getHeight() /2,
                 getX() + getWidth() /2 +1, getY() + getHeight() /2, end.x +1, end.y, end.x -1, end.y});
@@ -589,6 +623,10 @@ public class Hero extends Character {
         actualCollision = polygon;
     }
 
+    public void setNpcCollision(boolean npcCollision) {
+        this.npcCollision = npcCollision;
+    }
+
     public void setMoveStop(boolean value){
         moveStop = value;
     }
@@ -634,6 +672,10 @@ public class Hero extends Character {
         return actualPointObject;
     }
 
+    public int getActualIndexNpc() {
+        return actualIndexNpc;
+    }
+
     public int getLevel() {
         return level;
     }
@@ -675,6 +717,10 @@ public class Hero extends Character {
         return actualCollision;
     }
 
+    public Hero3D getHero3D(){
+        return hero3D;
+    }
+
     public boolean isMoveStop(){
         return moveStop;
     }
@@ -689,5 +735,9 @@ public class Hero extends Character {
 
     public boolean isAnimation(){
         return animationPlay;
+    }
+
+    public boolean isNpcCollision() {
+        return npcCollision;
     }
 }

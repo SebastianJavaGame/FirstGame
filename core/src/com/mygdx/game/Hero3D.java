@@ -23,17 +23,19 @@ import Screen.BaseMap;
  */
 
 public class Hero3D {
-    public PerspectiveCamera cam;
-    public ModelBatch modelBatch;
-    public Model model;
-    public ModelInstance instance;
-    private Environment environment;
-    private AnimationController controller;
+    private static PerspectiveCamera cam;
+    private static ModelBatch modelBatch;
+    private static Model model;
+    private static ModelInstance instance;
+    private static Environment environment;
+    private static AnimationController controller;
 
-    private Polygon[] rotatePolygon = new Polygon[20];
-    private Polygon touchPlace;
+    private static Polygon[] rotatePolygon = new Polygon[20];
+    private static Polygon touchPlace;
 
-    public void create () {
+    private static boolean renderHero3d;
+
+    public static void create () {
         modelBatch = new ModelBatch();
 
         cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -60,17 +62,19 @@ public class Hero3D {
         initializeTabPolygon();
     }
 
-    public void render () {
+    public static void render () {
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         controller.update(Gdx.graphics.getDeltaTime());
 
-        modelBatch.begin(cam);
-        modelBatch.render(instance, environment);
-        modelBatch.end();
+        if(renderHero3d) {
+            modelBatch.begin(cam);
+            modelBatch.render(instance, environment);
+            modelBatch.end();
+        }
     }
 
-    public float moveRotate(float screenX, float screenY){
+    public static float moveRotate(float screenX, float screenY){
 
         touchPlace = new Polygon(new float[]{screenX -1, screenY -1, screenX -1, screenY +1, screenX +1, screenY +1, screenX +1, screenY -1});
         for(int i = 0; i < 20; i++){
@@ -84,7 +88,7 @@ public class Hero3D {
         return 0;
     }
 
-    private void initializeTabPolygon() {
+    private static void initializeTabPolygon() {
         rotatePolygon[0] = new Polygon(new float[]{BaseMap.VIEW_WIDTH /2 , BaseMap.VIEW_HEIGHT /2, 0, 440, 40, 480});
         rotatePolygon[1] = new Polygon(new float[]{BaseMap.VIEW_WIDTH /2 , BaseMap.VIEW_HEIGHT /2, 40, 480, 120, 480});
         rotatePolygon[2] = new Polygon(new float[]{BaseMap.VIEW_WIDTH /2 , BaseMap.VIEW_HEIGHT /2, 120, 480, 200, 480});
@@ -107,15 +111,19 @@ public class Hero3D {
         rotatePolygon[19] = new Polygon(new float[]{BaseMap.VIEW_WIDTH /2 , BaseMap.VIEW_HEIGHT /2, 0, 360, 0, 440});
     }
 
-    public void setStopAnimation(){
+    public static void setRenderHero3d(boolean render){
+        renderHero3d = render;
+    }
+
+    public static void setStopAnimation(){
         controller.setAnimation("Armature|Idle", 1);
     }
 
-    public void setPlayAnimation(){
+    public static void setPlayAnimation(){
         controller.setAnimation("Walk", -1);
     }
 
-    public void dispose () {
+    public static void dispose () {
         modelBatch.dispose();
         model.dispose();
     }

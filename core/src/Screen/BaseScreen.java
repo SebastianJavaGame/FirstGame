@@ -21,7 +21,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
     protected Game game;
     protected OrthographicCamera camera;
-    protected Stage mapStage;
+    protected Stage stage;
 
     public BaseScreen(Game g)
     {
@@ -29,37 +29,34 @@ public abstract class BaseScreen implements Screen, InputProcessor{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VIEW_WIDTH, VIEW_HEIGHT);
 
-        mapStage = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
+        stage = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
 
-        InputMultiplexer im = new InputMultiplexer(this, mapStage);
+        InputMultiplexer im = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(im);
     }
 
     public abstract void create();
     public abstract void update(float dt);
 
-    // this is the gameloop. update, then render.
     public void render(float dt)
     {
-        mapStage.act(dt);
+        stage.act(dt);
 
-        // render
         Gdx.gl.glClearColor(0,0,0,1);
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
-        mapStage.draw();
+        stage.draw();
         update(dt);
     }
 
     public void resize(int width, int height) {
-       mapStage.getViewport().update(width, height);
+       stage.getViewport().update(width, height);
     }
 
     public void pause()   {  }
     public void resume()  {  }
     public void dispose() {
         game.dispose();
-       mapStage.dispose();
+       stage.dispose();
     }
     public void show()    {  }
     public void hide()    {  }

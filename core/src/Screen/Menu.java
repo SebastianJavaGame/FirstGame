@@ -20,7 +20,7 @@ public class Menu extends BaseScreen {
 
     @Override
     public void create() {
-        mapStage.addActor(texture);
+        stage.addActor(texture);
     }
 
     @Override

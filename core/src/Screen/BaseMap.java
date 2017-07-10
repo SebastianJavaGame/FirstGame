@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Bag;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
-import com.mygdx.game.Npc;
+import com.mygdx.game.Enemy;
 
 import java.util.ArrayList;
 
@@ -44,12 +44,14 @@ public abstract class BaseMap extends BaseScreen {
     public Rectangle bottomRec;
 
     protected Hero hero;
-    protected ArrayList<Npc> npcList;
+    protected static ArrayList<Enemy> enemyList;
     protected Image bgTexture;
 
-    private Stage stageUi;
-    private Stage stageStats;
-    private Stage stageCard;
+    protected InputMultiplexer im;
+
+    public static Stage stageUi;
+    private static Stage stageStats;
+    private static Stage stageCard;
     private String bgSrc;
 
     private boolean windowStatsOpen;
@@ -98,29 +100,27 @@ public abstract class BaseMap extends BaseScreen {
     }
 
     protected abstract void generateMap();
-    protected abstract void collisionEndMap();
 
     @Override
     public void create() {
         hero3D = new Hero3D();
         hero3D.create();
-        npcList = new ArrayList<Npc>();
+        enemyList = new ArrayList<Enemy>();
         bgTexture = new Image(new Texture(Gdx.files.internal(bgSrc)));
 
         generateMap();
 
-        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D);
+        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList);
         hero.setPosition(500, 500);
         hero.setSize(10, 10);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
-        mapStage.addActor(hero);
+        stage.addActor(hero);
 
         //testRender = new RenderCollisionLine_Test(camera, hero);
     }
 
     @Override
     public void update(float dt) {
-        collisionDetected();
         cameraUpdate();
         hero.act(dt);
 
@@ -153,6 +153,10 @@ public abstract class BaseMap extends BaseScreen {
 
         if(hero.isAnimation())
             hero.finishWalk();
+
+        if(hero.isNpcCollision())
+            hero.collisionEnemy();
+
     }
 
     private void initializeUiStage(){
@@ -160,7 +164,7 @@ public abstract class BaseMap extends BaseScreen {
         stageStats = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
         stageCard = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
 
-        InputMultiplexer im = new InputMultiplexer(this, stageUi, stageStats, stageCard);
+        im = new InputMultiplexer(this, stageUi, stageStats, stageCard, stage);
         Gdx.input.setInputProcessor(im);
 
         BitmapFont font = new BitmapFont();
@@ -181,9 +185,9 @@ public abstract class BaseMap extends BaseScreen {
         hpLabel = addLabelToStageUi(5, 0, 0.85f);
         expLabel = addLabelToStageUi(5, 0 , 0.85f);
         slotLvl = addImageToStageUi("slotLvl.png", 7, 431, 52, 48);
-        Label levelNameLabel = addLabelToStageUi(11, 464, 1);
+        Label levelNameLabel = addLabelToStageUi(11, 463, 1);
         levelNameLabel.setText("LEVEL");
-        levelLabel = addLabelToStageUi(23, 447, 1.25f);
+        levelLabel = addLabelToStageUi(23, 446, 1.25f);
 
         uiStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("uiStats.png")))));
         uiStats.addListener(new InputListener(){
@@ -254,26 +258,8 @@ public abstract class BaseMap extends BaseScreen {
         camera.update();
     }
 
-    private void collisionDetected(){
-        hero.collisionUpdate();
-        npcList.get(0).collisionUpdate();
-
-        if(hero.collision.overlaps(npcList.get(0).collision)){
-            npcList.get(0).collisionDo();
-        }
-
-        if(hero.collision.overlaps(leftRec)
-                || hero.collision.overlaps(upRec)
-                || hero.collision.overlaps(rightRec)
-                || hero.collision.overlaps(bottomRec)){
-            collisionEndMap();
-        }
-
-        //TODO past code in for-each to npcList (0, 1 ... n-1, n)
-    }
-
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(!stopGame) {
+    if(!stopGame && !Enemy.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
             if (screenY > uiBackground.getHeight()) {
@@ -287,7 +273,7 @@ public abstract class BaseMap extends BaseScreen {
     }
 
     public void resize(int width, int height) {
-        mapStage.getViewport().update(width, height, true);
+        stage.getViewport().update(width, height, true);
         stageUi.getViewport().update(width, height);
 
         if(windowStatsOpen) {

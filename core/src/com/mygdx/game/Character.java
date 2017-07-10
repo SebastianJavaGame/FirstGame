@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -12,21 +13,20 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 
 public abstract class Character extends Actor{
-    public Rectangle collision;
-
+    public Rectangle rectangle;
     protected TextureRegion texture;
 
     public Character(Texture texture){
         this.texture = new TextureRegion();
         setTexture(texture);
 
-        collision = new Rectangle();
+        rectangle = new Rectangle();
 
         setOrigin(texture.getWidth() /2, texture.getHeight() /2);
     }
 
     public void collisionUpdate(){
-        collision.set(getX(), getY(), this.getWidth(), this.getHeight());
+        getCollision().set(getX(), getY(), this.getWidth(), this.getHeight());
     }
 
     public void draw(Batch batch, float parentAlpha)
@@ -45,5 +45,24 @@ public abstract class Character extends Actor{
         setWidth( w );
         setHeight( h );
         texture.setRegion( t );
+    }
+
+    public Polygon convertRectangleToPolygon(){
+        System.out.println(rectangle.getX());
+        System.out.println(rectangle.getY());
+        System.out.println(rectangle.getWidth());
+        System.out.println(rectangle.getHeight());
+
+        return new Polygon(new float[]{rectangle.getX(), rectangle.getY(), rectangle.getX(),
+                rectangle.getY() + rectangle.getHeight(), rectangle.getX() + rectangle.getHeight(),
+                rectangle.getY() + rectangle.getWidth(), rectangle.getX() + rectangle.getWidth(), rectangle.getY()});
+    }
+
+    public Rectangle getCollision() {
+        return rectangle;
+    }
+
+    public TextureRegion getTexture(){
+        return texture;
     }
 }
