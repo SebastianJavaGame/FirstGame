@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Enemy;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Map_02 extends BaseMap {
     public void generateMap() {
         bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
         stage.addActor(bgTexture);
-        addEnemy("glomin.png");
+        addEnemy("glomin.png", "glominHead.png");
 
         objectCollision = new ArrayList<Polygon>();
         verticalCollision = new ArrayList<Vector2[]>();
@@ -48,8 +49,8 @@ public class Map_02 extends BaseMap {
         verticalCollision.add(point);
     }
 
-    private void addEnemy(String path){
-        Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), stage, "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 30, 45, 60, 75, game);
+    private void addEnemy(String path, String head){
+        Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), stage, new Image(new Texture(Gdx.files.internal(head))), "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 30, 45, 60, 75, game);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
         enemyList.add(enemy);
         stage.addActor(enemyList.get(0));
