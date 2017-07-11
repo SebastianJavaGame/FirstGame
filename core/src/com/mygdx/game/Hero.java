@@ -47,6 +47,7 @@ public class Hero extends Character {
     private boolean animationPlay;
     private boolean changeTrack;
     private boolean npcCollision;
+    //private boolean heroMoving;
 
     private int actualIndexNpc;
 
@@ -124,7 +125,7 @@ public class Hero extends Character {
             if (Intersector.overlapConvexPolygons(heroPolygon, enemy.get(i).convertRectangleToPolygon()))
                 setNpcCollision(true);
             if(Intersector.overlapConvexPolygons(enemy.get(i).convertRectangleToPolygon(), track)){
-                if(isNpcCollision()){
+                if(isNpcCollision() && Intersector.overlapConvexPolygons(heroPolygon, enemy.get(getActualIndexNpc()).convertRectangleToPolygon())){
                     enemy.get(i).collisionDo(this);
                     return;
                 }else {
