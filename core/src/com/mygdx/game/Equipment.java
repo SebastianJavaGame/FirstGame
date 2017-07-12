@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -26,16 +27,21 @@ public class Equipment {
     //Value
     static final float FONT_SIZE_NOT_AVILABLE_SLOT = 1;
     //
+    public static final Preferences PREF_FIGHT = Gdx.app.getPreferences("FIGHT");
+    public static final String[] KEY_PREF_FIGHT = new String[]{"ATTACK_PHYSICS", "DEFENSE_PHYSICS", "ATTACK_MAGIC", "DEFENSE_MAGIC"};
+
     public static final String PREF_NAME_EQ = "ITEMS";
     public static final String[] PREF_ITEM_HUMAN = new String[]{
             "HELMET", "ARMOR", "PANTS", "SHOES", "WAPON", "ITEM_BLOCK", "RING", "ITEM_HAND"};
+
     public static final String[] PATH_DEFAULT_IMAGE = new String[]{
             "helm.png", "zbroja.png", "spodnie.png", "buty.png", "bron.png", "tarcza.png", "pierscien.png", "rekawice.png"
     };
-    //TODO change icon wapon to tarcza
+
     public static final Item.ItemType[] ITEM_TYPES = new Item.ItemType[]{
             Item.ItemType.HELMET, Item.ItemType.ARMOR, Item.ItemType.PANTS, Item.ItemType.SHOES, Item.ItemType.WAPON, Item.ItemType.ITEM_BLOCK, Item.ItemType.RING, Item.ItemType.HAND_ITEM
     };
+
     public static final int BLOCK_POSITION[][] = new int[][]{{BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 324}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 271},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 165},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 271}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 271},
@@ -51,6 +57,12 @@ public class Equipment {
     private static boolean[] blockEmpty;
     private static boolean[] slotEmpty;
 
+    private static Label labelFreePoint;
+    private static Label[] labelPointFight;
+    private static ImageButton[] plusButton;
+    private static ImageButton[] minusButton;
+    private static int freePointFight;
+
     private static boolean blockClick = false;
 
     public Equipment(Stage card, Hero hero) throws CloneNotSupportedException {
@@ -60,12 +72,110 @@ public class Equipment {
         slotEmpty = new boolean[18];
         blockEmpty = new boolean[8];
         emptyBlock = new Image[8];
+        freePointFight = PREF_FIGHT.getInteger("FIGHT_POINT", 10);
         for (boolean slot : slotEmpty)
             slot = false;
         create();
     }
 
     private static void create() throws CloneNotSupportedException {
+        ImageButton userPref = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonUserPref.png")))));
+        userPref.setPosition(250, 180);
+        userPref.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                setBlockClick(true);
+                final Image background = new Image(new Texture(Gdx.files.internal("userPrefBackground.png")));
+                labelPointFight = new Label[4];
+                plusButton = new ImageButton[4];
+                minusButton = new ImageButton[4];
+
+                BitmapFont font = new BitmapFont();
+                Label.LabelStyle style = new Label.LabelStyle();
+                style.font = font;
+
+                labelFreePoint = new Label("Free points: " + PREF_FIGHT.getInteger("FIGHT_POINT", 10), style);
+                labelFreePoint.setPosition(5, 425);
+                labelFreePoint.setFontScale(1.4f);
+
+                final TextButton.TextButtonStyle styleSave = new TextButton.TextButtonStyle();
+                styleSave.font = font;
+                styleSave.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
+
+                final TextButton buttonSave = new TextButton("Save", styleSave);
+                final TextButton buttonCancel = new TextButton("Cancel", styleSave);
+
+                buttonSave.setBounds(30, 5, 110, 40);
+                buttonCancel.setBounds(buttonSave.getWidth() +70, 5, 110, 40);
+
+                buttonSave.addListener(new InputListener(){
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        PREF_FIGHT.putInteger("ATTACK_PHYSICS", Integer.parseInt(labelPointFight[0].getText().toString()));
+                        PREF_FIGHT.putInteger("DEFENSE_PHYSICS", Integer.parseInt(labelPointFight[1].getText().toString()));
+                        PREF_FIGHT.putInteger("ATTACK_MAGIC", Integer.parseInt(labelPointFight[2].getText().toString()));
+                        PREF_FIGHT.putInteger("DEFENSE_MAGIC", Integer.parseInt(labelPointFight[3].getText().toString()));
+                        PREF_FIGHT.putInteger("FIGHT_POINT", freePointFight);
+                        PREF_FIGHT.flush();
+
+                        setBlockClick(false);
+                        background.remove();
+                        buttonSave.remove();
+                        buttonCancel.remove();
+                        labelFreePoint.remove();
+                        for(int i = 0; i < 4; i++){
+                            minusButton[i].remove();
+                            plusButton[i].remove();
+                            labelPointFight[i].remove();
+                        }
+                        return false;
+                    }
+                });
+
+                buttonCancel.addListener(new InputListener(){
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        setBlockClick(false);
+                        background.remove();
+                        buttonSave.remove();
+                        buttonCancel.remove();
+                        labelFreePoint.remove();
+                        for(int i = 0; i < 4; i++){
+                            minusButton[i].remove();
+                            plusButton[i].remove();
+                            labelPointFight[i].remove();
+                        }
+                        return false;
+                    }
+                });
+
+                card.addActor(background);
+                card.addActor(labelFreePoint);
+                card.addActor(buttonSave);
+                card.addActor(buttonCancel);
+
+                for(int i = 0; i < 4; i++) {
+                    plusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("plusPref.png")))));
+                    minusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("minusPref.png")))));
+                    plusButton[i].setPosition(200, (i+1) *95);
+                    minusButton[i].setPosition(70, (i+1) *95);
+
+                    labelPointFight[i] = new Label(String.valueOf(PREF_FIGHT.getInteger(KEY_PREF_FIGHT[i])), style);
+                    labelPointFight[i].setPosition(BaseMap.VIEW_WIDTH /2 - labelPointFight[i].getWidth() /2 -3, 98 +i *95);
+                    labelPointFight[i].setFontScale(2);
+
+                    addListener(i, true, labelFreePoint);
+                    addListener(i, false, labelFreePoint);
+
+                    card.addActor(plusButton[i]);
+                    card.addActor(minusButton[i]);
+                    card.addActor(labelPointFight[i]);
+                }
+                return false;
+            }
+        });
+        card.addActor(userPref);
+
         //load item or load default image
         for (int i = 0; i < 8; i++) {
             emptyBlock[i] = new Image(new Texture(Gdx.files.internal("slot.png")));
@@ -736,6 +846,42 @@ public class Equipment {
         });
     }
 
+    private static void addListener(final int iterator, boolean plus, final Label label){
+        if(plus) {
+            plusButton[iterator].addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    System.out.println("PLUS");
+                    int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
+                    if(actualPoint < 5 && freePointFight > 0) {
+                        actualPoint++;
+                        freePointFight--;
+                        label.setText("Free points: " + freePointFight);
+                        label.setFontScale(1.4f);
+                        labelPointFight[iterator].setText(String.valueOf(actualPoint));
+                    }
+                    return false;
+                }
+            });
+        }else{
+            minusButton[iterator].addListener(new InputListener(){
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    System.out.println("MINUS");
+                    int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
+                    if (actualPoint > 0 && freePointFight >= 0) {
+                        actualPoint--;
+                        freePointFight++;
+                        label.setText("Free points: " + freePointFight);
+                        label.setFontScale(1.4f);
+                        labelPointFight[iterator].setText(String.valueOf(actualPoint));
+                    }
+                    return false;
+                }
+            });
+        }
+    }
+
     private static void addDefaultImage(String name) {
         for(int i = 0; i < 8; i++){
             if(PREF_ITEM_HUMAN[i].equals(name)){
@@ -757,5 +903,16 @@ public class Equipment {
     private static void addAllActorToStage(Actor ... actor){
         for(Actor object: actor)
             card.addActor(object);
+    }
+
+    /**
+     * Getter and Setter
+     */
+    public static void setBlockClick(boolean click){
+        blockClick = click;
+    }
+
+    public static boolean getBlockClick(){
+        return blockClick;
     }
 }

@@ -2,6 +2,7 @@ package Screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Enemy;
+import com.mygdx.game.Equipment;
 import com.mygdx.game.Hero;
 
 /**
@@ -49,6 +51,7 @@ public class FightScreen extends BaseScreen {
     private static Image barEnergyEnemy;
 
     private static Label[] labelPointFight;
+    private static int[] pointUserPref;
     private static int freePointFight;
 
     private static int energyMaxHero;
@@ -70,6 +73,7 @@ public class FightScreen extends BaseScreen {
 
     private static boolean flip;
     private static boolean abort;
+    private static boolean abortFirstTap;
 
     BitmapFont font = new BitmapFont();
     Label.LabelStyle style = new Label.LabelStyle();
@@ -82,26 +86,34 @@ public class FightScreen extends BaseScreen {
         plusButton = new ImageButton[4];
         minusButton = new ImageButton[4];
         labelPointFight = new Label[4];
+        pointUserPref = new int[4];
         enemyAiStats = new int[4];
         style.font = font;
         styleBlood.font = font;
         styleBlood.fontColor = new Color(Color.FIREBRICK);
         this.flip = flip;
         abort = true;
+        abortFirstTap = true;
         create();
     }
 
     @Override
     public void create() {
+        Preferences preferences = Equipment.PREF_FIGHT;
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
-        freePointFight = 10;
+        freePointFight = preferences.getInteger("FIGHT_POINT", 10);
         energyMaxEnemy = 100;
         energyMaxHero = 100;
         energyHero = energyMaxHero;
         energyEnemy = energyMaxEnemy;
+
+        pointUserPref[3] = preferences.getInteger("ATTACK_PHYSICS", 0);
+        pointUserPref[2] = preferences.getInteger("DEFENSE_PHYSICS", 0);
+        pointUserPref[1] = preferences.getInteger("ATTACK_MAGIC", 0);
+        pointUserPref[0] = preferences.getInteger("DEFENSE_MAGIC", 0);
 
         backgroundFight = new Image(new Texture(Gdx.files.internal("fight.png")));
         barHpHero = new Image(new Texture(Gdx.files.internal("barHpFight.png")));
@@ -178,25 +190,70 @@ public class FightScreen extends BaseScreen {
         abortActive.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
-                textStyleAbort.font = font;
-                textStyleAbort.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
-                buttonAbort = new TextButton("Abort!", textStyleAbort);
-                buttonAbort.setSize(150, 50);
-                buttonAbort.setPosition(BaseScreen.VIEW_WIDTH /2 - startFight.getWidth() /2, 160);
-                buttonAbort.addListener(new InputListener(){
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        Action action = Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-                                game.setScreen(new Map_01(game));
-                            }
-                        });
-                        stage.addAction(Actions.sequence(Actions.delay(1), action));
-                        return false;
-                    }
-                });
+                if (abortFirstTap) {
+                    abortFirstTap = false;
+                    final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
+                    textStyleAbort.font = font;
+                    textStyleAbort.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
+                    buttonAbort = new TextButton("Abort!", textStyleAbort);
+                    buttonAbort.setSize(150, 50);
+                    buttonAbort.setPosition(BaseScreen.VIEW_WIDTH / 2 - startFight.getWidth() / 2, 180);
+                    buttonAbort.addListener(new InputListener() {
+                        @Override
+                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            Action action = Actions.run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startFight.remove();
+
+                                    Label label = new Label("-10% HP", styleBlood);
+                                    label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
+                                    label.setFontScale(2);
+                                    stage.addActor(label);
+
+                                    Action action0 = Actions.run(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            buttonAbort.addAction((Actions.moveBy(0, -60, 1)));
+                                            buttonAbort.clearListeners();
+                                            abortActive.remove();
+                                            hpHero -= hpMaxHero * 0.1f;
+                                            lHpHero.setText(hpHero + " / " + hpMaxHero);
+                                        }
+                                    });
+
+                                    Action action1 = Actions.run(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            updateRound(false);
+                                        }
+                                    });
+
+                                    Action action2 = Actions.run(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Label label = new Label("ABORT!", style);
+                                            label.setFontScale(3);
+                                            label.setPosition(85, 250);
+                                            stage.addActor(label);
+                                        }
+                                    });
+
+                                    Action action3 = Actions.run(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            game.setScreen(new Map_01(game));
+                                        }
+                                    });
+                                    label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
+                                            Actions.delay(18), action1), action2, Actions.delay(1.5f), action3));
+                                }
+                            });
+                            stage.addAction(action);
+                            return false;
+                        }
+                    });
+                }
                 stage.addActor(buttonAbort);
                 return false;
             }
@@ -214,7 +271,7 @@ public class FightScreen extends BaseScreen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Start");
                 startFight.remove();
-                updateRound();
+                updateRound(true);
                 abort = false;
                 if(buttonAbort != null)
                     buttonAbort.remove();
@@ -228,7 +285,7 @@ public class FightScreen extends BaseScreen {
             plusButton[i].setPosition(i* 78, 79);
             minusButton[i].setPosition(i* 78, 35);
 
-            labelPointFight[i] = new Label("0", style);
+            labelPointFight[i] = new Label("" + pointUserPref[i], style);
             labelPointFight[i].setPosition(54 + i* 78, 69);
             labelPointFight[i].setFontScale(1.2f);
 
@@ -257,7 +314,7 @@ public class FightScreen extends BaseScreen {
         barEnergyEnemy.setSize(energyEnemy / energyMaxEnemy *-120, barEnergyEnemy.getHeight());
     }
 
-    private void updateRound() {
+    private void updateRound(boolean showButton) {
         enemyAiStats = updateEnemyAi();
 
         //Hero attack physics
@@ -276,12 +333,72 @@ public class FightScreen extends BaseScreen {
         int magicDmgEnemy = calculateMagicDmgEnemy();
         int magicProcentEnemy = calculateMagicPocentEnemy();
 
-        firstAttack(randomHit(physicsDmgEnemy, physicsProcentEnemy), physicsProcentEnemy);
-        secondAttack(randomHit(physicsDmgEnemy, physicsProcentEnemy), physicsProcentEnemy);
-        thirdAttack(randomHit(physicsDmgHero, physicsProcentHero), physicsProcentHero);
-        fourthAttack(randomHit(physicsDmgHero, physicsProcentHero), physicsProcentHero);
-        fiveAttack(randomHit(magicDmgEnemy, magicProcentEnemy), magicProcentEnemy);
-        sixAttack(randomHit(magicDmgHero, magicProcentHero), magicProcentHero);
+        int[] randomHit = randomQueueHit();
+
+        for(int i = 0; i < 6; i++){
+            switch (randomHit[i]){
+                case 0:
+                    firstAttack(randomHit(physicsDmgEnemy, physicsProcentEnemy), physicsProcentEnemy);
+                    break;
+                case 1:
+                    secondAttack(randomHit(physicsDmgEnemy, physicsProcentEnemy), physicsProcentEnemy);
+                    break;
+                case 2:
+                    thirdAttack(randomHit(physicsDmgHero, physicsProcentHero), physicsProcentHero);
+                    break;
+                case 3:
+                    fourthAttack(randomHit(physicsDmgHero, physicsProcentHero), physicsProcentHero);
+                    break;
+                case 4:
+                    fiveAttack(randomHit(magicDmgEnemy, magicProcentEnemy), magicProcentEnemy);
+                    break;
+                case 5:
+                    sixAttack(randomHit(magicDmgHero, magicProcentHero), magicProcentHero, showButton);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private int[] randomQueueHit() {
+        boolean[] empty = new boolean[6];
+        int[] number = new int[6];
+        for(int i = 0; i < 6; i++){
+            int random = MathUtils.random(1, 6);
+            if(empty[random -1] != true){
+                number[i] = random;
+                empty[random -1] = true;
+            }else{
+                int check = random;
+                boolean end = false;
+
+                do{
+                    if(check +1 > 6)
+                        check = 0;
+                    else
+                        check++;
+                    if(check == 0) {
+                        if (empty[5] != true) {
+                            empty[5] = true;
+                            number[i] = 6;
+                            end = true;
+                        }
+                    }
+                    else {
+                        if (empty[check - 1] != true) {
+                            empty[check - 1] = true;
+                            number[i] = check;
+                            end = true;
+                        }
+                    }
+
+                }while (!end);
+            }
+        }
+        for (int num: number)
+            System.out.println(num);
+        return number;
     }
 
     private int randomHit(final int dmg, final int procent){
@@ -294,7 +411,7 @@ public class FightScreen extends BaseScreen {
             return dmg;
     }
 
-    private void sixAttack(final int dmg, int procent) {
+    private void sixAttack(final int dmg, int procent, final boolean showButton) {
         Label hpMagEnemyFirst = new Label("-" + dmg, styleBlood);
         Label procentMagEnemyFirst = new Label(procent + "%", style);
         hpMagEnemyFirst.setFontScale(FONT_SCALE_HP);
@@ -309,7 +426,9 @@ public class FightScreen extends BaseScreen {
                 lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
                 checkKill();
 
-                stage.addActor(startFight);
+                if(showButton)
+                    stage.addActor(startFight);
+
                 labelRoundNumber.setText(String.valueOf(Integer.parseInt(labelRoundNumber.getText().toString()) +1));
                 abortNonActive.remove();
             }

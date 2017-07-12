@@ -53,12 +53,13 @@ public class Bag {
         buttonEq = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("eq.png"))));
         buttonEq.addListener(new InputListener(){
             public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                try {
-                    initCardEq();
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
+                if(!Equipment.getBlockClick()) {
+                    try {
+                        initCardEq();
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                System.out.println("Eq");
                 return false;
             }
         });
@@ -67,8 +68,8 @@ public class Bag {
         buttonStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("stats.png"))));
         buttonStats.addListener(new InputListener(){
             public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                initCardStats();
-                System.out.println("Stats");
+                if(!Equipment.getBlockClick())
+                    initCardStats();
                 return false;
             }
         });
@@ -77,8 +78,8 @@ public class Bag {
         buttonQuest = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("quest.png"))));
         buttonQuest.addListener(new InputListener(){
             public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                initCardQuest();
-                System.out.println("Quest");
+                if(!Equipment.getBlockClick())
+                    initCardQuest();
                 return false;
             }
         });
@@ -87,8 +88,8 @@ public class Bag {
         buttonExit = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("exit.png"))));
         buttonExit.addListener(new InputListener(){
             public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                initCardExit();
-                System.out.println("Exit");
+                if(!Equipment.getBlockClick())
+                    initCardExit();
                 return false;
             }
         });
