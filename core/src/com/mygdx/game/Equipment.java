@@ -912,6 +912,13 @@ public class Equipment {
         blockClick = click;
     }
 
+    public static Texture getTextureWapon() throws CloneNotSupportedException {
+        if(pref.getString("WAPON", "").equals(""))
+            return null;
+
+        return LoadAllItemToGame.getItem(pref.getString("WAPON", "")).getTexture();
+    }
+
     public static boolean getBlockClick(){
         return blockClick;
     }

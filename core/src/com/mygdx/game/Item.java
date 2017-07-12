@@ -22,6 +22,8 @@ public class Item implements Cloneable{
     private ItemType itemType;
     private Stan stan;
 
+    private Texture texture;
+
     private String itemKey;
     private String itemName;
     private String pathImage;
@@ -36,7 +38,8 @@ public class Item implements Cloneable{
 
     public Item(String  pathImage, ItemType itemType){
         this.pathImage = pathImage;
-        this.image = new Image(new Texture(Gdx.files.internal(pathImage)));
+        this.texture = new Texture(Gdx.files.internal(pathImage));
+        this.image = new Image(texture);
         this.itemType = itemType;
         image.setSize(BLOCK_SIZE, BLOCK_SIZE);
     }
@@ -44,7 +47,8 @@ public class Item implements Cloneable{
     public Item(String itemKey, String pathImage, String itemName, ItemType itemType, int hp, int strong, int wiedza, int armor, int defenseFiz, int defenseMag, int cashValue) {
         this.itemKey = itemKey;
         this.pathImage = pathImage;
-        this.image = new Image(new Texture(Gdx.files.internal(pathImage)));
+        this.texture = new Texture(Gdx.files.internal(pathImage));
+        this.image = new Image(texture);
         this.itemName = itemName;
         this.itemType = itemType;
         image.setSize(BLOCK_SIZE, BLOCK_SIZE);
@@ -122,5 +126,9 @@ public class Item implements Cloneable{
 
     public Stan getStan() {
         return stan;
+    }
+
+    public Texture getTexture() {
+        return texture;
     }
 }

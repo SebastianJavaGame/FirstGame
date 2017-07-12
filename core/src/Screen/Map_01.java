@@ -29,7 +29,7 @@ public class Map_01 extends BaseMap {
     public void generateMap() {
         bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
         stage.addActor(bgTexture);
-        addEnemy("glomin.png", "glominHead.png");
+        addEnemy("glomin.png", "glominHead.png", "glominWapon.png");
 
         objectCollision = new ArrayList<Polygon>();
         verticalCollision = new ArrayList<Vector2[]>();
@@ -49,8 +49,9 @@ public class Map_01 extends BaseMap {
         verticalCollision.add(point);
     }
 
-    private void addEnemy(String path, String head){
-        Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), stage, new Image(new Texture(Gdx.files.internal(head))), "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 30, 45, 60, 75, game);
+    private void addEnemy(String path, String head, String wapon){
+        Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), stage, new Image(new Texture(Gdx.files.internal(head))),
+                new Image(new Texture(Gdx.files.internal(wapon))),  "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 30, 45, 60, 75, game);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
         enemyList.add(enemy);
         stage.addActor(enemyList.get(0));

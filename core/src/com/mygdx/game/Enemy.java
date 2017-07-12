@@ -42,6 +42,7 @@ public class Enemy extends Character {
     private float defaultScreenZeroY;
 
     private Image head;
+    private Image wapon;
     private String name;
     private int level;
     private int hp;
@@ -56,10 +57,11 @@ public class Enemy extends Character {
     private Vector2 expToKill;
     private Vector2 moneyToKill;
 
-    public Enemy(Texture texture, Stage stage, Image head, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
+    public Enemy(Texture texture, Stage stage, Image head, Image wapon, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
                  int randomDrop, int expToKillMin, int expToKillMax, int moneyToKillMin, int moneyToKillMax, Game game) {
         super(texture);
         this.head = head;
+        this.wapon = wapon;
         this.name = name;
         this.stage = stage;
         this.level = level;
@@ -232,5 +234,9 @@ public class Enemy extends Character {
 
     private static void setActiveMove(boolean block){
         activeMoveScreen = block;
+    }
+
+    public Image getWapon(){
+        return wapon;
     }
 }
