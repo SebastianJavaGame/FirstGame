@@ -76,9 +76,6 @@ public class Enemy extends Character {
         this.moneyToKill = new Vector2(moneyToKillMin, moneyToKillMax);
         dropItemName = new ArrayList();
         this.game = game;
-
-        setPosition(550, 500);
-        setSize(100, 100);
     }
 
     public void setDropItemName(String ... itemName){

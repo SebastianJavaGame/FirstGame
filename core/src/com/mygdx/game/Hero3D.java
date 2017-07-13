@@ -80,8 +80,8 @@ public class Hero3D {
         for(int i = 0; i < 20; i++){
             if(Intersector.overlapConvexPolygons(touchPlace, rotatePolygon[i])) {
                 instance.transform.setToRotation(Vector3.Y, (i -4) * -18);
-                instance.transform.scale(0.005f, 0.005f, 0.005f);
-                instance.transform.translate(0, -270, 0);
+                instance.transform.scale(0.005f, 0.005f, 0.005f); //0.02
+                instance.transform.translate(0, -270, 0);   //-250
                 return (i -4) * -18;
             }
         }

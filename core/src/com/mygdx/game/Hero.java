@@ -23,6 +23,8 @@ import Screen.BaseMap;
 
 public class Hero extends Character {
     public final static int SPEED_MOVE = 25;
+    public static final Texture ARM = new Texture(Gdx.files.internal("heroArm.png"));
+
     private Camera camera;
     private Hero3D hero3D;
 
@@ -134,7 +136,7 @@ public class Hero extends Character {
                 }
             }else {
                 setNpcCollision(false);
-                break;
+                //break;
             }
         }
 

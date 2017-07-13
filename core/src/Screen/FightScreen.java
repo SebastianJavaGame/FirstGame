@@ -43,6 +43,7 @@ public class FightScreen extends BaseScreen {
     private static Image magicHero;
     private static Image magicEnemy;
     private static Image block;
+    private static Image blood;
 
     private static Image backgroundFight;
     private static ImageButton[] plusButton;
@@ -138,10 +139,8 @@ public class FightScreen extends BaseScreen {
 
         try {
             waponHero = flipY();
-            if(waponHero != null) {
-                waponHero.setPosition(130, 280);
-                waponHero.setSize(80, 80);
-            }
+            waponHero.setPosition(130, 280);
+            waponHero.setSize(80, 80);
         } catch (CloneNotSupportedException e) {
         }
 
@@ -161,6 +160,9 @@ public class FightScreen extends BaseScreen {
 
         block = new Image(new Texture(Gdx.files.internal("blockAttack.png")));
         block.setSize(50, 50);
+
+        blood = new Image(new Texture(Gdx.files.internal("blood.png")));
+        blood.setSize(50, 50);
 
         enemy.getHead().setPosition(270, 435);
         barHpHero.setBounds(53, 19, 120, 10);
@@ -240,8 +242,8 @@ public class FightScreen extends BaseScreen {
 
                                     Label label = new Label("-10% HP", styleBlood);
                                     label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
-                                    label.setFontScale(2);
                                     stage.addActor(label);
+                                    label.setFontScale(2);
 
                                     Action action0 = Actions.run(new Runnable() {
                                         @Override
@@ -386,6 +388,9 @@ public class FightScreen extends BaseScreen {
         block.addAction(Actions.fadeOut(0));
         stage.addActor(block);
 
+        blood.addAction(Actions.fadeOut(0));
+        stage.addActor(blood);
+
         int[] randomHit = randomQueueHit();
 
         for(int i = 0; i < 6; i++){
@@ -491,6 +496,8 @@ public class FightScreen extends BaseScreen {
                 checkKill();
                 if(dmg == 0)
                     animateBlock(false);
+                else
+                    animateBlood(false);
 
                 labelRoundNumber.setText(String.valueOf(Integer.parseInt(labelRoundNumber.getText().toString()) +1));
                 abortNonActive.remove();
@@ -516,6 +523,9 @@ public class FightScreen extends BaseScreen {
                 checkKill();
                 if(dmg == 0)
                     animateBlock(true);
+                else
+                    animateBlood(true);
+
             }
         });
         animateMagic(hpMagHeroFirst, procentMagHeroFirst, duration, action, false);
@@ -537,6 +547,8 @@ public class FightScreen extends BaseScreen {
                 checkKill();
                 if(dmg == 0)
                     animateBlock(false);
+                else
+                    animateBlood(false);
             }
         });
         animatePhysics(hpPhyEnemySecond, procentPhyEnemySecond, duration, action, true);
@@ -558,6 +570,8 @@ public class FightScreen extends BaseScreen {
                 checkKill();
                 if(dmg == 0)
                     animateBlock(false);
+                else
+                    animateBlood(false);
             }
         });
         animatePhysics(hpPhyEnemyFirst, procentPhyEnemyFirst, duration, action, true);
@@ -579,6 +593,8 @@ public class FightScreen extends BaseScreen {
                 checkKill();
                 if(dmg == 0)
                     animateBlock(true);
+                else
+                    animateBlood(true);
             }
         });
         animatePhysics(hpPhyHeroSecond, procentPhyHeroSecond, duration, action, false);
@@ -601,6 +617,8 @@ public class FightScreen extends BaseScreen {
                 checkKill();
                 if(dmg == 0)
                     animateBlock(true);
+                else
+                    animateBlood(true);
             }
         });
         animatePhysics(hpPhyHeroFirst, procentPhyHeroFirst, duration, action, false);
@@ -615,6 +633,15 @@ public class FightScreen extends BaseScreen {
         block.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
     }
 
+    private void animateBlood(boolean isHero) {
+        if(isHero)
+            blood.setPosition(heroImage.getX(), heroImage.getY() + heroImage.getHeight() -20);
+        else
+            blood.setPosition(enemyImage.getX() +enemyImage.getWidth() - 50, enemyImage.getY() + enemyImage.getHeight() -20);
+
+        blood.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
+    }
+
     private Image flipY() throws CloneNotSupportedException {
         if(Equipment.getTextureWapon() != null) {
             final TextureRegion texture = new TextureRegion(Equipment.getTextureWapon());
@@ -622,8 +649,13 @@ public class FightScreen extends BaseScreen {
             Image image = new Image(texture);
 
             return image;
+        }else{
+            final TextureRegion texture = new TextureRegion(Hero.ARM);
+            texture.flip(true, false);
+            Image image = new Image(texture);
+
+            return image;
         }
-        return null;//TODO image hit hand
     }
 
     private void checkKill(){
@@ -641,14 +673,11 @@ public class FightScreen extends BaseScreen {
         if(isHero) {
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-           if(waponHero != null)
-                waponHero.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(-18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(-36, 0.3f)), Actions.rotateBy(-18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(-9, 0.15f)), Actions.rotateBy(56)));
-           //else
-                //TODO add animation hand hit
+            waponHero.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(-18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(-36, 0.3f)), Actions.rotateBy(-18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(-9, 0.15f)), Actions.rotateBy(61)));
         }else{
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            waponEnemy.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(-20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(36, 0.3f)), Actions.rotateBy(18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(9, 0.15f)), Actions.rotateBy(-56)));
+            waponEnemy.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(-20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(36, 0.3f)), Actions.rotateBy(18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(9, 0.15f)), Actions.rotateBy(-61)));
         }
     }
 
@@ -657,12 +686,12 @@ public class FightScreen extends BaseScreen {
         if(isHero) {
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC), Actions.scaleBy(0, 0.1f, SPEED_MAGIC)), Actions.parallel(Actions.moveBy(60, -10, SPEED_MAGIC), Actions.scaleBy(0, 0.2f, SPEED_MAGIC)), Actions.fadeOut(0.2f)));
+            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveBy(100, 20, SPEED_MAGIC -0.3f),Actions.fadeOut(0.5f))));
             magicHero.setBounds(heroImage.getX() + 50, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }else{
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC), Actions.scaleBy(0, 0.1f, SPEED_MAGIC)), Actions.parallel(Actions.moveBy(-60, -10, SPEED_MAGIC), Actions.scaleBy(0, 0.2f, SPEED_MAGIC)), Actions.fadeOut(0.2f)));
+            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveBy(-100, 20, SPEED_MAGIC -0.3f), Actions.fadeOut(0.5f))));
             magicEnemy.setBounds(enemyImage.getX() -10, enemyImage.getY() +80, enemyImage.getWidth() -30, enemyImage.getHeight() -120);
         }
     }
