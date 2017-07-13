@@ -20,7 +20,7 @@ public class MyGdxGame extends Game {
             prefEq.putString("ARMOR", "gold_armor");
             prefEq.putString("SLOT0", "gold_armor");
             prefEq.putString("SLOT1", "silver_sword");
-            prefEq.putString("SLOT2", "fire_sword");
+            prefEq.putString("WAPON", "fire_sword");
             prefEq.flush();
 
             Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);

@@ -40,6 +40,9 @@ public class FightScreen extends BaseScreen {
     private static Image enemyImage;
     private static Image waponHero;
     private static Image waponEnemy;
+    private static Image magicHero;
+    private static Image magicEnemy;
+    private static Image block;
 
     private static Image backgroundFight;
     private static ImageButton[] plusButton;
@@ -78,6 +81,7 @@ public class FightScreen extends BaseScreen {
     private static boolean flip;
     private static boolean abort;
     private static boolean abortFirstTap;
+    private static boolean animationPlay;
 
     BitmapFont font = new BitmapFont();
     Label.LabelStyle style = new Label.LabelStyle();
@@ -132,10 +136,32 @@ public class FightScreen extends BaseScreen {
         }else
             enemyImage = new Image(enemy.getTexture());
 
-        waponEnemy = enemy.getWapon();
+        try {
+            waponHero = flipY();
+            if(waponHero != null) {
+                waponHero.setPosition(130, 280);
+                waponHero.setSize(80, 80);
+            }
+        } catch (CloneNotSupportedException e) {
+        }
 
         heroImage.setBounds(10, 180, BaseScreen.VIEW_WIDTH /2 - 20, 200);
         enemyImage.setBounds(BaseScreen.VIEW_WIDTH /2 + 10, 180, BaseScreen.VIEW_WIDTH /2 -20, 200);
+
+        waponEnemy = enemy.getWapon();
+        waponEnemy.setPosition(95, 280);
+        waponEnemy.setSize(80, 80);
+        waponEnemy.setOrigin(waponEnemy.getWidth(), 0);
+
+        magicHero = new Image(new Texture(Gdx.files.internal("magicHero.png")));
+        magicHero.setBounds(enemyImage.getX() , enemyImage.getY() +80, enemyImage.getWidth() -30, enemyImage.getHeight() -120);
+
+        magicEnemy = new Image(new Texture(Gdx.files.internal("magicEnemy.png")));
+        magicEnemy.setBounds(heroImage.getX() +40, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
+
+        block = new Image(new Texture(Gdx.files.internal("blockAttack.png")));
+        block.setSize(50, 50);
+
         enemy.getHead().setPosition(270, 435);
         barHpHero.setBounds(53, 19, 120, 10);
         barHpEnemy.setBounds(267, 466, -120, 10);
@@ -173,7 +199,7 @@ public class FightScreen extends BaseScreen {
         abortNonActive.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(abort) {
+                if(abort && !animationPlay) {
                     Label label = new Label("ABORT!", style);
                     label.setFontScale(3);
                     label.setPosition(85, 250);
@@ -196,7 +222,7 @@ public class FightScreen extends BaseScreen {
         abortActive.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (abortFirstTap) {
+                if (abortFirstTap && !animationPlay) {
                     abortFirstTap = false;
                     final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
                     textStyleAbort.font = font;
@@ -220,7 +246,7 @@ public class FightScreen extends BaseScreen {
                                     Action action0 = Actions.run(new Runnable() {
                                         @Override
                                         public void run() {
-                                            buttonAbort.addAction((Actions.moveBy(0, -60, 1)));
+                                            buttonAbort.addAction(Actions.sequence(Actions.moveBy(0, -60, 1), Actions.fadeOut(2), Actions.moveTo(175, -3), Actions.fadeIn(1)));
                                             buttonAbort.clearListeners();
                                             abortActive.remove();
                                             hpHero -= hpMaxHero * 0.1f;
@@ -231,7 +257,10 @@ public class FightScreen extends BaseScreen {
                                     Action action1 = Actions.run(new Runnable() {
                                         @Override
                                         public void run() {
-                                            updateRound();
+                                            try {
+                                                updateRound();
+                                            } catch (CloneNotSupportedException e) {
+                                            }
                                         }
                                     });
 
@@ -259,8 +288,8 @@ public class FightScreen extends BaseScreen {
                             return false;
                         }
                     });
+                    stage.addActor(buttonAbort);
                 }
-                stage.addActor(buttonAbort);
                 return false;
             }
         });
@@ -277,7 +306,10 @@ public class FightScreen extends BaseScreen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Start");
                 startFight.remove();
-                updateRound();
+                try {
+                    updateRound();
+                } catch (CloneNotSupportedException e) {
+                }
                 abort = false;
                 if(buttonAbort != null)
                     buttonAbort.remove();
@@ -320,8 +352,9 @@ public class FightScreen extends BaseScreen {
         barEnergyEnemy.setSize(energyEnemy / energyMaxEnemy *-120, barEnergyEnemy.getHeight());
     }
 
-    private void updateRound() {
+    private void updateRound() throws CloneNotSupportedException {
         enemyAiStats = updateEnemyAi();
+        animationPlay = true;
 
         //Hero attack physics
         int physicsDmgHero = calculatePhysicsDmgHero();
@@ -339,19 +372,19 @@ public class FightScreen extends BaseScreen {
         int magicDmgEnemy = calculateMagicDmgEnemy();
         int magicProcentEnemy = calculateMagicPocentEnemy();
 
-        try { //TODO wapon not init ever round
-            waponHero = flipY();
-            if(waponHero != null) {
-                waponHero.setPosition(150, 220);
-                waponHero.setSize(75, 75);
-                waponHero.addAction(Actions.fadeOut(0));
-                stage.addActor(waponHero);
-            }
 
-            waponEnemy.setPosition(200, 220);
-            waponEnemy.setSize(75, 75);
-            waponEnemy.addAction(Actions.fadeOut(0));
-            stage.addActor(waponEnemy);
+        waponHero.addAction(Actions.fadeOut(0));
+        stage.addActor(waponHero);
+        waponEnemy.addAction(Actions.fadeOut(0));
+        stage.addActor(waponEnemy);
+
+        magicHero.addAction(Actions.fadeOut(0));
+        stage.addActor(magicHero);
+        magicEnemy.addAction(Actions.fadeOut(0));
+        stage.addActor(magicEnemy);
+
+        block.addAction(Actions.fadeOut(0));
+        stage.addActor(block);
 
         int[] randomHit = randomQueueHit();
 
@@ -390,7 +423,6 @@ public class FightScreen extends BaseScreen {
                 stage.addAction(Actions.sequence(Actions.delay(18), action));
             }
         }
-        } catch (CloneNotSupportedException e){}
     }
 
     private int[] randomQueueHit() {
@@ -457,12 +489,15 @@ public class FightScreen extends BaseScreen {
                 hpEnemy -= dmg;
                 lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
                 checkKill();
+                if(dmg == 0)
+                    animateBlock(false);
 
                 labelRoundNumber.setText(String.valueOf(Integer.parseInt(labelRoundNumber.getText().toString()) +1));
                 abortNonActive.remove();
+                animationPlay = false;
             }
         });
-        animate(hpMagEnemyFirst, procentMagEnemyFirst, duration, action, true);
+        animateMagic(hpMagEnemyFirst, procentMagEnemyFirst, duration, action, true);
     }
 
     private void fiveAttack(final int dmg, int procent, int duration) {
@@ -479,9 +514,11 @@ public class FightScreen extends BaseScreen {
                 hpHero -= dmg;
                 lHpHero.setText(hpHero + " / " + hpMaxHero);
                 checkKill();
+                if(dmg == 0)
+                    animateBlock(true);
             }
         });
-        animate(hpMagHeroFirst, procentMagHeroFirst, duration, action, false);
+        animateMagic(hpMagHeroFirst, procentMagHeroFirst, duration, action, false);
     }
 
     private void fourthAttack(final int dmg, int procent, int duration) {
@@ -498,9 +535,11 @@ public class FightScreen extends BaseScreen {
                 hpEnemy -= dmg;
                 lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
                 checkKill();
+                if(dmg == 0)
+                    animateBlock(false);
             }
         });
-        animate(hpPhyEnemySecond, procentPhyEnemySecond, duration, action, true);
+        animatePhysics(hpPhyEnemySecond, procentPhyEnemySecond, duration, action, true);
     }
 
     private void thirdAttack(final int dmg, int procent, int duration) throws CloneNotSupportedException {
@@ -517,9 +556,11 @@ public class FightScreen extends BaseScreen {
                 hpEnemy -= dmg;
                 lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
                 checkKill();
+                if(dmg == 0)
+                    animateBlock(false);
             }
         });
-        animate(hpPhyEnemyFirst, procentPhyEnemyFirst, duration, action, true);
+        animatePhysics(hpPhyEnemyFirst, procentPhyEnemyFirst, duration, action, true);
     }
 
     private void secondAttack(final int dmg, int procent, int duration) {
@@ -536,9 +577,11 @@ public class FightScreen extends BaseScreen {
                 hpHero -= dmg;
                 lHpHero.setText(hpHero + " / " + hpMaxHero);
                 checkKill();
+                if(dmg == 0)
+                    animateBlock(true);
             }
         });
-        animate(hpPhyHeroSecond, procentPhyHeroSecond, duration, action, false);
+        animatePhysics(hpPhyHeroSecond, procentPhyHeroSecond, duration, action, false);
 
     }
 
@@ -556,9 +599,20 @@ public class FightScreen extends BaseScreen {
                 hpHero -= dmg;
                 lHpHero.setText(hpHero + " / " + hpMaxHero);
                 checkKill();
+                if(dmg == 0)
+                    animateBlock(true);
             }
         });
-        animate(hpPhyHeroFirst, procentPhyHeroFirst, duration, action, false);
+        animatePhysics(hpPhyHeroFirst, procentPhyHeroFirst, duration, action, false);
+    }
+
+    private void animateBlock(boolean isHero) {
+        if(isHero)
+            block.setPosition(heroImage.getX(), heroImage.getY() + heroImage.getHeight() -20);
+        else
+            block.setPosition(enemyImage.getX() +enemyImage.getWidth() - 50, enemyImage.getY() + enemyImage.getHeight() -20);
+
+        block.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
     }
 
     private Image flipY() throws CloneNotSupportedException {
@@ -583,16 +637,33 @@ public class FightScreen extends BaseScreen {
         }
     }
 
-    private void animate(Label dmg, Label procent, int delay, Action action, boolean isHero) {
+    private void animatePhysics(Label dmg, Label procent, int delay, Action action, boolean isHero) {
         if(isHero) {
-            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.5f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
-            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1), action)));
+            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
+            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
            if(waponHero != null)
-                waponHero.addAction(Actions.sequence(Actions.delay(delay), Actions.fadeIn(1), Actions.fadeOut(1)));//TODO rework
+                waponHero.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(-18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(-36, 0.3f)), Actions.rotateBy(-18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(-9, 0.15f)), Actions.rotateBy(56)));
+           //else
+                //TODO add animation hand hit
         }else{
-            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.5f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
-            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1), action)));
-            waponEnemy.addAction(Actions.sequence(Actions.delay(delay), Actions.fadeIn(1), Actions.fadeOut(1)));//TODO rework
+            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
+            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
+            waponEnemy.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(-20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(36, 0.3f)), Actions.rotateBy(18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(9, 0.15f)), Actions.rotateBy(-56)));
+        }
+    }
+
+    private void animateMagic(Label dmg, Label procent, int delay, Action action, boolean isHero) {
+        final float SPEED_MAGIC = 0.5f;
+        if(isHero) {
+            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
+            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
+            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC), Actions.scaleBy(0, 0.1f, SPEED_MAGIC)), Actions.parallel(Actions.moveBy(60, -10, SPEED_MAGIC), Actions.scaleBy(0, 0.2f, SPEED_MAGIC)), Actions.fadeOut(0.2f)));
+            magicHero.setBounds(heroImage.getX() + 50, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
+        }else{
+            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
+            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
+            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC), Actions.scaleBy(0, 0.1f, SPEED_MAGIC)), Actions.parallel(Actions.moveBy(-60, -10, SPEED_MAGIC), Actions.scaleBy(0, 0.2f, SPEED_MAGIC)), Actions.fadeOut(0.2f)));
+            magicEnemy.setBounds(enemyImage.getX() -10, enemyImage.getY() +80, enemyImage.getWidth() -30, enemyImage.getHeight() -120);
         }
     }
 
