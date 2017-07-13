@@ -201,6 +201,7 @@ public class FightScreen extends BaseScreen {
         abortNonActive.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("click");
                 if(abort && !animationPlay) {
                     Label label = new Label("ABORT!", style);
                     label.setFontScale(3);

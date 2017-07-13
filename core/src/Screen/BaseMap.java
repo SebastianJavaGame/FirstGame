@@ -110,7 +110,7 @@ public abstract class BaseMap extends BaseScreen {
 
         generateMap();
 
-        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList);
+        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList, stage);
         hero.setPosition(500, 500);
         hero.setSize(10, 10);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
@@ -154,8 +154,10 @@ public abstract class BaseMap extends BaseScreen {
         if(hero.isAnimation())
             hero.finishWalk();
 
-        if(hero.isNpcCollision())
+        if(hero.isNpcCollision()) {
+            System.out.println("update");
             hero.collisionEnemy();
+        }
 
     }
 
@@ -259,7 +261,7 @@ public abstract class BaseMap extends BaseScreen {
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-    if(!stopGame && !Enemy.getActiveMove()) {
+    if(!stopGame && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
             if (screenY > uiBackground.getHeight()) {
