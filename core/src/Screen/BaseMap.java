@@ -110,7 +110,7 @@ public abstract class BaseMap extends BaseScreen {
 
         generateMap();
 
-        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList, stage);
+        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList, stage, game);
         hero.setPosition(500, 500);
         hero.setSize(10, 10);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);

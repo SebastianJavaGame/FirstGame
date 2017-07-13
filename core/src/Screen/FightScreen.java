@@ -144,9 +144,9 @@ public class FightScreen extends BaseScreen {
         } catch (CloneNotSupportedException e) {
         }
 
-        heroImage.setBounds(10, 180, BaseScreen.VIEW_WIDTH /2 - 20, 200);
-        enemyImage.setBounds(BaseScreen.VIEW_WIDTH /2 + 10, 180, BaseScreen.VIEW_WIDTH /2 -20, 200);
-
+        heroImage.setBounds(20, 175, BaseScreen.VIEW_WIDTH /2 - 40, 190);
+        enemyImage.setSize(enemyImage.getWidth() *0.7f, enemyImage.getHeight() *0.7f);
+        enemyImage.setPosition((BaseScreen.VIEW_WIDTH /2 -enemyImage.getWidth()) /2 +BaseScreen.VIEW_WIDTH /2, 175);
         waponEnemy = enemy.getWapon();
         waponEnemy.setPosition(95, 280);
         waponEnemy.setSize(80, 80);
@@ -159,10 +159,7 @@ public class FightScreen extends BaseScreen {
         magicEnemy.setBounds(heroImage.getX() +40, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
 
         block = new Image(new Texture(Gdx.files.internal("blockAttack.png")));
-        block.setSize(50, 50);
-
         blood = new Image(new Texture(Gdx.files.internal("blood.png")));
-        blood.setSize(50, 50);
 
         enemy.getHead().setPosition(270, 435);
         barHpHero.setBounds(53, 19, 120, 10);
@@ -396,7 +393,6 @@ public class FightScreen extends BaseScreen {
 
         for(int i = 0; i < 6; i++){
             int duration = DURATION_ANIMATION[i];
-            System.out.println(duration);
             switch (randomHit[i]){
                 case 1:
                     firstAttack(randomHit(physicsDmgEnemy, physicsProcentEnemy), physicsProcentEnemy, duration);
@@ -627,18 +623,18 @@ public class FightScreen extends BaseScreen {
 
     private void animateBlock(boolean isHero) {
         if(isHero)
-            block.setPosition(heroImage.getX(), heroImage.getY() + heroImage.getHeight() -20);
+            block.setPosition(heroImage.getX() -12, heroImage.getY() +heroImage.getHeight() -20);
         else
-            block.setPosition(enemyImage.getX() +enemyImage.getWidth() - 50, enemyImage.getY() + enemyImage.getHeight() -20);
+            block.setPosition(enemyImage.getX() +enemyImage.getWidth()/2 +30, enemyImage.getY() + enemyImage.getHeight() -20);
 
         block.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
     }
 
     private void animateBlood(boolean isHero) {
         if(isHero)
-            blood.setPosition(heroImage.getX(), heroImage.getY() + heroImage.getHeight() -20);
+            blood.setPosition(heroImage.getX() -12, heroImage.getY() +heroImage.getHeight() -20);
         else
-            blood.setPosition(enemyImage.getX() +enemyImage.getWidth() - 50, enemyImage.getY() + enemyImage.getHeight() -20);
+            blood.setPosition(enemyImage.getX() +enemyImage.getWidth()/2 +30, enemyImage.getY() + enemyImage.getHeight() -20);
 
         blood.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
     }

@@ -38,6 +38,7 @@ public class Hero extends Character {
     public final static int SPEED_MOVE = 25;
     public static final Texture ARM = new Texture(Gdx.files.internal("heroArm.png"));
 
+    private Game game;
     private Camera camera;
     private Hero3D hero3D;
     private Stage stage;
@@ -95,7 +96,7 @@ public class Hero extends Character {
     private float defaultScreenZeroX;
     private float defaultScreenZeroY;
 
-    public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D, ArrayList<Enemy> enemy, Stage stage) {
+    public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D, ArrayList<Enemy> enemy, Stage stage, Game game) {
         super(texture);
         this.objectMap = objectMap;
         this.vertical = vertical;
@@ -107,6 +108,7 @@ public class Hero extends Character {
         start = new Vector2();
         end = new Vector2();
         this.stage = stage;
+        this.game = game;
         create();
     }
 
@@ -141,7 +143,6 @@ public class Hero extends Character {
                 end.y, end.x + 1, end.y, start.x + 1, start.y});
         for(int i = 0; i < enemy.size(); i++) {
             actualIndexNpc = i;
-            System.out.println(i + " actual");
             actualEnemy = enemy.get(i);
             enemy.get(i).collisionUpdate();
             heroPolygonUpdate();
@@ -460,7 +461,6 @@ public class Hero extends Character {
         final ImageButton cancel = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
         final Image infoBackground = new Image(new Texture(Gdx.files.internal("infoEnemy.png")));
 
-        System.out.println("0");
         defaultScreenZeroX = getX() + getWidth() /2 - BaseMap.VIEW_WIDTH /2;
         defaultScreenZeroY = getY() + getHeight() /2 - BaseMap.VIEW_HEIGHT /2;
         setActiveMove(true);
@@ -470,31 +470,27 @@ public class Hero extends Character {
         infoEnemy.setPosition(defaultScreenZeroX + 21 + attackScreen.getWidth() + 22, defaultScreenZeroY + 90);
         cancel.setPosition(defaultScreenZeroX + BaseScreen.VIEW_WIDTH /2 - cancel.getWidth() /2, defaultScreenZeroY + 280);
 
+        final Hero hero = this;
+
         attackScreen.addListener(new InputListener() {
             public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                 shadow.remove();
                 attackScreen.remove();
                 infoEnemy.remove();
                 cancel.remove();
-                System.out.println("attack");
                 setActiveMove(false);
-                new Game() {
-                    @Override
-                    public void create() {
-                        this.setScreen(new FightScreen(this, Hero.this, actualEnemy, true));
-                    }
-                };
+                game.setScreen(new FightScreen(game, hero, actualEnemy, true));
                 return false;
             }
         });
 
         infoEnemy.addListener(new InputListener() {
             public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                //TODO click everywhere and close window also when click label or image first plan
                 shadow.remove();
                 attackScreen.remove();
                 infoEnemy.remove();
                 cancel.remove();
-                System.out.println("info");
                 infoBackground.setPosition(getX() + getWidth() /2 - BaseMap.VIEW_WIDTH /2, getY() + getHeight() /2 - BaseMap.VIEW_HEIGHT /2);
                 infoBackground.setSize(BaseMap.VIEW_WIDTH, BaseMap.VIEW_HEIGHT - 50);
                 getHero3D().setRenderHero3d(false);
@@ -530,7 +526,6 @@ public class Hero extends Character {
                 infoBackground.addListener(new InputListener(){
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        System.out.println("infointo");
                         lName.remove();
                         lLevel.remove();
                         lHp.remove();
@@ -557,7 +552,6 @@ public class Hero extends Character {
                 attackScreen.remove();
                 infoEnemy.remove();
                 cancel.remove();
-                System.out.println("cancel");
                 setActiveMove(false);
                 return false;
             }
@@ -610,7 +604,6 @@ public class Hero extends Character {
 
     public void collisionEnemy() {
         if(Intersector.overlapConvexPolygons(heroPolygon, enemy.get(getActualIndexNpc()).convertRectangleToPolygon())){
-            System.out.println("collisionEnemy");
             clearActions();
             collisionDo(actualEnemy);
             setNpcCollision(false);
