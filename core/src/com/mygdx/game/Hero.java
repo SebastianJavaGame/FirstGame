@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -512,6 +513,17 @@ public class Hero extends Character {
                 Vector2 sizeEnemyInfo = scaleUp(enemy.getTexture());
                 imageEnemy.setSize(sizeEnemyInfo.x, sizeEnemyInfo.y);
 
+                imageEnemy.setTouchable(Touchable.disabled);
+                lName.setTouchable(Touchable.disabled);
+                lHp.setTouchable(Touchable.disabled);
+                lLevel.setTouchable(Touchable.disabled);
+                lArmor.setTouchable(Touchable.disabled);
+                lStrong.setTouchable(Touchable.disabled);
+                lWiedza.setTouchable(Touchable.disabled);
+                lDefensePhysics.setTouchable(Touchable.disabled);
+                lDefenseMagic.setTouchable(Touchable.disabled);
+                lRandomDrop.setTouchable(Touchable.disabled);
+
                 lName.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 - lName.getWidth() -20, defaultScreenZeroY + 339);
                 lLevel.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 + lName.getWidth() /2, defaultScreenZeroY + 339);
                 lHp.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 120);
@@ -568,14 +580,10 @@ public class Hero extends Character {
     private Vector2 scaleUp(TextureRegion texture) {
         float x = texture.getRegionWidth();
         float y = texture.getRegionHeight();
-        int stratX = 10;
-        int stratY = 310;
 
         do{
            x++;
             y++;
-            System.out.println(x + " = " + y);
-
         }while(x <= 300 && y <= 200);
 
         return new Vector2(x, y);
@@ -687,38 +695,14 @@ public class Hero extends Character {
                 -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + end.y,
                 -camera.position.x + BaseMap.VIEW_WIDTH / 2 + start.x + lineFromCenter,
                 -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + start.y});
-        shapeRenderer.polygon(new float[]{
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 + 387,
-                -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + 341,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 + 481,
-                -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + 397,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 + 480,
-                -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + 458,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 + 455,
-                -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + 498,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 + 452,
-                -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + 526});
         shapeRenderer.setColor(Color.GOLD);
-        shapeRenderer.polygon(new float[]{
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +end.x - 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +end.y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +end.x + 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +end.y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +vertical.get(0)[0].x +1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +vertical.get(0)[0].y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +vertical.get(0)[0].x -1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +vertical.get(0)[0].y});
-        shapeRenderer.polygon(new float[]{
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +end.x - 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +end.y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +end.x + 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +end.y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +vertical.get(0)[1].x +1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +vertical.get(0)[1].y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +vertical.get(0)[1].x -1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +vertical.get(0)[1].y});
-        shapeRenderer.polygon(new float[]{
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +end.x - 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +end.y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +end.x + 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +end.y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +vertical.get(0)[2].x +1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +vertical.get(0)[2].y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +vertical.get(0)[2].x -1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +vertical.get(0)[2].y});
-        shapeRenderer.polygon(new float[]{
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +end.x - 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +end.y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +end.x + 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +end.y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +vertical.get(0)[3].x +1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +vertical.get(0)[3].y,
-                -camera.position.x + BaseMap.VIEW_WIDTH / 2 +vertical.get(0)[3].x -1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +vertical.get(0)[3].y});
+        for(int i = 0; i < vertical.get(0).length; i++) {
+            shapeRenderer.polygon(new float[]{
+                    -camera.position.x + BaseMap.VIEW_WIDTH / 2 + end.x - 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + end.y,
+                    -camera.position.x + BaseMap.VIEW_WIDTH / 2 + end.x + 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + end.y,
+                    -camera.position.x + BaseMap.VIEW_WIDTH / 2 + vertical.get(0)[i].x + 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + vertical.get(0)[i].y,
+                    -camera.position.x + BaseMap.VIEW_WIDTH / 2 + vertical.get(0)[i].x - 1, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 + vertical.get(0)[i].y});
+        }
         shapeRenderer.end();
     }
 

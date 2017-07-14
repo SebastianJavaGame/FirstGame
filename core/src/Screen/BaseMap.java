@@ -20,9 +20,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Bag;
+import com.mygdx.game.Enemy;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
-import com.mygdx.game.Enemy;
+import com.mygdx.game.RenderCollisionLine_Test;
 
 import java.util.ArrayList;
 
@@ -71,7 +72,7 @@ public abstract class BaseMap extends BaseScreen {
     private Label expLabel;
     private Label levelLabel;
 
-    //private RenderCollisionLine_Test testRender;
+    private RenderCollisionLine_Test testRender;
 
     protected ArrayList<Polygon> objectPolygon;
     protected ArrayList<Vector2[]> verticalPolygon;
@@ -111,12 +112,12 @@ public abstract class BaseMap extends BaseScreen {
         generateMap();
 
         hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList, stage, game);
-        hero.setPosition(500, 500);
+        hero.setPosition(550, 450);
         hero.setSize(10, 10);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
         stage.addActor(hero);
 
-        //testRender = new RenderCollisionLine_Test(camera, hero);
+        testRender = new RenderCollisionLine_Test(camera, hero);
     }
 
     @Override
@@ -137,7 +138,7 @@ public abstract class BaseMap extends BaseScreen {
             stageCard.draw();
         }
 
-        //testRender.draw();
+        testRender.draw();
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
             System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));

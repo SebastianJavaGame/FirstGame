@@ -78,6 +78,8 @@ public class FightScreen extends BaseScreen {
     private static Label lEnergyHero;
     private static Label lEnergyEnemy;
     private static Label labelRoundNumber;
+    private static Label labelCalculateHp;
+    private static Label labelCalculateProcent;
 
     private static int enemyAiStats[];
 
@@ -226,6 +228,7 @@ public class FightScreen extends BaseScreen {
         abortActive.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("anot");
                 if (abortFirstTap && !animationPlay) {
                     abortFirstTap = false;
                     final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
@@ -258,16 +261,6 @@ public class FightScreen extends BaseScreen {
                                         }
                                     });
 
-                                    Action action1 = Actions.run(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                updateRound();
-                                            } catch (CloneNotSupportedException e) {
-                                            }
-                                        }
-                                    });
-
                                     Action action2 = Actions.run(new Runnable() {
                                         @Override
                                         public void run() {
@@ -285,10 +278,19 @@ public class FightScreen extends BaseScreen {
                                         }
                                     });
                                     label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
-                                            Actions.delay(18), action1), action2, Actions.delay(1.5f), action3));
+                                            Actions.delay(18)), action2, Actions.delay(1.5f), action3));
                                 }
                             });
-                            stage.addAction(action);
+                            Action action1 = Actions.run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        updateRound();
+                                    } catch (CloneNotSupportedException e) {
+                                    }
+                                }
+                            });
+                            stage.addAction(Actions.sequence(action, action1));
                             return false;
                         }
                     });
@@ -376,7 +378,6 @@ public class FightScreen extends BaseScreen {
         int magicDmgEnemy = calculateMagicDmgEnemy();
         int magicProcentEnemy = calculateMagicPocentEnemy();
 
-
         waponHero.addAction(Actions.fadeOut(0));
         stage.addActor(waponHero);
         waponEnemy.addAction(Actions.fadeOut(0));
@@ -425,6 +426,7 @@ public class FightScreen extends BaseScreen {
                     public void run() {
                         stage.addActor(startFight);
                         animationPlay = false;
+                        abortFirstTap = true;
                         labelRoundNumber.setText(String.valueOf(Integer.parseInt(labelRoundNumber.getText().toString()) +1));
                         abortNonActive.remove();
                     }
@@ -485,13 +487,13 @@ public class FightScreen extends BaseScreen {
     }
 
     private void sixAttack(final int dmg, int procent, int duration) {
-        Label hpMagEnemyFirst = new Label("-" + dmg, styleBlood);
-        Label procentMagEnemyFirst = new Label(procent + "%", style);
-        hpMagEnemyFirst.setFontScale(FONT_SCALE_HP);
-        procentMagEnemyFirst.setFontScale(FONT_SCALE_PROCENT);
-        hpMagEnemyFirst.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - hpMagEnemyFirst.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
-        procentMagEnemyFirst.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - procentMagEnemyFirst.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
-        addActors(hpMagEnemyFirst,procentMagEnemyFirst);
+        labelCalculateHp = new Label("-" + dmg, styleBlood);
+        labelCalculateProcent = new Label(procent + "%", style);
+        labelCalculateHp.setFontScale(FONT_SCALE_HP);
+        labelCalculateProcent.setFontScale(FONT_SCALE_PROCENT);
+        labelCalculateHp.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateProcent.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
+        addActors(labelCalculateHp,labelCalculateProcent);
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
@@ -504,17 +506,17 @@ public class FightScreen extends BaseScreen {
                     animateBlood(false);
             }
         });
-        animateMagic(hpMagEnemyFirst, procentMagEnemyFirst, duration, action, true);
+        animateMagic(labelCalculateHp, labelCalculateProcent, duration, action, true);
     }
 
     private void fiveAttack(final int dmg, int procent, int duration) {
-        Label hpMagHeroFirst = new Label("-" + dmg, styleBlood);
-        Label procentMagHeroFirst = new Label(procent + "%", style);
-        hpMagHeroFirst.setFontScale(FONT_SCALE_HP);
-        procentMagHeroFirst.setFontScale(FONT_SCALE_PROCENT);
-        hpMagHeroFirst.setPosition(heroImage.getX() + heroImage.getWidth() /2 - hpMagHeroFirst.getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() -15);
-        procentMagHeroFirst.setPosition(heroImage.getX() + heroImage.getWidth() /2 - procentMagHeroFirst.getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() +10);
-        addActors(hpMagHeroFirst, procentMagHeroFirst);
+        labelCalculateHp = new Label("-" + dmg, styleBlood);
+        labelCalculateProcent = new Label(procent + "%", style);
+        labelCalculateHp.setFontScale(FONT_SCALE_HP);
+        labelCalculateProcent.setFontScale(FONT_SCALE_PROCENT);
+        labelCalculateHp.setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp.getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() -15);
+        labelCalculateProcent.setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent.getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() +10);
+        addActors(labelCalculateHp, labelCalculateProcent);
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
@@ -528,17 +530,17 @@ public class FightScreen extends BaseScreen {
 
             }
         });
-        animateMagic(hpMagHeroFirst, procentMagHeroFirst, duration, action, false);
+        animateMagic(labelCalculateHp, labelCalculateProcent, duration, action, false);
     }
 
     private void fourthAttack(final int dmg, int procent, int duration) {
-        Label hpPhyEnemySecond = new Label("-" + dmg, styleBlood);
-        Label procentPhyEnemySecond = new Label(procent + "%", style);
-        hpPhyEnemySecond.setFontScale(FONT_SCALE_HP);
-        procentPhyEnemySecond.setFontScale(FONT_SCALE_PROCENT);
-        hpPhyEnemySecond.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - hpPhyEnemySecond.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
-        procentPhyEnemySecond.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - procentPhyEnemySecond.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
-        addActors(hpPhyEnemySecond, procentPhyEnemySecond);
+        labelCalculateHp = new Label("-" + dmg, styleBlood);
+        labelCalculateProcent = new Label(procent + "%", style);
+        labelCalculateHp.setFontScale(FONT_SCALE_HP);
+        labelCalculateProcent.setFontScale(FONT_SCALE_PROCENT);
+        labelCalculateHp.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateProcent.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
+        addActors(labelCalculateHp, labelCalculateProcent);
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
@@ -551,17 +553,17 @@ public class FightScreen extends BaseScreen {
                     animateBlood(false);
             }
         });
-        animatePhysics(hpPhyEnemySecond, procentPhyEnemySecond, duration, action, true);
+        animatePhysics(labelCalculateHp, labelCalculateProcent, duration, action, true);
     }
 
     private void thirdAttack(final int dmg, int procent, int duration) throws CloneNotSupportedException {
-        Label hpPhyEnemyFirst = new Label("-" + dmg, styleBlood);
-        Label procentPhyEnemyFirst = new Label(procent + "%", style);
-        hpPhyEnemyFirst.setFontScale(FONT_SCALE_HP);
-        procentPhyEnemyFirst.setFontScale(FONT_SCALE_PROCENT);
-        hpPhyEnemyFirst.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - hpPhyEnemyFirst.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
-        procentPhyEnemyFirst.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - procentPhyEnemyFirst.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
-        addActors(hpPhyEnemyFirst, procentPhyEnemyFirst);
+        Label labelCalculateHp = new Label("-" + dmg, styleBlood);
+        Label labelCalculateProcent = new Label(procent + "%", style);
+        labelCalculateHp.setFontScale(FONT_SCALE_HP);
+        labelCalculateProcent.setFontScale(FONT_SCALE_PROCENT);
+        labelCalculateHp.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateProcent.setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent.getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
+        addActors(labelCalculateHp, labelCalculateProcent);
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
@@ -574,7 +576,7 @@ public class FightScreen extends BaseScreen {
                     animateBlood(false);
             }
         });
-        animatePhysics(hpPhyEnemyFirst, procentPhyEnemyFirst, duration, action, true);
+        animatePhysics(labelCalculateHp, labelCalculateProcent, duration, action, true);
     }
 
     private void secondAttack(final int dmg, int procent, int duration) {
