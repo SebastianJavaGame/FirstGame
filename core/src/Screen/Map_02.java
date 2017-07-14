@@ -56,7 +56,6 @@ public class Map_02 extends BaseMap {
     private void addEnemy(String path, String head, String wapon, int x){
         Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))),
                 new Image(new Texture(Gdx.files.internal(wapon))),  "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 30, 45, 60, 75);
-        enemy.setSize(100, 100);
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
         enemyList.add(enemy);

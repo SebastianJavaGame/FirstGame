@@ -45,6 +45,8 @@ public class FightScreen extends BaseScreen {
     private static Image block;
     private static Image blood;
 
+    private static float targetX;
+
     private static Image backgroundFight;
     private static ImageButton[] plusButton;
     private static ImageButton[] minusButton;
@@ -144,16 +146,18 @@ public class FightScreen extends BaseScreen {
         } catch (CloneNotSupportedException e) {
         }
 
-        heroImage.setBounds(20, 175, BaseScreen.VIEW_WIDTH /2 - 40, 190);
-        enemyImage.setSize(enemyImage.getWidth() *0.7f, enemyImage.getHeight() *0.7f);
-        enemyImage.setPosition((BaseScreen.VIEW_WIDTH /2 -enemyImage.getWidth()) /2 +BaseScreen.VIEW_WIDTH /2, 175);
+        heroImage.setBounds(25, 175, BaseScreen.VIEW_WIDTH /2 - 50, 190);
+        enemyImage.setSize(enemyImage.getWidth(), enemyImage.getHeight());
+        targetX = (BaseScreen.VIEW_WIDTH /2 -enemyImage.getWidth())/ 2 +BaseScreen.VIEW_WIDTH /2;
+        enemyImage.setPosition(targetX, 175);
+        System.out.println(targetX + "target");
         waponEnemy = enemy.getWapon();
         waponEnemy.setPosition(95, 280);
         waponEnemy.setSize(80, 80);
         waponEnemy.setOrigin(waponEnemy.getWidth(), 0);
 
         magicHero = new Image(new Texture(Gdx.files.internal("magicHero.png")));
-        magicHero.setBounds(enemyImage.getX() , enemyImage.getY() +80, enemyImage.getWidth() -30, enemyImage.getHeight() -120);
+        magicHero.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() /2, enemyImage.getWidth() -30, enemyImage.getHeight() -120);
 
         magicEnemy = new Image(new Texture(Gdx.files.internal("magicEnemy.png")));
         magicEnemy.setBounds(heroImage.getX() +40, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
@@ -420,6 +424,9 @@ public class FightScreen extends BaseScreen {
                     @Override
                     public void run() {
                         stage.addActor(startFight);
+                        animationPlay = false;
+                        labelRoundNumber.setText(String.valueOf(Integer.parseInt(labelRoundNumber.getText().toString()) +1));
+                        abortNonActive.remove();
                     }
                 });
                 stage.addAction(Actions.sequence(Actions.delay(18), action));
@@ -495,10 +502,6 @@ public class FightScreen extends BaseScreen {
                     animateBlock(false);
                 else
                     animateBlood(false);
-
-                labelRoundNumber.setText(String.valueOf(Integer.parseInt(labelRoundNumber.getText().toString()) +1));
-                abortNonActive.remove();
-                animationPlay = false;
             }
         });
         animateMagic(hpMagEnemyFirst, procentMagEnemyFirst, duration, action, true);
@@ -683,13 +686,13 @@ public class FightScreen extends BaseScreen {
         if(isHero) {
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveBy(100, 20, SPEED_MAGIC -0.3f),Actions.fadeOut(0.5f))));
+            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(targetX, enemyImage.getY() + enemyImage.getHeight() /2, SPEED_MAGIC -0.4f),Actions.fadeOut(0.4f))));
             magicHero.setBounds(heroImage.getX() + 50, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }else{
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveBy(-100, 20, SPEED_MAGIC -0.3f), Actions.fadeOut(0.5f))));
-            magicEnemy.setBounds(enemyImage.getX() -10, enemyImage.getY() +80, enemyImage.getWidth() -30, enemyImage.getHeight() -120);
+            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH /4 -magicEnemy.getWidth() /2, heroImage.getY() + heroImage.getHeight() /2, SPEED_MAGIC -0.4f), Actions.fadeOut(0.4f))));
+            magicEnemy.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() /2, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }
     }
 

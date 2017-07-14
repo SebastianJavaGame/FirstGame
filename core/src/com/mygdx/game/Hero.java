@@ -509,6 +509,8 @@ public class Hero extends Character {
                 final Label lDefenseMagic = new Label("Defense Magic: " + enemy.getDefenseMagic(), style);
                 final Label lRandomDrop = new Label("Chance to drop: " + enemy.getRandomDrop() + "%", style);
                 final Image imageEnemy = new Image(enemy.getTexture());
+                Vector2 sizeEnemyInfo = scaleUp(enemy.getTexture());
+                imageEnemy.setSize(sizeEnemyInfo.x, sizeEnemyInfo.y);
 
                 lName.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 - lName.getWidth() -20, defaultScreenZeroY + 339);
                 lLevel.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 + lName.getWidth() /2, defaultScreenZeroY + 339);
@@ -561,6 +563,22 @@ public class Hero extends Character {
         attackScreen.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() /2 - cancel.getWidth() /2 +10, getY() + getHeight() /2 - cancel.getHeight() /2), Actions.parallel(Actions.moveTo(defaultScreenZeroX +21, defaultScreenZeroY + 90, 0.3f), Actions.fadeIn(0.6f))));
         infoEnemy.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() /2 - cancel.getWidth() /2 +10, getY() + getHeight() /2 - cancel.getHeight() /2), Actions.parallel(Actions.moveTo(defaultScreenZeroX + 21 + attackScreen.getWidth() + 22, defaultScreenZeroY + 90, 0.3f), Actions.fadeIn(0.6f))));
         cancel.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() /2 - cancel.getWidth() /2 +10, getY() + getHeight() /2 - cancel.getHeight() /2), Actions.parallel(Actions.moveTo(defaultScreenZeroX + BaseScreen.VIEW_WIDTH /2 - cancel.getWidth() /2, defaultScreenZeroY + 280, 0.3f), Actions.fadeIn(0.6f))));
+    }
+
+    private Vector2 scaleUp(TextureRegion texture) {
+        float x = texture.getRegionWidth();
+        float y = texture.getRegionHeight();
+        int stratX = 10;
+        int stratY = 310;
+
+        do{
+           x++;
+            y++;
+            System.out.println(x + " = " + y);
+
+        }while(x <= 300 && y <= 200);
+
+        return new Vector2(x, y);
     }
 
     private void addActor(Actor... actors){
