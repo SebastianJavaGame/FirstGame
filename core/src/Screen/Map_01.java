@@ -39,10 +39,10 @@ public class Map_01 extends BaseMap {
         verticalCollision = new ArrayList<Vector2[]>();
         addObjectCollision(new float[]{637, 539, 650, 590, 606, 675, 426, 654, 423, 601, 340, 581, 303, 529, 389, 471, 522, 513, 590, 529});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(648, 528), new Vector2(666, 595), new Vector2(617, 693), new Vector2(410, 670), new Vector2(283, 530), new Vector2(386, 456)});
-        addObjectCollision(new float[]{825, 613, 933, 572, 894, 531, 829, 572, 803, 547, 761, 573});
-        addVerticalToObjectCollision(new Vector2[]{new Vector2(893, 518), new Vector2(951, 579), new Vector2(821, 628), new Vector2(743, 571), new Vector2(801, 530)});
-        addObjectCollision(new float[]{1082,683,1131,698,1202,652,1476,656,1480,1320,1242,1320,1208,1125,1238,1079,1210,1052,1160,1073,1110,997,1126,843,994,861,944,801,959,721});
-        addVerticalToObjectCollision(new Vector2[]{new Vector2(1500, 1350), new Vector2(1223, 1350), new Vector2(930, 816), new Vector2(944, 710), new Vector2(1192, 639), new Vector2(1500, 645)});
+        //addObjectCollision(new float[]{825, 613, 933, 572, 894, 531, 829, 572, 803, 547, 761, 573});
+        //addVerticalToObjectCollision(new Vector2[]{new Vector2(893, 518), new Vector2(951, 579), new Vector2(821, 628), new Vector2(743, 571), new Vector2(801, 530)});
+        //addObjectCollision(new float[]{1082,683,1131,698,1202,652,1476,656,1480,1320,1242,1320,1208,1125,1238,1079,1210,1052,1160,1073,1110,997,1126,843,994,861,944,801,959,721});
+        //addVerticalToObjectCollision(new Vector2[]{new Vector2(1500, 1350), new Vector2(1223, 1350), new Vector2(930, 816), new Vector2(944, 710), new Vector2(1192, 639), new Vector2(1500, 645)});
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;
     }

@@ -23,14 +23,18 @@ import Screen.BaseMap;
  * Created by Sebastian on 2017-06-10.
  */
 
-public class Equipment {
+public class Equipment{
     //Value
     static final float FONT_SIZE_NOT_AVILABLE_SLOT = 1;
     //
-    public static final Preferences PREF_FIGHT = Gdx.app.getPreferences("FIGHT");
+    public static final String PREF_NAME_EQ = "ITEMS";
+    public static final String PREF_NAME_FIGHT = "FIGHT";
+
+    public final Preferences PREF_FIGHT = Gdx.app.getPreferences(PREF_NAME_FIGHT);
+    private final Preferences PREF_ITEMS = Gdx.app.getPreferences(PREF_NAME_EQ);
+
     public static final String[] KEY_PREF_FIGHT = new String[]{"ATTACK_PHYSICS", "DEFENSE_PHYSICS", "ATTACK_MAGIC", "DEFENSE_MAGIC"};
 
-    public static final String PREF_NAME_EQ = "ITEMS";
     public static final String[] PREF_ITEM_HUMAN = new String[]{
             "HELMET", "ARMOR", "PANTS", "SHOES", "WAPON", "ITEM_BLOCK", "RING", "ITEM_HAND"};
 
@@ -46,8 +50,6 @@ public class Equipment {
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 165},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 271}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 271},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 218}};
-
-    private static final Preferences pref = Gdx.app.getPreferences(PREF_NAME_EQ);
 
     private static Hero hero;
     private static Stage card;
@@ -78,7 +80,7 @@ public class Equipment {
         create();
     }
 
-    private static void create() throws CloneNotSupportedException {
+    private void create() throws CloneNotSupportedException {
         ImageButton userPref = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonUserPref.png")))));
         userPref.setPosition(250, 180);
         userPref.addListener(new InputListener(){
@@ -179,7 +181,7 @@ public class Equipment {
         //load item or load default image
         for (int i = 0; i < 8; i++) {
             emptyBlock[i] = new Image(new Texture(Gdx.files.internal("slot.png")));
-            String value = pref.getString(PREF_ITEM_HUMAN[i], "");
+            String value = PREF_ITEMS.getString(PREF_ITEM_HUMAN[i], "");
 
             if (!value.equals("")) {
                 blockEmpty[i] = false;
@@ -209,7 +211,7 @@ public class Equipment {
             }
         }
         for (int i = 0; i < 18; i++) {
-            String value = pref.getString("SLOT" + i, "");
+            String value = PREF_ITEMS.getString("SLOT" + i, "");
 
             if (!value.equals(""))
                 addItemToBag(LoadAllItemToGame.getItem(value), i);
@@ -218,7 +220,7 @@ public class Equipment {
         }
     }
 
-    public static void addItemToBag(Item item, int slot) {
+    public void addItemToBag(Item item, int slot) {
         int slotNr = 0;
         for (int i = 2; i >= 0; i--) {
             for (int j = 0; j < 6; j++) {
@@ -228,8 +230,8 @@ public class Equipment {
                     imageAddListener(item, item.getImage(), item.getPathImage());
                     slotEmpty[slotNr] = true;
 
-                    pref.putString("SLOT" + slotNr, item.getItemKey());
-                    pref.flush();
+                    PREF_ITEMS.putString("SLOT" + slotNr, item.getItemKey());
+                    PREF_ITEMS.flush();
 
                     card.addActor(item.getImage());
                     return;
@@ -242,7 +244,7 @@ public class Equipment {
         }
     }
 
-    private static void updatePositionFitIn(Item item) {
+    private void updatePositionFitIn(Item item) {
         switch (item.getItemType()) {
             case HELMET:
                 item.getImage().setPosition(BLOCK_POSITION[0][0], BLOCK_POSITION[0][1]);
@@ -280,12 +282,12 @@ public class Equipment {
         item.setStan(Item.Stan.HUMAN);
     }
 
-    private static void clearDefaultImage(Item item, int i){
-        if(pref.getString(item.getItemType().toString()).equals("")){
+    private void clearDefaultImage(Item item, int i){
+        if(PREF_ITEMS.getString(item.getItemType().toString()).equals("")){
             card.addActor(item.getImage());
             blockEmpty[i] = true;
         }
-        if(blockEmpty[i] && !pref.getString(item.getItemType().toString()).equals("")){
+        if(blockEmpty[i] && !PREF_ITEMS.getString(item.getItemType().toString()).equals("")){
             block[i].getImage().remove();
             block[i] = item;
             card.addActor(block[i].getImage());
@@ -294,20 +296,20 @@ public class Equipment {
             block[i] = item;
     }
 
-    private static void updatePositionFitOut(Item item, int slot) {
+    private void updatePositionFitOut(Item item, int slot) {
         int slotNr = 0;
         for (int i = 2; i >= 0; i--) {
             for (int j = 0; j < 6; j++) {
                 if (!slotEmpty[slotNr]) {
                     if (slotNr != slot)
-                        pref.putString("SLOT" + slot, "");
+                        PREF_ITEMS.putString("SLOT" + slot, "");
 
                     item.getImage().setPosition(10 + j * Item.BLOCK_SIZE, i * Item.BLOCK_SIZE + 10);
                     item.setStan(Item.Stan.BAG);
                     slotEmpty[slotNr] = true;
 
-                    pref.putString("SLOT" + slotNr, item.getItemKey());
-                    pref.flush();
+                    PREF_ITEMS.putString("SLOT" + slotNr, item.getItemKey());
+                    PREF_ITEMS.flush();
 
                     Image image = item.getImage();
                     item.getImage().remove();
@@ -319,7 +321,7 @@ public class Equipment {
         }
     }
 
-    private static void updatePositionFitOut(Item item) {
+    private void updatePositionFitOut(Item item) {
         int slotNr = 0;
         for (int i = 2; i >= 0; i--) {
             for (int j = 0; j < 6; j++) {
@@ -328,8 +330,8 @@ public class Equipment {
                     item.setStan(Item.Stan.BAG);
                     slotEmpty[slotNr] = true;
 
-                    pref.putString("SLOT" + slotNr, item.getItemKey());
-                    pref.flush();
+                    PREF_ITEMS.putString("SLOT" + slotNr, item.getItemKey());
+                    PREF_ITEMS.flush();
 
                     Image image = item.getImage();
                     item.getImage().remove();
@@ -341,7 +343,7 @@ public class Equipment {
         }
     }
 
-    private static void imageAddListener(final Item item, final Image image, final String pathImage) {
+    private void imageAddListener(final Item item, final Image image, final String pathImage) {
         image.addListener(new InputListener() {
             public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                 if (!blockClick) {
@@ -402,11 +404,11 @@ public class Equipment {
                         case BAG:
                             System.out.println("BAG");
                             try {
-                                if (!pref.getString(item.getItemType().toString()).equals("")) {
+                                if (!PREF_ITEMS.getString(item.getItemType().toString()).equals("")) {
                                     final Image backgroundDown = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
                                     backgroundDown.setBounds(0, 0, BaseMap.VIEW_WIDTH, 190);
 
-                                    Item itemUp = LoadAllItemToGame.getItem(pref.getString(item.getItemType().toString()));
+                                    Item itemUp = LoadAllItemToGame.getItem(PREF_ITEMS.getString(item.getItemType().toString()));
                                     itemUp.setStan(Item.Stan.BAG);
                                     final Image itemImageDown = new Image(new Texture(Gdx.files.internal(itemUp.getPathImage())));
                                     final Label itemNameDown = new Label("" + itemUp.getItemName(), style);
@@ -460,8 +462,8 @@ public class Equipment {
                                                 }
                                             }
                                             updatePositionFitIn(item);
-                                            pref.putString(item.getItemType().toString(), item.getItemKey());
-                                            pref.flush();
+                                            PREF_ITEMS.putString(item.getItemType().toString(), item.getItemKey());
+                                            PREF_ITEMS.flush();
                                             updateStats();
 
                                             blockClick = false;
@@ -518,8 +520,8 @@ public class Equipment {
 
                                             slotEmpty[slotNr] = false;
                                             item.getImage().remove();
-                                            pref.putString("SLOT" + slotNr, "");
-                                            pref.flush();
+                                            PREF_ITEMS.putString("SLOT" + slotNr, "");
+                                            PREF_ITEMS.flush();
 
                                             takeOn.remove();
                                             drop.remove();
@@ -611,7 +613,8 @@ public class Equipment {
                                     takeOn.setBounds(0, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     takeOn.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                                            pref.putString(item.getItemType().toString(), item.getItemKey());
+                                            PREF_ITEMS.putString(item.getItemType().toString(), item.getItemKey());
+                                            PREF_ITEMS.flush();
 
                                             int row = (int) (item.getImage().getX() - 10) / 50;
                                             int column = (int) item.getImage().getY() / 50;
@@ -621,15 +624,15 @@ public class Equipment {
                                                 column = 2;
                                             int slotNr = column * 6 + row;
 
-                                            System.out.println(pref.getString("WAPON"));
+                                            System.out.println(PREF_ITEMS.getString("WAPON"));
 
                                             updatePositionFitIn(item);
                                             slotEmpty[slotNr] = false;
-                                            pref.putString("SLOT" + slotNr, "");
-                                            pref.flush();
+                                            PREF_ITEMS.putString("SLOT" + slotNr, "");
+                                            PREF_ITEMS.flush();
                                             updateStats();
 
-                                            System.out.println(pref.getString("WAPON"));
+                                            System.out.println(PREF_ITEMS.getString("WAPON"));
                                             System.out.println(blockEmpty[4]);
 
                                             blockClick = false;
@@ -670,8 +673,8 @@ public class Equipment {
 
                                             slotEmpty[slotNr] = false;
                                             item.getImage().remove();
-                                            pref.putString("SLOT" + slotNr, "");
-                                            pref.flush();
+                                            PREF_ITEMS.putString("SLOT" + slotNr, "");
+                                            PREF_ITEMS.flush();
                                             updateStats();
 
                                             takeOn.remove();
@@ -779,8 +782,8 @@ public class Equipment {
                                     }else {
                                         updatePositionFitOut(item);
                                         addDefaultImage(item.getItemType().toString());
-                                        pref.putString(item.getItemType().toString(), "");
-                                        pref.flush();
+                                        PREF_ITEMS.putString(item.getItemType().toString(), "");
+                                        PREF_ITEMS.flush();
                                         updateStats();
 
                                         blockClick = false;
@@ -913,6 +916,7 @@ public class Equipment {
     }
 
     public static Texture getTextureWapon() throws CloneNotSupportedException {
+        Preferences pref = Gdx.app.getPreferences(PREF_NAME_EQ);
         if(pref.getString("WAPON", "").equals(""))
             return null;
 

@@ -4,9 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
-import Screen.Menu;
+import Screen.FightWin;
 
-public class MyGdxGame extends Game {
+public class MyGdxGame extends Game{
 
 	@Override
 	public void create() {
@@ -14,6 +14,7 @@ public class MyGdxGame extends Game {
 
         Preferences firstLoad = Gdx.app.getPreferences("START");
         firstLoad.clear();
+        firstLoad.flush();
         if(firstLoad.getString("FIRST").equals("")) {
             Preferences prefEq = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
             prefEq.clear();
@@ -43,7 +44,8 @@ public class MyGdxGame extends Game {
         }
         //TODO delete all and load in hero... with default values
 
-		Menu lvl = new Menu(this);
+		//Menu lvl = new Menu(this);
+		FightWin lvl = new FightWin(this, 10, 34, 67, 10000, 450, "fire_sword");
 		setScreen(lvl);
 	}
 }

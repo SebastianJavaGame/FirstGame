@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Created by Sebastian on 2017-06-29.
  */
 
-class LoadAllItemToGame {
+public class LoadAllItemToGame {
     public static final HashMap<String, Item> ITEMS = new HashMap<String, Item>();
 
     public static final void loadItems(){

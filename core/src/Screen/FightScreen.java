@@ -112,7 +112,7 @@ public class FightScreen extends BaseScreen {
 
     @Override
     public void create() {
-        Preferences preferences = Equipment.PREF_FIGHT;
+        Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
         hpMaxHero = hero.getFullHp();
@@ -663,11 +663,11 @@ public class FightScreen extends BaseScreen {
     private void checkKill(){
         if(hpHero < 1){
             hpHero = 0;
-            game.setScreen(new HeroDead(game));
+            game.setScreen(new FightLose(game));
         }
         if(hpEnemy < 1){
             hpEnemy = 0;
-            game.setScreen(new FightStats(game));
+           // game.setScreen(new FightWin(game));
         }
     }
 

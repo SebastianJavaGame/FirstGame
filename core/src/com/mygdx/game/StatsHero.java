@@ -26,7 +26,7 @@ public class StatsHero {
     public static final String PREF_NAME_STATS = "ATRIBUTE";
     public static final int AMOUNT_ATTRIBUTE = 6;
 
-    private static Preferences preferences = Gdx.app.getPreferences(PREF_NAME_STATS);
+    private final Preferences preferences = Gdx.app.getPreferences(PREF_NAME_STATS);
 
     private static Hero hero;
     private static Stage stage;
