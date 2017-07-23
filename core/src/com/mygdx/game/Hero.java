@@ -115,7 +115,8 @@ public class Hero extends Character {
 
     private void create(){
         Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
-        setLevel(26);
+        setLevel(1);
+        setMaxExp(ExperienceRequired.getMaxExperience(1));
 
         setMaxHp(preferences.getInteger("MAX_HP"));
         setHpNonEq(getMaxHp());
@@ -126,8 +127,12 @@ public class Hero extends Character {
         defenseFiz = preferences.getInteger("DEFENSE_FIZ");
         defenseMag = preferences.getInteger("DEFENSE_MAG");
 
-        setExp(preferences.getInteger("EXP"));
-        setMaxExp(preferences.getInteger("MAX_EXP"));
+        int experience = preferences.getInteger("EXP");
+        if(experience <= getMaxExp())
+            setExp(experience);
+        else
+            System.out.println("ERROR #1: 'exp is bigger to max exp'");
+
         setMoney(preferences.getInteger("MONEY"));
         point = preferences.getInteger("FREE_POINT");
 

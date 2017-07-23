@@ -667,7 +667,8 @@ public class FightScreen extends BaseScreen {
         }
         if(hpEnemy < 1){
             hpEnemy = 0;
-           // game.setScreen(new FightWin(game));
+            //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
+            game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 329, "gold_armor"));
         }
     }
 

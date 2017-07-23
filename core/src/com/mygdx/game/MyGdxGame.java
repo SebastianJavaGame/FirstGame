@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
-import Screen.FightWin;
+import Screen.Menu;
 
 public class MyGdxGame extends Game{
 
@@ -28,7 +28,6 @@ public class MyGdxGame extends Game{
             prefStats.clear();
             prefStats.putInteger("FREE_POINT", 5);
             prefStats.putInteger("EXP", 50);
-            prefStats.putInteger("MAX_EXP", 100);
             prefStats.putInteger("MONEY", 10000);
 
             prefStats.putInteger("MAX_HP", 200);
@@ -44,8 +43,10 @@ public class MyGdxGame extends Game{
         }
         //TODO delete all and load in hero... with default values
 
-		//Menu lvl = new Menu(this);
-		FightWin lvl = new FightWin(this, 10, 34, 67, 10000, 450, "fire_sword");
+        ExperienceRequired.loadExperienceList();
+
+		Menu lvl = new Menu(this);
+		//FightWin lvl = new FightWin(this, 10, 34, 67, 10000, 4510, "fire_sword");
 		setScreen(lvl);
 	}
 }
