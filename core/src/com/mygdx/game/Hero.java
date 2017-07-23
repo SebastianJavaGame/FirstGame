@@ -115,12 +115,13 @@ public class Hero extends Character {
 
     private void create(){
         Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
-        setLevel(1);
-        setMaxExp(ExperienceRequired.getMaxExperience(1));
+        setLevel(preferences.getInteger("LEVEL"));
+        setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
 
         setMaxHp(preferences.getInteger("MAX_HP"));
         setHpNonEq(getMaxHp());
         setHp(getHpNonEq());
+
         strong = preferences.getInteger("STRONG");
         wiedza = preferences.getInteger("WIEDZA");
         armor = preferences.getInteger("SPEED_ATTACK");

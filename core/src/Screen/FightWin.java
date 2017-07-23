@@ -2,6 +2,7 @@ package Screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,10 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Equipment;
 import com.mygdx.game.ExperienceRequired;
 import com.mygdx.game.Hero;
 import com.mygdx.game.LoadAllItemToGame;
 import com.mygdx.game.ProgressCircle;
+import com.mygdx.game.StatsHero;
 
 /**
  * Created by Sebastian on 2017-07-11.
@@ -30,6 +33,8 @@ public class FightWin extends BaseScreen {
     private static final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();
 
     private Hero hero;
+    final private Preferences prefItem;
+    final private Preferences prefStats;
 
     private ProgressCircle sprite;
     private PolygonSpriteBatch pbatch;
@@ -37,6 +42,7 @@ public class FightWin extends BaseScreen {
     private Image itemImage = null;
     private Image iconHideItemDrop;
     private Label lEmpty;
+    private Label lFull;
     private Label lDropChar;
 
     private float dura = 0;
@@ -44,7 +50,7 @@ public class FightWin extends BaseScreen {
 
     private int expAdd;
 
-    private int circleComplete = 105;
+    private int circleComplete = 115;
 
     private float precentStart = 0;
     private float precentEnd = 0;
@@ -55,11 +61,10 @@ public class FightWin extends BaseScreen {
     private boolean precentActual = false;
     private boolean upperTwo = false;
 
-    private int one = 4;
-    private int two = 5;
-    //temporary test
-    int expActual = 800; //Hero getExp
-    int expMax = ExperienceRequired.getMaxExperience(one +1); //Hero getMaxExperience(hero.getLevel)
+    private int one;
+    private int two;
+    private int expActual;
+    private int expMax;
 
     static {
         style.font = font;
@@ -67,11 +72,17 @@ public class FightWin extends BaseScreen {
         textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
     }
 
-    public FightWin(final Game game, Hero hero, float dropProcent, int dmgAverrage, float target, int money, int expAdd, String dropItem){
+    public FightWin(final Game game, final Hero hero, float dropProcent, int dmgAverrage, float target, final int moneyDrop, final int expAdd, final String dropItem){
         super(game);
         this.hero = hero;
         pbatch = new PolygonSpriteBatch();
         this.expAdd = expAdd;
+        prefItem = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
+        prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+        one = hero.getLevel() -1;
+        two = hero.getLevel();
+        expActual = hero.getExp();
+        expMax = ExperienceRequired.getMaxExperience(two);
 
         Image background = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
         Image barGold = new Image(new Texture(Gdx.files.internal("barX.png")));
@@ -91,10 +102,14 @@ public class FightWin extends BaseScreen {
             }
         }
 
+        Label.LabelStyle styleRed = new Label.LabelStyle();
+        styleRed.font = font;
+        styleRed.fontColor = new Color(Color.RED);
+
         Label lExpText = new Label("Zdobyte doswiadczenie", style);
         Label lExp = new Label("+" + expAdd, style);
         Label lWordExp = new Label("exp", style);
-        Label lMoney = new Label("Zloto: +" + money, style);
+        Label lMoney = new Label("Zloto: +" + moneyDrop, style);
         Label lDrop = new Label("Szansa na drop: " + dropProcent + "%", style);
         lDropChar = new Label("?", style);
         Label lStatsDmgAverrage = new Label("Srednie zadane obrazenia: " + dmgAverrage, style);
@@ -133,27 +148,60 @@ public class FightWin extends BaseScreen {
         confirm.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                hero.setMoney(hero.getMoney() +moneyDrop);
+                prefStats.putInteger("MONEY", hero.getMoney());
+                prefStats.putInteger("LEVEL", hero.getLevel());
+                prefStats.putInteger("EXP", hero.getExp());
+                prefStats.flush();
+
+                if(!dropItem.equals("")) {
+                    for (int i = 0; i < 18; i++) {
+                        String value = prefItem.getString("SLOT" + i, "");
+
+                        if (value.equals("")) {
+                            addItemToBag(dropItem, i);
+                            break;
+                        }
+                    }
+                }
+
                 game.setScreen(new Map_01(game));
                 return false;
             }
         });
 
-        if(itemImage != null){
-            itemImage.setSize(80, 80);
-            itemImage.setPosition(emptySlotItem.getX() + emptySlotItem.getWidth() /2 -itemImage.getWidth() /2, emptySlotItem.getY() +emptySlotItem.getHeight() /2 -itemImage.getHeight() /2);
+        int iteration = 0;
+        for (int i = 0; i < 18; i++) {
+            String value = prefItem.getString("SLOT" + i, "");
 
-            addActors(background, barGold, barStats, emptyCircleProgressBar, iconMoney, emptySlotItem, iconHideItemDrop, lExpText, lExp,
-                    lWordExp, lMoney, lDrop, lDropChar, itemImage, lStatsDmgAverrage, lStatsCelnosc, confirm);
-        }else{
-            Label.LabelStyle styleRed = new Label.LabelStyle();
-            styleRed.font = font;
-            styleRed.fontColor = new Color(Color.RED);
+            if (!value.equals("")) {
+                iteration++;
 
-            lEmpty = new Label("Pusto", styleRed);
-            lEmpty.setPosition(emptySlotItem.getX() + emptySlotItem.getWidth() /2 -lEmpty.getWidth() /2, emptySlotItem.getY() +emptySlotItem.getHeight() /2 -lEmpty.getHeight() /2);
+                if(iteration == 18) {
+                    lFull = new Label("Plecak jest\n   pelny", styleRed);
+                    lFull.setPosition(emptySlotItem.getX() + emptySlotItem.getWidth() / 2 - lFull.getWidth() / 2, emptySlotItem.getY() + emptySlotItem.getHeight() / 2 - lFull.getHeight() / 2);
 
-            addActors(background, barGold, barStats, emptyCircleProgressBar, iconMoney, emptySlotItem, iconHideItemDrop, lExpText, lExp,
-                    lWordExp, lMoney, lDrop, lDropChar, lEmpty, lStatsDmgAverrage, lStatsCelnosc, confirm);
+                    addActors(background, barGold, barStats, emptyCircleProgressBar, iconMoney, emptySlotItem, iconHideItemDrop, lExpText, lExp,
+                            lWordExp, lMoney, lDrop, lDropChar, lFull, lStatsDmgAverrage, lStatsCelnosc, confirm);
+                    break;
+                }
+            }
+        }
+        if (iteration != 18) {
+            if (itemImage != null) {
+                itemImage.setSize(80, 80);
+                itemImage.setPosition(emptySlotItem.getX() + emptySlotItem.getWidth() / 2 - itemImage.getWidth() / 2, emptySlotItem.getY() + emptySlotItem.getHeight() / 2 - itemImage.getHeight() / 2);
+
+                addActors(background, barGold, barStats, emptyCircleProgressBar, iconMoney, emptySlotItem, iconHideItemDrop, lExpText, lExp,
+                        lWordExp, lMoney, lDrop, lDropChar, itemImage, lStatsDmgAverrage, lStatsCelnosc, confirm);
+            } else {
+
+                lEmpty = new Label("Pusto", styleRed);
+                lEmpty.setPosition(emptySlotItem.getX() + emptySlotItem.getWidth() / 2 - lEmpty.getWidth() / 2, emptySlotItem.getY() + emptySlotItem.getHeight() / 2 - lEmpty.getHeight() / 2);
+
+                addActors(background, barGold, barStats, emptyCircleProgressBar, iconMoney, emptySlotItem, iconHideItemDrop, lExpText, lExp,
+                        lWordExp, lMoney, lDrop, lDropChar, lEmpty, lStatsDmgAverrage, lStatsCelnosc, confirm);
+            }
         }
 
         create();
@@ -175,6 +223,8 @@ public class FightWin extends BaseScreen {
         System.out.println(duration);
         System.out.println(precentEnd);
         System.out.println(precentStart);
+
+        lFull.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(duration -2), Actions.fadeIn(2)));
 
         if(itemImage != null) {
             itemImage.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(duration), Actions.fadeIn(3)));
@@ -214,16 +264,21 @@ public class FightWin extends BaseScreen {
                     upperTwo = false;
 
                 if(percent >= circleComplete && nextLevelPrecent && !upperTwo) {
-                    one++; two++;
                     System.out.println("LEVEL UP!!!"); //TODO communicate about level up
+                    hero.setLevel(hero.getLevel() +1);
+                    hero.setMaxExp(ExperienceRequired.getMaxExperience(hero.getLevel()));
+
+                    one++; two++;
                     float resultPrecent = 100 -precentStart;
-                    expAdd -= ExperienceRequired.getMaxExperience(one) * (resultPrecent /100); //TODO getMaxExperience(hero.getLevel)
-                    expMax = ExperienceRequired.getMaxExperience(two); //TODO getMaxExperience(hero.getLevel +1)
+                    expAdd -= ExperienceRequired.getMaxExperience(one) * (resultPrecent /100);
+                    expMax = ExperienceRequired.getMaxExperience(two);
                     float resultActualExp = (float)expAdd /expMax *100;
+
+                    hero.setExp(expAdd);
+
                     precentStart = 0;
                     dura = 0;
                     precentEnd = resultActualExp;
-
                     circleComplete = -1;
 
                     nextLevelPrecent = false;
@@ -234,12 +289,11 @@ public class FightWin extends BaseScreen {
 
                 percent = precentStart + dura * 100 / 20;
                 if(!precentActual)
-                    percent -= 5;
+                    percent -= 15;
 
                 if(precentEnd < 1) {
                     sprite.setPercentage(percent);
                     precentEnd = 1;
-                    System.out.println("work");
                 }else {
                     if (percent <= precentEnd && percent >= precentStart) {
                         sprite.setPercentage(percent);
@@ -248,6 +302,21 @@ public class FightWin extends BaseScreen {
                 }
             } else {
                 dura = 0;
+            }
+        }
+    }
+
+    private void addItemToBag(String item, int slot) {
+        int slotNr = 0;
+        for (int i = 2; i >= 0; i--) {
+            for (int j = 0; j < 6; j++) {
+                if(slotNr == slot){
+                    Equipment.slotEmpty[slotNr] = true;
+                    prefItem.putString("SLOT" + slotNr, item);
+                    prefItem.flush();
+                    return;
+                }
+                slotNr++;
             }
         }
     }

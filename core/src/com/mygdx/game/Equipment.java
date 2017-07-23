@@ -31,7 +31,7 @@ public class Equipment{
     public static final String PREF_NAME_FIGHT = "FIGHT";
 
     public final Preferences PREF_FIGHT = Gdx.app.getPreferences(PREF_NAME_FIGHT);
-    private final Preferences PREF_ITEMS = Gdx.app.getPreferences(PREF_NAME_EQ);
+    public final Preferences PREF_ITEMS = Gdx.app.getPreferences(PREF_NAME_EQ);
 
     public static final String[] KEY_PREF_FIGHT = new String[]{"ATTACK_PHYSICS", "DEFENSE_PHYSICS", "ATTACK_MAGIC", "DEFENSE_MAGIC"};
 
@@ -57,7 +57,7 @@ public class Equipment{
     private static Image[] emptyBlock;
     private static Item[] block;
     private static boolean[] blockEmpty;
-    private static boolean[] slotEmpty;
+    public static boolean[] slotEmpty;
 
     private static Label labelFreePoint;
     private static Label[] labelPointFight;

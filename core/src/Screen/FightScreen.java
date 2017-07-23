@@ -114,7 +114,7 @@ public class FightScreen extends BaseScreen {
     public void create() {
         Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
-        hpEnemy = enemy.getHp();
+        hpEnemy = 1; //enemy.getHp();
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -245,7 +245,7 @@ public class FightScreen extends BaseScreen {
                                 public void run() {
                                     startFight.setPosition(0, -50);
 
-                                    Label label = new Label("-10% HP", styleBlood);
+                                    Label label = new Label("-20% HP", styleBlood);
                                     label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
                                     stage.addActor(label);
                                     label.setFontScale(2);
@@ -256,7 +256,7 @@ public class FightScreen extends BaseScreen {
                                             buttonAbort.addAction(Actions.sequence(Actions.moveBy(0, -60, 1), Actions.fadeOut(2), Actions.moveTo(175, -3), Actions.fadeIn(1)));
                                             buttonAbort.clearListeners();
                                             abortActive.remove();
-                                            hpHero -= hpMaxHero * 0.1f;
+                                            hpHero -= hpMaxHero * 0.2f;
                                             lHpHero.setText(hpHero + " / " + hpMaxHero);
                                         }
                                     });
@@ -281,7 +281,7 @@ public class FightScreen extends BaseScreen {
                                             Actions.delay(18)), action2, Actions.delay(1.5f), action3));
                                 }
                             });
-                            Action action1 = Actions.run(new Runnable() {
+                            /*Action action1 = Actions.run(new Runnable() {
                                 @Override
                                 public void run() {
                                     try {
@@ -289,8 +289,8 @@ public class FightScreen extends BaseScreen {
                                     } catch (CloneNotSupportedException e) {
                                     }
                                 }
-                            });
-                            stage.addAction(Actions.sequence(action, action1));
+                            });*/
+                            stage.addAction(Actions.sequence(action)); //action1 as second parameter it is next round fight
                             return false;
                         }
                     });
@@ -667,6 +667,12 @@ public class FightScreen extends BaseScreen {
         }
         if(hpEnemy < 1){
             hpEnemy = 0;
+
+            //TODO create new Thread with sleep and game.setScreen TOGEDER
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {}
+
             //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
             game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 329, "gold_armor"));
         }
