@@ -131,8 +131,17 @@ public class Hero extends Character {
         int experience = preferences.getInteger("EXP");
         if(experience <= getMaxExp())
             setExp(experience);
-        else
+        else {
             System.out.println("ERROR #1: 'exp is bigger to max exp'");
+            int calculate = experience -ExperienceRequired.getMaxExperience(getLevel());
+            while(calculate > ExperienceRequired.getMaxExperience(getLevel())) {
+                setLevel(getLevel() + 1);
+                calculate = experience -ExperienceRequired.getMaxExperience(getLevel());
+            }
+            setLevel(getLevel() +1);
+            setExp(calculate);
+            setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
+        }
 
         setMoney(preferences.getInteger("MONEY"));
         point = preferences.getInteger("FREE_POINT");

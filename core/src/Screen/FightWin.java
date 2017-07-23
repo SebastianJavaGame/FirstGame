@@ -39,6 +39,8 @@ public class FightWin extends BaseScreen {
     private ProgressCircle sprite;
     private PolygonSpriteBatch pbatch;
 
+    private final TextButton confirm;
+
     private Image itemImage = null;
     private Image iconHideItemDrop;
     private Label lEmpty;
@@ -65,6 +67,7 @@ public class FightWin extends BaseScreen {
     private int two;
     private int expActual;
     private int expMax;
+    private int iteration = 0;
 
     static {
         style.font = font;
@@ -92,7 +95,7 @@ public class FightWin extends BaseScreen {
         Image emptySlotItem = new Image(new Texture(Gdx.files.internal("slot.png")));
         iconHideItemDrop = new Image(new Texture(Gdx.files.internal("lottery.png")));
 
-        TextButton confirm = new TextButton("OK", textStyle);
+        confirm = new TextButton("Pomin", textStyle);
 
         if(!dropItem.equals("")){
             try {
@@ -143,34 +146,6 @@ public class FightWin extends BaseScreen {
 
         lDropChar.setPosition(emptySlotItem.getX() + emptySlotItem.getWidth() /2 -lDropChar.getWidth() /2, emptySlotItem.getY() +emptySlotItem.getHeight() /2 -lDropChar.getHeight() /2);
 
-        confirm.setSize(BaseScreen.VIEW_WIDTH, 50);
-        confirm.setPosition(BaseScreen.VIEW_WIDTH /2 - confirm.getWidth() /2, 0);
-        confirm.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                hero.setMoney(hero.getMoney() +moneyDrop);
-                prefStats.putInteger("MONEY", hero.getMoney());
-                prefStats.putInteger("LEVEL", hero.getLevel());
-                prefStats.putInteger("EXP", hero.getExp());
-                prefStats.flush();
-
-                if(!dropItem.equals("")) {
-                    for (int i = 0; i < 18; i++) {
-                        String value = prefItem.getString("SLOT" + i, "");
-
-                        if (value.equals("")) {
-                            addItemToBag(dropItem, i);
-                            break;
-                        }
-                    }
-                }
-
-                game.setScreen(new Map_01(game));
-                return false;
-            }
-        });
-
-        int iteration = 0;
         for (int i = 0; i < 18; i++) {
             String value = prefItem.getString("SLOT" + i, "");
 
@@ -178,7 +153,7 @@ public class FightWin extends BaseScreen {
                 iteration++;
 
                 if(iteration == 18) {
-                    lFull = new Label("Plecak jest\n   pelny", styleRed);
+                    lFull = new Label(" Plecak\njest pelny", styleRed);
                     lFull.setPosition(emptySlotItem.getX() + emptySlotItem.getWidth() / 2 - lFull.getWidth() / 2, emptySlotItem.getY() + emptySlotItem.getHeight() / 2 - lFull.getHeight() / 2);
 
                     addActors(background, barGold, barStats, emptyCircleProgressBar, iconMoney, emptySlotItem, iconHideItemDrop, lExpText, lExp,
@@ -203,6 +178,59 @@ public class FightWin extends BaseScreen {
                         lWordExp, lMoney, lDrop, lDropChar, lEmpty, lStatsDmgAverrage, lStatsCelnosc, confirm);
             }
         }
+
+        confirm.setSize(BaseScreen.VIEW_WIDTH, 50);
+        confirm.setPosition(BaseScreen.VIEW_WIDTH /2 - confirm.getWidth() /2, 0);
+        confirm.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                int allExp = expAdd;
+                expMax = ExperienceRequired.getMaxExperience(two);
+                float resultPrecent;
+                float resultActualExp = (float)allExp /expMax *100;
+
+                int heroLevel = hero.getLevel();
+
+                for(int i = 0; i < 100; i++){
+                    one++;
+                    two++;
+                    if(resultActualExp < 100){
+                        if(heroLevel == hero.getLevel())
+                            hero.setExp(hero.getExp() + allExp);
+                        else
+                            hero.setExp(allExp);
+
+                        hero.setMoney(hero.getMoney() +moneyDrop);
+                        prefStats.putInteger("MONEY", hero.getMoney());
+                        prefStats.putInteger("LEVEL", hero.getLevel());
+                        prefStats.putInteger("EXP", hero.getExp());
+                        prefStats.flush();
+
+                        if(!dropItem.equals("")) {
+                            for (int j = 0; j < 18; j++) {
+                                String value = prefItem.getString("SLOT" + j, "");
+
+                                if (value.equals("")) {
+                                    addItemToBag(dropItem, j);
+                                    break;
+                                }
+                            }
+                        }
+                        game.setScreen(new Map_01(game));
+                        break;
+                    }else{
+                        resultPrecent = 100 -precentStart;
+                        allExp -= ExperienceRequired.getMaxExperience(one) * (resultPrecent /100);
+                        expMax = ExperienceRequired.getMaxExperience(two);
+                        resultActualExp = (float)allExp /expMax *100;
+                        precentStart = 0;
+                        hero.setLevel(hero.getLevel() +1);
+                        hero.setMaxExp(ExperienceRequired.getMaxExperience(hero.getLevel()));
+                    }
+                }
+                return false;
+            }
+        });
 
         create();
     }
@@ -232,7 +260,8 @@ public class FightWin extends BaseScreen {
             lDropChar.addAction(Actions.sequence(Actions.delay(duration -2), Actions.fadeOut(3)));
         }
         else{
-            lEmpty.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(duration), Actions.fadeIn(3)));
+            if(iteration != 18)
+                lEmpty.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(duration), Actions.fadeIn(3)));
             iconHideItemDrop.addAction(Actions.parallel(Actions.forever(Actions.rotateTo(720, duration)), Actions.sequence(Actions.delay(duration -2), Actions.fadeOut(2))));
             lDropChar.addAction(Actions.sequence(Actions.delay(duration -2), Actions.fadeOut(3)));
         }
@@ -265,16 +294,13 @@ public class FightWin extends BaseScreen {
 
                 if(percent >= circleComplete && nextLevelPrecent && !upperTwo) {
                     System.out.println("LEVEL UP!!!"); //TODO communicate about level up
-                    hero.setLevel(hero.getLevel() +1);
-                    hero.setMaxExp(ExperienceRequired.getMaxExperience(hero.getLevel()));
 
-                    one++; two++;
+                    one++;two++;
+
                     float resultPrecent = 100 -precentStart;
                     expAdd -= ExperienceRequired.getMaxExperience(one) * (resultPrecent /100);
                     expMax = ExperienceRequired.getMaxExperience(two);
                     float resultActualExp = (float)expAdd /expMax *100;
-
-                    hero.setExp(expAdd);
 
                     precentStart = 0;
                     dura = 0;
@@ -297,8 +323,10 @@ public class FightWin extends BaseScreen {
                 }else {
                     if (percent <= precentEnd && percent >= precentStart) {
                         sprite.setPercentage(percent);
-                    } else if (percent > precentEnd)
+                    } else if (percent > precentEnd) {
+                        confirm.setText("OK");
                         stop = true;
+                    }
                 }
             } else {
                 dura = 0;

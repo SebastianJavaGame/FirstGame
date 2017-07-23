@@ -114,7 +114,7 @@ public class FightScreen extends BaseScreen {
     public void create() {
         Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
-        hpEnemy = 1; //enemy.getHp();
+        hpEnemy = 0; //enemy.getHp();
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -674,7 +674,7 @@ public class FightScreen extends BaseScreen {
             } catch (InterruptedException e) {}
 
             //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
-            game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 329, "gold_armor"));
+            game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 350, ""));
         }
     }
 
