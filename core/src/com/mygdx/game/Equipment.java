@@ -854,7 +854,6 @@ public class Equipment{
             plusButton[iterator].addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println("PLUS");
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
                     if(actualPoint < 5 && freePointFight > 0) {
                         actualPoint++;
@@ -870,7 +869,6 @@ public class Equipment{
             minusButton[iterator].addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println("MINUS");
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
                     if (actualPoint > 0 && freePointFight >= 0) {
                         actualPoint--;

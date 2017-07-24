@@ -670,9 +670,14 @@ public class FightScreen extends BaseScreen {
 
             //TODO create new Thread with sleep and game.setScreen TOGEDER
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {}
 
+            //TODO calculate average damage
+            //TODO calculate target average percent
+            //TODO calculate drop money
+            //TODO calculate drop experience
+            //TODO random drop item
             //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
             game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 400, ""));
         }

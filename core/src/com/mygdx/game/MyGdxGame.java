@@ -19,25 +19,9 @@ public class MyGdxGame extends Game{
             Preferences prefEq = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
             prefEq.clear();
             prefEq.putString("ARMOR", "gold_armor");
+            prefEq.putString("WAPON", "fire_sword");
             prefEq.putString("SLOT0", "gold_armor");
             prefEq.putString("SLOT1", "silver_sword");
-            prefEq.putString("SLOT2", "silver_sword");
-            prefEq.putString("SLOT3", "silver_sword");
-            prefEq.putString("SLOT4", "silver_sword");
-            prefEq.putString("SLOT5", "silver_sword");
-            prefEq.putString("SLOT6", "silver_sword");
-            prefEq.putString("SLOT7", "silver_sword");
-            prefEq.putString("SLOT8", "silver_sword");
-            prefEq.putString("SLOT9", "silver_sword");
-            prefEq.putString("SLOT10", "silver_sword");
-            prefEq.putString("SLOT11", "silver_sword");
-            prefEq.putString("SLOT12", "silver_sword");
-            prefEq.putString("SLOT13", "silver_sword");
-            prefEq.putString("SLOT14", "silver_sword");
-            prefEq.putString("SLOT15", "silver_sword");
-            prefEq.putString("SLOT16", "silver_sword");
-            prefEq.putString("SLOT17", "silver_sword");
-            prefEq.putString("WAPON", "fire_sword");
             prefEq.flush();
 
             Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);

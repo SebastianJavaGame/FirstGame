@@ -196,8 +196,6 @@ public class ProgressCircle extends Image {
         polyBatch.begin();
         poly.draw(polyBatch);
         polyBatch.end();
-
-
     }
 
     float convertToRadians(float angleInDegrees)

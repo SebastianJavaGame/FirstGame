@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -198,7 +199,7 @@ public class FightWin extends BaseScreen {
                 int heroLevel = hero.getLevel();
 
                 for (int i = 0; i < 100; i++) {
-                    oneBase++; //TODO error with one and two
+                    oneBase++;
                     twoBase++;
                     System.out.println(oneBase);
                     System.out.println(twoBase);
@@ -354,6 +355,25 @@ public class FightWin extends BaseScreen {
 
                 if (percent >= circleComplete && nextLevelPrecent && !upperTwo) {
                     System.out.println("LEVEL UP!!!"); //TODO communicate about level up
+
+                    Label.LabelStyle styleGreen = new Label.LabelStyle();
+                    styleGreen.font = font;
+                    styleGreen.fontColor = new Color(Color.GREEN);
+
+                    final Label label = new Label("LEVEL UP!", styleGreen);
+                    //label.setFontScale(1.5f);
+                    label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.80f);
+
+                    Action action = Actions.run(new Runnable() {
+                        @Override
+                        public void run() {
+                            label.setFontScale(2);
+                            label.setPosition(label.getX() -label.getWidth() /2, label.getY());
+                        }
+                    });
+                    label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(1), action),
+                            Actions.parallel(Actions.delay(1), Actions.moveBy(0, 20, 1)), Actions.parallel(Actions.moveBy(0, 30, 1.5f), Actions.fadeOut(1.5f))));
+                    stage.addActor(label);
 
                     one++;
                     two++;
