@@ -1,5 +1,6 @@
 package Screen;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -65,9 +66,12 @@ public class FightWin extends BaseScreen {
 
     private int one;
     private int two;
+    private int oneBase;
+    private int twoBase;
     private int expActual;
     private int expMax;
     private int iteration = 0;
+    private int allExp;
 
     static {
         style.font = font;
@@ -83,9 +87,12 @@ public class FightWin extends BaseScreen {
         prefItem = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
         prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
         one = hero.getLevel() -1;
+        oneBase = hero.getLevel() -1;
         two = hero.getLevel();
+        twoBase = hero.getLevel();
         expActual = hero.getExp();
         expMax = ExperienceRequired.getMaxExperience(two);
+        allExp = expAdd;
 
         Image background = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
         Image barGold = new Image(new Texture(Gdx.files.internal("barX.png")));
@@ -184,16 +191,17 @@ public class FightWin extends BaseScreen {
         confirm.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                int allExp = expAdd;
-                expMax = ExperienceRequired.getMaxExperience(two);
+                expMax = ExperienceRequired.getMaxExperience(twoBase);
                 float resultPrecent;
                 float resultActualExp = (float)allExp /expMax *100;
-
+                precentStart = (float)expActual /expMax *100;
                 int heroLevel = hero.getLevel();
 
                 for(int i = 0; i < 100; i++){
-                    one++;
-                    two++;
+                    oneBase++; //TODO error with one and two
+                    twoBase++;
+                    System.out.println(oneBase);
+                    System.out.println(twoBase);
                     if(resultActualExp < 100){
                         if(heroLevel == hero.getLevel())
                             hero.setExp(hero.getExp() + allExp);
@@ -220,8 +228,8 @@ public class FightWin extends BaseScreen {
                         break;
                     }else{
                         resultPrecent = 100 -precentStart;
-                        allExp -= ExperienceRequired.getMaxExperience(one) * (resultPrecent /100);
-                        expMax = ExperienceRequired.getMaxExperience(two);
+                        allExp -= ExperienceRequired.getMaxExperience(oneBase) * (resultPrecent /100);
+                        expMax = ExperienceRequired.getMaxExperience(twoBase);
                         resultActualExp = (float)allExp /expMax *100;
                         precentStart = 0;
                         hero.setLevel(hero.getLevel() +1);
@@ -237,9 +245,28 @@ public class FightWin extends BaseScreen {
 
     @Override
     public void create() {
-        sprite = new ProgressCircle(new TextureRegion(new Texture(Gdx.files.internal("circleExp.png"))), pbatch);
-        sprite.setSize(sprite.getWidth() + 6, sprite.getHeight() +10);
-        sprite.setPosition(BaseScreen.VIEW_WIDTH /2 - sprite.getWidth() /2 +3, 280);
+
+        //Android
+        if(Gdx.app.getType() != Application.ApplicationType.Desktop) {
+            //Wzor na rozdzielczosc zalaczonego zdjecia = Wysokosc ekranu urzadzenia /480 *160
+            //Wzor na nazwe obrazka = 'circleExp + szerokosc ekranu + .png'
+            float height = Gdx.app.getGraphics().getHeight();
+            float result = height /480 *160;
+
+            System.out.println(result);
+            System.out.println("circleExp + " + Gdx.app.getGraphics().getWidth() + " + .png (image name)");
+
+            TextureRegion texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp" + Gdx.app.getGraphics().getWidth() + ".png")));
+            sprite = new ProgressCircle(texture, pbatch);
+            sprite.setPosition(Gdx.app.getGraphics().getWidth() /2 - sprite.getWidth() /2, Gdx.app.getGraphics().getHeight() *0.583f);
+            //TODO create throw, if not have image
+        }
+        else{  //Desktop and others
+            TextureRegion texture = new TextureRegion(new Texture(Gdx.files.internal("circleExpDesktop.png")));
+            texture.setRegion(0, 0, Gdx.app.getGraphics().getWidth() /2, Gdx.app.getGraphics().getWidth() /2);
+            sprite = new ProgressCircle(texture, pbatch);
+            sprite.setPosition(Gdx.app.getGraphics().getWidth() /2 - sprite.getWidth() /2, Gdx.app.getGraphics().getHeight() *0.583f);
+        }
         stage.addActor(sprite);
 
         precentStart = (float)expActual /expMax *100;

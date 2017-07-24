@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ShortArray;
 
+import Screen.BaseScreen;
+
 public class ProgressCircle extends Image {
     public enum IntersectAt {
         NONE, TOP, BOTTOM, LEFT, RIGHT
@@ -204,5 +206,13 @@ public class ProgressCircle extends Image {
     {
         float angleInRadians = angleInDegrees * 0.0174532925f;
         return angleInRadians;
+    }
+
+    @Override
+    public Image clone() throws CloneNotSupportedException{
+        Image image = new Image(new TextureRegion(texture));
+        image.setSize(image.getWidth(), image.getHeight());
+        image.setPosition(BaseScreen.VIEW_WIDTH /2 - image.getWidth() /2 , 280);
+        return image;
     }
 }

@@ -674,7 +674,7 @@ public class FightScreen extends BaseScreen {
             } catch (InterruptedException e) {}
 
             //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
-            game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 350, ""));
+            game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 400, ""));
         }
     }
 
