@@ -102,7 +102,7 @@ public class FightWin extends BaseScreen {
         Image barStats = new Image(new Texture(Gdx.files.internal("barX.png")));
         Image iconMoney = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
         Image emptySlotItem = new Image(new Texture(Gdx.files.internal("slot.png")));
-        iconHideItemDrop = new Image(new Texture(Gdx.files.internal("lottery.png")));
+        iconHideItemDrop = new Image(new Texture(Gdx.files.internal("circleExp/lottery.png")));
 
         confirm = new TextButton("Pomin", textStyle);
 
@@ -126,6 +126,7 @@ public class FightWin extends BaseScreen {
         lDropChar = new Label("?", style);
         Label lStatsDmgAverrage = new Label("Srednie zadane obrazenia: " + dmgAverrage, style);
         Label lStatsCelnosc = new Label("Srednia target atakow: " + target + "%", style);
+        lFull = new Label(" Plecak\njest pelny", styleRed);
 
         float lenghtText = 90 / lExp.getWidth() * 0.75f;
 
@@ -161,7 +162,6 @@ public class FightWin extends BaseScreen {
                 iteration++;
 
                 if (iteration == 18) {
-                    lFull = new Label(" Plecak\njest pelny", styleRed);
                     lFull.setPosition(emptySlotItem.getX() + emptySlotItem.getWidth() / 2 - lFull.getWidth() / 2, emptySlotItem.getY() + emptySlotItem.getHeight() / 2 - lFull.getHeight() / 2);
 
                     addActors(background, barGold, barStats, iconMoney, emptySlotItem, iconHideItemDrop, lExpText,
@@ -246,7 +246,7 @@ public class FightWin extends BaseScreen {
 
     @Override
     public void create() {
-        Image emptyCircleProgressBar = new Image(new Texture(Gdx.files.internal("circleProgresBarExp.png")));
+        Image emptyCircleProgressBar = new Image(new Texture(Gdx.files.internal("circleExp/circleProgresBarExp.png")));
 
         //Android
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
@@ -273,8 +273,8 @@ public class FightWin extends BaseScreen {
             else if (minValue > 510 && minValue <= 600)
                 texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp540.png")));
             else if (minValue > 600 && minValue <= 750)
-                texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp720.png")));
-            else if (minValue > 750 && minValue <= 790)
+                texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp720.png")));//TODO optimalize choose 720 or 768 and save to two resolution screen
+            else if (minValue > 750 && minValue <= 790)                       //TODO reschear all image and look at resolution x,y sometimes two images have the same resolution
                 texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp768.png")));
             else if (minValue > 790 && minValue <= 950)
                 texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp800.png")));
@@ -354,8 +354,6 @@ public class FightWin extends BaseScreen {
                     upperTwo = false;
 
                 if (percent >= circleComplete && nextLevelPrecent && !upperTwo) {
-                    System.out.println("LEVEL UP!!!"); //TODO communicate about level up
-
                     Label.LabelStyle styleGreen = new Label.LabelStyle();
                     styleGreen.font = font;
                     styleGreen.fontColor = new Color(Color.GREEN);

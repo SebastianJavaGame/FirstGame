@@ -7,6 +7,13 @@ import com.badlogic.gdx.Preferences;
 import Screen.Menu;
 
 public class MyGdxGame extends Game{
+    private static DialogInfo dialogInfo;
+
+    public MyGdxGame(DialogInfo dialogInfo){
+        this.dialogInfo = dialogInfo;
+    }
+
+    public MyGdxGame(){}
 
 	@Override
 	public void create() {
@@ -28,7 +35,7 @@ public class MyGdxGame extends Game{
             prefStats.clear();
             prefStats.putInteger("LEVEL", 1);
             prefStats.putInteger("FREE_POINT", 5);
-            prefStats.putInteger("EXP", 80);
+            prefStats.putInteger("EXP", 70);
             prefStats.putInteger("MONEY", 10000);
 
             prefStats.putInteger("MAX_HP", 200);
@@ -46,8 +53,13 @@ public class MyGdxGame extends Game{
 
         ExperienceRequired.loadExperienceList();
 
+
 		Menu lvl = new Menu(this);
 		//FightWin lvl = new FightWin(this, 10, 34, 67, 10000, 4510, "fire_sword");
 		setScreen(lvl);
 	}
+
+	public static void dialog(String message){
+        dialogInfo.showDialog(message);
+    }
 }
