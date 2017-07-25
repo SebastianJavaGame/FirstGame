@@ -113,10 +113,10 @@ public class FightScreen extends BaseScreen {
     @Override
     public void create() {
         Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
-        //hpHero = hero.getHp();
-        hpHero = 0;
-        //hpEnemy = 0;
+        hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
+        //hpHero = 0;
+        //hpEnemy = 0;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -665,7 +665,7 @@ public class FightScreen extends BaseScreen {
     private void checkKill(){
         if(hpHero < 1){
             hpHero = 0;
-            game.setScreen(new FightLose(game, hero, 35, 68, -1000, -20));
+            game.setScreen(new FightLose(game, hero, 35, 68, -1000, -30));
         }
         if(hpEnemy < 1){
             hpEnemy = 0;
@@ -681,7 +681,7 @@ public class FightScreen extends BaseScreen {
             //TODO calculate drop experience
             //TODO random drop item
             //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
-            game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 400, ""));
+            game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 400, "fire_sword"));
         }
     }
 

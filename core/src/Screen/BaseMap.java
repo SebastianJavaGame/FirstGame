@@ -62,8 +62,6 @@ public abstract class BaseMap extends BaseScreen {
     private Image uiBarEmptyHp, uiBarEmptyExp;
     private Image uiBarHp;
     private Image uiBarExp;
-    private Image slotLvl;
-
     private ImageButton uiStats;
 
     private Label.LabelStyle labelStyle;
@@ -80,24 +78,24 @@ public abstract class BaseMap extends BaseScreen {
     private Hero3D hero3D;
 
     public BaseMap(Game game, int mapWidth, int mapHeight, String bgSrc) {
-        super(game);
-        this.mapWidth = mapWidth;
-        this.mapHeight = mapHeight;
-        this.bgSrc = bgSrc;
+            super(game);
+            this.mapWidth = mapWidth;
+            this.mapHeight = mapHeight;
+            this.bgSrc = bgSrc;
 
-        this.leftRec = new Rectangle(-1, -1, 2, mapHeight);
-        this.upRec = new Rectangle(-1, mapHeight -1, mapWidth +1, 2);
-        this.rightRec = new Rectangle(mapWidth -1, -1, 2, mapHeight);
-        this.bottomRec = new Rectangle(-1, -1, mapWidth, 2);
+            this.leftRec = new Rectangle(-1, -1, 2, mapHeight);
+            this.upRec = new Rectangle(-1, mapHeight - 1, mapWidth + 1, 2);
+            this.rightRec = new Rectangle(mapWidth - 1, -1, 2, mapHeight);
+            this.bottomRec = new Rectangle(-1, -1, mapWidth, 2);
 
-        realWidth = (float)Gdx.app.getGraphics().getWidth() / VIEW_WIDTH;
-        realHeight = (float)Gdx.app.getGraphics().getHeight() / VIEW_HEIGHT;
+            realWidth = (float) Gdx.app.getGraphics().getWidth() / VIEW_WIDTH;
+            realHeight = (float) Gdx.app.getGraphics().getHeight() / VIEW_HEIGHT;
 
-        windowStatsOpen = false;
-        stopGame = false;
+            windowStatsOpen = false;
+            stopGame = false;
 
-        create();
-        initializeUiStage();
+            create();
+            initializeUiStage();
     }
 
     protected abstract void generateMap();
@@ -187,7 +185,6 @@ public abstract class BaseMap extends BaseScreen {
         moneyLabel = addLabelToStageUi(220, 470, 0.9f);
         hpLabel = addLabelToStageUi(5, 0, 0.85f);
         expLabel = addLabelToStageUi(5, 0 , 0.85f);
-        slotLvl = addImageToStageUi("slotLvl.png", 7, 431, 52, 48);
         Label levelNameLabel = addLabelToStageUi(11, 463, 1);
         levelNameLabel.setText("LEVEL");
         levelLabel = addLabelToStageUi(23, 446, 1.25f);

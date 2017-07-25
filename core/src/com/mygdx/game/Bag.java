@@ -100,6 +100,14 @@ public class Bag {
         stage.addActor(buttonStats);
         stage.addActor(buttonQuest);
         stage.addActor(buttonExit);
+
+        if(!Equipment.getBlockClick()) {
+            try {
+                initCardEq();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initCardEq() throws CloneNotSupportedException {

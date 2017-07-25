@@ -33,18 +33,24 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
     protected Game game;
     protected OrthographicCamera camera;
-    protected Stage stage;
+    protected static Stage stage;
+
+    private static boolean exception = false;
 
     public BaseScreen(Game g)
     {
-        game = g;
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, VIEW_WIDTH, VIEW_HEIGHT);
+        try {
+            game = g;
+            camera = new OrthographicCamera();
+            camera.setToOrtho(false, VIEW_WIDTH, VIEW_HEIGHT);
 
-        stage = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
+            stage = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
 
-        InputMultiplexer im = new InputMultiplexer(this, stage);
-        Gdx.input.setInputProcessor(im);
+            InputMultiplexer im = new InputMultiplexer(this, stage);
+            Gdx.input.setInputProcessor(im);
+        } catch (Exception e) {
+            showException(e);
+        }
     }
 
     public abstract void create();
@@ -60,70 +66,76 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             stage.draw();
             update(dt);
         }catch (Exception e){
-            stage.clear();
-            Image image = new Image(new Texture(Gdx.files.internal("shadow.png")));
-            image.setBounds(0, 0, BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
-            stage.addActor(image);
+           showException(e);
+        }
+    }
 
-            String describe = e.toString();
-            int describeLength = describe.length();
+    public static void showException(Exception e){
+        stage.clear();
+        Image image = new Image(new Texture(Gdx.files.internal("shadow.png")));
+        image.setBounds(0, 0, BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
+        stage.addActor(image);
 
-            String exceptionMessage = "Class: " + e.getStackTrace()[0].getClassName() +
-                    "\n Method: " + e.getStackTrace()[0].getMethodName() + "\n Line: " +
-                    e.getStackTrace()[0].getLineNumber() + "\n Describe: ";
+        String describe = e.toString();
+        int describeLength = describe.length();
 
-            int i = 0;
-            int lineLength = 40;
-            while(describeLength > lineLength){
-                describeLength -=lineLength;
-                exceptionMessage += "\n" + describe.substring(lineLength *i, lineLength + lineLength *i);
-                i++;
-            }
+        String exceptionMessage = "Class: " + e.getStackTrace()[0].getClassName() +
+                "\n Method: " + e.getStackTrace()[0].getMethodName() + "\n Line: " +
+                e.getStackTrace()[0].getLineNumber() + "\n Describe: ";
 
-            if(describeLength < lineLength)
-                exceptionMessage += "\n" + describe.substring(0, describeLength);
+        int i = 0;
+        int lineLength = 40;
+        while(describeLength > lineLength){
+            describeLength -=lineLength;
+            exceptionMessage += "\n" + describe.substring(lineLength *i, lineLength + lineLength *i);
+            i++;
+        }
 
-            try{
-                BitmapFont font = new BitmapFont();
-                Label.LabelStyle style = new Label.LabelStyle();
-                style.font = font;
-                style.fontColor = new Color(Color.RED);
+        if(describeLength < lineLength)
+            exceptionMessage += "\n" + describe.substring(0, describeLength);
 
-                TextButton.TextButtonStyle styleError = new TextButton.TextButtonStyle();
-                styleError.font = font;
-                styleError.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
+        try{
+            BitmapFont font = new BitmapFont();
+            Label.LabelStyle style = new Label.LabelStyle();
+            style.font = font;
+            style.fontColor = new Color(Color.RED);
 
-                Label lTitle = new Label("Blad! 'Pokaz to tworcy'", style);
-                lTitle.setPosition(VIEW_WIDTH /2 -lTitle.getWidth(), 460);
-                lTitle.setFontScale(2);
+            TextButton.TextButtonStyle styleError = new TextButton.TextButtonStyle();
+            styleError.font = font;
+            styleError.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
 
-                Label lMessage = new Label(exceptionMessage, style);
-                lMessage.setPosition(10, 200);
+            Label lTitle = new Label("Blad! 'Pokaz to tworcy'", style);
+            lTitle.setPosition(VIEW_WIDTH /2 -lTitle.getWidth(), 460);
+            lTitle.setFontScale(2);
 
-                TextButton exit = new TextButton("Wyjdz", styleError);
-                exit.setPosition(VIEW_WIDTH /2 -exit.getWidth() /2, 5);
-                exit.addListener(new InputListener(){
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        System.exit(0);
-                        Gdx.app.exit();
-                        return false;
-                    }
-                });
-                stage.addActor(lTitle);
-                stage.addActor(lMessage);
-                stage.addActor(exit);
+            Label lMessage = new Label(exceptionMessage, style);
+            lMessage.setPosition(10, 200);
 
-            }catch(RuntimeException e1) {
-                MyGdxGame.dialog(exceptionMessage);
-            }
+            TextButton exit = new TextButton("Wyjdz", styleError);
+            exit.setPosition(VIEW_WIDTH /2 -exit.getWidth() /2, 5);
+            exit.addListener(new InputListener(){
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    System.exit(0);
+                    Gdx.app.exit();
+                    return false;
+                }
+            });
+            stage.addActor(lTitle);
+            stage.addActor(lMessage);
+            stage.addActor(exit);
 
-            if(Gdx.app.getType() == Application.ApplicationType.Desktop){
-                System.out.println("Przyczyna bledu: " + e.toString());
-                System.out.println("Blad w klasie: " + e.getStackTrace()[0].getClassName());
-                System.out.println("Blad w metodzie: " + e.getStackTrace()[0].getMethodName());
-                System.out.println("Blad w lini: " + e.getStackTrace()[0].getLineNumber());
-            }
+            exception = true;
+
+        }catch(RuntimeException e1) {
+            MyGdxGame.dialog(exceptionMessage);
+        }
+
+        if(Gdx.app.getType() == Application.ApplicationType.Desktop){
+            System.out.println("Przyczyna bledu: " + e.toString());
+            System.out.println("Blad w klasie: " + e.getStackTrace()[0].getClassName());
+            System.out.println("Blad w metodzie: " + e.getStackTrace()[0].getMethodName());
+            System.out.println("Blad w lini: " + e.getStackTrace()[0].getLineNumber());
         }
     }
 
@@ -156,4 +168,8 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     {  return false;  }
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {  return false;  }
+
+    public static boolean getException(){
+        return exception;
+    }
 }

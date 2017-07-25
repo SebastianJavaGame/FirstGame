@@ -17,8 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Equipment;
 import com.mygdx.game.ExperienceRequired;
 import com.mygdx.game.Hero;
+import com.mygdx.game.Item;
+import com.mygdx.game.LoadAllItemToGame;
 import com.mygdx.game.ProgressCircle;
 import com.mygdx.game.StatsHero;
 
@@ -109,9 +112,9 @@ public class FightLose extends BaseScreen {
 
         lExpText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExpText.getWidth() / 1.14f, 450);
         lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() * (lenghtText / 2), BaseScreen.VIEW_HEIGHT * 0.75f);
-        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() / 2 - 5, BaseScreen.VIEW_HEIGHT * 0.69f);
+        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth(), BaseScreen.VIEW_HEIGHT * 0.69f);
         lMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lMoney.getWidth() / 2 - iconMoney.getWidth() / 1.5f - 5, 245);
-        lDead.setPosition(BaseScreen.VIEW_WIDTH /2 -(lDead.getWidth() /2 *1.5f) -25, 150);
+        lDead.setPosition(BaseScreen.VIEW_WIDTH /2 -(lDead.getWidth() /2 *1.5f) -25, 146);
         lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsDmgAverrage.getWidth() / 2, 84);
         lStatsCelnosc.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsCelnosc.getWidth() / 2, 63);
 
@@ -120,7 +123,7 @@ public class FightLose extends BaseScreen {
         barStats.setBounds(lStatsCelnosc.getX() - 15, 48, lStatsCelnosc.getWidth() + 30, 68);
         iconMoney.setPosition(lMoney.getX() + lMoney.getWidth() * 1.5f + 6, 238);
         iconDead.setSize(40, 40);
-        iconDead.setPosition(lDead.getX() + lDead.getWidth() *1.5f +10, lDead.getY() + lDead.getHeight() /2 - iconDead.getHeight() /2);
+        iconDead.setPosition(lDead.getX() + lDead.getWidth() *1.5f +10, lDead.getY() + lDead.getHeight() /2 - iconDead.getHeight() /2 -1);
 
         addActors(background, barGold, barStats, iconMoney, lExpText, lMoney, lDead, iconDead, lStatsDmgAverrage, lStatsCelnosc, confirm);
 
@@ -156,7 +159,7 @@ public class FightLose extends BaseScreen {
                 money += cash;
                 if(money < 0) {
                     hero.setMoney(0);
-                    //TODO take item with lower price
+                    removeItemWithMinPrice();
                 }
                 else
                     hero.setMoney(money);
@@ -259,8 +262,10 @@ public class FightLose extends BaseScreen {
                     sprite.setPercentage(0.5f);
                     confirm.setText("OK");
                     stop = true;
-                    animationMoney();
-                    System.out.println("Anim DOWN");
+                    int temporaryHeroMoney = hero.getMoney() +moneyDropMinus;
+                    if(temporaryHeroMoney > 0) {
+                        animationMoney();
+                    }
                 }
                 else {
                     if(percent <= precentStart && percent >= precentEnd)
@@ -273,6 +278,36 @@ public class FightLose extends BaseScreen {
             } else {
                 dura = 0;
             }
+        }
+    }
+
+    private void removeItemWithMinPrice(){
+        Preferences prefItem = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
+        Equipment.slotEmpty = new boolean[18];
+        String nameItem = "";
+        int minPrice = 999999999;
+        int slotNr = -1;
+
+        for (int i = 0; i < 18; i++) {
+            String value = prefItem.getString("SLOT" + i, "");
+
+            if (!value.equals("")) {
+                Equipment.slotEmpty[i] = true;
+                try {
+                    Item item = LoadAllItemToGame.getItem(value);
+                    if(item.getCashValue() < minPrice) {
+                        minPrice = item.getCashValue();
+                        nameItem = value;
+                        slotNr = i;
+                    }
+                } catch (CloneNotSupportedException e) {
+                    BaseScreen.showException(e);
+                }
+            }
+        }
+
+        if(!nameItem.equals("") && slotNr != -1){
+            prefItem.putString("SLOT" + slotNr, "");
         }
     }
 

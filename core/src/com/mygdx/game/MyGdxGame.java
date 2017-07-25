@@ -35,8 +35,8 @@ public class MyGdxGame extends Game{
             prefStats.clear();
             prefStats.putInteger("LEVEL", 2);
             prefStats.putInteger("FREE_POINT", 5);
-            prefStats.putInteger("EXP", 30);
-            prefStats.putInteger("MONEY", 4400);
+            prefStats.putInteger("EXP", 80);
+            prefStats.putInteger("MONEY", 3500);
             prefStats.putInteger("DEAD", 0);
 
             prefStats.putInteger("MAX_HP", 200);
