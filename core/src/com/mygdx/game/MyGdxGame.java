@@ -33,10 +33,11 @@ public class MyGdxGame extends Game{
 
             Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
             prefStats.clear();
-            prefStats.putInteger("LEVEL", 1);
+            prefStats.putInteger("LEVEL", 2);
             prefStats.putInteger("FREE_POINT", 5);
-            prefStats.putInteger("EXP", 70);
-            prefStats.putInteger("MONEY", 10000);
+            prefStats.putInteger("EXP", 30);
+            prefStats.putInteger("MONEY", 4400);
+            prefStats.putInteger("DEAD", 0);
 
             prefStats.putInteger("MAX_HP", 200);
             prefStats.putInteger("ARMOR", 10);

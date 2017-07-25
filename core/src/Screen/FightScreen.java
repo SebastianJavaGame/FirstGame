@@ -665,7 +665,7 @@ public class FightScreen extends BaseScreen {
     private void checkKill(){
         if(hpHero < 1){
             hpHero = 0;
-            game.setScreen(new FightLose(game, hero, enemy.getRandomDrop(), 35, 68, 158, -35, ""));
+            game.setScreen(new FightLose(game, hero, 35, 68, -1000, -20));
         }
         if(hpEnemy < 1){
             hpEnemy = 0;
