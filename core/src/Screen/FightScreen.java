@@ -115,8 +115,8 @@ public class FightScreen extends BaseScreen {
         Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
-        //hpHero = 0;
-        //hpEnemy = 0;
+        hpHero = 0;
+        hpEnemy = 20;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -646,7 +646,7 @@ public class FightScreen extends BaseScreen {
         blood.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
     }
 
-    private Image flipY() throws CloneNotSupportedException {
+    private static Image flipY() throws CloneNotSupportedException {
         if(Equipment.getTextureWapon() != null) {
             final TextureRegion texture = new TextureRegion(Equipment.getTextureWapon());
             texture.flip(true, false);
@@ -665,6 +665,13 @@ public class FightScreen extends BaseScreen {
     private void checkKill(){
         if(hpHero < 1){
             hpHero = 0;
+            
+            if(flip) {
+                enemy.getTexture().flip(true, false);
+                enemyImage = new Image(enemy.getTexture());
+            }else
+                enemyImage = new Image(enemy.getTexture());
+
             game.setScreen(new FightLose(game, hero, 35, 68, -1000, -30));
         }
         if(hpEnemy < 1){
@@ -681,7 +688,7 @@ public class FightScreen extends BaseScreen {
             //TODO calculate drop experience
             //TODO random drop item
             //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
-            game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), 35, 68, 158, 400, "fire_sword"));
+            game.setScreen(new FightWin(game, hero, enemy, 35, 68, 158, 400, "fire_sword"));
         }
     }
 

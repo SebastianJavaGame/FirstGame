@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.ExperienceRequired;
 import com.mygdx.game.Hero;
@@ -35,6 +36,7 @@ public class FightWin extends BaseScreen {
     private static final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();
 
     private Hero hero;
+    private Enemy enemy;
     final private Preferences prefItem;
     final private Preferences prefStats;
 
@@ -60,6 +62,7 @@ public class FightWin extends BaseScreen {
 
     private float precentStart = 0;
     private float precentEnd = 0;
+    private float dropProcent;
 
     private boolean stop = false;
     private boolean sleep = false;
@@ -82,7 +85,7 @@ public class FightWin extends BaseScreen {
         textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
     }
 
-    public FightWin(final Game game, final Hero hero, float dropProcent, int dmgAverrage, float target, final int moneyDrop, final int expAdd, final String dropItem) {
+    public FightWin(final Game game, final Hero hero, Enemy enemy, int dmgAverrage, float target, final int moneyDrop, final int expAdd, final String dropItem) {
         super(game);
         this.hero = hero;
         pbatch = new PolygonSpriteBatch();
@@ -96,6 +99,8 @@ public class FightWin extends BaseScreen {
         expActual = hero.getExp();
         expMax = ExperienceRequired.getMaxExperience(two);
         allExp = expAdd;
+        dropProcent = enemy.getRandomDrop();
+        this.enemy = enemy;
 
         Image background = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
         Image barGold = new Image(new Texture(Gdx.files.internal("barX.png")));
@@ -247,6 +252,8 @@ public class FightWin extends BaseScreen {
 
     @Override
     public void create() {
+        BaseMap.getActualMap().getEnemies().remove(enemy);
+
         Image emptyCircleProgressBar = new Image(new Texture(Gdx.files.internal("circleExp/circleProgresBarExp.png")));
 
         //Android

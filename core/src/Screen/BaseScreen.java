@@ -65,7 +65,9 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
             stage.draw();
             update(dt);
-        }catch (Exception e){
+        } catch (IllegalStateException e1){
+            showException(e1);
+        } catch (Exception e){
            showException(e);
         }
     }
@@ -132,10 +134,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
         }
 
         if(Gdx.app.getType() == Application.ApplicationType.Desktop){
-            System.out.println("Przyczyna bledu: " + e.toString());
-            System.out.println("Blad w klasie: " + e.getStackTrace()[0].getClassName());
-            System.out.println("Blad w metodzie: " + e.getStackTrace()[0].getMethodName());
-            System.out.println("Blad w lini: " + e.getStackTrace()[0].getLineNumber());
+            e.printStackTrace();
         }
     }
 

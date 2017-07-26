@@ -44,9 +44,10 @@ public abstract class BaseMap extends BaseScreen {
     public Rectangle rightRec;
     public Rectangle bottomRec;
 
-    protected Hero hero;
-    protected static ArrayList<Enemy> enemyList;
-    protected Image bgTexture;
+    protected static Hero hero;
+    protected static Hero3D hero3D;
+    protected static Image bgTexture;
+    protected static BaseMap actualMap;
 
     protected InputMultiplexer im;
 
@@ -74,8 +75,7 @@ public abstract class BaseMap extends BaseScreen {
 
     protected ArrayList<Polygon> objectPolygon;
     protected ArrayList<Vector2[]> verticalPolygon;
-
-    private Hero3D hero3D;
+    protected ArrayList<Enemy> enemyList;
 
     public BaseMap(Game game, int mapWidth, int mapHeight, String bgSrc) {
             super(game);
@@ -99,12 +99,12 @@ public abstract class BaseMap extends BaseScreen {
     }
 
     protected abstract void generateMap();
+    protected abstract ArrayList<Enemy> getEnemies();
 
     @Override
     public void create() {
         hero3D = new Hero3D();
         hero3D.create();
-        enemyList = new ArrayList<Enemy>();
         bgTexture = new Image(new Texture(Gdx.files.internal(bgSrc)));
 
         generateMap();
@@ -158,6 +158,11 @@ public abstract class BaseMap extends BaseScreen {
             hero.collisionEnemy();
         }
 
+    }
+
+    public void clearEnemyList(){
+        enemyList.clear();
+        //TODO if enemy not desapeare with map try change this method to static and enemyList with this class too
     }
 
     private void initializeUiStage(){
@@ -287,5 +292,9 @@ public abstract class BaseMap extends BaseScreen {
         stageStats.dispose();
         stageCard.dispose();
         hero3D.dispose();
+    }
+
+    public static BaseMap getActualMap(){
+        return actualMap;
     }
 }

@@ -18,8 +18,11 @@ public class Map_01 extends BaseMap {
     public final static int MAP_WIDTH = 1480;
     public final static int MAP_HEIGHT = 1320;
 
+    private static boolean firstRun;
+
     private ArrayList<Polygon> objectCollision;
     private ArrayList<Vector2[]> verticalCollision;
+    private static ArrayList<Enemy> enemies;
 
     private int number = 0;
 
@@ -29,11 +32,24 @@ public class Map_01 extends BaseMap {
 
     @Override
     public void generateMap() {
+        if(!firstRun) {
+            enemies = new ArrayList<Enemy>();
+            actualMap = this;
+
+            addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380);
+            number++;
+            addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
+
+            firstRun = true;
+            System.out.println("First run");
+        }
         bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
         stage.addActor(bgTexture);
-        addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380);
-        number++;
-        addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
+
+        enemyList = enemies;
+
+        for(Enemy a: enemies)
+            stage.addActor(a);
 
         objectCollision = new ArrayList<Polygon>();
         verticalCollision = new ArrayList<Vector2[]>();
@@ -60,7 +76,10 @@ public class Map_01 extends BaseMap {
                 new Image(new Texture(Gdx.files.internal(wapon))),  "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 30, 45, 60, 75);
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
-        enemyList.add(enemy);
-        stage.addActor(enemyList.get(number));
+        enemies.add(enemy);
+    }
+
+    public ArrayList<Enemy> getEnemies(){
+        return enemies;
     }
 }
