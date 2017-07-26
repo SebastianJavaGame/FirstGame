@@ -216,6 +216,12 @@ public class FightScreen extends BaseScreen {
                     Action action = Actions.run(new Runnable() {
                         @Override
                         public void run() {
+                            if(flip) {
+                                enemy.getTexture().flip(true, false);
+                                enemyImage = new Image(enemy.getTexture());
+                            }else
+                                enemyImage = new Image(enemy.getTexture());
+
                             game.setScreen(new Map_01(game));
                         }
                     });
@@ -276,6 +282,12 @@ public class FightScreen extends BaseScreen {
                                     Action action3 = Actions.run(new Runnable() {
                                         @Override
                                         public void run() {
+                                            if(flip) {
+                                                enemy.getTexture().flip(true, false);
+                                                enemyImage = new Image(enemy.getTexture());
+                                            }else
+                                                enemyImage = new Image(enemy.getTexture());
+
                                             game.setScreen(new Map_01(game));
                                         }
                                     });
@@ -665,7 +677,7 @@ public class FightScreen extends BaseScreen {
     private void checkKill(){
         if(hpHero < 1){
             hpHero = 0;
-            
+
             if(flip) {
                 enemy.getTexture().flip(true, false);
                 enemyImage = new Image(enemy.getTexture());

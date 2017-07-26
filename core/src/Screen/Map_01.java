@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Enemy;
+import com.mygdx.game.Npc;
 
 import java.util.ArrayList;
 
@@ -23,8 +24,7 @@ public class Map_01 extends BaseMap {
     private ArrayList<Polygon> objectCollision;
     private ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Enemy> enemies;
-
-    private int number = 0;
+    private static ArrayList<Npc> npcs;
 
     public Map_01(Game g) {
         super(g, MAP_WIDTH, MAP_HEIGHT, "Map_01.png");
@@ -34,22 +34,26 @@ public class Map_01 extends BaseMap {
     public void generateMap() {
         if(!firstRun) {
             enemies = new ArrayList<Enemy>();
+            npcs = new ArrayList<Npc>();
             actualMap = this;
+            firstRun = true;
 
             addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380);
-            number++;
             addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
 
-            firstRun = true;
-            System.out.println("First run");
+            addNpc("mag.png", "glominHead.png", "Mag", 20, 0, 450);
         }
+
         bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
         stage.addActor(bgTexture);
 
         enemyList = enemies;
+        npcList = npcs;
 
-        for(Enemy a: enemies)
-            stage.addActor(a);
+        for(Enemy enemy: enemies)
+            stage.addActor(enemy);
+        for(Npc npc: npcs)
+            stage.addActor(npc);
 
         objectCollision = new ArrayList<Polygon>();
         verticalCollision = new ArrayList<Vector2[]>();
@@ -77,6 +81,13 @@ public class Map_01 extends BaseMap {
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
         enemies.add(enemy);
+    }
+
+    private void addNpc(String path, String head, String name, int level, int id, int x){
+        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, id);
+        npc.setPosition(580, x);
+        npc.setSize(60, 100);
+        npcs.add(npc);
     }
 
     public ArrayList<Enemy> getEnemies(){

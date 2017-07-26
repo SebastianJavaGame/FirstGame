@@ -52,11 +52,12 @@ public class RenderCollisionLine_Test {
         shapeRenderer.polygon(new float[]{BaseMap.VIEW_WIDTH /2 , BaseMap.VIEW_HEIGHT /2, 0, 360, 0, 440});
         */
         hero.drawCollisionLine();
-        renderPolygonTest(637, 539, 650, 590, 606, 675, 426, 654, 423, 601, 340, 581, 303, 529, 389, 471, 522, 513, 590, 529);
-        renderPolygonTest(825, 613, 933, 572, 894, 531, 829, 572, 803, 547, 761, 573);
-        renderPolygonTest(1082,683,1131,698,1202,652,1476,656,1480,1320,1242,1320,1208,1125,1238,1079,1210,1052,1160,1073,1110,997,1126,843,994,861,944,801,959,721);
-        renderPolygonTest(1500, 1350, 1223, 1350, 930, 816, 944, 710, 1192, 639, 1500, 645);
+        //renderPolygonTest(637, 539, 650, 590, 606, 675, 426, 654, 423, 601, 340, 581, 303, 529, 389, 471, 522, 513, 590, 529);
+        //renderPolygonTest(825, 613, 933, 572, 894, 531, 829, 572, 803, 547, 761, 573);
+        //renderPolygonTest(1082,683,1131,698,1202,652,1476,656,1480,1320,1242,1320,1208,1125,1238,1079,1210,1052,1160,1073,1110,997,1126,843,994,861,944,801,959,721);
+        //renderPolygonTest(1500, 1350, 1223, 1350, 930, 816, 944, 710, 1192, 639, 1500, 645);
         //
+        shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +hero.getX() -7, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +hero.getY() -24, 22, 32);
         shapeRenderer.end();
     }
 

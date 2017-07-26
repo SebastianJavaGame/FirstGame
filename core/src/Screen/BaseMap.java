@@ -2,7 +2,6 @@ package Screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -23,6 +22,7 @@ import com.mygdx.game.Bag;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
+import com.mygdx.game.Npc;
 import com.mygdx.game.RenderCollisionLine_Test;
 
 import java.util.ArrayList;
@@ -76,6 +76,7 @@ public abstract class BaseMap extends BaseScreen {
     protected ArrayList<Polygon> objectPolygon;
     protected ArrayList<Vector2[]> verticalPolygon;
     protected ArrayList<Enemy> enemyList;
+    protected ArrayList<Npc> npcList;
 
     public BaseMap(Game game, int mapWidth, int mapHeight, String bgSrc) {
             super(game);
@@ -109,8 +110,8 @@ public abstract class BaseMap extends BaseScreen {
 
         generateMap();
 
-        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList, stage, game);
-        hero.setPosition(550, 450);
+        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList, npcList, stage, game);
+        hero.setPosition(250, 250);
         hero.setSize(10, 10);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
         stage.addActor(hero);
@@ -138,8 +139,8 @@ public abstract class BaseMap extends BaseScreen {
 
         testRender.draw();
 
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
-            System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
+        //if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
+          //  System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
 
         if(hero.isMoveStop())
             hero.objectCollision();
@@ -153,10 +154,11 @@ public abstract class BaseMap extends BaseScreen {
         if(hero.isAnimation())
             hero.finishWalk();
 
-        if(hero.isNpcCollision()) {
-            System.out.println("update");
+        if(hero.isEnemyCollision())
             hero.collisionEnemy();
-        }
+
+        if(hero.isNpcCollision())
+            hero.collisionNpc();
 
     }
 
