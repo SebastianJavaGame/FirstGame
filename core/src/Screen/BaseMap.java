@@ -111,7 +111,7 @@ public abstract class BaseMap extends BaseScreen {
         generateMap();
 
         hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList, npcList, stage, game);
-        hero.setPosition(250, 250);
+        hero.setPosition(410, 320);
         hero.setSize(10, 10);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
         stage.addActor(hero);
@@ -138,6 +138,11 @@ public abstract class BaseMap extends BaseScreen {
         }
 
         testRender.draw();
+        for(Enemy e: enemyList)
+            e.drawBox();
+
+        for(Vector2 v: Hero.temporaryListVector)
+            RenderCollisionLine_Test.drawPointSquare(v);
 
         //if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
           //  System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
@@ -157,8 +162,8 @@ public abstract class BaseMap extends BaseScreen {
         if(hero.isEnemyCollision())
             hero.collisionEnemy();
 
-        if(hero.isNpcCollision())
-            hero.collisionNpc();
+        //if(hero.isNpcCollision())
+        //    hero.collisionNpc();
 
     }
 

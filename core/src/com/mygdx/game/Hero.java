@@ -39,6 +39,8 @@ public class Hero extends Character {
     public final static int SPEED_MOVE = 25;
     public static final Texture ARM = new Texture(Gdx.files.internal("heroArm.png"));
 
+    public static ArrayList<Vector2> temporaryListVector = new ArrayList<Vector2>(8);
+
     private Game game;
     private Camera camera;
     private Hero3D hero3D;
@@ -161,22 +163,47 @@ public class Hero extends Character {
 
     public void move(final float posX, final float posY) {
         clearActions();
+        heroPolygonUpdate();
+        heroUpdateCollisionBox();
+
+        temporaryListVector.clear();
+
+        temporaryListVector.add(new Vector2(heroBox.getX(), heroBox.getY()));
+        temporaryListVector.add(new Vector2(heroBox.getX() +heroBox.getWidth(), heroBox.getY()));
+        temporaryListVector.add(new Vector2(heroBox.getX() +heroBox.getWidth(), heroBox.getY() +heroBox.getHeight()));
+        temporaryListVector.add(new Vector2(heroBox.getX(), heroBox.getY() +heroBox.getHeight()));
+
         start.set((int) getX() + getWidth() / 2, (int) getY() + getHeight() / 2);
         end.set((int) posX + getWidth() / 2, (int) posY + getHeight() / 2);
         track = new Polygon(new float[]{start.x - 1, start.y, end.x - 1,
                 end.y, end.x + 1, end.y, start.x + 1, start.y});
 
+        Polygon point = new Polygon(new float[]{end.x - 1, end.y - 1, end.x - 1, end.y + 1, end.x + 1, end.y + 1, end.x + 1, end.y - 1});
+        setFinishWalkPosition(point);
+
+        rectangle = track.getBoundingRectangle();
+
+        
+        for(int i = 0; i < enemy.size(); i++){
+            if(calculateCollisionTwoRectangle(heroBox, enemy.get(i).getCollision())) {
+                System.out.println("COLLISION!!! " + i);
+                break;
+            }
+        }
+
+        //TODO rework
         //check collicion enemy
+        /*
         for(int i = 0; i < enemy.size(); i++) {
             actualIndexEnemy = i;
             actualEnemy = enemy.get(i);
-            actualEnemy.collisionUpdate();
-            heroUpdateCollisionBox();
+            System.out.println("actual i: " + actualIndexEnemy);
             if (calculateCollisionTwoRectangle(heroBox, enemy.get(actualIndexEnemy).getCollision()))
                 setEnemyCollision(true);
             if(Intersector.overlapConvexPolygons(actualEnemy.convertRectangleToPolygon(), track)){
-                if(!Intersector.overlapConvexPolygons(enemy.get(actualIndexEnemy).convertRectangleToPolygon(), track)) {//TODO change 1st parameter to similar method calculateCollisionTwoRectangle
+                if(!Intersector.overlapConvexPolygons(enemy.get(actualIndexEnemy).convertRectangleToPolygon(), track)) {
                     setEnemyCollision(false);
+                    return;
                 }else if(isEnemyCollision() && calculateCollisionTwoRectangle(heroBox, enemy.get(actualIndexEnemy).getCollision())){
                     setEnemyCollision(true);
                     return;
@@ -189,16 +216,21 @@ public class Hero extends Character {
             }
         }
 
+       */
+
         //check collision npc
-        for(int i = 0; i < npc.size(); i++) {
+        /*for(int i = 0; i < npc.size(); i++) {
             actualIndexNpc = i;
             actualNpc = npc.get(i);
             actualNpc.collisionUpdate();
+            RenderCollisionLine_Test.drawPublic(actualNpc.getCollision());
+            RenderCollisionLine_Test.drawPublic(npc.get(i).getCollision());
+            RenderCollisionLine_Test.drawPublic(npc.get(actualIndexNpc).getCollision());
             heroUpdateCollisionBox();
             if (calculateCollisionTwoRectangle(heroBox, npc.get(actualIndexNpc).getCollision()))
                 setNpcCollision(true);
             if (Intersector.overlapConvexPolygons(actualNpc.convertRectangleToPolygon(), track)) {
-                if(!Intersector.overlapConvexPolygons(npc.get(actualIndexNpc).convertRectangleToPolygon(), track)) {//TODO change 1st parameter to similar method calculateCollisionTwoRectangle
+                if(!Intersector.overlapConvexPolygons(npc.get(actualIndexNpc).convertRectangleToPolygon(), track)) {
                     setNpcCollision(false);
                 }else if(isNpcCollision() && calculateCollisionTwoRectangle(heroBox, npc.get(actualIndexNpc).getCollision())){
                     setNpcCollision(true);
@@ -211,13 +243,8 @@ public class Hero extends Character {
                 setNpcCollision(false);
             }
         }
+        */
 
-        Polygon point = new Polygon(new float[]{end.x - 1, end.y - 1, end.x - 1, end.y + 1, end.x + 1, end.y + 1, end.x + 1, end.y - 1});
-        setFinishWalkPosition(point);
-
-        rectangle = track.getBoundingRectangle();
-
-        heroPolygonUpdate();
         int countCollision = 0;
         boolean pointCollision = false;
         for(Polygon object : objectMap){
@@ -637,7 +664,7 @@ public class Hero extends Character {
         float y = texture.getRegionHeight();
 
         do{
-           x++;
+            x++;
             y++;
         }while(x <= 300 && y <= 200);
 
@@ -714,14 +741,36 @@ public class Hero extends Character {
         Vector2 o3 = new Vector2(other.getX() +other.getWidth(), other.getY() +other.getHeight());
         Vector2 o4 = new Vector2(other.getX(), other.getY() +other.getHeight());
 
+        temporaryListVector.add(o1);
+        temporaryListVector.add(o2);
+        temporaryListVector.add(o3);
+        temporaryListVector.add(o4);
+
+        try {
+            if (heroBox.getWidth() == hero.getWidth() && heroBox.getHeight() == hero.getHeight()) {
+                if (hero.getHeight() >= other.getHeight() || hero.getWidth() >= other.getWidth()) {
+                    throw new ExceptionCollision();
+                }
+            } else if (heroBox.getWidth() == other.getWidth() && heroBox.getHeight() == other.getHeight()) {
+                if (other.getHeight() >= hero.getHeight() || other.getWidth() >= hero.getWidth()) {
+                    throw new ExceptionCollision();
+                }
+            }
+        }catch (ExceptionCollision exceptionCollision) {
+            exceptionCollision.printStackTrace();
+            BaseScreen.showException(exceptionCollision);
+        }
+
         if(h1.x <= o3.x && h1.y <= o3.y && h1.x >= o1.x && h1.y >= o1.y) return true;
         if(h2.x >= o4.x && h2.y <= o4.y && h2.x <= o2.x && h2.y >= o2.y) return true;
         if(h3.x >= o1.x && h3.y >= o1.y && h3.x <= o3.x && h3.y <= o3.y) return true;
         if(h4.x <= o2.x && h4.y >= o2.y && h4.x >= o4.x && h4.y <= o4.y) return true;
-        if(hero.getX() +hero.getWidth() <= o4.y && hero.getX() +hero.getWidth() >= o4.x && hero.getY() +hero.getHeight() /2 <= o2.x && hero.getY() +hero.getHeight() /2 >= o2.y)
-            return true;
-        if(hero.getX() <= o3.x && hero.getY() +hero.getHeight() /2 <= o3.y && hero.getX() >= o1.x && hero.getY() +hero.getHeight() /2 >= o1.y)
-            return true;
+
+        //throw ExceptionCollision
+            //if(hero.getX() +hero.getWidth() <= o4.y && hero.getX() +hero.getWidth() >= o4.x && hero.getY() +hero.getHeight() /2 <= o2.x && hero.getY() +hero.getHeight() /2 >= o2.y)
+            //    return true;
+            //if(hero.getX() <= o3.x && hero.getY() +hero.getHeight() /2 <= o3.y && hero.getX() >= o1.x && hero.getY() +hero.getHeight() /2 >= o1.y)
+            //    return true;
 
         return false;
     }

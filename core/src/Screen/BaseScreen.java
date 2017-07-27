@@ -32,7 +32,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     public final static int VIEW_HEIGHT = 480;
 
     protected Game game;
-    protected OrthographicCamera camera;
+    public static OrthographicCamera camera;
     protected static Stage stage;
 
     private static boolean exception = false;

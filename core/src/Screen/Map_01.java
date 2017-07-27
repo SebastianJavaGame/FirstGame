@@ -24,7 +24,7 @@ public class Map_01 extends BaseMap {
     private ArrayList<Polygon> objectCollision;
     private ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Enemy> enemies;
-    private static ArrayList<Npc> npcs;
+    //private static ArrayList<Npc> npcs;
 
     public Map_01(Game g) {
         super(g, MAP_WIDTH, MAP_HEIGHT, "Map_01.png");
@@ -34,26 +34,30 @@ public class Map_01 extends BaseMap {
     public void generateMap() {
         if(!firstRun) {
             enemies = new ArrayList<Enemy>();
-            npcs = new ArrayList<Npc>();
+            //npcs = new ArrayList<Npc>();
             actualMap = this;
             firstRun = true;
 
             addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380);
             addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
 
-            addNpc("mag.png", "glominHead.png", "Mag", 20, 0, 450);
+            //addNpc("mag.png", "glominHead.png", "Mag", 20, 0, 200);
         }
 
         bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
         stage.addActor(bgTexture);
 
         enemyList = enemies;
-        npcList = npcs;
+        //npcList = npcs;
 
-        for(Enemy enemy: enemies)
+        for(Enemy enemy: enemies) {
             stage.addActor(enemy);
-        for(Npc npc: npcs)
-            stage.addActor(npc);
+        }
+        //for(Npc npc: npcs) {
+          //  stage.addActor(npc);
+            //RenderCollisionLine_Test.drawPublic(npc.getCollision());
+            //RenderCollisionLine_Test.drawPublic(npc.rectangle);
+        //}
 
         objectCollision = new ArrayList<Polygon>();
         verticalCollision = new ArrayList<Vector2[]>();
@@ -81,13 +85,14 @@ public class Map_01 extends BaseMap {
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
         enemies.add(enemy);
+        enemy.collisionUpdate();
     }
 
     private void addNpc(String path, String head, String name, int level, int id, int x){
         Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, id);
-        npc.setPosition(580, x);
+        npc.setPosition(100, x);
         npc.setSize(60, 100);
-        npcs.add(npc);
+       // npcs.add(npc);
     }
 
     public ArrayList<Enemy> getEnemies(){

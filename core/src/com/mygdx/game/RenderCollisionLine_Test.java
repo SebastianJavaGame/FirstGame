@@ -3,19 +3,23 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
 import Screen.BaseMap;
+import Screen.BaseScreen;
 
 /**
  * Created by Sebastian on 2017-06-17.
  */
 
 public class RenderCollisionLine_Test {
-    private ShapeRenderer shapeRenderer;
-    private Camera camera;
-    private Hero hero;
+    private static ShapeRenderer shapeRenderer;
+    private static Camera camera;
+    private static Hero hero;
+
 
     public RenderCollisionLine_Test(Camera camera, Hero hero) {
         shapeRenderer = new ShapeRenderer();
@@ -23,7 +27,7 @@ public class RenderCollisionLine_Test {
         this.hero = hero;
     }
 
-    public void draw(){
+    public static void draw(){
         shapeRenderer.setColor(Color.BLACK);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         //DRAW
@@ -58,6 +62,58 @@ public class RenderCollisionLine_Test {
         //renderPolygonTest(1500, 1350, 1223, 1350, 930, 816, 944, 710, 1192, 639, 1500, 645);
         //
         shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +hero.getX() -7, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +hero.getY() -24, 22, 32);
+        shapeRenderer.end();
+    }
+
+    public static void drawPublic(float x, float y, float w, float h){
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        camera = BaseScreen.camera;
+        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y, w, h);
+        shapeRenderer.end();
+    }
+
+    public static void drawPublic(Rectangle rectangle){
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        camera = BaseScreen.camera;
+        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +rectangle.getX(), -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+        shapeRenderer.end();
+    }
+
+    public static void drawPointSquare(int x, int y){
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        camera = BaseScreen.camera;
+        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.polygon(new float[]{-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x -2,
+                ( -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y  -2),
+                (-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x  -2),
+                ( -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y  +2),
+                (-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x  +2),
+                ( -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y  +2),
+                (-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x +2),
+                ( -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y -2)});
+        shapeRenderer.end();
+    }
+
+    public static void drawPointSquare(Vector2 vector){
+        int x = (int)vector.x;
+        int y = (int)vector.y;
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        camera = BaseScreen.camera;
+        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.polygon(new float[]{-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x -2,
+                ( -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y  -2),
+                (-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x  -2),
+                ( -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y  +2),
+                (-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x  +2),
+                ( -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y  +2),
+                (-camera.position.x + BaseMap.VIEW_WIDTH / 2 +x +2),
+                ( -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +y -2)});
         shapeRenderer.end();
     }
 
