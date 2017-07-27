@@ -252,7 +252,7 @@ public class FightWin extends BaseScreen {
 
     @Override
     public void create() {
-        BaseMap.getActualMap().getEnemies().remove(enemy);
+        BaseMap.getActualMap().getCharacter().remove(enemy);
 
         Image emptyCircleProgressBar = new Image(new Texture(Gdx.files.internal("circleExp/circleProgresBarExp.png")));
 

@@ -19,10 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Bag;
-import com.mygdx.game.Enemy;
+import com.mygdx.game.Character;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
-import com.mygdx.game.Npc;
 import com.mygdx.game.RenderCollisionLine_Test;
 
 import java.util.ArrayList;
@@ -75,8 +74,7 @@ public abstract class BaseMap extends BaseScreen {
 
     protected ArrayList<Polygon> objectPolygon;
     protected ArrayList<Vector2[]> verticalPolygon;
-    protected ArrayList<Enemy> enemyList;
-    protected ArrayList<Npc> npcList;
+    protected ArrayList<Character> charactersList;
 
     public BaseMap(Game game, int mapWidth, int mapHeight, String bgSrc) {
             super(game);
@@ -100,7 +98,7 @@ public abstract class BaseMap extends BaseScreen {
     }
 
     protected abstract void generateMap();
-    protected abstract ArrayList<Enemy> getEnemies();
+    protected abstract ArrayList<Character> getCharacter();
 
     @Override
     public void create() {
@@ -110,7 +108,7 @@ public abstract class BaseMap extends BaseScreen {
 
         generateMap();
 
-        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, enemyList, npcList, stage, game);
+        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, charactersList, stage, game);
         hero.setPosition(410, 320);
         hero.setSize(10, 10);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
@@ -138,11 +136,11 @@ public abstract class BaseMap extends BaseScreen {
         }
 
         testRender.draw();
-        for(Enemy e: enemyList)
-            e.drawBox();
+        for(Character c: charactersList)
+            RenderCollisionLine_Test.drawPublic(c.getCollision());
 
-        for(Vector2 v: Hero.temporaryListVector)
-            RenderCollisionLine_Test.drawPointSquare(v);
+        //for(Vector2 v: Hero.temporaryListVector)
+           // RenderCollisionLine_Test.drawPointSquare(v);
 
         //if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
           //  System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
@@ -159,16 +157,14 @@ public abstract class BaseMap extends BaseScreen {
         if(hero.isAnimation())
             hero.finishWalk();
 
-        if(hero.isEnemyCollision())
-            hero.collisionEnemy();
+        if(hero.isCharacterCollisionLook())
+            hero.collisionCharacter();
 
-        //if(hero.isNpcCollision())
-        //    hero.collisionNpc();
-
+        //System.out.println(hero.isCharacterCollision());
     }
 
-    public void clearEnemyList(){
-        enemyList.clear();
+    public void clearCharacterList(){
+        charactersList.clear();
         //TODO if enemy not desapeare with map try change this method to static and enemyList with this class too
     }
 

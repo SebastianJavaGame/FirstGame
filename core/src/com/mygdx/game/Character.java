@@ -25,6 +25,8 @@ public abstract class Character extends Actor{
         setOrigin(texture.getWidth() /2, texture.getHeight() /2);
     }
 
+    public abstract void collisionDo();
+
     public void collisionUpdate(){
         getCollision().set(getX(), getY(), this.getWidth(), this.getHeight());
     }

@@ -73,9 +73,11 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     }
 
     public static void showException(Exception e){
+        int x = (int) -camera.position.x + BaseMap.VIEW_WIDTH / 2;
+        int y = (int) -camera.position.y + BaseMap.VIEW_HEIGHT / 2;
         stage.clear();
         Image image = new Image(new Texture(Gdx.files.internal("shadow.png")));
-        image.setBounds(0, 0, BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
+        image.setBounds(x, y, BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
         stage.addActor(image);
 
         String describe = e.toString();
@@ -107,14 +109,14 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             styleError.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
 
             Label lTitle = new Label("Blad! 'Pokaz to tworcy'", style);
-            lTitle.setPosition(VIEW_WIDTH /2 -lTitle.getWidth(), 460);
+            lTitle.setPosition(x +VIEW_WIDTH /2 -lTitle.getWidth(), y +460);
             lTitle.setFontScale(2);
 
             Label lMessage = new Label(exceptionMessage, style);
-            lMessage.setPosition(10, 200);
+            lMessage.setPosition(x +10, y +200);
 
             TextButton exit = new TextButton("Wyjdz", styleError);
-            exit.setPosition(VIEW_WIDTH /2 -exit.getWidth() /2, 5);
+            exit.setPosition(x +VIEW_WIDTH /2 -exit.getWidth() /2, y +5);
             exit.addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

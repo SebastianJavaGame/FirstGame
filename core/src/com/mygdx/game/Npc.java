@@ -22,7 +22,8 @@ public class Npc extends Character{
 
     }
 
-    public void drawBox(){
-        RenderCollisionLine_Test.drawPublic(getX(), getY(), getWidth(), getHeight());
+    @Override
+    public void collisionDo() {
+        System.out.println("NPC");
     }
 }

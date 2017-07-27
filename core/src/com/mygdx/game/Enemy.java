@@ -53,8 +53,9 @@ public class Enemy extends Character {
             dropItemName.add(item);
     }
 
-    public void drawBox(){
-        RenderCollisionLine_Test.drawPublic(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+    @Override
+    public void collisionDo() {
+        System.out.println("ENEMY");
     }
 
     /**
