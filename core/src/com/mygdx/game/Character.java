@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public abstract class Character extends Actor{
     public Rectangle rectangle;
     protected TextureRegion texture;
+    protected Hero hero;
 
     public Character(Texture texture){
         this.texture = new TextureRegion();
@@ -67,5 +68,13 @@ public abstract class Character extends Actor{
 
     public TextureRegion getTexture(){
         return texture;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 }

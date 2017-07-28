@@ -6,14 +6,12 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
@@ -55,6 +53,10 @@ public class Hero extends Character {
 
     private Vector2 start;
     private Vector2 end;
+    private Vector2[] cornersHero;
+    private Vector2 cornerEnemy;
+    private  Vector2 o2;
+    private Vector2 o4;
 
     private boolean moveStop;
     private boolean aroundMove;
@@ -89,9 +91,6 @@ public class Hero extends Character {
 
     private int point;
 
-    private float defaultScreenZeroX;
-    private float defaultScreenZeroY;
-
     public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D,
                 ArrayList<Character> characters, Stage stage, Game game) {
         super(texture);
@@ -107,6 +106,10 @@ public class Hero extends Character {
         this.stage = stage;
         this.game = game;
         heroBox = new Rectangle();
+        cornersHero = new Vector2[2];
+
+        for(Character character: characters)
+            character.setHero(this);
         create();
     }
 
@@ -172,10 +175,102 @@ public class Hero extends Character {
         Polygon point = new Polygon(new float[]{end.x - 1, end.y - 1, end.x - 1, end.y + 1, end.x + 1, end.y + 1, end.x + 1, end.y - 1});
         setFinishWalkPosition(new Rectangle(end.x - 1, end.y - 1, 2, 2));
 
+        if(calculateCollisionTwoRectangle(heroBox, characters.get(actualIndexCharacter).getCollision())) {
+            if(cornersHero[0] != null && cornersHero[1] == null){
+                int x = (int)cornersHero[0].x - (int)cornerEnemy.x;
+                int y = (int)cornersHero[0].y - (int)cornerEnemy.y;
 
-        if(calculateCollisionTwoRectangle(heroBox, characters.get(actualIndexCharacter).getCollision()))
-            setCharacterCollision(true);
-        else
+                if(x < 0)
+                    x *= -1;
+                if(y < 0)
+                    y *= -1;
+
+                if(x < y){
+                    int heroBoxCenterX = (int)(heroBox.getX() + heroBox.getWidth() /2);
+                    if(heroBoxCenterX < cornerEnemy.x){
+                        if(posX < cornerEnemy.x) {
+                            System.out.println("LEFT - MOVE");
+                            setCharacterCollision(true);
+                        }
+                        else
+                            System.out.println("LEFT - FIGHT");
+                    }
+                    else{
+                        if(posX > cornerEnemy.x) {
+                            System.out.println("RIGHT - MOVE");
+                            setCharacterCollision(true);
+                        }
+                        else
+                            System.out.println("RIGHT - FIGHT");
+                    }
+                }else {
+                    int heroBoxCenterY = (int) (heroBox.getY() + heroBox.getHeight() / 2);
+                    if(heroBoxCenterY < cornerEnemy.y) {
+                        if(posY < cornerEnemy.y) {
+                            System.out.println("DOWN - MOVE");
+                            setCharacterCollision(true);
+                        }
+                        else
+                            System.out.println("DOWN - FIGHT");
+                    }
+                    else{
+                        if(posY > cornerEnemy.y) {
+                            System.out.println("UP - MOVE");
+                            setCharacterCollision(true);
+                        }
+                        else
+                            System.out.println("UP - FIGHT");
+                    }
+                }
+            }
+            else if(cornersHero[0] != null && cornersHero[1] != null){
+                if(cornerEnemy == o4 || cornerEnemy == o2){
+                    int heroBoxCenterX = (int)(heroBox.getX() + heroBox.getWidth() /2);
+                    if(heroBoxCenterX < cornerEnemy.x){
+                        if(posX < cornerEnemy.x) {
+                            System.out.println("LEFT - MOVE");
+                            setCharacterCollision(true);
+                        }
+                        else
+                            System.out.println("LEFT - FIGHT");
+                    }
+                    else{
+                        if(posX > cornerEnemy.x) {
+                            System.out.println("RIGHT - MOVE");
+                            setCharacterCollision(true);
+                        }
+                        else
+                            System.out.println("RIGHT - FIGHT");
+                    }
+                }else {
+                    int heroBoxCenterY = (int) (heroBox.getY() + heroBox.getHeight() / 2);
+                    if(heroBoxCenterY < cornerEnemy.y) {
+                        if(posY < cornerEnemy.y) {
+                            System.out.println("DOWN - MOVE");
+                            setCharacterCollision(true);
+                        }
+                        else
+                            System.out.println("DOWN - FIGHT");
+                    }
+                    else{
+                        if(posY > cornerEnemy.y) {
+                            System.out.println("UP - MOVE");
+                            setCharacterCollision(true);
+                        }
+                        else
+                            System.out.println("UP - FIGHT");
+                    }
+                }
+
+            }else{
+                try {
+                    throw new MyException();
+                } catch (MyException e) {
+                    e.printStackTrace();
+                    BaseScreen.showException(e);
+                }
+            }
+        } else
             setCharacterCollision(false);
         setCharacterCollisionLook(true);
 
@@ -472,145 +567,6 @@ public class Hero extends Character {
             }
         }
     }
-/*
-    public void collisionDo(final Enemy enemy){
-        final Image shadow = new Image(new Texture(Gdx.files.internal("shadow.png")));
-        final ImageButton attackScreen = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAttack.png")))));
-        final ImageButton infoEnemy = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonInfo.png")))));
-        final ImageButton cancel = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
-        final Image infoBackground = new Image(new Texture(Gdx.files.internal("infoEnemy.png")));
-
-        defaultScreenZeroX = getX() + getWidth() /2 - BaseMap.VIEW_WIDTH /2;
-        defaultScreenZeroY = getY() + getHeight() /2 - BaseMap.VIEW_HEIGHT /2;
-        setActiveMove(true);
-
-        shadow.setPosition(defaultScreenZeroX, defaultScreenZeroY);
-        attackScreen.setPosition(defaultScreenZeroX +21, defaultScreenZeroY + 90);
-        infoEnemy.setPosition(defaultScreenZeroX + 21 + attackScreen.getWidth() + 22, defaultScreenZeroY + 90);
-        cancel.setPosition(defaultScreenZeroX + BaseScreen.VIEW_WIDTH /2 - cancel.getWidth() /2, defaultScreenZeroY + 280);
-
-        final Hero hero = this;
-
-        attackScreen.addListener(new InputListener() {
-            public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                shadow.remove();
-                attackScreen.remove();
-                infoEnemy.remove();
-                cancel.remove();
-                setActiveMove(false);
-                game.setScreen(new FightScreen(game, hero, actualEnemy, true));
-                return false;
-            }
-        });
-
-        infoEnemy.addListener(new InputListener() {
-            public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                //TODO click everywhere and close window also when click label or image first plan
-                shadow.remove();
-                attackScreen.remove();
-                infoEnemy.remove();
-                cancel.remove();
-                infoBackground.setPosition(getX() + getWidth() /2 - BaseMap.VIEW_WIDTH /2, getY() + getHeight() /2 - BaseMap.VIEW_HEIGHT /2);
-                infoBackground.setSize(BaseMap.VIEW_WIDTH, BaseMap.VIEW_HEIGHT - 50);
-                getHero3D().setRenderHero3d(false);
-
-                BitmapFont font = new BitmapFont();
-                Label.LabelStyle style = new Label.LabelStyle();
-                style.font = font;
-
-                final Label lName = new Label(enemy.getName().toUpperCase(), style);
-                final Label lLevel = new Label("Level " + level, style);
-                final Label lHp = new Label("Hp: " + hp, style);
-                final Label lArmor = new Label("Armor: " + armor + "%", style);
-                final Label lStrong = new Label("Strong: " + strong, style);
-                final Label lWiedza = new Label("Wiedza: " + wiedza, style);
-                final Label lDefensePhysics = new Label("Defense Physics: " + enemy.getDefensePhysics(), style);
-                final Label lDefenseMagic = new Label("Defense Magic: " + enemy.getDefenseMagic(), style);
-                final Label lRandomDrop = new Label("Chance to drop: " + enemy.getRandomDrop() + "%", style);
-                final Image imageEnemy = new Image(enemy.getTexture());
-                Vector2 sizeEnemyInfo = scaleUp(enemy.getTexture());
-                imageEnemy.setSize(sizeEnemyInfo.x, sizeEnemyInfo.y);
-
-                imageEnemy.setTouchable(Touchable.disabled);
-                lName.setTouchable(Touchable.disabled);
-                lHp.setTouchable(Touchable.disabled);
-                lLevel.setTouchable(Touchable.disabled);
-                lArmor.setTouchable(Touchable.disabled);
-                lStrong.setTouchable(Touchable.disabled);
-                lWiedza.setTouchable(Touchable.disabled);
-                lDefensePhysics.setTouchable(Touchable.disabled);
-                lDefenseMagic.setTouchable(Touchable.disabled);
-                lRandomDrop.setTouchable(Touchable.disabled);
-
-                lName.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 - lName.getWidth() -20, defaultScreenZeroY + 339);
-                lLevel.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 + lName.getWidth() /2, defaultScreenZeroY + 339);
-                lHp.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 120);
-                lArmor.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 +10, defaultScreenZeroY + 120);
-                lStrong.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 80);
-                lWiedza.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 +10, defaultScreenZeroY + 80);
-                lDefensePhysics.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 50);
-                lDefenseMagic.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 + 10, defaultScreenZeroY + 50);
-                lRandomDrop.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH /2 - lRandomDrop.getWidth() /2, defaultScreenZeroY + 20);
-                imageEnemy.setPosition(defaultScreenZeroX + (BaseMap.VIEW_WIDTH /2 - imageEnemy.getWidth() /2), defaultScreenZeroY + (BaseMap.VIEW_HEIGHT /2 - imageEnemy.getHeight() /2));
-
-                addActor(infoBackground, lName, lLevel, imageEnemy, lHp, lArmor, lStrong, lWiedza, lDefensePhysics, lDefenseMagic, lRandomDrop);
-
-                infoBackground.addListener(new InputListener(){
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        lName.remove();
-                        lLevel.remove();
-                        lHp.remove();
-                        lArmor.remove();
-                        lStrong.remove();
-                        lWiedza.remove();
-                        lDefensePhysics.remove();
-                        lDefenseMagic.remove();
-                        lRandomDrop.remove();
-                        imageEnemy.remove();
-                        infoBackground.remove();
-                        getHero3D().setRenderHero3d(true);
-                        setActiveMove(false);
-                        return false;
-                    }
-                });
-                return false;
-            }
-        });
-
-        cancel.addListener(new InputListener() {
-            public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                shadow.remove();
-                attackScreen.remove();
-                infoEnemy.remove();
-                cancel.remove();
-                setActiveMove(false);
-                return false;
-            }
-        });
-
-        addActor(shadow, attackScreen, infoEnemy, cancel);
-        attackScreen.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() /2 - cancel.getWidth() /2 +10, getY() + getHeight() /2 - cancel.getHeight() /2), Actions.parallel(Actions.moveTo(defaultScreenZeroX +21, defaultScreenZeroY + 90, 0.3f), Actions.fadeIn(0.6f))));
-        infoEnemy.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() /2 - cancel.getWidth() /2 +10, getY() + getHeight() /2 - cancel.getHeight() /2), Actions.parallel(Actions.moveTo(defaultScreenZeroX + 21 + attackScreen.getWidth() + 22, defaultScreenZeroY + 90, 0.3f), Actions.fadeIn(0.6f))));
-        cancel.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() /2 - cancel.getWidth() /2 +10, getY() + getHeight() /2 - cancel.getHeight() /2), Actions.parallel(Actions.moveTo(defaultScreenZeroX + BaseScreen.VIEW_WIDTH /2 - cancel.getWidth() /2, defaultScreenZeroY + 280, 0.3f), Actions.fadeIn(0.6f))));
-    }
-*/
-    private Vector2 scaleUp(TextureRegion texture) {
-        float x = texture.getRegionWidth();
-        float y = texture.getRegionHeight();
-
-        do{
-            x++;
-            y++;
-        }while(x <= 300 && y <= 200);
-
-        return new Vector2(x, y);
-    }
-
-    private void addActor(Actor... actors){
-        for(Actor actor: actors)
-            stage.addActor(actor);
-    }
 
     private float calculateAction(int index, boolean xOrY){
         if(xOrY)
@@ -650,9 +606,14 @@ public class Hero extends Character {
         for (int i = 0; i < characters.size(); i++) {
             heroUpdateCollisionBox();
             if (calculateCollisionTwoRectangle(heroBox, characters.get(i).getCollision())) {
+                if(characterCollision) {
+                    if (i == actualIndexCharacter)
+                        return;
+                }
                 clearActions();
                 characters.get(i).collisionDo();
                 setCharacterCollisionLook(false);
+                setCharacterCollision(false);
                 hero3D.setStopAnimation();
                 actualIndexCharacter = i;
                 preferences.putInteger("COLLISION", actualIndexCharacter);
@@ -668,19 +629,67 @@ public class Hero extends Character {
         Vector2 h4 = new Vector2(hero.getX(), hero.getY() +hero.getHeight());
 
         Vector2 o1 = new Vector2(other.getX(), other.getY());
-        Vector2 o2 = new Vector2(other.getX() +other.getWidth(), other.getY());
+        o2 = new Vector2(other.getX() +other.getWidth(), other.getY());
         Vector2 o3 = new Vector2(other.getX() +other.getWidth(), other.getY() +other.getHeight());
-        Vector2 o4 = new Vector2(other.getX(), other.getY() +other.getHeight());
+        o4 = new Vector2(other.getX(), other.getY() +other.getHeight());
 
         //temporaryListVector.add(o1);
         //temporaryListVector.add(o2);
         //temporaryListVector.add(o3);
         //temporaryListVector.add(o4);
 
-        if(h1.x <= o3.x && h1.y <= o3.y && h1.x >= o1.x && h1.y >= o1.y) return true;
-        if(h2.x >= o4.x && h2.y <= o4.y && h2.x <= o2.x && h2.y >= o2.y) return true;
-        if(h3.x >= o1.x && h3.y >= o1.y && h3.x <= o3.x && h3.y <= o3.y) return true;
-        if(h4.x <= o2.x && h4.y >= o2.y && h4.x >= o4.x && h4.y <= o4.y) return true;
+        int indexCorner = 0;
+        cornersHero[0] = null;
+        cornersHero[1] = null;
+        boolean temporaryValue = false;
+
+        if(h1.x <= o3.x && h1.y <= o3.y && h1.x >= o1.x && h1.y >= o1.y)
+        {
+            cornersHero[indexCorner] = h1;
+            cornerEnemy = o3;
+            indexCorner++;
+            temporaryValue = true;
+
+            if(h4.x <= o2.x && h4.y >= o2.y && h4.x >= o4.x && h4.y <= o4.y){
+                cornersHero[indexCorner] = h4;
+                cornerEnemy = o2;
+                indexCorner++;
+                temporaryValue = true;
+                if(indexCorner == 2) {
+                    return true;
+                }
+            }
+        }
+        if(h2.x >= o4.x && h2.y <= o4.y && h2.x <= o2.x && h2.y >= o2.y){
+            cornersHero[indexCorner] = h2;
+            cornerEnemy = o4;
+            indexCorner++;
+            temporaryValue = true;
+            if(indexCorner == 2) {
+                cornerEnemy = o3;
+                return true;
+            }
+        }
+        if(h3.x >= o1.x && h3.y >= o1.y && h3.x <= o3.x && h3.y <= o3.y){
+            cornersHero[indexCorner] = h3;
+            cornerEnemy = o1;
+            indexCorner++;
+            temporaryValue = true;
+            if(indexCorner == 2){
+                cornerEnemy = o4;
+                return true;
+            }
+        }
+        if(h4.x <= o2.x && h4.y >= o2.y && h4.x >= o4.x && h4.y <= o4.y){
+            cornersHero[indexCorner] = h4;
+            cornerEnemy = o2;
+            indexCorner++;
+            temporaryValue = true;
+            if(indexCorner == 2) {
+                cornerEnemy = o1;
+                return true;
+            }
+        }
 
         //throw ExceptionCollision
             //if(hero.getX() +hero.getWidth() <= o4.y && hero.getX() +hero.getWidth() >= o4.x && hero.getY() +hero.getHeight() /2 <= o2.x && hero.getY() +hero.getHeight() /2 >= o2.y)
@@ -688,7 +697,7 @@ public class Hero extends Character {
             //if(hero.getX() <= o3.x && hero.getY() +hero.getHeight() /2 <= o3.y && hero.getX() >= o1.x && hero.getY() +hero.getHeight() /2 >= o1.y)
             //    return true;
 
-        return false;
+        return temporaryValue;
     }
 
     public void changeTrack(){
@@ -868,10 +877,6 @@ public class Hero extends Character {
         return characterCollisionLook;
     }
 
-    public boolean isCharacterCollision() {
-        return characterCollision;
-    }
-
     public int getStrong() {
         return strong;
     }
@@ -1039,5 +1044,17 @@ public class Hero extends Character {
 
     public void setCharacterCollision(boolean charactersCollision) {
         this.characterCollision = charactersCollision;
+    }
+
+    public Hero getHero(){
+        return this;
+    }
+
+    public Stage getStage(){
+        return stage;
+    }
+
+    public Game getGame(){
+        return game;
     }
 }

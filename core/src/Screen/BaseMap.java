@@ -159,8 +159,6 @@ public abstract class BaseMap extends BaseScreen {
 
         if(hero.isCharacterCollisionLook())
             hero.collisionCharacter();
-
-        //System.out.println(hero.isCharacterCollision());
     }
 
     public void clearCharacterList(){

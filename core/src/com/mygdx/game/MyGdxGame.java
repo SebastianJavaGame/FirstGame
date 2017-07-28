@@ -45,6 +45,8 @@ public class MyGdxGame extends Game{
             prefStats.putInteger("WIEDZA", 10);
             prefStats.putInteger("DEFENSE_FIZ", 2);
             prefStats.putInteger("DEFENSE_MAG", 3);
+
+            //prefStats.putInteger("COLLISION", ???);
             prefStats.flush();
 
             firstLoad.putString("FIRST", "IS LOAD");
