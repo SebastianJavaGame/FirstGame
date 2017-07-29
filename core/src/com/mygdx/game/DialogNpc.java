@@ -21,13 +21,18 @@ import Screen.BaseScreen;
  */
 
 public class DialogNpc {
-    private final Image BACKGROUND = new Image(new Texture(Gdx.files.internal("dialogueBackground.png")));
-    private final Image UP_LABEL = new Image(new Texture(Gdx.files.internal("dialogueUpLabel.png")));
-    private final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
+    private static final Image BACKGROUND = new Image(new Texture(Gdx.files.internal("dialogueBackground.png")));
+    private static final Image UP_LABEL = new Image(new Texture(Gdx.files.internal("dialogueUpLabel.png")));
+    private static final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
 
     public final int POS_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2;
-    public final int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
-    private final int POS_TEXT_FIELD_NPC = POS_Y +360;
+    public static int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
+    private static int POS_TEXT_FIELD_NPC = POS_Y +360;
+
+    private static final int START_NPC_TEXT = 4;
+    private static final int START_ANSWER_ONE = 0;
+    private static final int START_ANSWER_TWO = 1;
+    private static final int START_ANSWER_THREE = 3;
 
     private static final BitmapFont font = new BitmapFont();
     private static final Label.LabelStyle style = new Label.LabelStyle();
@@ -35,15 +40,14 @@ public class DialogNpc {
         style.font = font;
     }
 
-    private Npc npc;
+    private static Npc npc;
     private Stage stage;
 
-    private FieldDialogue[] fieldTextList;
+    private static FieldDialogue[] fieldTextList;
 
-    private Label lName;
-    private Label lLevel;
-
-    private Image imageHead;
+    private static Label lName;
+    private static Label lLevel;
+    private static Image imageHead;
 
     public DialogNpc(Npc npc) {
         this.npc = npc;
@@ -86,10 +90,59 @@ public class DialogNpc {
     }
 
     private void create(){
-        fieldTextList[0] = new FieldDialogue(npc.getId(), 3).setPosition(POS_TEXT_FIELD_NPC);
+        fieldTextList[0] = new FieldDialogue(npc.getId(), START_NPC_TEXT).setPosition(POS_TEXT_FIELD_NPC);
+        fieldTextList[1] = new FieldDialogue(npc.getId(), START_ANSWER_ONE);
+        fieldTextList[2] = new FieldDialogue(npc.getId(), START_ANSWER_TWO);
+        fieldTextList[3] = new FieldDialogue(npc.getId(), START_ANSWER_THREE);
+
+        updatePosition();
+        setListener(1, START_ANSWER_ONE);
+        setListener(2, START_ANSWER_TWO);
+        setListener(3, START_ANSWER_THREE);
     }
 
-    private void removeAll(){
+    public static void updatePosition(){
+        if(fieldTextList[0] != null)
+            fieldTextList[0].setPosition(POS_TEXT_FIELD_NPC);
+        for(int i = 1; i < 4; i++){
+            if(fieldTextList[i] != null){
+                fieldTextList[i].setPosition(fieldTextList[i -1].getYlABEL() -15);
+            }
+        }
+    }
+
+    public static void setListener(int idFieldDialogue, int idText){
+        int chooseListener = BaseDialogs.getIndexListener(npc.getId(), idText);
+
+        switch (chooseListener){
+            case 0:
+                fieldTextList[idFieldDialogue].info();
+                break;
+            case 1:
+                System.out.println("set exit");
+                fieldTextList[idFieldDialogue].exit();
+                break;
+            case 2:
+                fieldTextList[idFieldDialogue].shop();
+                break;
+            case 3:
+                fieldTextList[idFieldDialogue].task();
+                break;
+            case 4:
+                fieldTextList[idFieldDialogue].replace();
+                break;
+            default:
+                try {
+                    throw new MyException();
+                } catch (MyException e) {
+                    BaseScreen.showException(e);
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    public static void removeAll(){
         BACKGROUND.remove();
         UP_LABEL.remove();
         CLOSE_BUTTON.remove();
@@ -105,5 +158,9 @@ public class DialogNpc {
     private void addActors(Actor ... actor){
         for(Actor object: actor)
             stage.addActor(object);
+    }
+
+    public static FieldDialogue[] getFieldTextList(){
+        return fieldTextList;
     }
 }

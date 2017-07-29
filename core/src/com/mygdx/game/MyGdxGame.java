@@ -55,8 +55,9 @@ public class MyGdxGame extends Game{
         //TODO delete all and load in hero... with default values
 
         ExperienceRequired.loadExperienceList();
-        TextDialogueList.loadNpcTextList();
-        TextDialogueList.loadIndexOptions();
+        BaseDialogs.loadNpcTextList();
+        BaseDialogs.loadIndexOptions();
+        BaseDialogs.loadIndexListener();
 
 		Menu lvl = new Menu(this);
 		//FightWin lvl = new FightWin(this, 10, 34, 67, 10000, 4510, "fire_sword");

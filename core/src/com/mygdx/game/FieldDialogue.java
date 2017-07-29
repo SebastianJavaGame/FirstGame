@@ -27,15 +27,19 @@ public class FieldDialogue {
     private static final BitmapFont FONT = new BitmapFont();
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
-    private final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +41;
-    private static final int LINE_LENGTH = 35;
+    private final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
+    private static final int LINE_LENGTH = 33;
     private static final float FONT_SIZE = 1;
+    private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
 
     static {
         STYLE_WHITE.font = FONT;
         STYLE_GREEN.font = FONT;
         STYLE_GREEN.fontColor = new Color(Color.OLIVE);
     }
+
+    private int idNpc;
+    private int idIndexText;
 
     private Label label;
     private int textNpc = -1;
@@ -44,33 +48,37 @@ public class FieldDialogue {
     private int answerThird = -1;
 
     public FieldDialogue(int idNpc, int indexText){
-        String getText = TextDialogueList.getText(idNpc, indexText);
+        this.idNpc = idNpc;
+        this.idIndexText = indexText;
+        String getText = BaseDialogs.getText(idNpc, indexText);
         String text = "";
         int i = -1;
         int textLength;
 
         try {
             int start = 0;
-            int end;
+            int end = 1;
             int minus = 0;
-            do {
-                i++;
-                int j = LINE_LENGTH * (i + 1) -minus;
-                while (!getText.substring(j, j +1).equals(" ")) {
-                    if (j == 0) throw new MyException();
-                    else j--;
-                    minus++;
-                }
-                textLength = getText.length() -j;
+            if(getText.length() >= LINE_LENGTH) {
+                do {
+                    i++;
+                    int j = LINE_LENGTH * (i + 1) - minus;
+                    while (!getText.substring(j, j + 1).equals(" ")) {
+                        if (j == 0) throw new MyException();
+                        else j--;
+                        minus++;
+                    }
+                    textLength = getText.length() - j;
 
-                end = j;
-                text += getText.substring(start +1, end);
-                start = j;
+                    end = j;
+                    text += getText.substring(start + 1, end);
+                    start = j;
 
-                if (textLength > 0)
-                    text += "\n";
+                    if (textLength > 0)
+                        text += "\n";
 
-            } while (textLength > LINE_LENGTH);
+                } while (textLength > LINE_LENGTH);
+            }
 
             text += getText.substring(end, getText.length());
         }catch (Exception e){
@@ -84,14 +92,19 @@ public class FieldDialogue {
             label = new Label(text, STYLE_GREEN);
         label.setFontScale(FONT_SIZE);
 
-        if(indexText < 3) {
-            int[] fieldsText = new int[TextDialogueList.getIndexToNextText(idNpc, indexText).length];
-            textNpc = fieldsText[0];
-            answerFirst = fieldsText[1];
-            if (fieldsText.length > 2)
-                answerSecond = fieldsText[2];
-            if (fieldsText.length > 3)
-                answerThird = fieldsText[3];
+        try {
+            if (indexText < 3) {
+                int[] fieldsText = new int[BaseDialogs.getIndexToNextText(idNpc, indexText).length];
+                textNpc = fieldsText[0];
+                answerFirst = fieldsText[1];
+                if (fieldsText.length > 2)
+                    answerSecond = fieldsText[2];
+                if (fieldsText.length > 3)
+                    answerThird = fieldsText[3];
+            }
+        }catch (Exception e){
+            BaseScreen.showException(e);
+            e.printStackTrace();
         }
     }
 
@@ -110,42 +123,95 @@ public class FieldDialogue {
         return this;
     }
 
-    private InputListener info(){
-        return new InputListener() {
+    /**
+     * BaseDialogs.INDEX_LISTENER = 0;
+     */
+    public FieldDialogue info(){
+        label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //clear all FieldDialogue. wywołaj method with DialogNpc class
+                clearFieldDialogue();
+                int[] arrayNewDialog = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
+                for(int i = 0; i < arrayNewDialog.length; i++) {
+                    arrayDialog[i] = new FieldDialogue(idNpc, arrayNewDialog[i]);
+                    DialogNpc.setListener(i, idIndexText);//TODO error this look around
+                }
+                DialogNpc.updatePosition();
+                System.out.println("info");
+                return false;
+            }
+        });
+        return this;
+    }
+
+    /**
+     * BaseDialogs.INDEX_LISTENER = 1;
+     */
+    public FieldDialogue exit(){
+        label.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                DialogNpc.removeAll();
+                Hero.setActiveMove(false);
+                Hero3D.setRenderHero3d(true);
+                System.out.println("exit");
+                return false;
+            }
+        });
+        return this;
+    }
+
+    /**
+     * BaseDialogs.INDEX_LISTENER = 2;
+     */
+    public FieldDialogue shop(){
+        label.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                // int[] nextDialogueText = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
                 //add new Field with text;
                 return false;
             }
-        };
+        });
+        return this;
     }
 
-    private InputListener shop(){
-        return new InputListener() {
+    /**
+     * BaseDialogs.INDEX_LISTENER = 3;
+     */
+    public FieldDialogue task(){
+        label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                // int[] nextDialogueText = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
+                //add new Field with text;
                 return false;
             }
-        };
+        });
+        return this;
     }
 
-    private InputListener task(){
-        return new InputListener() {
+    /**
+     * BaseDialogs.INDEX_LISTENER = 4;
+     */
+    public FieldDialogue replace(){
+        label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                // int[] nextDialogueText = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
+                //add new Field with text;
                 return false;
             }
-        };
+        });
+        return this;
     }
 
-    private InputListener replace(){
-        return new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return false;
+    private void clearFieldDialogue(){
+        for(int i = 0; i < 4; i++)
+            if(arrayDialog[i] != null) {
+                arrayDialog[i].clearField();
+                arrayDialog[i] = null;
             }
-        };
     }
 
     private void addActors(Actor... actor){
@@ -159,5 +225,17 @@ public class FieldDialogue {
         BAR_VERTICAL_RIGHT.remove();
         BAR_HORIZONTAL_DOWN.remove();
         label.remove();
+    }
+
+    public int getHeightFieldText(){
+        return (int)BAR_HORIZONTAL_UP.getY() +(int)BAR_HORIZONTAL_UP.getHeight() -(int)BAR_HORIZONTAL_DOWN.getY();
+    }
+
+    public Label getLabel(){
+        return label;
+    }
+
+    public int getYlABEL(){
+        return (int)label.getY();
     }
 }
