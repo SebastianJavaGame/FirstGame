@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+import Screen.BaseMap;
 import Screen.BaseScreen;
 
 /**
@@ -17,19 +19,22 @@ import Screen.BaseScreen;
  */
 
 public class FieldDialogue {
-    private static final Image BAR_VERTICAL_LEFT = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
-    private static final Image BAR_VERTICAL_RIGHT = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
-    private static final Image BAR_HORIZONTAL_UP = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
-    private static final Image BAR_HORIZONTAL_DOWN = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
-    private static final Stage STAGE = BaseScreen.getStage();
+    private final Image BAR_VERTICAL_LEFT = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
+    private final Image BAR_VERTICAL_RIGHT = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
+    private final Image BAR_HORIZONTAL_UP = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
+    private final Image BAR_HORIZONTAL_DOWN = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
+    private final Stage STAGE = BaseScreen.getStage();
     private static final BitmapFont FONT = new BitmapFont();
-    private static final Label.LabelStyle STYLE = new Label.LabelStyle();
-    private static final int POSITION_X = DialogNpc.POS_X +40;
+    private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
+    private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
+    private final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +41;
     private static final int LINE_LENGTH = 35;
-    private final float FONT_SIZE = 1;
+    private static final float FONT_SIZE = 1;
 
     static {
-        STYLE.font = FONT;
+        STYLE_WHITE.font = FONT;
+        STYLE_GREEN.font = FONT;
+        STYLE_GREEN.fontColor = new Color(Color.OLIVE);
     }
 
     private Label label;
@@ -73,7 +78,10 @@ public class FieldDialogue {
             e.printStackTrace();
         }
 
-        label = new Label(text, STYLE);
+        if (indexText > 2)
+            label = new Label(text, STYLE_WHITE);
+        else
+            label = new Label(text, STYLE_GREEN);
         label.setFontScale(FONT_SIZE);
 
         if(indexText < 3) {
@@ -87,17 +95,19 @@ public class FieldDialogue {
         }
     }
 
-    public void setPosition(int y){
-        label.setPosition(POSITION_X, y);
-        BAR_HORIZONTAL_UP.setPosition(POSITION_X, y +label.getHeight());
-        BAR_HORIZONTAL_DOWN.setPosition(POSITION_X, y -5);
+    public FieldDialogue setPosition(int downY){
+        int y = downY -(int)label.getHeight();
+        label.setPosition(POSITION_X +2, y);
+        BAR_HORIZONTAL_UP.setPosition(POSITION_X +2, y +label.getHeight() -5);
+        BAR_HORIZONTAL_DOWN.setPosition(POSITION_X +2, y -5);
 
         BAR_VERTICAL_LEFT.setSize(BAR_VERTICAL_LEFT.getWidth(), label.getHeight() +10);
         BAR_VERTICAL_LEFT.setPosition(POSITION_X -5, BAR_HORIZONTAL_DOWN.getY());
         BAR_VERTICAL_RIGHT.setSize(BAR_VERTICAL_RIGHT.getWidth(), label.getHeight() +10);
-        BAR_VERTICAL_RIGHT.setPosition(POSITION_X + BAR_HORIZONTAL_DOWN.getWidth(), BAR_HORIZONTAL_DOWN.getY());
+        BAR_VERTICAL_RIGHT.setPosition(POSITION_X + BAR_HORIZONTAL_DOWN.getWidth() +1, BAR_HORIZONTAL_DOWN.getY());
 
         addActors(BAR_HORIZONTAL_DOWN, BAR_HORIZONTAL_UP, BAR_VERTICAL_LEFT, BAR_VERTICAL_RIGHT, label);
+        return this;
     }
 
     private InputListener info(){

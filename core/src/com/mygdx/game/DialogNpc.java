@@ -25,8 +25,9 @@ public class DialogNpc {
     private final Image UP_LABEL = new Image(new Texture(Gdx.files.internal("dialogueUpLabel.png")));
     private final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
 
-    public static final int POS_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2;
+    public final int POS_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2;
     public final int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
+    private final int POS_TEXT_FIELD_NPC = POS_Y +360;
 
     private static final BitmapFont font = new BitmapFont();
     private static final Label.LabelStyle style = new Label.LabelStyle();
@@ -37,6 +38,8 @@ public class DialogNpc {
     private Npc npc;
     private Stage stage;
 
+    private FieldDialogue[] fieldTextList;
+
     private Label lName;
     private Label lLevel;
 
@@ -45,6 +48,7 @@ public class DialogNpc {
     public DialogNpc(Npc npc) {
         this.npc = npc;
         this.stage = BaseScreen.getStage();
+        fieldTextList = new FieldDialogue[4];
 
         BACKGROUND.setSize(BACKGROUND.getWidth(), 400);
         BACKGROUND.setPosition(POS_X +(BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, POS_Y +15);
@@ -82,7 +86,7 @@ public class DialogNpc {
     }
 
     private void create(){
-        new FieldDialogue(npc.getId(), 3).setPosition(POS_Y + 150);
+        fieldTextList[0] = new FieldDialogue(npc.getId(), 3).setPosition(POS_TEXT_FIELD_NPC);
     }
 
     private void removeAll(){
@@ -92,6 +96,10 @@ public class DialogNpc {
         lLevel.remove();
         lName.remove();
         imageHead.remove();
+        for(FieldDialogue dialogue: fieldTextList) {
+            if(dialogue != null)
+                dialogue.clearField();
+        }
     }
 
     private void addActors(Actor ... actor){
