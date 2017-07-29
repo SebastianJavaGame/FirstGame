@@ -173,4 +173,8 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     public static boolean getException(){
         return exception;
     }
+
+    public static Stage getStage(){
+        return stage;
+    }
 }

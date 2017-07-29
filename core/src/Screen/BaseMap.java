@@ -108,8 +108,8 @@ public abstract class BaseMap extends BaseScreen {
 
         generateMap();
 
-        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, charactersList, stage, game);
-        hero.setPosition(410, 320);
+        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, charactersList, game);
+        hero.setPosition(450, 350);
         hero.setSize(10, 10);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
         stage.addActor(hero);
@@ -135,9 +135,9 @@ public abstract class BaseMap extends BaseScreen {
             stageCard.draw();
         }
 
-        testRender.draw();
-        for(Character c: charactersList)
-            RenderCollisionLine_Test.drawPublic(c.getCollision());
+        //testRender.draw();
+        //for(Character c: charactersList)
+           // RenderCollisionLine_Test.drawPublic(c.getCollision());
 
         //for(Vector2 v: Hero.temporaryListVector)
            // RenderCollisionLine_Test.drawPointSquare(v);
@@ -265,6 +265,8 @@ public abstract class BaseMap extends BaseScreen {
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println("X: " + screenX);
+        System.out.println("Y: " + screenY);
     if(!stopGame && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
@@ -272,7 +274,6 @@ public abstract class BaseMap extends BaseScreen {
                 float x = ((screenX + camera.position.x) - BaseMap.VIEW_WIDTH /2 - hero.getWidth() /2);
                 float y = (((BaseMap.VIEW_HEIGHT + camera.position.y) - BaseMap.VIEW_HEIGHT /2) - screenY - hero.getHeight() /2);
                 hero.move(x, y);
-                //hero3D.moveRotate(screenX, screenY);
             }
         }
         return false;

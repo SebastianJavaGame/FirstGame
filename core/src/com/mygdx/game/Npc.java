@@ -11,19 +11,42 @@ public class Npc extends Character{
     private Image head;
     private String name;
     private int level;
-    private int id;
 
-    public Npc(Texture texture, Image head, String name, int level, int id) {
+    private int id;
+    private static int idIteration = -1;
+
+    static {
+        idIteration++;
+    }
+
+    public Npc(Texture texture, Image head, String name, int level) {
         super(texture);
         this.head = head;
         this.name = name;
         this.level = level;
-        this.id = id;
+        this.id = idIteration;
 
     }
 
     @Override
     public void collisionDo() {
-        System.out.println("NPC");
+        new DialogNpc(this);
+    }
+
+    public Image getHead() {
+        return head;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getId() {
+        return id;
     }
 }

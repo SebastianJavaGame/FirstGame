@@ -40,7 +40,7 @@ public class Map_01 extends BaseMap {
             addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380);
             addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
 
-            addNpc("mag.png", "glominHead.png", "Mag", 20, 0, 400);
+            addNpc("mag.png", "glominHead.png", "Witherman", 20, 400);
         }
 
         bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
@@ -75,17 +75,19 @@ public class Map_01 extends BaseMap {
     private void addEnemy(String path, String head, String wapon, int x){
         Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))),
                 new Image(new Texture(Gdx.files.internal(wapon))),  "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 30, 45, 60, 75);
+        enemy.setRectangle(0, 0, 0, 0);
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
         characters.add(enemy);
         enemy.collisionUpdate();
     }
 
-    private void addNpc(String path, String head, String name, int level, int id, int x){
-        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, id);
-        npc.setPosition(200, x);
+    private void addNpc(String path, String head, String name, int level, int x){
+        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level);
+        npc.setPosition(500, x);
         npc.setSize(60, 100);
         characters.add(npc);
+        npc.setRectangle(0, 0, 0, 0);
         npc.collisionUpdate();
     }
 

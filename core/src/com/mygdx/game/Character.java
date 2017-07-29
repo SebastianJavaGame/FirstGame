@@ -16,6 +16,7 @@ public abstract class Character extends Actor{
     public Rectangle rectangle;
     protected TextureRegion texture;
     protected Hero hero;
+    private float x, y, w, h;
 
     public Character(Texture texture){
         this.texture = new TextureRegion();
@@ -29,7 +30,7 @@ public abstract class Character extends Actor{
     public abstract void collisionDo();
 
     public void collisionUpdate(){
-        getCollision().set(getX(), getY(), this.getWidth(), this.getHeight());
+        getCollision().set(getX() +x, getY() +y, getWidth() +w, getHeight() +h);
     }
 
     public void draw(Batch batch, float parentAlpha)
@@ -50,16 +51,17 @@ public abstract class Character extends Actor{
         texture.setRegion( t );
     }
 
-    public Polygon convertRectangleToPolygon(){
+    public Polygon convertRectangleToPolygon(Rectangle rectangle){
         return new Polygon(new float[]{rectangle.getX(), rectangle.getY(), rectangle.getX(),
                 rectangle.getY() + rectangle.getHeight(), rectangle.getX() + rectangle.getHeight(),
                 rectangle.getY() + rectangle.getWidth(), rectangle.getX() + rectangle.getWidth(), rectangle.getY()});
     }
 
-    public Polygon convertRectangleToPolygon(Rectangle rectangle){
-        return new Polygon(new float[]{rectangle.getX(), rectangle.getY(), rectangle.getX(),
-                rectangle.getY() + rectangle.getHeight(), rectangle.getX() + rectangle.getHeight(),
-                rectangle.getY() + rectangle.getWidth(), rectangle.getX() + rectangle.getWidth(), rectangle.getY()});
+    public void setRectangle(float x, float y, float w, float h){
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
     }
 
     public Rectangle getCollision() {
