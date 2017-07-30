@@ -29,7 +29,7 @@ public class DialogNpc {
     public static int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
     private static int POS_TEXT_FIELD_NPC = POS_Y +360;
 
-    private static final int START_NPC_TEXT = 4;
+    private static final int START_NPC_TEXT = 5;
     private static final int START_ANSWER_ONE = 0;
     private static final int START_ANSWER_TWO = 1;
     private static final int START_ANSWER_THREE = 3;
@@ -102,8 +102,10 @@ public class DialogNpc {
     }
 
     public static void updatePosition(){
-        if(fieldTextList[0] != null)
+        if(fieldTextList[0] != null) {
             fieldTextList[0].setPosition(POS_TEXT_FIELD_NPC);
+            fieldTextList[0].getLabel().clearListeners();
+        }
         for(int i = 1; i < 4; i++){
             if(fieldTextList[i] != null){
                 fieldTextList[i].setPosition(fieldTextList[i -1].getYlABEL() -15);
@@ -112,7 +114,12 @@ public class DialogNpc {
     }
 
     public static void setListener(int idFieldDialogue, int idText){
-        int chooseListener = BaseDialogs.getIndexListener(npc.getId(), idText);
+        int chooseListener;
+        try {
+            chooseListener = BaseDialogs.getIndexListener(npc.getId(), idText);
+        }catch (ArrayIndexOutOfBoundsException e){
+            return;
+        }
 
         switch (chooseListener){
             case 0:
@@ -123,7 +130,7 @@ public class DialogNpc {
                 fieldTextList[idFieldDialogue].exit();
                 break;
             case 2:
-                fieldTextList[idFieldDialogue].shop();
+                fieldTextList[idFieldDialogue].shop(imageHead, npc.getName(), npc.getLevel());
                 break;
             case 3:
                 fieldTextList[idFieldDialogue].task();

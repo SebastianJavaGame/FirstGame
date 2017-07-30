@@ -29,7 +29,7 @@ public class FieldDialogue {
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
     private final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
     private static final int LINE_LENGTH = 33;
-    private static final float FONT_SIZE = 1;
+    private static final float FONT_SIZE = 1f;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
 
     static {
@@ -86,10 +86,10 @@ public class FieldDialogue {
             e.printStackTrace();
         }
 
-        if (indexText > 2)
-            label = new Label(text, STYLE_WHITE);
-        else
+        if (indexText < BaseDialogs.COUNT_HERO_TEXT_OPTION)
             label = new Label(text, STYLE_GREEN);
+        else
+            label = new Label(text, STYLE_WHITE);
         label.setFontScale(FONT_SIZE);
 
         try {
@@ -134,10 +134,9 @@ public class FieldDialogue {
                 int[] arrayNewDialog = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
                 for(int i = 0; i < arrayNewDialog.length; i++) {
                     arrayDialog[i] = new FieldDialogue(idNpc, arrayNewDialog[i]);
-                    DialogNpc.setListener(i, idIndexText);//TODO error this look around
+                    DialogNpc.setListener(i, arrayNewDialog[i]);
                 }
                 DialogNpc.updatePosition();
-                System.out.println("info");
                 return false;
             }
         });
@@ -154,7 +153,6 @@ public class FieldDialogue {
                 DialogNpc.removeAll();
                 Hero.setActiveMove(false);
                 Hero3D.setRenderHero3d(true);
-                System.out.println("exit");
                 return false;
             }
         });
@@ -164,12 +162,15 @@ public class FieldDialogue {
     /**
      * BaseDialogs.INDEX_LISTENER = 2;
      */
-    public FieldDialogue shop(){
+    public FieldDialogue shop(final Image image, final String name, final int level){
         label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                // int[] nextDialogueText = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
-                //add new Field with text;
+                DialogNpc.removeAll();
+                BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level));
+                //Hero.setActiveMove(false);
+                //Hero3D.setRenderHero3d(true);
+                System.out.println("shop");
                 return false;
             }
         });

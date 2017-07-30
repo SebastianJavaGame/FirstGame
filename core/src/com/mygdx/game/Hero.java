@@ -92,7 +92,7 @@ public class Hero extends Character {
     private int point;
 
     public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D,
-                ArrayList<Character> characters, Game game) {
+                ArrayList<Character> characters) {
         super(texture);
         this.objectMap = objectMap;
         this.vertical = vertical;
@@ -104,7 +104,7 @@ public class Hero extends Character {
         start = new Vector2();
         end = new Vector2();
         this.stage = BaseScreen.getStage();
-        this.game = game;
+        this.game = BaseScreen.getGame();
         heroBox = new Rectangle();
         cornersHero = new Vector2[2];
 

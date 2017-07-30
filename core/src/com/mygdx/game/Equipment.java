@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Screen.BaseMap;
+import Screen.BaseScreen;
 
 /**
  * Created by Sebastian on 2017-06-10.
@@ -230,7 +231,7 @@ public class Equipment{
                     imageAddListener(item, item.getImage(), item.getPathImage());
                     slotEmpty[slotNr] = true;
 
-                    PREF_ITEMS.putString("SLOT" + slotNr, item.getItemKey());
+                    PREF_ITEMS.putString("SLOT" + slotNr, item.getItemKey());//TODO delete those two line and test are it work
                     PREF_ITEMS.flush();
 
                     card.addActor(item.getImage());
@@ -378,7 +379,7 @@ public class Equipment{
                     final Label itemDefenseFiz = new Label("Defense physics: +" + item.getDefenseFiz(), style);
                     final Label itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
                     final Image money = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
-                    final Label itemPrice = new Label(" " + item.getCashValue(), style);
+                    final Label itemPrice = new Label("Cena: " + item.getCashValue(), style);
                     final Label infoStorage = new Label("BAG", styleGreen);
                     final Image itemBackground = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
                     final Image barName = new Image(new Texture(Gdx.files.internal("nameBar.png")));
@@ -393,8 +394,8 @@ public class Equipment{
                     itemWiedza.setPosition(20, backgroundUp.getY() + 70);
                     itemDefenseFiz.setPosition(20, backgroundUp.getY() + 40);
                     itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 40);
-                    money.setBounds(BaseMap.VIEW_WIDTH / 2 - itemPrice.getWidth() /2 -10, backgroundUp.getY() + 10, 18, 17);
-                    itemPrice.setPosition(money.getX() +20, money.getY());
+                    itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth()/2 -10, backgroundUp.getY() + 10);
+                    money.setBounds(itemPrice.getX() +itemPrice.getWidth() +7, itemPrice.getY(), 18, 17);
                     infoStorage.setPosition(5, itemPrice.getY());
                     barName.setBounds(itemName.getX() -20, itemName.getY() -16, itemName.getWidth() +40, itemName.getHeight() +30);
                     itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
@@ -420,7 +421,7 @@ public class Equipment{
                                     final Label itemDefenseFizDown = new Label("Defense physics: +" + itemUp.getDefenseFiz(), style);
                                     final Label itemDefenseMagDown = new Label("Defense magic: +" + itemUp.getDefenseMag(), style);
                                     final Image moneyDown = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
-                                    final Label itemPriceDown = new Label(" " + itemUp.getCashValue(), style);
+                                    final Label itemPriceDown = new Label("Cena: " + itemUp.getCashValue(), style);
                                     final Label infoStorageDown = new Label("HUMAN", styleGreen);
                                     final Image itemBackgroundDown = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
                                     final Image barNameDown = new Image(new Texture(Gdx.files.internal("nameBar.png")));
@@ -436,8 +437,8 @@ public class Equipment{
                                     itemWiedzaDown.setPosition(20, backgroundDown.getY() + 70);
                                     itemDefenseFizDown.setPosition(20, backgroundDown.getY() + 40);
                                     itemDefenseMagDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 40);
-                                    moneyDown.setBounds(BaseMap.VIEW_WIDTH / 2 - itemPriceDown.getWidth() /2 -10, backgroundDown.getY() + 10, 18, 17);
-                                    itemPriceDown.setPosition(moneyDown.getX() +20, moneyDown.getY());
+                                    itemPriceDown.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPriceDown.getWidth()/2 -10, backgroundDown.getY() + 10);
+                                    moneyDown.setBounds(itemPriceDown.getX() +itemPriceDown.getWidth() +7, itemPriceDown.getY(), 18, 17);
                                     infoStorageDown.setPosition(5, itemPriceDown.getY());
                                     barNameDown.setBounds(itemNameDown.getX() -20, itemNameDown.getY() -16, itemNameDown.getWidth() +40, itemNameDown.getHeight() +30);
                                     itemBackgroundDown.setBounds(15, backgroundDown.getY() + 115, 70, 70);
@@ -923,5 +924,9 @@ public class Equipment{
 
     public static boolean getBlockClick(){
         return blockClick;
+    }
+
+    public static void setSlotEmpty(int index, boolean isEmpty){
+        slotEmpty[index] = isEmpty;
     }
 }
