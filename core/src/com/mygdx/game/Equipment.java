@@ -683,6 +683,7 @@ public class Equipment{
             }
         });
     }
+
     private void removeAll(){
         itemImage.remove();
         itemName.remove();
