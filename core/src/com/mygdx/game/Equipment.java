@@ -52,6 +52,44 @@ public class Equipment{
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 271}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 271},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 218}};
 
+    private TextButton takeOn;
+    private TextButton takeOff;
+    private TextButton drop;
+    private TextButton cancel;
+
+    private Image backgroundUp;
+    private Image backgroundDown;
+    private Image itemImage;
+    private Label itemName;
+    private Label itemType;
+    private Label itemHp;
+    private Label itemStrong;
+    private Label itemWiedza;
+    private Label itemDefenseFiz;
+    private Label itemDefenseMag;
+    private Label itemArmor;
+    private Image money;
+    private Label itemPrice;
+    private Label infoStorage;
+    private Image itemBackground;
+    private Image barName;
+    private Image barPrice;
+    private Image itemImageDown;
+    private Label itemNameDown;
+    private Label itemTypeDown;
+    private Label itemHpDown;
+    private Label itemStrongDown;
+    private Label itemWiedzaDown;
+    private Label itemArmorDown;
+    private Label itemDefenseFizDown;
+    private Label itemDefenseMagDown;
+    private Image moneyDown;
+    private Label itemPriceDown;
+    private Label infoStorageDown;
+    private Image itemBackgroundDown;
+    private Image barNameDown;
+    private Image barPriceDown;
+
     private static Hero hero;
     private static Stage card;
 
@@ -355,11 +393,11 @@ public class Equipment{
                     textStyle.font = font;
                     textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
 
-                    final TextButton takeOn = new TextButton("Take on", textStyle);
-                    final TextButton takeOff = new TextButton("Take off", textStyle);
-                    final TextButton drop = new TextButton("Drop", textStyle);
-                    final TextButton cancel = new TextButton("Cancel", textStyle);
-                    final Image backgroundUp = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
+                    takeOn = new TextButton("Take on", textStyle);
+                    takeOff = new TextButton("Take off", textStyle);
+                    drop = new TextButton("Drop", textStyle);
+                    cancel = new TextButton("Cancel", textStyle);
+                    backgroundUp = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
                     backgroundUp.setBounds(0, 240, BaseMap.VIEW_WIDTH, 190);
 
                     Label.LabelStyle style = new Label.LabelStyle();
@@ -369,21 +407,21 @@ public class Equipment{
                     styleGreen.font = font;
                     styleGreen.fontColor = new Color(Color.LIGHT_GRAY);
 
-                    final Image itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
-                    final Label itemName = new Label("" + item.getItemName(), style);
-                    final Label itemType = new Label("" + item.getItemType().toString(), style);
-                    final Label itemHp = new Label("Hp: +" + item.getHp(), style);
-                    final Label itemStrong = new Label("Strong: +" + item.getStrong(), style);
-                    final Label itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
-                    final Label itemArmor = new Label("Armor: +" + item.getArmor() + "%", style);
-                    final Label itemDefenseFiz = new Label("Defense physics: +" + item.getDefenseFiz(), style);
-                    final Label itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
-                    final Image money = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
-                    final Label itemPrice = new Label("Cena: " + item.getCashValue(), style);
-                    final Label infoStorage = new Label("BAG", styleGreen);
-                    final Image itemBackground = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
-                    final Image barName = new Image(new Texture(Gdx.files.internal("nameBar.png")));
-                    final Image barPrice = new Image(new Texture(Gdx.files.internal("barX.png")));
+                    itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
+                    itemName = new Label("" + item.getItemName(), style);
+                    itemType = new Label("" + item.getItemType().toString(), style);
+                    itemHp = new Label("Hp: +" + item.getHp(), style);
+                    itemStrong = new Label("Strong: +" + item.getStrong(), style);
+                    itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
+                    itemArmor = new Label("Armor: +" + item.getArmor() + "%", style);
+                    itemDefenseFiz = new Label("Defense physics: +" + item.getDefenseFiz(), style);
+                    itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
+                    money = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
+                    itemPrice = new Label("Cena: " + item.getCashValue(), style);
+                    infoStorage = new Label("BAG", styleGreen);
+                    itemBackground = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
+                    barName = new Image(new Texture(Gdx.files.internal("nameBar.png")));
+                    barPrice = new Image(new Texture(Gdx.files.internal("barX.png")));
 
                     itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
                     itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
@@ -406,26 +444,26 @@ public class Equipment{
                             System.out.println("BAG");
                             try {
                                 if (!PREF_ITEMS.getString(item.getItemType().toString()).equals("")) {
-                                    final Image backgroundDown = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
+                                    backgroundDown = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
                                     backgroundDown.setBounds(0, 0, BaseMap.VIEW_WIDTH, 190);
 
                                     Item itemUp = LoadAllItemToGame.getItem(PREF_ITEMS.getString(item.getItemType().toString()));
                                     itemUp.setStan(Item.Stan.BAG);
-                                    final Image itemImageDown = new Image(new Texture(Gdx.files.internal(itemUp.getPathImage())));
-                                    final Label itemNameDown = new Label("" + itemUp.getItemName(), style);
-                                    final Label itemTypeDown = new Label("" + itemUp.getItemType().toString(), style);
-                                    final Label itemHpDown = new Label("Hp: +" + itemUp.getHp(), style);
-                                    final Label itemStrongDown = new Label("Strong: +" + itemUp.getStrong(), style);
-                                    final Label itemWiedzaDown = new Label("Wiedza: +" + itemUp.getWiedza(), style);
-                                    final Label itemArmorDown = new Label("Armor: +" + itemUp.getArmor() + "%", style);
-                                    final Label itemDefenseFizDown = new Label("Defense physics: +" + itemUp.getDefenseFiz(), style);
-                                    final Label itemDefenseMagDown = new Label("Defense magic: +" + itemUp.getDefenseMag(), style);
-                                    final Image moneyDown = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
-                                    final Label itemPriceDown = new Label("Cena: " + itemUp.getCashValue(), style);
-                                    final Label infoStorageDown = new Label("HUMAN", styleGreen);
-                                    final Image itemBackgroundDown = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
-                                    final Image barNameDown = new Image(new Texture(Gdx.files.internal("nameBar.png")));
-                                    final Image barPriceDown = new Image(new Texture(Gdx.files.internal("barX.png")));
+                                    itemImageDown = new Image(new Texture(Gdx.files.internal(itemUp.getPathImage())));
+                                    itemNameDown = new Label("" + itemUp.getItemName(), style);
+                                    itemTypeDown = new Label("" + itemUp.getItemType().toString(), style);
+                                    itemHpDown = new Label("Hp: +" + itemUp.getHp(), style);
+                                    itemStrongDown = new Label("Strong: +" + itemUp.getStrong(), style);
+                                    itemWiedzaDown = new Label("Wiedza: +" + itemUp.getWiedza(), style);
+                                    itemArmorDown = new Label("Armor: +" + itemUp.getArmor() + "%", style);
+                                    itemDefenseFizDown = new Label("Defense physics: +" + itemUp.getDefenseFiz(), style);
+                                    itemDefenseMagDown = new Label("Defense magic: +" + itemUp.getDefenseMag(), style);
+                                    moneyDown = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
+                                    itemPriceDown = new Label("Cena: " + itemUp.getCashValue(), style);
+                                    infoStorageDown = new Label("HUMAN", styleGreen);
+                                    itemBackgroundDown = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
+                                    barNameDown = new Image(new Texture(Gdx.files.internal("nameBar.png")));
+                                    barPriceDown = new Image(new Texture(Gdx.files.internal("barX.png")));
 
                                     //Item INFO
                                     itemImageDown.setBounds(20, backgroundDown.getY() + 120, 60, 60);
@@ -468,41 +506,8 @@ public class Equipment{
                                             updateStats();
 
                                             blockClick = false;
-                                            takeOn.remove();
-                                            drop.remove();
-                                            cancel.remove();
-                                            itemImage.remove();
-                                            itemName.remove();
-                                            itemType.remove();
-                                            itemHp.remove();
-                                            itemStrong.remove();
-                                            itemWiedza.remove();
-                                            itemArmor.remove();
-                                            itemDefenseFiz.remove();
-                                            itemDefenseMag.remove();
-                                            itemPrice.remove();
-                                            itemImageDown.remove();
-                                            itemNameDown.remove();
-                                            itemTypeDown.remove();
-                                            itemHpDown.remove();
-                                            itemStrongDown.remove();
-                                            itemWiedzaDown.remove();
-                                            itemArmorDown.remove();
-                                            itemDefenseFizDown.remove();
-                                            itemDefenseMagDown.remove();
-                                            itemPriceDown.remove();
-                                            backgroundUp.remove();
-                                            backgroundDown.remove();
-                                            barName.remove();
-                                            barNameDown.remove();
-                                            itemBackground.remove();
-                                            itemBackgroundDown.remove();
-                                            barPrice.remove();
-                                            barPriceDown.remove();
-                                            infoStorage.remove();
-                                            infoStorageDown.remove();
-                                            money.remove();
-                                            moneyDown.remove();
+                                            removeAllDown();
+                                            removeAll();
                                             return false;
                                         }
                                     });
@@ -524,41 +529,8 @@ public class Equipment{
                                             PREF_ITEMS.putString("SLOT" + slotNr, "");
                                             PREF_ITEMS.flush();
 
-                                            takeOn.remove();
-                                            drop.remove();
-                                            cancel.remove();
-                                            itemImage.remove();
-                                            itemName.remove();
-                                            itemType.remove();
-                                            itemHp.remove();
-                                            itemStrong.remove();
-                                            itemWiedza.remove();
-                                            itemArmor.remove();
-                                            itemDefenseFiz.remove();
-                                            itemDefenseMag.remove();
-                                            itemPrice.remove();
-                                            itemImageDown.remove();
-                                            itemNameDown.remove();
-                                            itemTypeDown.remove();
-                                            itemHpDown.remove();
-                                            itemStrongDown.remove();
-                                            itemWiedzaDown.remove();
-                                            itemArmorDown.remove();
-                                            itemDefenseFizDown.remove();
-                                            itemDefenseMagDown.remove();
-                                            itemPriceDown.remove();
-                                            backgroundUp.remove();
-                                            backgroundDown.remove();
-                                            barName.remove();
-                                            barNameDown.remove();
-                                            itemBackground.remove();
-                                            itemBackgroundDown.remove();
-                                            barPrice.remove();
-                                            barPriceDown.remove();
-                                            infoStorage.remove();
-                                            infoStorageDown.remove();
-                                            money.remove();
-                                            moneyDown.remove();
+                                            removeAllDown();
+                                            removeAll();
                                             return false;
                                         }
                                     });
@@ -567,41 +539,8 @@ public class Equipment{
                                     cancel.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                                             blockClick = false;
-                                            takeOn.remove();
-                                            drop.remove();
-                                            cancel.remove();
-                                            itemImage.remove();
-                                            itemName.remove();
-                                            itemType.remove();
-                                            itemHp.remove();
-                                            itemStrong.remove();
-                                            itemWiedza.remove();
-                                            itemArmor.remove();
-                                            itemDefenseFiz.remove();
-                                            itemDefenseMag.remove();
-                                            itemPrice.remove();
-                                            itemImageDown.remove();
-                                            itemNameDown.remove();
-                                            itemTypeDown.remove();
-                                            itemHpDown.remove();
-                                            itemStrongDown.remove();
-                                            itemWiedzaDown.remove();
-                                            itemArmorDown.remove();
-                                            itemDefenseFizDown.remove();
-                                            itemDefenseMagDown.remove();
-                                            itemPriceDown.remove();
-                                            backgroundUp.remove();
-                                            backgroundDown.remove();
-                                            barName.remove();
-                                            barNameDown.remove();
-                                            itemBackground.remove();
-                                            itemBackgroundDown.remove();
-                                            barPrice.remove();
-                                            barPriceDown.remove();
-                                            infoStorage.remove();
-                                            infoStorageDown.remove();
-                                            money.remove();
-                                            moneyDown.remove();
+                                            removeAllDown();
+                                            removeAll();
                                             return false;
                                         }
                                     });
@@ -637,25 +576,7 @@ public class Equipment{
                                             System.out.println(blockEmpty[4]);
 
                                             blockClick = false;
-                                            takeOn.remove();
-                                            drop.remove();
-                                            cancel.remove();
-                                            itemImage.remove();
-                                            itemName.remove();
-                                            itemType.remove();
-                                            itemHp.remove();
-                                            itemStrong.remove();
-                                            itemWiedza.remove();
-                                            itemArmor.remove();
-                                            itemDefenseFiz.remove();
-                                            itemDefenseMag.remove();
-                                            itemPrice.remove();
-                                            backgroundUp.remove();
-                                            barName.remove();
-                                            itemBackground.remove();
-                                            barPrice.remove();
-                                            infoStorage.remove();
-                                            money.remove();
+                                            removeAll();
                                             return false;
                                         }
                                     });
@@ -678,25 +599,7 @@ public class Equipment{
                                             PREF_ITEMS.flush();
                                             updateStats();
 
-                                            takeOn.remove();
-                                            drop.remove();
-                                            cancel.remove();
-                                            itemImage.remove();
-                                            itemName.remove();
-                                            itemType.remove();
-                                            itemHp.remove();
-                                            itemStrong.remove();
-                                            itemWiedza.remove();
-                                            itemArmor.remove();
-                                            itemDefenseFiz.remove();
-                                            itemDefenseMag.remove();
-                                            itemPrice.remove();
-                                            backgroundUp.remove();
-                                            barName.remove();
-                                            itemBackground.remove();
-                                            barPrice.remove();
-                                            infoStorage.remove();
-                                            money.remove();
+                                            removeAll();
                                             return false;
                                         }
                                     });
@@ -705,25 +608,7 @@ public class Equipment{
                                     cancel.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                                             blockClick = false;
-                                            takeOn.remove();
-                                            drop.remove();
-                                            cancel.remove();
-                                            itemImage.remove();
-                                            itemName.remove();
-                                            itemType.remove();
-                                            itemHp.remove();
-                                            itemStrong.remove();
-                                            itemWiedza.remove();
-                                            itemArmor.remove();
-                                            itemDefenseFiz.remove();
-                                            itemDefenseMag.remove();
-                                            itemPrice.remove();
-                                            backgroundUp.remove();
-                                            barName.remove();
-                                            itemBackground.remove();
-                                            barPrice.remove();
-                                            infoStorage.remove();
-                                            money.remove();
+                                            removeAll();
                                             return false;
                                         }
                                     });
@@ -761,24 +646,7 @@ public class Equipment{
                                         card.addActor(label);
 
                                         blockClick = false;
-                                        takeOff.remove();
-                                        cancel.remove();
-                                        itemImage.remove();
-                                        itemName.remove();
-                                        itemType.remove();
-                                        itemHp.remove();
-                                        itemStrong.remove();
-                                        itemWiedza.remove();
-                                        itemArmor.remove();
-                                        itemDefenseFiz.remove();
-                                        itemDefenseMag.remove();
-                                        itemPrice.remove();
-                                        backgroundUp.remove();
-                                        barName.remove();
-                                        itemBackground.remove();
-                                        barPrice.remove();
-                                        infoStorage.remove();
-                                        money.remove();
+                                        removeAll();
                                         return false;
                                     }else {
                                         updatePositionFitOut(item);
@@ -788,24 +656,7 @@ public class Equipment{
                                         updateStats();
 
                                         blockClick = false;
-                                        takeOff.remove();
-                                        cancel.remove();
-                                        itemImage.remove();
-                                        itemName.remove();
-                                        itemType.remove();
-                                        itemHp.remove();
-                                        itemStrong.remove();
-                                        itemWiedza.remove();
-                                        itemArmor.remove();
-                                        itemDefenseFiz.remove();
-                                        itemDefenseMag.remove();
-                                        itemPrice.remove();
-                                        backgroundUp.remove();
-                                        barName.remove();
-                                        itemBackground.remove();
-                                        barPrice.remove();
-                                        infoStorage.remove();
-                                        money.remove();
+                                        removeAll();
                                         return false;
                                     }
                                 }
@@ -815,24 +666,7 @@ public class Equipment{
                             cancel.addListener(new InputListener() {
                                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                                     blockClick = false;
-                                    takeOff.remove();
-                                    cancel.remove();
-                                    itemImage.remove();
-                                    itemName.remove();
-                                    itemType.remove();
-                                    itemHp.remove();
-                                    itemStrong.remove();
-                                    itemWiedza.remove();
-                                    itemArmor.remove();
-                                    itemDefenseFiz.remove();
-                                    itemDefenseMag.remove();
-                                    itemPrice.remove();
-                                    backgroundUp.remove();
-                                    barName.remove();
-                                    itemBackground.remove();
-                                    barPrice.remove();
-                                    infoStorage.remove();
-                                    money.remove();
+                                    removeAll();
                                     return false;
                                 }
                             });
@@ -848,6 +682,47 @@ public class Equipment{
                 return false;
             }
         });
+    }
+    private void removeAll(){
+        itemImage.remove();
+        itemName.remove();
+        itemType.remove();
+        itemHp.remove();
+        itemStrong.remove();
+        itemWiedza.remove();
+        itemArmor.remove();
+        itemDefenseFiz.remove();
+        itemDefenseMag.remove();
+        itemPrice.remove();
+        barName.remove();
+        itemBackground.remove();
+        barPrice.remove();
+        infoStorage.remove();
+        money.remove();
+        cancel.remove();
+        drop.remove();
+        takeOn.remove();
+        takeOff.remove();
+        backgroundUp.remove();
+    }
+
+    private void removeAllDown(){
+        itemImageDown.remove();
+        itemNameDown.remove();
+        itemTypeDown.remove();
+        itemHpDown.remove();
+        itemStrongDown.remove();
+        itemWiedzaDown.remove();
+        itemArmorDown.remove();
+        itemDefenseFizDown.remove();
+        itemDefenseMagDown.remove();
+        itemPriceDown.remove();
+        barNameDown.remove();
+        itemBackgroundDown.remove();
+        barPriceDown.remove();
+        infoStorageDown.remove();
+        moneyDown.remove();
+        backgroundDown.remove();
     }
 
     private static void addListener(final int iterator, boolean plus, final Label label){

@@ -10,15 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import Screen.BaseMap;
 import Screen.BaseScreen;
 import Screen.Map_01;
 
@@ -50,8 +47,6 @@ public class Shop extends BaseScreen{
     private Label lLevel;
     private Button[] buttonMenu;
 
-    private static boolean active = false;
-
     public Shop(Game g, Image image, String name, int level, int idShop){
         super(g);
         this.stage = BaseScreen.getStage();
@@ -61,6 +56,7 @@ public class Shop extends BaseScreen{
         this.idShop = idShop;
         buttonMenu = new Button[8];
         new BaseShopDepartaments();
+        new FuncionalityShop();
 
         create();
     }
@@ -80,6 +76,7 @@ public class Shop extends BaseScreen{
         CLOSE.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Hero.setActiveMove(false);
                 BaseScreen.getGame().setScreen(new Map_01(BaseScreen.getGame()));
                 return false;
             }
@@ -94,7 +91,7 @@ public class Shop extends BaseScreen{
 
             if (!value.equals(""))
                 try {
-                    addItemToBag(LoadAllItemToGame.getItem(value), i);
+                    FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(value), i);
                 } catch (CloneNotSupportedException e) {
                     BaseScreen.showException(e);
                     e.printStackTrace();
@@ -126,35 +123,6 @@ public class Shop extends BaseScreen{
         lRing.setPosition(positionXSecondColumn, POS_Y_NEXT_BACKGROUND +40);
         //addActors(BACKGROUND_MENU, lHelmet, lArmor, lPants, lShoes, lWapon, lItemBlock, lItemHand, lRing);
         */
-    }
-
-    public void addItemToBag(final Item item, int slot) {
-        int slotNr = 0;
-        for (int i = 2; i >= 0; i--) {
-            for (int j = 0; j < 6; j++) {
-                if (slotNr == slot) {
-                    item.getImage().setBounds(10 + j * Item.BLOCK_SIZE, i * Item.BLOCK_SIZE + 10, Item.BLOCK_SIZE, Item.BLOCK_SIZE);
-                    item.setStan(Item.Stan.BAG);
-                    item.getImage().addListener(new InputListener(){
-                        @Override
-                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                            imageAddListener(item, item.getPathImage());
-                            return false;
-                        }
-                    });
-                    Equipment.setSlotEmpty(slotNr, true);
-
-                    PREF.putString("SLOT" + slotNr, item.getItemKey());
-                    PREF.flush();
-
-                    System.out.println(item.getItemKey());
-
-                    stage.addActor(item.getImage());
-                    return;
-                }
-                slotNr++;
-            }
-        }
     }
 
     private void createShopMenu() {
@@ -199,95 +167,6 @@ public class Shop extends BaseScreen{
         buttonMenu[7] = createButton(160, 185);
     }
 
-    private void imageAddListener(final Item item, String pathImage) {
-        if(active) {
-            Transaction.updateSellTouchable(true);
-            Transaction.updateBuyButton(false);
-            Transaction.setBackEnabled(false);
-
-            TextButton.TextButtonStyle styleButton = new TextButton.TextButtonStyle();
-            styleButton.font = font;
-            styleButton.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonBack.png"))));
-            final TextButton bClose = new TextButton("Zamknij", styleButton);
-
-            final Image backgroundUp = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
-            final Image itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
-
-            final Label itemName = new Label("" + item.getItemName(), style);
-            final Label itemType = new Label("" + item.getItemType().toString(), style);
-            final Label itemHp = new Label("Hp: +" + item.getHp(), style);
-            final Label itemStrong = new Label("Strong: +" + item.getStrong(), style);
-            final Label itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
-            final Label itemArmor = new Label("Armor: +" + item.getArmor() + "%", style);
-            final Label itemDefenseFiz = new Label("Defense physics: +" + item.getDefenseFiz(), style);
-            final Label itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
-            final Label itemPrice = new Label("" + item.getCashValue(), style);
-
-            final Image money = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
-            final Image itemBackground = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
-            final Image barName = new Image(new Texture(Gdx.files.internal("nameBar.png")));
-            final Image barPrice = new Image(new Texture(Gdx.files.internal("barX.png")));
-
-            backgroundUp.setBounds(0, 230, BaseMap.VIEW_WIDTH, 190);
-            itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
-            itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
-            itemType.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
-            itemHp.setPosition(20, backgroundUp.getY() + 100);
-            itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 100);
-            itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 70);
-            itemWiedza.setPosition(20, backgroundUp.getY() + 70);
-            itemDefenseFiz.setPosition(20, backgroundUp.getY() + 40);
-            itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 40);
-            itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth()/2 -10, backgroundUp.getY() + 10);
-            money.setBounds(itemPrice.getX() +itemPrice.getWidth() +7, itemPrice.getY(), 18, 17);
-            barName.setBounds(itemName.getX() - 20, itemName.getY() - 16, itemName.getWidth() + 40, itemName.getHeight() + 30);
-            itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
-            barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
-            bClose.setPosition(BaseScreen.VIEW_WIDTH /2 - bClose.getWidth() /2, itemPrice.getY() -7);
-
-            bClose.addListener(new InputListener(){
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    Transaction.updateSellButton(true);
-                    Transaction.updateBuyButton(true);
-                    Transaction.updateSellTouchable(false);
-                    Transaction.setBackEnabled(true);
-                    backgroundUp.remove();
-                    itemImage.remove();
-                    itemName.remove();
-                    itemType.remove();
-                    itemHp.remove();
-                    itemArmor.remove();
-                    itemStrong.remove();
-                    itemWiedza.remove();
-                    itemDefenseFiz.remove();
-                    itemDefenseMag.remove();
-                    itemPrice.remove();
-                    money.remove();
-                    barName.remove();
-                    barPrice.remove();
-                    itemBackground.remove();
-                    bClose.remove();
-                    return false;
-                }
-            });
-
-            bClose.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(1)));
-            itemPrice.addAction(Actions.sequence(Actions.run(new Runnable() {
-                @Override
-                public void run() {
-                    itemPrice.setText("" + item.getCashValue());
-                    //itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth()/2 -10, backgroundUp.getY() + 10);
-                    //money.setPosition(itemPrice.getX() +itemPrice.getWidth() +7, itemPrice.getY());
-                }
-            }),Actions.moveBy(0, -50, 1.2f)));
-            money.addAction(Actions.moveBy(0, -50, 1.2f));
-
-            addActors(backgroundUp, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong, itemWiedza,
-                    itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, bClose, money, itemPrice);
-        }
-    }
-
     @Override
     public void update(float dt) {
     }
@@ -318,9 +197,5 @@ public class Shop extends BaseScreen{
         BACKGROUND_MENU.remove();
         for(Button b: buttonMenu)
             b.remove();
-    }
-
-    public static void setActive(boolean setActive){
-        active = setActive;
     }
 }

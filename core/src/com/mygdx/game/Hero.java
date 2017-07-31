@@ -67,7 +67,7 @@ public class Hero extends Character {
     private static boolean activeMove;
 
     private int level;
-    private int money;
+    private static int money;
     private int maxHp;
     private int exp;
     private int maxExp;
@@ -816,7 +816,7 @@ public class Hero extends Character {
         return level;
     }
 
-    public int getMoney(){
+    public static int getMoney(){
         return money;
     }
 

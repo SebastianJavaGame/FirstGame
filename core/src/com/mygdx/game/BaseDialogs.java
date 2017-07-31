@@ -8,7 +8,7 @@ public class BaseDialogs {
     //[npc][text][nextTex]//
     private static final int COUNT_NPC = 1;
     public static final int COUNT_HERO_TEXT_OPTION = 5;
-    private static final int COUNT_ALL_TEXT = 8;
+    private static final int COUNT_ALL_TEXT = 9;
     //[npc][text][nextTex]//
     private static final String[][] TEXT = new String[COUNT_NPC][COUNT_ALL_TEXT];
     private static final int[][][] INDEX_OPTIONS = new int[COUNT_NPC][COUNT_HERO_TEXT_OPTION][];
@@ -23,25 +23,28 @@ public class BaseDialogs {
         TEXT[0][3] = " Ide dalej nie zatrzymuj mnie";
         TEXT[0][4] = " Pokaz mi co masz";
             //npc text
-        TEXT[0][5] = " Witaj jestem Winthor, jestes na wyspie gdzie na każdym rogu czai sie niebezpieczenstwo muszisz byc czujny";
-        TEXT[0][6] = " Jest to wyspa zla";
-        TEXT[0][7] = " U mnie mam sklep";
+        TEXT[0][5] = " Zaczekaj";
+        TEXT[0][6] = " Witaj jestem Winthor, jestes na wyspie gdzie na każdym rogu czai sie niebezpieczenstwo muszisz byc czujny";
+        TEXT[0][7] = " Jest to wyspa zla";
+        TEXT[0][8] = " U mnie mam sklep";
     }
 
     public static final void loadIndexOptions(){
         //Npc #1 to hero answer
-        INDEX_OPTIONS[0][0] = new int[]{5, 1, 3};
-        INDEX_OPTIONS[0][1] = new int[]{6, 2, 3};
-        INDEX_OPTIONS[0][2] = new int[]{7, 4, 3};
+        INDEX_OPTIONS[0][0] = new int[]{6, 1, 3};
+        INDEX_OPTIONS[0][1] = new int[]{7, 2, 3};
+        INDEX_OPTIONS[0][2] = new int[]{8, 4, 3};
         INDEX_OPTIONS[0][3] = new int[]{};
         INDEX_OPTIONS[0][4] = new int[]{};
     }
 
-    //info = 0
-    //exit = 1
-    //shop = 2
-    //task = 3
-    //replace = 4
+    /**
+     * info = 0
+     * exit = 1
+     * shop = 2
+     * task = 3
+     * replace = 4
+     */
     public static final void loadIndexListener(){
         //Npc #1 to hero answer
         INDEX_LISTENER[0][0] = 0;

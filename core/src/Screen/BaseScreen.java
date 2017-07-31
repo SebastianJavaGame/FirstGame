@@ -113,7 +113,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             lTitle.setFontScale(2);
 
             Label lMessage = new Label(exceptionMessage, style);
-            lMessage.setPosition(x +10, y +200);
 
             TextButton exit = new TextButton("Wyjdz", styleError);
             exit.setPosition(x +VIEW_WIDTH /2 -exit.getWidth() /2, y +5);
@@ -125,6 +124,8 @@ public abstract class BaseScreen implements Screen, InputProcessor{
                     return false;
                 }
             });
+            lMessage.setPosition(x +10, y +exit.getY() +exit.getHeight());
+
             stage.addActor(lTitle);
             stage.addActor(lMessage);
             stage.addActor(exit);

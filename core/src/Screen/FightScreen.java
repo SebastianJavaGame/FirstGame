@@ -116,7 +116,7 @@ public class FightScreen extends BaseScreen {
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
         hpHero = 20;
-        hpEnemy = 0;
+        hpEnemy = 0;//TODO if hp < 20% and click abort TEST!!!
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
