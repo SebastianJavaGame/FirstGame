@@ -162,12 +162,12 @@ public class FieldDialogue {
     /**
      * BaseDialogs.INDEX_LISTENER = 2;
      */
-    public FieldDialogue shop(final Image image, final String name, final int level){
+    public FieldDialogue shop(final Image image, final String name, final int level, final int idShop){
         label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 DialogNpc.removeAll();
-                BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level));
+                BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
                 //Hero.setActiveMove(false);
                 //Hero3D.setRenderHero3d(true);
                 System.out.println("shop");

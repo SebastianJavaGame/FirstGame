@@ -44,6 +44,7 @@ public class Shop extends BaseScreen{
     private Image image;
     private String name;
     private int level;
+    private int idShop;
 
     private Label lName;
     private Label lLevel;
@@ -51,13 +52,15 @@ public class Shop extends BaseScreen{
 
     private static boolean active = false;
 
-    public Shop(Game g, Image image, String name, int level){
+    public Shop(Game g, Image image, String name, int level, int idShop){
         super(g);
         this.stage = BaseScreen.getStage();
         this.image = image;
         this.name = name;
         this.level = level;
+        this.idShop = idShop;
         buttonMenu = new Button[8];
+        new BaseShopDepartaments();
 
         create();
     }
@@ -135,7 +138,7 @@ public class Shop extends BaseScreen{
                     item.getImage().addListener(new InputListener(){
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                            imageAddListener(item, item.getImage(), item.getPathImage());
+                            imageAddListener(item, item.getPathImage());
                             return false;
                         }
                     });
@@ -158,27 +161,48 @@ public class Shop extends BaseScreen{
         BACKGROUND_MENU.setPosition(-10, POS_Y_NEXT_BACKGROUND);
         addActors(BACKGROUND_MENU);
 
-        buttonMenu[0] = createButton(20, 185);
+        buttonMenu[0] = createButton(20, 365);
         buttonMenu[0].addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 removeMenu();
-                new Transaction(0, image, name, level);
+                new Transaction(0, image, name, level, idShop);
                 return false;
             }
         });
-        buttonMenu[1] = createButton(20, 245);
-        buttonMenu[2] = createButton(20, 305);
-        buttonMenu[3] = createButton(20, 365);
-        buttonMenu[4] = createButton(160, 185);
-        buttonMenu[5] = createButton(160, 245);
-        buttonMenu[6] = createButton(160, 305);
-        buttonMenu[7] = createButton(160, 365);
+
+        buttonMenu[1] = createButton(20, 305);
+        buttonMenu[1].addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                removeMenu();
+                new Transaction(1, image, name, level, idShop);
+                return false;
+            }
+        });
+
+        buttonMenu[2] = createButton(20, 245);
+        buttonMenu[3] = createButton(20, 185);
+
+        buttonMenu[4] = createButton(160, 365);
+        buttonMenu[4].addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                removeMenu();
+                new Transaction(4, image, name, level, idShop);
+                return false;
+            }
+        });
+
+        buttonMenu[5] = createButton(160, 305);
+        buttonMenu[6] = createButton(160, 245);
+        buttonMenu[7] = createButton(160, 185);
     }
 
-    private void imageAddListener(final Item item, Image image, String pathImage) {
+    private void imageAddListener(final Item item, String pathImage) {
         if(active) {
-            Transaction.updateSellButton(true);
+            Transaction.updateSellTouchable(true);
+            Transaction.updateBuyButton(false);
             Transaction.setBackEnabled(false);
 
             TextButton.TextButtonStyle styleButton = new TextButton.TextButtonStyle();
@@ -224,7 +248,9 @@ public class Shop extends BaseScreen{
             bClose.addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    Transaction.updateSellButton(false);
+                    Transaction.updateSellButton(true);
+                    Transaction.updateBuyButton(true);
+                    Transaction.updateSellTouchable(false);
                     Transaction.setBackEnabled(true);
                     backgroundUp.remove();
                     itemImage.remove();

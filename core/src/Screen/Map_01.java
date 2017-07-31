@@ -40,7 +40,7 @@ public class Map_01 extends BaseMap {
             addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380);
             addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
 
-            addNpc("mag.png", "glominHead.png", "Witherman", 20, 400);
+            addNpc("mag.png", "glominHead.png", "Witherman", 20, 0);
         }
 
         bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
@@ -82,9 +82,9 @@ public class Map_01 extends BaseMap {
         enemy.collisionUpdate();
     }
 
-    private void addNpc(String path, String head, String name, int level, int x){
-        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level);
-        npc.setPosition(500, x);
+    private void addNpc(String path, String head, String name, int level, int idShop){
+        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, idShop);
+        npc.setPosition(500, 400);
         npc.setSize(60, 100);
         characters.add(npc);
         npc.setRectangle(0, 0, 0, 0);

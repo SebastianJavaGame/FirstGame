@@ -130,7 +130,7 @@ public class DialogNpc {
                 fieldTextList[idFieldDialogue].exit();
                 break;
             case 2:
-                fieldTextList[idFieldDialogue].shop(imageHead, npc.getName(), npc.getLevel());
+                fieldTextList[idFieldDialogue].shop(imageHead, npc.getName(), npc.getLevel(), npc.getIdShop());
                 break;
             case 3:
                 fieldTextList[idFieldDialogue].task();

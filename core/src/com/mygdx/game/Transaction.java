@@ -39,15 +39,21 @@ class Transaction {
     private Image image;
     private String name;
     private int level;
+    private int idShop;
 
     private static TextButton bBack;
     private static TextButton bBuy;
     private static TextButton bSell;
 
-    public Transaction(int itemGroup, final Image image, final String name, final int level) {
+    private boolean[] emptySlotShop;
+
+    public Transaction(int itemGroup, final Image image, final String name, final int level, final int idShop) {
         this.image = image;
         this.name = name;
         this.level = level;
+        this.idShop = idShop;
+        emptySlotShop = new boolean[10];
+
 
         Shop.setActive(true);
 
@@ -57,6 +63,9 @@ class Transaction {
         bBuy = new TextButton("Kup", STYLE_TRANSACTION_BUY);
         bSell = new TextButton("Sprzedaj", STYLE_TRANSACTION_BUY);
 
+        updateSellTouchable(false);
+        updateBuyToutchable(false);
+
         bBack.setPosition(174, 238);
         bBuy.setPosition(18, Shop.POS_Y_NEXT_BACKGROUND +10);
         bSell.setPosition(214, Shop.POS_Y_NEXT_BACKGROUND +10);
@@ -65,7 +74,7 @@ class Transaction {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 stage.clear();
-                BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level));
+                BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
                 return false;
             }
         });
@@ -87,6 +96,49 @@ class Transaction {
         });
 
         addActors(BACKGROUND_TRANSACTION, bBack, bBuy, bSell);
+
+        String[] itemList = BaseShopDepartaments.getItemsFromDepartament(idShop, itemGroup);
+
+        for (int i = 0; i < itemList.length; i++) {
+            String value = itemList[i];
+            System.out.println(value);
+            if (!value.equals(""))
+                try {
+                    addItemToBag(LoadAllItemToGame.getItem(value), i);
+                } catch (CloneNotSupportedException e) {
+                    BaseScreen.showException(e);
+                    e.printStackTrace();
+                }
+            //else
+                //Equipment.setSlotEmpty(i, false);
+        }
+    }
+
+    public void addItemToBag(final Item item, int slot) {
+        if(slot > 9)
+            return;
+
+        int slotNr = 0;
+        for (int i = 2; i >= 0; i--) {
+            for (int j = 0; j < 3; j++) {
+                if (slotNr == slot) {
+                    item.getImage().setBounds(10 + j * Item.BLOCK_SIZE, i * Item.BLOCK_SIZE + 10, Item.BLOCK_SIZE, Item.BLOCK_SIZE);
+                    //item.setStan(Item.Stan.BAG);
+                    item.getImage().addListener(new InputListener(){
+                        @Override
+                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            //imageAddListener(item, item.getPathImage());
+                            return false;
+                        }
+                    });
+                    Equipment.setSlotEmpty(slotNr, true);
+
+                    stage.addActor(item.getImage());
+                    return;
+                }
+                slotNr++;
+            }
+        }
     }
 
     private void addActors(Actor... actor){
@@ -97,10 +149,15 @@ class Transaction {
     public static void updateBuyButton(boolean enabledBuy){
         if(enabledBuy){
             bBuy.setText("Kup");
-            bSell.setText("");
-            bBuy.setTouchable(Touchable.enabled);
         }else {
             bBuy.setText("");
+        }
+    }
+
+    public static void updateBuyToutchable(boolean touchable){
+        if(touchable){
+            bBuy.setTouchable(Touchable.enabled);
+        }else {
             bBuy.setTouchable(Touchable.disabled);
         }
     }
@@ -108,10 +165,15 @@ class Transaction {
     public static void updateSellButton(boolean enabledSell){
         if(enabledSell){
             bSell.setText("Sprzedaj");
-            bBuy.setText("");
-            bSell.setTouchable(Touchable.enabled);
         }else{
             bSell.setText("");
+        }
+    }
+
+    public static void updateSellTouchable(boolean touchable){
+        if(touchable){
+            bSell.setTouchable(Touchable.enabled);
+        }else{
             bSell.setTouchable(Touchable.disabled);
         }
     }
