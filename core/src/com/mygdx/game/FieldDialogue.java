@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -31,6 +32,7 @@ public class FieldDialogue {
     private static final int LINE_LENGTH = 33;
     private static final float FONT_SIZE = 1f;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
+    private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);
 
     static {
         STYLE_WHITE.font = FONT;
@@ -59,7 +61,7 @@ public class FieldDialogue {
             int start = 0;
             int end = 1;
             int minus = 0;
-            if(getText.length() >= LINE_LENGTH) {
+            if(getText.length()-1 >= LINE_LENGTH) {
                 do {
                     i++;
                     int j = LINE_LENGTH * (i + 1) - minus;
@@ -168,8 +170,6 @@ public class FieldDialogue {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 DialogNpc.removeAll();
                 BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
-                //Hero.setActiveMove(false);
-                //Hero3D.setRenderHero3d(true);
                 System.out.println("shop");
                 return false;
             }
@@ -180,12 +180,22 @@ public class FieldDialogue {
     /**
      * BaseDialogs.INDEX_LISTENER = 3;
      */
-    public FieldDialogue task(){
+    public FieldDialogue task(final int idTask){
         label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                // int[] nextDialogueText = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
-                //add new Field with text;
+                DialogNpc.removeAll();
+                Hero.setActiveMove(false);
+                Hero3D.setRenderHero3d(true);
+                //TODO add animation red migajace circle around icon bag
+                for(int i = 0;; i++){
+                    if(PREF.getInteger("TASK" + i, -1) == -1) {
+                        PREF.putInteger("TASK" + i, idTask);
+                        PREF.putInteger("TASK" + i + "_PROGRESS", 0);
+                        PREF.flush();
+                        break;
+                    }
+                }
                 return false;
             }
         });

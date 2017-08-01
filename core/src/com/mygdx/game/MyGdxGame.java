@@ -49,6 +49,16 @@ public class MyGdxGame extends Game{
             //prefStats.putInteger("COLLISION", ???);
             prefStats.flush();
 
+            Preferences prefTask = Gdx.app.getPreferences(Quest.PREF_TASK);
+            prefTask.clear();
+            prefTask.putInteger("TASK0", 0);
+            prefTask.putInteger("TASK0_PROGRESS", 0);
+            prefTask.putInteger("TASK1", 1);
+            prefTask.putInteger("TASK1_PROGRESS", 11);
+            prefTask.putInteger("TASK2", 2);
+            prefTask.putInteger("TASK2_PROGRESS", 1);
+            prefTask.flush();
+
             firstLoad.putString("FIRST", "IS LOAD");
             firstLoad.flush();
         }
@@ -58,6 +68,7 @@ public class MyGdxGame extends Game{
         BaseDialogs.loadNpcTextList();
         BaseDialogs.loadIndexOptions();
         BaseDialogs.loadIndexListener();
+        BaseTask.loadAllTasks();
 
 		Menu lvl = new Menu(this);
 		//FightWin lvl = new FightWin(this, 10, 34, 67, 10000, 4510, "fire_sword");

@@ -40,7 +40,7 @@ public class Map_02 extends BaseMap {
 
     @Override
     public void addNpcToMap() {
-        addNpc("mag.png", "glominHead.png", "Witherman", 20, 0);
+        addNpc("mag.png", "glominHead.png", "Witherman", 20, 0, 1);
     }
 
     @Override
@@ -107,8 +107,8 @@ public class Map_02 extends BaseMap {
         enemy.collisionUpdate();
     }
 
-    private void addNpc(String path, String head, String name, int level, int idShop){
-        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, idShop);
+    private void addNpc(String path, String head, String name, int level, int idShop, int idTask){
+        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, idShop, idTask);
         npc.setPosition(500, 400);
         npc.setSize(60, 100);
         characters.add(npc);

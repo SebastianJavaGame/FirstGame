@@ -29,7 +29,7 @@ public class DialogNpc {
     public static int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
     private static int POS_TEXT_FIELD_NPC = POS_Y +360;
 
-    private static final int START_NPC_TEXT = 5;
+    private static final int START_NPC_TEXT = 7;
     private static final int START_ANSWER_ONE = 0;
     private static final int START_ANSWER_TWO = 1;
     private static final int START_ANSWER_THREE = 3;
@@ -133,7 +133,7 @@ public class DialogNpc {
                 fieldTextList[idFieldDialogue].shop(imageHead, npc.getName(), npc.getLevel(), npc.getIdShop());
                 break;
             case 3:
-                fieldTextList[idFieldDialogue].task();
+                fieldTextList[idFieldDialogue].task(npc.getIdTask());
                 break;
             case 4:
                 fieldTextList[idFieldDialogue].replace();

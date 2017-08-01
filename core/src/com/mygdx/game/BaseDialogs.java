@@ -7,8 +7,8 @@ package com.mygdx.game;
 public class BaseDialogs {
     //[npc][text][nextTex]//
     private static final int COUNT_NPC = 1;
-    public static final int COUNT_HERO_TEXT_OPTION = 5;
-    private static final int COUNT_ALL_TEXT = 9;
+    public static final int COUNT_HERO_TEXT_OPTION = 7;
+    private static final int COUNT_ALL_TEXT = 12;
     //[npc][text][nextTex]//
     private static final String[][] TEXT = new String[COUNT_NPC][COUNT_ALL_TEXT];
     private static final int[][][] INDEX_OPTIONS = new int[COUNT_NPC][COUNT_HERO_TEXT_OPTION][];
@@ -22,20 +22,25 @@ public class BaseDialogs {
         TEXT[0][2] = " Gdzie moge kupic bron?";
         TEXT[0][3] = " Ide dalej nie zatrzymuj mnie";
         TEXT[0][4] = " Pokaz mi co masz";
+        TEXT[0][5] = " Potrzebuje zlota czy moglbym cos dla ciebie zrobic?";
+        TEXT[0][6] = " Biore to zaraz wracam po nagrode";
             //npc text
-        TEXT[0][5] = " Zaczekaj";
-        TEXT[0][6] = " Witaj jestem Winthor, jestes na wyspie gdzie na każdym rogu czai sie niebezpieczenstwo muszisz byc czujny";
-        TEXT[0][7] = " Jest to wyspa zla";
-        TEXT[0][8] = " U mnie mam sklep";
+        TEXT[0][7] = " Zaczekaj";
+        TEXT[0][8] = " Witaj jestem Winthor, jestes na wyspie gdzie na każdym rogu czai sie niebezpieczenstwo muszisz byc czujny";
+        TEXT[0][9] = " Jest to wyspa zla";
+        TEXT[0][10] = " U mnie mam sklep";
+        TEXT[0][11] = " Tak jest cos do zrobienie. Zabij 5 Glominow";
     }
 
     public static final void loadIndexOptions(){
         //Npc #1 to hero answer
-        INDEX_OPTIONS[0][0] = new int[]{6, 1, 3};
-        INDEX_OPTIONS[0][1] = new int[]{7, 2, 3};
-        INDEX_OPTIONS[0][2] = new int[]{8, 4, 3};
+        INDEX_OPTIONS[0][0] = new int[]{8, 1, 3};
+        INDEX_OPTIONS[0][1] = new int[]{9, 2, 5, 3};
+        INDEX_OPTIONS[0][2] = new int[]{10, 4, 3};
         INDEX_OPTIONS[0][3] = new int[]{};
         INDEX_OPTIONS[0][4] = new int[]{};
+        INDEX_OPTIONS[0][5] = new int[]{11, 6, 3};
+        INDEX_OPTIONS[0][6] = new int[]{};
     }
 
     /**
@@ -52,6 +57,8 @@ public class BaseDialogs {
         INDEX_LISTENER[0][2] = 0;
         INDEX_LISTENER[0][3] = 1;
         INDEX_LISTENER[0][4] = 2;
+        INDEX_LISTENER[0][5] = 0;
+        INDEX_LISTENER[0][6] = 3;
     }
 
     public static String getText(int indexFirst, int indexSecond){

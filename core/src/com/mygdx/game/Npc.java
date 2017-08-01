@@ -14,6 +14,7 @@ public class Npc extends Character{
 
     private int id;
     private static int idIteration = -1;
+    private int idTask;
 
     private int idShop;
 
@@ -21,13 +22,14 @@ public class Npc extends Character{
         idIteration++;
     }
 
-    public Npc(Texture texture, Image head, String name, int level, int idShop) {
+    public Npc(Texture texture, Image head, String name, int level, int idShop, int idTask) {
         super(texture);
         this.head = head;
         this.name = name;
         this.level = level;
         this.id = idIteration;
         this.idShop = idShop;
+        this.idTask = idTask;
     }
 
     @Override
@@ -54,5 +56,9 @@ public class Npc extends Character{
 
     public int getIdShop(){
         return idShop;
+    }
+
+    public int getIdTask(){
+        return idTask;
     }
 }

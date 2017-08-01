@@ -102,6 +102,7 @@ class Transaction {
         bBuy.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                updateBuyTouchable(false);
                 for(int i = 0; i < 18; i++){
                     String value = preferences.getString("SLOT" +i, "");
 
@@ -144,6 +145,7 @@ class Transaction {
         bSell.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                updateSellTouchable(false);
                 FuncionalityShop.animationEndTransaction("+" +FuncionalityShop.getPrice(), Color.GREEN);
                 FuncionalityShop.removeAllShop();
 

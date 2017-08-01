@@ -121,7 +121,8 @@ public class Bag {
     }
 
     private void initCardQuest() {
-        //TODO init quest card
+        card.clear();
+        new Quest(card);
     }
 
     private void initCardExit() {
