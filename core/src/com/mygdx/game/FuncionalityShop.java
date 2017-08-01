@@ -46,11 +46,16 @@ public class FuncionalityShop {
 
     private static boolean active = false;
     private static boolean firstClick = true;
-    private static String actualItemName;
-    private static int actualSlotNr;
+    private static String actualItemNameShop;
+    private static Image actualItemImageBag;
+    private static int actualSlotNrBag;
+    private static Label lAnimTransaction;
+    private static Image imageAnimTransaction;
+
+    private static int price;
 
     private static final BitmapFont font = new BitmapFont();
-    private static final Label.LabelStyle style = new Label.LabelStyle();
+    public static final Label.LabelStyle style = new Label.LabelStyle();
     static {
         style.font = font;
     }
@@ -126,17 +131,18 @@ public class FuncionalityShop {
             else if (column == 0)
                 column = 2;
             int slotNr = column * 6 + row;
-            actualSlotNr = slotNr;
-
-            //Equipment.slotEmpty[slotNr] = false;
-            //item.getImage().remove();
-            //pref.putString("SLOT" + slotNr, "");
-            //pref.flush();
+            actualSlotNrBag = slotNr;
+            actualItemImageBag = item.getImage();
 
             Transaction.setHeroMoneyVisibleLeft(true);
             Transaction.updateSellTouchable(true);
             Transaction.updateBuyButton(false);
             Transaction.setBackEnabled(false);
+
+            if(lAnimTransaction != null && imageAnimTransaction != null) {
+                getlAnimTransaction().remove();
+                getImageAnimTransaction().remove();
+            }
 
             TextButton.TextButtonStyle styleButton = new TextButton.TextButtonStyle();
             styleButton.font = font;
@@ -156,6 +162,7 @@ public class FuncionalityShop {
             itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
             itemPrice = new Label("" + item.getCashValue(), style);
             lPrice = new Label("Cena", style);
+            price = item.getCashValue();
 
             money = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
             itemBackground = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
@@ -209,11 +216,16 @@ public class FuncionalityShop {
     public static void imageAddListenerShop(final Item item, String pathImage) {
         removeAllShop();
         firstClick = false;
-        actualItemName = item.getItemKey();
+        actualItemNameShop = item.getItemKey();
 
         Transaction.setHeroMoneyVisibleRight(true);
-        Transaction.updateBuyToutchable(true);
+        Transaction.updateBuyTouchable(true);
         Transaction.updateSellButton(false);
+
+        if(lAnimTransaction != null && imageAnimTransaction != null) {
+            getlAnimTransaction().remove();
+            getImageAnimTransaction().remove();
+        }
 
         TextButton.TextButtonStyle styleButton = new TextButton.TextButtonStyle();
         styleButton.font = Transaction.FONT;
@@ -233,6 +245,7 @@ public class FuncionalityShop {
         itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
         itemPrice = new Label("" + item.getCashValue(), style);
         lPrice = new Label("Cena", style);
+        price = item.getCashValue();
 
         money = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
         itemBackground = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
@@ -260,7 +273,8 @@ public class FuncionalityShop {
         bClose.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Transaction.updateBuyToutchable(false);
+                Transaction.updateBuyTouchable(false);
+                Transaction.setBackEnabled(true);
                 removeAllShop();
                 return false;
             }
@@ -283,34 +297,21 @@ public class FuncionalityShop {
 
     }
 
-    /*public static void removeAllBag() {
-        try{
-            if(!firstClick) {
-                checkIsNotNull(backgroundUp);
-                checkIsNotNull(itemImage);
-                checkIsNotNull(itemName);
-                checkIsNotNull(itemType);
-                checkIsNotNull(itemHp);
-                checkIsNotNull(itemArmor);
-                checkIsNotNull(itemStrong);
-                checkIsNotNull(itemWiedza);
-                checkIsNotNull(itemDefenseFiz);
-                checkIsNotNull(itemDefenseMag);
-                checkIsNotNull(itemPrice);
-                checkIsNotNull(money);
-                checkIsNotNull(barName);
-                checkIsNotNull(barPrice);
-                checkIsNotNull(itemBackground);
-                checkIsNotNull(bClose);
-                Transaction.setHeroMoneyVisibleLeft(false);
-                Transaction.updateSellButton(true);
-                Transaction.updateBuyButton(true);
-                lPrice.addAction(Actions.fadeOut(0));
-            }
-        }catch (Exception e){
-            BaseScreen.showException(e);
-        }
-    }*/
+    public static void animationEndTransaction(String text, Color color){
+        lAnimTransaction = new Label(text, style);
+        imageAnimTransaction = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
+
+        lAnimTransaction.setColor(color);
+        imageAnimTransaction.setSize(20, 20);
+        lAnimTransaction.setPosition(BaseScreen.VIEW_WIDTH /2 -(lAnimTransaction.getWidth() +imageAnimTransaction.getWidth()) /2, 190);
+        imageAnimTransaction.setPosition(lAnimTransaction.getX() +lAnimTransaction.getWidth() +4, 190);
+
+        System.out.println(lAnimTransaction.getX() + "" + lAnimTransaction.getY());
+
+        lAnimTransaction.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(1), Actions.delay(3), Actions.fadeOut(1)));
+        imageAnimTransaction.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(1), Actions.delay(3), Actions.fadeOut(1)));
+        addActors(lAnimTransaction, imageAnimTransaction);
+    }
 
     public static void removeAllShop() {
         if(!firstClick) {
@@ -338,11 +339,6 @@ public class FuncionalityShop {
         }
     }
 
-    private static void checkIsNotNull(Actor actor){
-        if(actor != null)
-            actor.remove();
-    }
-
     private static void addActors(Actor... actor){
         for(Actor object: actor)
             stage.addActor(object);
@@ -356,11 +352,27 @@ public class FuncionalityShop {
         firstClick = setFirstClick;
     }
 
-    public static String getActualItemName(){
-        return actualItemName;
+    public static String getActualItemNameShop(){
+        return actualItemNameShop;
     }
 
-    public static int getActualSlotNr(){
-        return actualSlotNr;
+    public static Image getActualItemImageBag(){
+        return actualItemImageBag;
+    }
+
+    public static int getActualSlotNrBag(){
+        return actualSlotNrBag;
+    }
+
+    public static int getPrice(){
+        return price;
+    }
+
+    public static Label getlAnimTransaction(){
+        return lAnimTransaction;
+    }
+
+    public static Image getImageAnimTransaction(){
+        return imageAnimTransaction;
     }
 }

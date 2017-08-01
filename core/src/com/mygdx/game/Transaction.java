@@ -31,6 +31,7 @@ class Transaction {
     private static final TextButton.TextButtonStyle STYLE_BACK = new TextButton.TextButtonStyle();
     private static final Label.LabelStyle style = new Label.LabelStyle();
     private final Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
+    private final Preferences preferencesStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
     private static Stage stage;
 
     static {
@@ -87,6 +88,10 @@ class Transaction {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 stage.clear();
+                if(FuncionalityShop.getImageAnimTransaction() != null && FuncionalityShop.getlAnimTransaction() != null) {
+                    FuncionalityShop.getlAnimTransaction().remove();
+                    FuncionalityShop.getImageAnimTransaction().remove();
+                }
                 FuncionalityShop.setFirstClick(true);
                 FuncionalityShop.setActive(false);
                 BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
@@ -97,16 +102,28 @@ class Transaction {
         bBuy.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Click BUY");
                 for(int i = 0; i < 18; i++){
                     String value = preferences.getString("SLOT" +i, "");
 
                     if(value.equals("")){
                         try {
-                            FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(FuncionalityShop.getActualItemName()), i);
-                            preferences.putString("SLOT" +i, FuncionalityShop.getActualItemName());
-                            preferences.flush();
-                            FuncionalityShop.removeAllShop(); //TODO removeAllBag
+                            int money = preferencesStats.getInteger("MONEY");
+                            if(money >= FuncionalityShop.getPrice()) {
+                                FuncionalityShop.animationEndTransaction("-" + FuncionalityShop.getPrice(), Color.RED);
+                                FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(FuncionalityShop.getActualItemNameShop()), i);
+
+                                preferences.putString("SLOT" + i, FuncionalityShop.getActualItemNameShop());
+                                preferences.flush();
+                                Hero.setMoney(Hero.getMoney() -FuncionalityShop.getPrice());
+                                preferencesStats.putInteger("MONEY", Hero.getMoney());
+                                preferencesStats.flush();
+
+                                lMoneyLeft.setText("" + Hero.getMoney());
+                                lMoneyRight.setText("" + Hero.getMoney());
+                            }else{
+                                FuncionalityShop.animationEndTransaction("Za malo zlota!", Color.ROYAL);
+                            }
+                            FuncionalityShop.removeAllShop();
                         } catch (CloneNotSupportedException e) {
                             e.printStackTrace();
                         }
@@ -127,12 +144,21 @@ class Transaction {
         bSell.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Click SELL");
-                int slotNr = FuncionalityShop.getActualSlotNr();
+                FuncionalityShop.animationEndTransaction("+" +FuncionalityShop.getPrice(), Color.GREEN);
+                FuncionalityShop.removeAllShop();
+
+                int slotNr = FuncionalityShop.getActualSlotNrBag();
                 Equipment.slotEmpty[slotNr] = false;
-                //item.getImage().remove(); //TODO napraw this line
+                FuncionalityShop.getActualItemImageBag().remove();
+
                 preferences.putString("SLOT" + slotNr, "");
                 preferences.flush();
+                Hero.setMoney(Hero.getMoney() +FuncionalityShop.getPrice());
+                preferencesStats.putInteger("MONEY", Hero.getMoney());
+                preferencesStats.flush();
+
+                lMoneyLeft.setText("" + Hero.getMoney());
+                lMoneyRight.setText("" + Hero.getMoney());
                 return false;
             }
         });
@@ -141,7 +167,7 @@ class Transaction {
         setHeroMoneyVisibleLeft(false);
         setHeroMoneyVisibleRight(false);
         updateSellTouchable(false);
-        updateBuyToutchable(false);
+        updateBuyTouchable(false);
     }
 
     private void showEq(String[] itemList) {
@@ -196,7 +222,7 @@ class Transaction {
         }
     }
 
-    public static void updateBuyToutchable(boolean touchable) {
+    public static void updateBuyTouchable(boolean touchable) {
         if (touchable) {
             bBuy.setTouchable(Touchable.enabled);
         } else {

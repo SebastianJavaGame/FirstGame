@@ -1001,8 +1001,8 @@ public class Hero extends Character {
         this.level = level;
     }
 
-    public void setMoney(int money){
-        this.money = money;
+    public static void setMoney(int setMoney){
+        money = setMoney;
     }
 
     public void  setActualCollision(Polygon polygon){
