@@ -52,6 +52,8 @@ public class Equipment{
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 271}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 271},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 218}};
 
+    private static final BitmapFont font = new BitmapFont();
+
     private TextButton takeOn;
     private TextButton takeOff;
     private TextButton drop;
@@ -61,7 +63,7 @@ public class Equipment{
     private Image backgroundDown;
     private Image itemImage;
     private Label itemName;
-    private Label itemType;
+    private Label itemLevelRequire;
     private Label itemHp;
     private Label itemStrong;
     private Label itemWiedza;
@@ -76,7 +78,7 @@ public class Equipment{
     private Image barPrice;
     private Image itemImageDown;
     private Label itemNameDown;
-    private Label itemTypeDown;
+    private Label itemLevelRequireDown;
     private Label itemHpDown;
     private Label itemStrongDown;
     private Label itemWiedzaDown;
@@ -388,7 +390,6 @@ public class Equipment{
                 if (!blockClick) {
                     blockClick = true;
 
-                    BitmapFont font = new BitmapFont();
                     final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();
                     textStyle.font = font;
                     textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
@@ -409,7 +410,7 @@ public class Equipment{
 
                     itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
                     itemName = new Label("" + item.getItemName(), style);
-                    itemType = new Label("" + item.getItemType().toString(), style);
+                    itemLevelRequire = new Label("Wymagany poziom: " + item.getLevelRequire(), style);
                     itemHp = new Label("Hp: +" + item.getHp(), style);
                     itemStrong = new Label("Strong: +" + item.getStrong(), style);
                     itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
@@ -423,9 +424,12 @@ public class Equipment{
                     barName = new Image(new Texture(Gdx.files.internal("nameBar.png")));
                     barPrice = new Image(new Texture(Gdx.files.internal("barX.png")));
 
+                    if(item.getLevelRequire() > hero.getLevel())
+                        itemLevelRequire.setColor(Color.RED);
+
                     itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
-                    itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
-                    itemType.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
+                    itemName.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
+                    itemLevelRequire.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
                     itemHp.setPosition(20, backgroundUp.getY() + 100);
                     itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 100);
                     itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 70);
@@ -447,11 +451,11 @@ public class Equipment{
                                     backgroundDown = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
                                     backgroundDown.setBounds(0, 0, BaseMap.VIEW_WIDTH, 190);
 
-                                    Item itemUp = LoadAllItemToGame.getItem(PREF_ITEMS.getString(item.getItemType().toString()));
+                                    final Item itemUp = LoadAllItemToGame.getItem(PREF_ITEMS.getString(item.getItemType().toString()));
                                     itemUp.setStan(Item.Stan.BAG);
                                     itemImageDown = new Image(new Texture(Gdx.files.internal(itemUp.getPathImage())));
                                     itemNameDown = new Label("" + itemUp.getItemName(), style);
-                                    itemTypeDown = new Label("" + itemUp.getItemType().toString(), style);
+                                    itemLevelRequireDown = new Label("Wymagany poziom: " + itemUp.getLevelRequire(), style);
                                     itemHpDown = new Label("Hp: +" + itemUp.getHp(), style);
                                     itemStrongDown = new Label("Strong: +" + itemUp.getStrong(), style);
                                     itemWiedzaDown = new Label("Wiedza: +" + itemUp.getWiedza(), style);
@@ -465,10 +469,13 @@ public class Equipment{
                                     barNameDown = new Image(new Texture(Gdx.files.internal("nameBar.png")));
                                     barPriceDown = new Image(new Texture(Gdx.files.internal("barX.png")));
 
+                                    if(itemUp.getLevelRequire() > hero.getLevel())
+                                        itemLevelRequire.setColor(Color.ROYAL);
+
                                     //Item INFO
                                     itemImageDown.setBounds(20, backgroundDown.getY() + 120, 60, 60);
                                     itemNameDown.setPosition((BaseMap.VIEW_WIDTH + 70) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 160);
-                                    itemTypeDown.setPosition((BaseMap.VIEW_WIDTH + 70) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 132);
+                                    itemLevelRequireDown.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 132);
                                     itemHpDown.setPosition(20, backgroundDown.getY() + 100);
                                     itemArmorDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 100);
                                     itemStrongDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 70);
@@ -485,29 +492,34 @@ public class Equipment{
                                     takeOn.setBounds(0, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     takeOn.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                                            int row = (int) (item.getImage().getX() - 10) / 50;
-                                            int column = (int) item.getImage().getY() / 50;
-                                            if (column == 2)
-                                                column = 0;
-                                            else if (column == 0)
-                                                column = 2;
-                                            int slotNr = column * 6 + row;
+                                            if(item.getLevelRequire() <= hero.getLevel()) {
+                                                int row = (int) (item.getImage().getX() - 10) / 50;
+                                                int column = (int) item.getImage().getY() / 50;
+                                                if (column == 2)
+                                                    column = 0;
+                                                else if (column == 0)
+                                                    column = 2;
+                                                int slotNr = column * 6 + row;
 
-                                            slotEmpty[slotNr] = false;
+                                                slotEmpty[slotNr] = false;
 
-                                            for (int i = 0; i < 8; i++) {
-                                                if (item.getItemType().toString().equals(PREF_ITEM_HUMAN[i])) {
-                                                    updatePositionFitOut(block[i], slotNr);
+                                                for (int i = 0; i < 8; i++) {
+                                                    if (item.getItemType().toString().equals(PREF_ITEM_HUMAN[i])) {
+                                                        updatePositionFitOut(block[i], slotNr);
+                                                    }
                                                 }
-                                            }
-                                            updatePositionFitIn(item);
-                                            PREF_ITEMS.putString(item.getItemType().toString(), item.getItemKey());
-                                            PREF_ITEMS.flush();
-                                            updateStats();
+                                                updatePositionFitIn(item);
+                                                PREF_ITEMS.putString(item.getItemType().toString(), item.getItemKey());
+                                                PREF_ITEMS.flush();
+                                                updateStats();
 
-                                            blockClick = false;
-                                            removeAllDown();
-                                            removeAll();
+                                                removeAllDown();
+                                                removeAll();
+                                            }else{
+                                                removeAll();
+                                                removeAllDown();
+                                                animationItemLevelTooUpper();
+                                            }
                                             return false;
                                         }
                                     });
@@ -515,7 +527,6 @@ public class Equipment{
                                     drop.setBounds(BaseMap.VIEW_WIDTH / 3, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     drop.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                                            blockClick = false;
                                             int row = (int) (item.getImage().getX() - 10) / 50;
                                             int column = (int) item.getImage().getY() / 50;
                                             if (column == 2)
@@ -538,45 +549,48 @@ public class Equipment{
                                     cancel.setBounds((BaseMap.VIEW_WIDTH / 3) * 2, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     cancel.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                                            blockClick = false;
                                             removeAllDown();
                                             removeAll();
                                             return false;
                                         }
                                     });
                                     //Add actor on stage
-                                    addAllActorToStage(backgroundUp, backgroundDown, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong,
+                                    addAllActorToStage(backgroundUp, backgroundDown, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong,
                                             itemWiedza, itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, infoStorage, money, itemPrice, itemBackgroundDown, itemImageDown, barNameDown,
-                                            itemNameDown, itemTypeDown, itemHpDown, itemStrongDown, itemWiedzaDown, itemArmorDown,
+                                            itemNameDown, itemLevelRequireDown, itemHpDown, itemStrongDown, itemWiedzaDown, itemArmorDown,
                                             itemDefenseFizDown, itemDefenseMagDown, barPriceDown, moneyDown, itemPriceDown, infoStorageDown, takeOn,  drop, cancel);
                                 } else {
                                     takeOn.setBounds(0, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     takeOn.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                                            PREF_ITEMS.putString(item.getItemType().toString(), item.getItemKey());
-                                            PREF_ITEMS.flush();
+                                            if(item.getLevelRequire() <= hero.getLevel()) {
+                                                PREF_ITEMS.putString(item.getItemType().toString(), item.getItemKey());
+                                                PREF_ITEMS.flush();
 
-                                            int row = (int) (item.getImage().getX() - 10) / 50;
-                                            int column = (int) item.getImage().getY() / 50;
-                                            if (column == 2)
-                                                column = 0;
-                                            else if (column == 0)
-                                                column = 2;
-                                            int slotNr = column * 6 + row;
+                                                int row = (int) (item.getImage().getX() - 10) / 50;
+                                                int column = (int) item.getImage().getY() / 50;
+                                                if (column == 2)
+                                                    column = 0;
+                                                else if (column == 0)
+                                                    column = 2;
+                                                int slotNr = column * 6 + row;
 
-                                            System.out.println(PREF_ITEMS.getString("WAPON"));
+                                                System.out.println(PREF_ITEMS.getString("WAPON"));
 
-                                            updatePositionFitIn(item);
-                                            slotEmpty[slotNr] = false;
-                                            PREF_ITEMS.putString("SLOT" + slotNr, "");
-                                            PREF_ITEMS.flush();
-                                            updateStats();
+                                                updatePositionFitIn(item);
+                                                slotEmpty[slotNr] = false;
+                                                PREF_ITEMS.putString("SLOT" + slotNr, "");
+                                                PREF_ITEMS.flush();
+                                                updateStats();
 
-                                            System.out.println(PREF_ITEMS.getString("WAPON"));
-                                            System.out.println(blockEmpty[4]);
+                                                System.out.println(PREF_ITEMS.getString("WAPON"));
+                                                System.out.println(blockEmpty[4]);
 
-                                            blockClick = false;
-                                            removeAll();
+                                                removeAll();
+                                            }else{
+                                                removeAll();
+                                                animationItemLevelTooUpper();
+                                            }
                                             return false;
                                         }
                                     });
@@ -584,7 +598,6 @@ public class Equipment{
                                     drop.setBounds(BaseMap.VIEW_WIDTH / 3, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     drop.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                                            blockClick = false;
                                             int row = (int) (item.getImage().getX() - 10) / 50;
                                             int column = (int) item.getImage().getY() / 50;
                                             if (column == 2)
@@ -607,13 +620,12 @@ public class Equipment{
                                     cancel.setBounds((BaseMap.VIEW_WIDTH / 3) * 2, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     cancel.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                                            blockClick = false;
                                             removeAll();
                                             return false;
                                         }
                                     });
                                     //Add Actor on stage
-                                    addAllActorToStage(backgroundUp, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong, itemWiedza,
+                                    addAllActorToStage(backgroundUp, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong, itemWiedza,
                                             itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, money, itemPrice, infoStorage, takeOn,  drop, cancel);
                                 }
                                 break;
@@ -645,7 +657,6 @@ public class Equipment{
                                         ));
                                         card.addActor(label);
 
-                                        blockClick = false;
                                         removeAll();
                                         return false;
                                     }else {
@@ -655,7 +666,6 @@ public class Equipment{
                                         PREF_ITEMS.flush();
                                         updateStats();
 
-                                        blockClick = false;
                                         removeAll();
                                         return false;
                                     }
@@ -665,13 +675,12 @@ public class Equipment{
                             cancel.setBounds(BaseMap.VIEW_WIDTH / 2, 190, BaseMap.VIEW_WIDTH / 2, 50);
                             cancel.addListener(new InputListener() {
                                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                                    blockClick = false;
                                     removeAll();
                                     return false;
                                 }
                             });
                             //Add Actor on stage
-                            addAllActorToStage(backgroundUp, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong, itemWiedza,
+                            addAllActorToStage(backgroundUp, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong, itemWiedza,
                                     itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, money, itemPrice, infoStorage, takeOff, cancel);
                             //
                             break;
@@ -684,10 +693,22 @@ public class Equipment{
         });
     }
 
+    private void animationItemLevelTooUpper(){
+        Label.LabelStyle styleRed = new Label.LabelStyle();
+        styleRed.font = font;
+        styleRed.fontColor = new Color(Color.RED);
+
+        Label label = new Label("Twoj poziom postaci jest zbyt\nmaly aby zalozyc ten przedmiot", styleRed);
+        label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() /2, BaseScreen.VIEW_HEIGHT /2);
+        label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.3f), Actions.delay(2), Actions.fadeOut(0.2f)));
+        addAllActorToStage(label);
+    }
+
     private void removeAll(){
+        blockClick = false;
         itemImage.remove();
         itemName.remove();
-        itemType.remove();
+        itemLevelRequire.remove();
         itemHp.remove();
         itemStrong.remove();
         itemWiedza.remove();
@@ -710,7 +731,7 @@ public class Equipment{
     private void removeAllDown(){
         itemImageDown.remove();
         itemNameDown.remove();
-        itemTypeDown.remove();
+        itemLevelRequireDown.remove();
         itemHpDown.remove();
         itemStrongDown.remove();
         itemWiedzaDown.remove();

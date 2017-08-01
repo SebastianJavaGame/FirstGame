@@ -28,6 +28,7 @@ public class Item implements Cloneable{
     private String itemName;
     private String pathImage;
     private Image image;
+    private int levelRequire;
     private int hp = 0;
     private int strong = 0;
     private int wiedza = 0;
@@ -44,7 +45,7 @@ public class Item implements Cloneable{
         image.setSize(BLOCK_SIZE, BLOCK_SIZE);
     }
 
-    public Item(String itemKey, String pathImage, String itemName, ItemType itemType, int hp, int strong, int wiedza, int armor, int defenseFiz, int defenseMag, int cashValue) {
+    public Item(String itemKey, String pathImage, String itemName, ItemType itemType, int levelRequire, int hp, int strong, int wiedza, int armor, int defenseFiz, int defenseMag, int cashValue) {
         this.itemKey = itemKey;
         this.pathImage = pathImage;
         this.texture = new Texture(Gdx.files.internal(pathImage));
@@ -52,6 +53,7 @@ public class Item implements Cloneable{
         this.itemName = itemName;
         this.itemType = itemType;
         image.setSize(BLOCK_SIZE, BLOCK_SIZE);
+        this.levelRequire = levelRequire;
         this.hp = hp;
         this.strong = strong;
         this.wiedza = wiedza;
@@ -74,6 +76,10 @@ public class Item implements Cloneable{
      */
     public void setStan(Stan stan) {
         this.stan = stan;
+    }
+
+    public int getLevelRequire(){
+        return levelRequire;
     }
 
     public int getHp() {
