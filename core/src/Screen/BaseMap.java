@@ -22,6 +22,7 @@ import com.mygdx.game.Bag;
 import com.mygdx.game.Character;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
+import com.mygdx.game.ImplementObjectMap;
 import com.mygdx.game.RenderCollisionLine_Test;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  * Created by Sebastian on 2017-06-04.
  */
 
-public abstract class BaseMap extends BaseScreen {
+public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     public final static int ICON_ITEM_SIZE = 25;
 
     protected int mapWidth;
@@ -38,22 +39,19 @@ public abstract class BaseMap extends BaseScreen {
     private float realWidth;
     private float realHeight;
 
-    public Rectangle leftRec;
-    public Rectangle upRec;
-    public Rectangle rightRec;
-    public Rectangle bottomRec;
-
     protected static Hero hero;
     protected static Hero3D hero3D;
     protected static Image bgTexture;
     protected static BaseMap actualMap;
+
+    protected static ArrayList<Rectangle> entriaceToMapRectangle;
+    protected static ArrayList<Integer> indexToLoadNextMap;
 
     protected InputMultiplexer im;
 
     public static Stage stageUi;
     private static Stage stageStats;
     private static Stage stageCard;
-    private String bgSrc;
 
     private boolean windowStatsOpen;
     private boolean stopGame;
@@ -76,16 +74,19 @@ public abstract class BaseMap extends BaseScreen {
     protected ArrayList<Vector2[]> verticalPolygon;
     protected ArrayList<Character> charactersList;
 
-    public BaseMap(Game game, int mapWidth, int mapHeight, String bgSrc) {
+    static {
+        hero3D = new Hero3D();
+        hero3D.create();
+
+        entriaceToMapRectangle = new ArrayList<Rectangle>();
+        indexToLoadNextMap = new ArrayList<Integer>();
+    }
+
+    public BaseMap(Game game, int mapWidth, int mapHeight, Image imageBg) {
             super(game);
             this.mapWidth = mapWidth;
             this.mapHeight = mapHeight;
-            this.bgSrc = bgSrc;
-
-            this.leftRec = new Rectangle(-1, -1, 2, mapHeight);
-            this.upRec = new Rectangle(-1, mapHeight - 1, mapWidth + 1, 2);
-            this.rightRec = new Rectangle(mapWidth - 1, -1, 2, mapHeight);
-            this.bottomRec = new Rectangle(-1, -1, mapWidth, 2);
+            this.bgTexture = imageBg;
 
             realWidth = (float) Gdx.app.getGraphics().getWidth() / VIEW_WIDTH;
             realHeight = (float) Gdx.app.getGraphics().getHeight() / VIEW_HEIGHT;
@@ -102,10 +103,8 @@ public abstract class BaseMap extends BaseScreen {
 
     @Override
     public void create() {
-        hero3D = new Hero3D();
-        hero3D.create();
-        bgTexture = new Image(new Texture(Gdx.files.internal(bgSrc)));
-
+        entriaceToMapRectangle.clear();
+        indexToLoadNextMap.clear();
         generateMap();
 
         hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, charactersList);
@@ -135,9 +134,11 @@ public abstract class BaseMap extends BaseScreen {
             stageCard.draw();
         }
 
-        //testRender.draw();
+        testRender.draw();
         //for(Character c: charactersList)
            // RenderCollisionLine_Test.drawPublic(c.getCollision());
+        for(Rectangle r: entriaceToMapRectangle)
+            RenderCollisionLine_Test.drawPublic(r);
 
         //for(Vector2 v: Hero.temporaryListVector)
            // RenderCollisionLine_Test.drawPointSquare(v);
@@ -154,8 +155,11 @@ public abstract class BaseMap extends BaseScreen {
         if(hero.isChangeTrack())
             hero.changeTrack();
 
-        if(hero.isAnimation())
+        if(hero.isAnimation()) {
             hero.finishWalk();
+
+            //TODO check are heroBox is in collision with entrience rectangle list
+        }
 
         if(hero.isCharacterCollisionLook())
             hero.collisionCharacter();
@@ -259,8 +263,8 @@ public abstract class BaseMap extends BaseScreen {
 
     private void cameraUpdate() {
         camera.position.set(hero.getX() + hero.getOriginX(), hero.getY() + hero.getOriginY(), 0);
-        camera.position.x = MathUtils.clamp(camera.position.x, VIEW_WIDTH / 2, Map_01.MAP_WIDTH - VIEW_WIDTH / 2);
-        camera.position.y = MathUtils.clamp(camera.position.y, VIEW_HEIGHT / 2, Map_01.MAP_HEIGHT - VIEW_HEIGHT / 2 + (VIEW_HEIGHT - 430));
+        camera.position.x = MathUtils.clamp(camera.position.x, VIEW_WIDTH / 2, bgTexture.getWidth() - VIEW_WIDTH / 2);
+        camera.position.y = MathUtils.clamp(camera.position.y, VIEW_HEIGHT / 2, bgTexture.getHeight() - VIEW_HEIGHT / 2 + (VIEW_HEIGHT - 430));
         camera.update();
     }
 
@@ -298,5 +302,13 @@ public abstract class BaseMap extends BaseScreen {
 
     public static BaseMap getActualMap(){
         return actualMap;
+    }
+
+    public static ArrayList<Rectangle> getEntriaceToMapRectangle(){
+        return entriaceToMapRectangle;
+    }
+
+    public static ArrayList<Integer> getIndexToLoadNextMap(){
+        return indexToLoadNextMap;
     }
 }

@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 import Screen.BaseMap;
 import Screen.BaseScreen;
+import Screen.Map_01;
+import Screen.Map_02;
 
 /**
  * Created by Sebastian on 2017-05-31.
@@ -721,6 +723,32 @@ public class Hero extends Character {
             hero3D.setStopAnimation();
             animationPlay = false;
             setCharacterCollisionLook(false);
+        }
+
+        for(int i = 0; i < BaseMap.getEntriaceToMapRectangle().size(); i++){
+            if(calculateCollisionTwoRectangle(heroBox, BaseMap.getEntriaceToMapRectangle().get(i))){
+                /**
+                 * i = indexToLoadMap
+                 */
+                switch (BaseMap.getIndexToLoadNextMap().get(i)){
+                    case 0:
+                        System.out.println("map1");
+                        game.setScreen(new Map_01(game));
+                        break;
+                    case 1:
+                        System.out.println("map2");
+                        game.setScreen(new Map_02(game));
+                        break;
+                    default:
+                        try {
+                            throw new MyException();
+                        } catch (MyException e) {
+                            BaseScreen.showException(e);
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+            }
         }
     }
 

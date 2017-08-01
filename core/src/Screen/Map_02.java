@@ -17,8 +17,8 @@ import java.util.ArrayList;
  * Created by Sebastian on 2017-05-31.
  */
 
-public class Map_01 extends BaseMap {
-    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("Map_01.png")));
+public class Map_02 extends BaseMap {
+    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("background.png")));
     public final static int MAP_WIDTH = (int)MAP_IMAGE.getWidth();
     public final static int MAP_HEIGHT = (int)MAP_IMAGE.getHeight();
 
@@ -28,7 +28,7 @@ public class Map_01 extends BaseMap {
     private static ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Character> characters;
 
-    public Map_01(Game g) {
+    public Map_02(Game g) {
         super(g, MAP_WIDTH, MAP_HEIGHT, MAP_IMAGE);
     }
 
@@ -43,14 +43,11 @@ public class Map_01 extends BaseMap {
         addNpc("mag.png", "glominHead.png", "Witherman", 20, 0);
     }
 
-    /**
-     * indexToLoadMap.get(x); x = Hero finishWalk switch(i)
-     */
     @Override
     public void addEntranceToMap() {
         //first entriance
-        entriaceToMapRectangle.add(new Rectangle(500, 300, 100, 100));
-        indexToLoadNextMap.add(1);
+        entriaceToMapRectangle.add(new Rectangle(500, 100, 100, 100));
+        indexToLoadNextMap.add(0);
         //
     }
 
@@ -118,6 +115,7 @@ public class Map_01 extends BaseMap {
         npc.setRectangle(0, 0, 0, 0);
         npc.collisionUpdate();
     }
+
 
     public ArrayList<Character> getCharacter(){
         return characters;

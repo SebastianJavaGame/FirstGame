@@ -62,6 +62,7 @@ public class RenderCollisionLine_Test {
         //renderPolygonTest(1500, 1350, 1223, 1350, 930, 816, 944, 710, 1192, 639, 1500, 645);
         //
         shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +hero.getX() -7, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +hero.getY() -24, 22, 32);
+        //shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +500, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +300, 100, 100);
         shapeRenderer.end();
     }
 
