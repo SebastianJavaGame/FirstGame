@@ -24,6 +24,7 @@ import com.mygdx.game.ExperienceRequired;
 import com.mygdx.game.Hero;
 import com.mygdx.game.LoadAllItemToGame;
 import com.mygdx.game.ProgressCircle;
+import com.mygdx.game.Quest;
 import com.mygdx.game.StatsHero;
 
 /**
@@ -85,7 +86,7 @@ public class FightWin extends BaseScreen {
         textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
     }
 
-    public FightWin(final Game game, final Hero hero, Enemy enemy, int dmgAverrage, float target, final int moneyDrop, final int expAdd, final String dropItem) {
+    public FightWin(final Game game, final Hero hero, final Enemy enemy, int dmgAverrage, float target, final int moneyDrop, final int expAdd, final String dropItem) {
         super(game);
         this.hero = hero;
         pbatch = new PolygonSpriteBatch();
@@ -197,6 +198,8 @@ public class FightWin extends BaseScreen {
         confirm.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Quest.checkKillTargetWithTask(enemy.getName().toLowerCase());
+
                 expMax = ExperienceRequired.getMaxExperience(twoBase);
                 float resultPrecent;
                 float resultActualExp = (float) allExp / expMax * 100;

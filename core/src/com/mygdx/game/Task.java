@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,11 +25,15 @@ public class Task {
     private final Image TASK_BACKGROUND = new Image(new Texture(Gdx.files.internal("taskBackground.png")));
     private final Image TASK_PROGRESS_BACKGROUND = new Image(new Texture(Gdx.files.internal("taskProgressBackground.png")));
     private final Image TASK_PROGRESS_FOREFROUND = new Image(new Texture(Gdx.files.internal("taskProgress.png")));
+    public static final int MAX_PROGRESS_PERCENT = 264;
 
     private Label lNpcName;
     private Label lTarget;
     private Label lProgress;
     private TextButton cancel;
+
+    private int indexTask;
+    private int idTask;
 
     static {
         STYLE.font = FONT;
@@ -37,17 +42,19 @@ public class Task {
     }
 
     public Task(int idTask, final int indexTask){
+        this.indexTask = indexTask;
+        this.idTask = idTask;
+
         lNpcName = new Label(BaseTask.getNpcName(idTask), STYLE);
         lTarget = new Label(BaseTask.getTarget(idTask), STYLE);
-        lProgress = new Label("W toku " + PREF.getInteger("TASK" + idTask + "_PROGRESS") + " / " + BaseTask.getProgressMax(idTask), STYLE);
+        lProgress = new Label("W toku   " + PREF.getInteger("TASK" + idTask + "_PROGRESS") + " / " + BaseTask.getProgressMax(idTask), STYLE);
 
         cancel = new TextButton("Anuluj", BUTTON_STYLE);
         cancel.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println(indexTask + "idtask");
                 PREF.putInteger("TASK" + indexTask, -1);
-                PREF.putInteger("TASK" +indexTask + "_PROGRESS", 0);
+                //PREF.putInteger("TASK" +indexTask + "_PROGRESS", 0);
                 PREF.flush();
                 sortPrefTask();
                 showPref();
@@ -70,7 +77,7 @@ public class Task {
                     PREF.putInteger("TASK" +i, temporaryTask);
                     PREF.putInteger("TASK" +i + "_PROGRESS", temporaryProgress);
                     PREF.putInteger("TASK" +(i+1), -1);
-                    PREF.putInteger("TASK" +(i+1) + "_PROGRESS", -1);
+                    //PREF.putInteger("TASK" +(i+1) + "_PROGRESS", 0);
                     PREF.flush();
                 }
             }
@@ -81,6 +88,19 @@ public class Task {
         for(int i = 0; i < 3; i++){
             System.out.println(PREF.getInteger("TASK" +i, -1));
         }
+    }
+
+    public int getProgressPercent(){
+        float actualStep = PREF.getInteger("TASK" +idTask + "_PROGRESS", 0);
+        float endStep = BaseTask.getProgressMax(idTask);
+
+        float percent = actualStep /endStep;
+        if((int)percent == 1) {
+            lProgress.setText("Zrobione! Odbierz nagrode");
+            lProgress.setColor(Color.OLIVE);
+        }
+
+        return (int)(MAX_PROGRESS_PERCENT *percent);
     }
 
     public Image getTASK_BACKGROUND(){
