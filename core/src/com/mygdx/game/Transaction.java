@@ -122,7 +122,9 @@ class Transaction {
                                 lMoneyLeft.setText("" + Hero.getMoney());
                                 lMoneyRight.setText("" + Hero.getMoney());
                             }else{
-                                FuncionalityShop.animationEndTransaction("Za malo zlota!", Color.ROYAL);
+                                FuncionalityShop.getlAnimTransaction().remove();
+                                FuncionalityShop.getImageAnimTransaction().remove();
+                                FuncionalityShop.animationEndTransaction("Brak zlota!", Color.RED);
                             }
                             FuncionalityShop.removeAllShop();
                         } catch (CloneNotSupportedException e) {

@@ -68,7 +68,7 @@ public class Hero extends Character {
     private boolean characterCollisionLook;
     private static boolean activeMove;
 
-    private int level;
+    private static int level;
     private static int money;
     private int maxHp;
     private int exp;
@@ -840,7 +840,7 @@ public class Hero extends Character {
         return actualPointObject;
     }
 
-    public int getLevel() {
+    public static int getLevel() {
         return level;
     }
 

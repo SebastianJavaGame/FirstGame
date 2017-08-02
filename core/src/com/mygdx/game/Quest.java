@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
 
@@ -24,12 +25,12 @@ public class Quest {
     private static final Label.LabelStyle STYLE = new Label.LabelStyle();
     private Stage stage;
 
-    private ArrayList<Integer> indexTaskList;
+    private ArrayList<Integer> idTaskList;
     private Label lTitle;
 
     public Quest(Stage stage) {
         this.stage = stage;
-        indexTaskList = new ArrayList<Integer>();
+        idTaskList = new ArrayList<Integer>();
 
         STYLE.font = FONT;
         lTitle = new Label("Lista zadan", STYLE);
@@ -38,23 +39,33 @@ public class Quest {
 
         for(int i = 0;; i++){
             if(PREF.getInteger("TASK" + i, -1) != -1){
-                indexTaskList.add(PREF.getInteger("TASK" + i));
+                idTaskList.add(PREF.getInteger("TASK" + i));
             }else
                 break;
         }
 
         final Table scrollTable = new Table();
 
-        for(int index: indexTaskList){
-            System.out.println(index);
-            Task task = new Task(index);
+        int[] indexArray = new int[idTaskList.size()];
+        for(int i = 0; i < idTaskList.size(); i++) {
+            indexArray[i] = i;
+        }
+
+        for(int i = 0; i < idTaskList.size(); i++){
+            Task task = new Task(idTaskList.get(i), indexArray[i]);
             scrollTable.add(task.getTASK_BACKGROUND());
+            scrollTable.row();
+            scrollTable.add(task.getCancel()).padTop(-150).align(Align.right).padRight(10);
             scrollTable.row();
             scrollTable.add(task.getNpcName()).padTop(-150);
             scrollTable.row();
             scrollTable.add(task.getTarget()).padTop(-90);
             scrollTable.row();
-            scrollTable.add(task.getProgress()).padTop(-30);
+            scrollTable.add(task.getTASK_PROGRESS_BACKGROUND()).padTop(-20);
+            scrollTable.row();
+            scrollTable.add(task.getTASK_PROGRESS_FOREFROUND()).padTop(-20);
+            scrollTable.row();
+            scrollTable.add(task.getProgress()).padTop(-20);
             scrollTable.row().padTop(30);
         }
 

@@ -29,7 +29,7 @@ public class FuncionalityShop {
     private static Image backgroundUp;
     private static Image itemImage;
     private static Label itemName;
-    private static Label itemType;
+    private static Label itemLevelRequire;
     private static Label itemHp;
     private static Label itemStrong;
     private static Label itemWiedza;
@@ -153,7 +153,7 @@ public class FuncionalityShop {
             itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
 
             itemName = new Label("" + item.getItemName(), style);
-            itemType = new Label("" + item.getItemType().toString(), style);
+            itemLevelRequire = new Label("Wymagany poziom: " + item.getLevelRequire(), style);
             itemHp = new Label("Hp: +" + item.getHp(), style);
             itemStrong = new Label("Strong: +" + item.getStrong(), style);
             itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
@@ -172,7 +172,7 @@ public class FuncionalityShop {
             backgroundUp.setBounds(0, 230, BaseMap.VIEW_WIDTH, 190);
             itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
             itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
-            itemType.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
+            itemLevelRequire.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
             itemHp.setPosition(20, backgroundUp.getY() + 100);
             itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 100);
             itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 70);
@@ -186,6 +186,9 @@ public class FuncionalityShop {
             barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
             bClose.setPosition(BaseScreen.VIEW_WIDTH /2 - bClose.getWidth() /2, itemPrice.getY() -7);
             lPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -lPrice.getWidth()/2, itemPrice.getY() -40);
+
+            if(Hero.getLevel() < item.getLevelRequire())
+                itemLevelRequire.setColor(Color.RED);
 
             bClose.addListener(new InputListener(){
                 @Override
@@ -208,7 +211,7 @@ public class FuncionalityShop {
             money.addAction(Actions.moveBy(0, -55, 1));
             lPrice.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(0.6f), Actions.fadeIn(0.3f)));
 
-            addActors(backgroundUp, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong, itemWiedza,
+            addActors(backgroundUp, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong, itemWiedza,
                     itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, bClose, money, itemPrice, lPrice);
         }
     }
@@ -236,7 +239,7 @@ public class FuncionalityShop {
         itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
 
         itemName = new Label("" + item.getItemName(), style);
-        itemType = new Label("" + item.getItemType().toString(), style);
+        itemLevelRequire = new Label("Wymagany poziom: " + itemLevelRequire, style);
         itemHp = new Label("Hp: +" + item.getHp(), style);
         itemStrong = new Label("Strong: +" + item.getStrong(), style);
         itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
@@ -255,7 +258,7 @@ public class FuncionalityShop {
         backgroundUp.setBounds(0, -16, BaseMap.VIEW_WIDTH, 190);
         itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
         itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
-        itemType.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
+        itemLevelRequire.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
         itemHp.setPosition(20, backgroundUp.getY() + 100);
         itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 100);
         itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 70);
@@ -269,6 +272,10 @@ public class FuncionalityShop {
         barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
         bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY() - 5);
         lPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -lPrice.getWidth() /2, Shop.POS_Y_NEXT_BACKGROUND +35);
+
+        if(Hero.getLevel() < item.getLevelRequire()){
+            itemLevelRequire.setColor(Color.RED);
+        }
 
         bClose.addListener(new InputListener() {
             @Override
@@ -292,7 +299,7 @@ public class FuncionalityShop {
         money.addAction(Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(0, 34, 0.8f))));
         lPrice.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(0.6f), Actions.fadeIn(0.3f)));
 
-        addActors(backgroundUp, itemBackground, itemImage, barName, itemName, itemType, itemHp, itemStrong, itemWiedza,
+        addActors(backgroundUp, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong, itemWiedza,
                 itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, bClose, money, itemPrice, lPrice);
 
     }
@@ -306,8 +313,6 @@ public class FuncionalityShop {
         lAnimTransaction.setPosition(BaseScreen.VIEW_WIDTH /2 -(lAnimTransaction.getWidth() +imageAnimTransaction.getWidth()) /2, 190);
         imageAnimTransaction.setPosition(lAnimTransaction.getX() +lAnimTransaction.getWidth() +4, 190);
 
-        System.out.println(lAnimTransaction.getX() + "" + lAnimTransaction.getY());
-
         lAnimTransaction.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(1), Actions.delay(3), Actions.fadeOut(1)));
         imageAnimTransaction.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(1), Actions.delay(3), Actions.fadeOut(1)));
         addActors(lAnimTransaction, imageAnimTransaction);
@@ -318,7 +323,7 @@ public class FuncionalityShop {
             backgroundUp.remove();
             itemImage.remove();
             itemName.remove();
-            itemType.remove();
+            itemLevelRequire.remove();
             itemHp.remove();
             itemArmor.remove();
             itemStrong.remove();
@@ -335,7 +340,7 @@ public class FuncionalityShop {
             Transaction.setHeroMoneyVisibleLeft(false);
             Transaction.updateSellButton(true);
             Transaction.updateBuyButton(true);
-            lPrice.addAction(Actions.fadeOut(0));
+            lPrice.remove();
         }
     }
 

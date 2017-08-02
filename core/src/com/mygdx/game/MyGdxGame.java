@@ -57,6 +57,8 @@ public class MyGdxGame extends Game{
             prefTask.putInteger("TASK1_PROGRESS", 11);
             prefTask.putInteger("TASK2", 2);
             prefTask.putInteger("TASK2_PROGRESS", 1);
+            prefTask.putInteger("TASK3", 3);
+            prefTask.putInteger("TASK3_PROGRESS", 1);
             prefTask.flush();
 
             firstLoad.putString("FIRST", "IS LOAD");

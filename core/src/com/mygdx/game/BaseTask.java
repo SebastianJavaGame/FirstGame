@@ -5,7 +5,7 @@ package com.mygdx.game;
  */
 
 public class BaseTask {
-    private static final int COUNT_TASKS = 4;
+    public static final int COUNT_TASKS = 4;
     private static final String[][] LIST_TASKS = new String[COUNT_TASKS][2];
     private static final int[] LIST_PROGRESS = new int[COUNT_TASKS];
 

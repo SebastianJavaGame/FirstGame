@@ -22,7 +22,7 @@ public class Bag {
     private Hero hero;
 
     private Stage stage;
-    private Stage card;
+    private static Stage card;
 
     private ImageButton buttonEq;
     private ImageButton buttonStats;
@@ -120,7 +120,7 @@ public class Bag {
         new StatsHero(card, hero);
     }
 
-    private void initCardQuest() {
+    public static void initCardQuest() {
         card.clear();
         new Quest(card);
     }
