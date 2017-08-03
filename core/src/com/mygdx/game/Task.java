@@ -41,7 +41,7 @@ public class Task {
         BUTTON_STYLE.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonTaskCancel.png"))));
     }
 
-    public Task(int idTask, final int indexTask){
+    public Task(final int idTask, final int indexTask){
         this.indexTask = indexTask;
         this.idTask = idTask;
 
@@ -53,42 +53,47 @@ public class Task {
         cancel.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                PREF.putInteger("TASK" +PREF.getInteger("TASK" + indexTask) + "_PROGRESS", 0);
-                PREF.putInteger("TASK" + indexTask, -1);
-                PREF.flush();
-                sortPrefTask();
-                showPref();
-                Bag.initCardQuest();
+                deleteTask(indexTask, idTask);
                 return false;
             }
         });
     }
 
-    public void sortPrefTask(){
+    public static void deleteTask(int indexTask, int idTask){
+        Preferences pref = Gdx.app.getPreferences(Quest.PREF_TASK);
+        pref.putInteger("TASK" +pref.getInteger("TASK" + indexTask) + "_PROGRESS", 0);
+        pref.putInteger("TASK" + indexTask, -1);
+        pref.flush();
+        sortPrefTask(pref);
+        //showPref();
+        Bag.initCardQuest();
+    }
+
+    public static void sortPrefTask(Preferences pref){
         for(int i = 0;; i++){
-            if(PREF.getInteger("TASK" + i, -1) == -1){
-                if(PREF.getInteger("TASK" +(i+1), -1) == -1) {
+            if(pref.getInteger("TASK" + i, -1) == -1){
+                if(pref.getInteger("TASK" +(i+1), -1) == -1) {
                     break;
                 }
                 else {
-                    int temporaryTask = PREF.getInteger("TASK" +(i+1));
-                    int temporaryProgress = PREF.getInteger("TASK" +PREF.getInteger("TASK" +(i+1)) + "_PROGRESS");
-                    PREF.putInteger("TASK" +i, temporaryTask);
-                    PREF.putInteger("TASK" + PREF.getInteger("TASK" +i) + "_PROGRESS", temporaryProgress);
-                    PREF.putInteger("TASK" +(i+1), -1);
-                    PREF.putInteger("TASK" + PREF.getInteger("TASK" +(i+1)) + "_PROGRESS", 0);
-                    PREF.flush();
+                    int temporaryTask = pref.getInteger("TASK" +(i+1));
+                    int temporaryProgress = pref.getInteger("TASK" +pref.getInteger("TASK" +(i+1)) + "_PROGRESS");
+                    pref.putInteger("TASK" +i, temporaryTask);
+                    pref.putInteger("TASK" + pref.getInteger("TASK" +i) + "_PROGRESS", temporaryProgress);
+                    pref.putInteger("TASK" +(i+1), -1);
+                    pref.putInteger("TASK" + pref.getInteger("TASK" +(i+1)) + "_PROGRESS", 0);
+                    pref.flush();
                 }
             }
         }
     }
 
-    private void showPref(){
+    /*private static void showPref(){
         for(int i = 0; i < 3; i++){
             System.out.println(PREF.getInteger("TASK" +i, -1));
             System.out.println(PREF.getInteger("TASK" +i +"_PROGRESS", -1));
         }
-    }
+    }*/
 
     public int getProgressPercent(){
         float actualStep = PREF.getInteger("TASK" +idTask + "_PROGRESS", 0);

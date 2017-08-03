@@ -41,6 +41,20 @@ public class FieldDialogue {
         STYLE_GREEN.fontColor = new Color(Color.OLIVE);
     }
 
+    private static Label lExp;
+    private static Label lMoney;
+    private static Label lClose;
+    private static Image iExp;
+    private static Image iMoney;
+    private static Image barLeft;
+    private static Image barUp;
+    private static Image barRight;
+    private static Image barDown;
+    private static Image barLeftTwo;
+    private static Image barUpTwo;
+    private static Image barRightTwo;
+    private static Image barDownTwo;
+
     private int idNpc;
     private int idIndexText;
 
@@ -230,12 +244,97 @@ public class FieldDialogue {
         label.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                clearFieldDialogue();
+
+                for(int j = 0; j != -1; j++) {
+                    if (PREF.getInteger("TASK" + j) == idTask) {
+                        BaseTask.setTaskComplete(idTask, false);
+                        Task.deleteTask(j, idTask);
+                        j = -2;
+                    }
+                    if (PREF.getInteger("TASK" + j, -1) == -1) {
+                        if (PREF.getInteger("TASK" + (j + 1), -1) == -1) {
+                            j = -2;
+                        }
+                    }
+                }
+
                 int exp = BaseTask.getRewardExperience(idTask);
                 int money = BaseTask.getRewardMoney(idTask);
-
                 float temporary = MathUtils.random(-12, 12);
-                System.out.println(temporary);
 
+                temporary = (100 +temporary) /100;
+                exp *= temporary;
+
+                temporary = MathUtils.random(-12, 12);
+                temporary = (100 +temporary) /100;
+                money *= temporary;
+
+                Hero.setMoney(Hero.getMoney() +money);
+
+
+                do{
+                    Hero.setExp(Hero.getExp() + exp);
+                    if(Hero.getExp() >= Hero.getMaxExp()){
+                        Hero.setExp(Hero.getExp() -Hero.getMaxExp());
+                        Hero.setLevel(Hero.getLevel() +1);
+                        Hero.setMaxExp(ExperienceRequired.getMaxExperience(Hero.getLevel()));
+                    }
+                }
+                while(Hero.getExp() +exp >= Hero.getMaxExp());
+
+                lExp = new Label("Otrzymales " + exp + " doswiadczenia", STYLE_WHITE);
+                lMoney = new Label("Otrzymales " + money + " zlota", STYLE_WHITE);
+                lClose = new Label("Ruszam dalej", STYLE_GREEN);
+
+                barLeft = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
+                barRight = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
+                barUp = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
+                barDown = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
+
+                barLeftTwo = BAR_VERTICAL_LEFT;
+                barRightTwo = BAR_VERTICAL_RIGHT;
+                barDownTwo = BAR_HORIZONTAL_DOWN;
+                barUpTwo = BAR_HORIZONTAL_UP;
+
+                iMoney = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
+                iExp = new Image(new Texture(Gdx.files.internal("uiExp.png")));
+
+                lExp.setPosition(POSITION_X +4, DialogNpc.POS_TEXT_FIELD_NPC -lExp.getHeight());
+                lMoney.setPosition(POSITION_X +4, lExp.getY() -25);
+                lClose.setPosition(POSITION_X +4, lMoney.getY() -45);
+
+                lClose.addListener(new InputListener(){
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        DialogNpc.removeAll();
+                        clearDialogueReward();
+                        Hero.setActiveMove(false);
+                        Hero3D.setRenderHero3d(true);
+                        return false;
+                    }
+                });
+
+                barUp.setPosition(POSITION_X +2, lExp.getY() +lExp.getHeight() -2);
+                barDown.setPosition(POSITION_X +2, lMoney.getY() -8);
+                barLeft.setSize(barLeft.getWidth(), lExp.getHeight() +lExp.getHeight());
+                barLeft.setPosition(POSITION_X -5, barDown.getY());
+                barRight.setSize(barRight.getWidth(), lExp.getHeight() +lExp.getHeight());
+                barRight.setPosition(POSITION_X +barDown.getWidth() +1, barDown.getY());
+
+                iExp.setSize(lExp.getHeight() +5, lExp.getHeight() +5);
+                iExp.setPosition(lExp.getX() + lExp.getWidth() +5, lExp.getY() -3);
+                iMoney.setSize(lMoney.getHeight() +5, lMoney.getHeight() +5);
+                iMoney.setPosition(lMoney.getX() + lMoney.getWidth() +5, lMoney.getY() -3);
+
+                barUpTwo.setPosition(POSITION_X +2, lClose.getY() +lClose.getHeight() -6);
+                barDownTwo.setPosition(POSITION_X +2, lClose.getY() -2);
+                barLeftTwo.setSize(BAR_VERTICAL_LEFT.getWidth(), lClose.getHeight());
+                barLeftTwo.setPosition(POSITION_X -5, BAR_HORIZONTAL_DOWN.getY());
+                barRightTwo.setSize(BAR_VERTICAL_RIGHT.getWidth(), lClose.getHeight());
+                barRightTwo.setPosition(POSITION_X + BAR_HORIZONTAL_DOWN.getWidth() +1, BAR_HORIZONTAL_DOWN.getY());
+
+                addActors(lExp, lMoney, lClose, barUp, barDown, barLeft, barRight, iExp, iMoney, barDownTwo, barLeftTwo, barRightTwo, barUpTwo);
                 return false;
             }
         });
@@ -248,6 +347,22 @@ public class FieldDialogue {
                 arrayDialog[i].clearField();
                 arrayDialog[i] = null;
             }
+    }
+
+    public static void clearDialogueReward(){
+        barUpTwo.remove();
+        barDownTwo.remove();
+        barRightTwo.remove();
+        barLeftTwo.remove();
+        lClose.remove();
+        lExp.remove();
+        lMoney.remove();
+        barDown.remove();
+        barLeft.remove();
+        barRight.remove();
+        barUp.remove();
+        iExp.remove();
+        iMoney.remove();
     }
 
     private void addActors(Actor... actor){

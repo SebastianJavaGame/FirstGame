@@ -52,7 +52,7 @@ public class MyGdxGame extends Game{
             Preferences prefTask = Gdx.app.getPreferences(Quest.PREF_TASK);
             prefTask.clear();
             prefTask.putInteger("TASK0", 0);
-            prefTask.putInteger("TASK0_PROGRESS", 0);
+            prefTask.putInteger("TASK0_PROGRESS", 2);
             prefTask.putInteger("TASK1", 1);
             prefTask.putInteger("TASK1_PROGRESS", 11);
             prefTask.putInteger("TASK2", 2);

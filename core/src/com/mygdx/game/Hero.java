@@ -71,8 +71,8 @@ public class Hero extends Character {
     private static int level;
     private static int money;
     private int maxHp;
-    private int exp;
-    private int maxExp;
+    private static int exp;
+    private static int maxExp;
 
     private int actualIndexCharacter;
     private int fullHp;
@@ -865,11 +865,11 @@ public class Hero extends Character {
         return maxHp;
     }
 
-    public int getExp() {
+    public static int getExp() {
         return exp;
     }
 
-    public int getMaxExp() {
+    public static int getMaxExp() {
         return maxExp;
     }
 
@@ -1013,20 +1013,20 @@ public class Hero extends Character {
         this.hp = hp;
     }
 
-    public void setMaxHp(int maxHp){
-        this.maxHp = maxHp;
+    public void setMaxHp(int setMaxHp){
+        maxHp = setMaxHp;
     }
 
-    public void setExp(int exp){
-        this.exp = exp;
+    public static void setExp(int experience){
+        exp = experience;
     }
 
-    public void setMaxExp(int maxExp){
-        this.maxExp = maxExp;
+    public static void setMaxExp(int setMaxExp){
+        maxExp = setMaxExp;
     }
 
-    public void setLevel(int level){
-        this.level = level;
+    public static void setLevel(int setLevel){
+        level = setLevel;
     }
 
     public static void setMoney(int setMoney){

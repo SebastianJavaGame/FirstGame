@@ -25,9 +25,9 @@ public class DialogNpc {
     private static final Image UP_LABEL = new Image(new Texture(Gdx.files.internal("dialogueUpLabel.png")));
     private static final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
 
-    public final int POS_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2;
+    public static int POS_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2;
     public static int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
-    private static int POS_TEXT_FIELD_NPC = POS_Y +360;
+    public static int POS_TEXT_FIELD_NPC = POS_Y +360;
 
     private static final int START_NPC_TEXT = 8;
     private static final int START_ANSWER_ONE = 0;
@@ -64,6 +64,7 @@ public class DialogNpc {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 removeAll();
+                FieldDialogue.clearDialogueReward();
                 Hero.setActiveMove(false);
                 Hero3D.setRenderHero3d(true);
                 return false;
