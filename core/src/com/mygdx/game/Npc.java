@@ -18,18 +18,15 @@ public class Npc extends Character{
 
     private int idShop;
 
-    static {
-        idIteration++;
-    }
-
     public Npc(Texture texture, Image head, String name, int level, int idShop, int idTask) {
         super(texture);
         this.head = head;
         this.name = name;
         this.level = level;
-        this.id = idIteration;
         this.idShop = idShop;
         this.idTask = idTask;
+        idIteration++;
+        this.id = idIteration;
     }
 
     @Override

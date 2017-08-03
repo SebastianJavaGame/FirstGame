@@ -7,8 +7,8 @@ package com.mygdx.game;
 public class BaseDialogs {
     //[npc][text][nextTex]//
     private static final int COUNT_NPC = 1;
-    public static final int COUNT_HERO_TEXT_OPTION = 7;
-    private static final int COUNT_ALL_TEXT = 13;
+    public static final int COUNT_HERO_TEXT_OPTION = 8;
+    private static final int COUNT_ALL_TEXT = 14;
     //[npc][text][nextTex]//
     private static final String[][] TEXT = new String[COUNT_NPC][COUNT_ALL_TEXT];
     private static final int[][][] INDEX_OPTIONS = new int[COUNT_NPC][COUNT_HERO_TEXT_OPTION][];
@@ -24,13 +24,14 @@ public class BaseDialogs {
         TEXT[0][4] = " Pokaz mi co masz";
         TEXT[0][5] = " Potrzebuje zlota czy moglbym cos dla ciebie zrobic?";
         TEXT[0][6] = " Biore to zaraz wracam po nagrode";
+        TEXT[0][7] = " Wykonalem zadanie";
             //npc text
-        TEXT[0][7] = " Zaczekaj";
-        TEXT[0][8] = " Witaj jestem Winthor, jestes na wyspie gdzie na każdym rogu czai sie niebezpieczenstwo muszisz byc czujny";
-        TEXT[0][9] = " Jest to wyspa zla";
-        TEXT[0][10] = " U mnie mam sklep";
-        TEXT[0][11] = " Tak jest cos do zrobienie. Zabij 5 Glominow";
-        TEXT[0][12] = " Juz ci zlecilem to zadanie wykonaj je a porozmawiamy o nagrodzie";
+        TEXT[0][8] = " Zaczekaj";
+        TEXT[0][9] = " Witaj jestem Winthor, jestes na wyspie gdzie na każdym rogu czai sie niebezpieczenstwo muszisz byc czujny";
+        TEXT[0][10] = " Jest to wyspa zla";
+        TEXT[0][11] = " U mnie mam sklep";
+        TEXT[0][12] = " Tak jest cos do zrobienia. Zabij 5 Glominow";
+        TEXT[0][13] = " Juz ci zlecilem to zadanie wykonaj je a porozmawiamy o nagrodzie";
     }
 
     public static final void loadIndexOptions(){
@@ -42,6 +43,7 @@ public class BaseDialogs {
         INDEX_OPTIONS[0][4] = new int[]{};
         INDEX_OPTIONS[0][5] = new int[]{11, 6, 3};
         INDEX_OPTIONS[0][6] = new int[]{};
+        INDEX_OPTIONS[0][7] = new int[]{};
     }
 
     /**
@@ -50,6 +52,7 @@ public class BaseDialogs {
      * shop = 2
      * task = 3
      * replace = 4
+     * rewardQuest = 5
      */
     public static final void loadIndexListener(){
         //Npc #1 to hero answer
@@ -60,9 +63,12 @@ public class BaseDialogs {
         INDEX_LISTENER[0][4] = 2;
         INDEX_LISTENER[0][5] = 0;
         INDEX_LISTENER[0][6] = 3;
+        INDEX_LISTENER[0][7] = 5;
     }
 
     public static String getText(int indexFirst, int indexSecond){
+        System.out.println(indexFirst);
+        System.out.println(indexSecond);
         return TEXT[indexFirst][indexSecond];
     }
 

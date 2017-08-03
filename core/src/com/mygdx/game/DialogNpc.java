@@ -29,7 +29,7 @@ public class DialogNpc {
     public static int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
     private static int POS_TEXT_FIELD_NPC = POS_Y +360;
 
-    private static final int START_NPC_TEXT = 7;
+    private static final int START_NPC_TEXT = 8;
     private static final int START_ANSWER_ONE = 0;
     private static final int START_ANSWER_TWO = 1;
     private static final int START_ANSWER_THREE = 3;
@@ -93,12 +93,20 @@ public class DialogNpc {
         fieldTextList[0] = new FieldDialogue(npc.getId(), START_NPC_TEXT).setPosition(POS_TEXT_FIELD_NPC);
         fieldTextList[1] = new FieldDialogue(npc.getId(), START_ANSWER_ONE);
         fieldTextList[2] = new FieldDialogue(npc.getId(), START_ANSWER_TWO);
-        fieldTextList[3] = new FieldDialogue(npc.getId(), START_ANSWER_THREE);
 
-        updatePosition();
         setListener(1, START_ANSWER_ONE);
         setListener(2, START_ANSWER_TWO);
-        setListener(3, START_ANSWER_THREE);
+
+        if(BaseTask.isComplete(npc.getIdTask())) {
+            //TODO change second parameter in base on task event
+            fieldTextList[3] = new FieldDialogue(npc.getId(), 7);
+            setListener(3, 7);
+        }
+        else {
+            fieldTextList[3] = new FieldDialogue(npc.getId(), START_ANSWER_THREE);
+            setListener(3, START_ANSWER_THREE);
+        }
+        updatePosition();
     }
 
     public static void updatePosition(){
@@ -121,6 +129,8 @@ public class DialogNpc {
             return;
         }
 
+        System.out.println(chooseListener + "choose");
+
         switch (chooseListener){
             case 0:
                 fieldTextList[idFieldDialogue].info();
@@ -137,6 +147,9 @@ public class DialogNpc {
                 break;
             case 4:
                 fieldTextList[idFieldDialogue].replace();
+                break;
+            case 5:
+                fieldTextList[idFieldDialogue].rewardFromTask(npc.getIdTask());
                 break;
             default:
                 try {

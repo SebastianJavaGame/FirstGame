@@ -53,8 +53,8 @@ public class Task {
         cancel.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                PREF.putInteger("TASK" +PREF.getInteger("TASK" + indexTask) + "_PROGRESS", 0);
                 PREF.putInteger("TASK" + indexTask, -1);
-                //PREF.putInteger("TASK" +indexTask + "_PROGRESS", 0);
                 PREF.flush();
                 sortPrefTask();
                 showPref();
@@ -67,18 +67,16 @@ public class Task {
     public void sortPrefTask(){
         for(int i = 0;; i++){
             if(PREF.getInteger("TASK" + i, -1) == -1){
-                System.out.println("a");
                 if(PREF.getInteger("TASK" +(i+1), -1) == -1) {
                     break;
                 }
                 else {
                     int temporaryTask = PREF.getInteger("TASK" +(i+1));
-                    int temporaryProgress = PREF.getInteger("TASK" +(i+1) + "_PROGRESS");
-                    System.out.println("temporary" + temporaryProgress);
+                    int temporaryProgress = PREF.getInteger("TASK" +PREF.getInteger("TASK" +(i+1)) + "_PROGRESS");
                     PREF.putInteger("TASK" +i, temporaryTask);
-                    //PREF.putInteger("TASK" +i + "_PROGRESS", temporaryProgress);
+                    PREF.putInteger("TASK" + PREF.getInteger("TASK" +i) + "_PROGRESS", temporaryProgress);
                     PREF.putInteger("TASK" +(i+1), -1);
-                    //PREF.putInteger("TASK" +(i+1) + "_PROGRESS", 0);
+                    PREF.putInteger("TASK" + PREF.getInteger("TASK" +(i+1)) + "_PROGRESS", 0);
                     PREF.flush();
                 }
             }
@@ -88,6 +86,7 @@ public class Task {
     private void showPref(){
         for(int i = 0; i < 3; i++){
             System.out.println(PREF.getInteger("TASK" +i, -1));
+            System.out.println(PREF.getInteger("TASK" +i +"_PROGRESS", -1));
         }
     }
 
@@ -99,6 +98,7 @@ public class Task {
         if(percent >= 1) {
             lProgress.setText("Zrobione! Odbierz nagrode");
             lProgress.setColor(Color.OLIVE);
+            BaseTask.setTaskComplete(idTask, true);
         }
 
         return (int)(MAX_PROGRESS_PERCENT *percent);

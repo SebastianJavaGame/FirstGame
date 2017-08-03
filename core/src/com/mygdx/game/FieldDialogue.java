@@ -5,6 +5,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -196,7 +197,7 @@ public class FieldDialogue {
 
                     if(PREF.getInteger("TASK" + i, -1) == -1) {
                         PREF.putInteger("TASK" + i, idTask);
-                        PREF.putInteger("TASK" + i + "_PROGRESS", 0);
+                        //PREF.putInteger("TASK" + i + "_PROGRESS", 1);
                         PREF.flush();
                         break;
                     }
@@ -216,6 +217,25 @@ public class FieldDialogue {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 // int[] nextDialogueText = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
                 //add new Field with text;
+                return false;
+            }
+        });
+        return this;
+    }
+
+    /**
+     * BaseDialog.INDEX_LISTENER = 5;
+     */
+    public FieldDialogue rewardFromTask(final int idTask){
+        label.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                int exp = BaseTask.getRewardExperience(idTask);
+                int money = BaseTask.getRewardMoney(idTask);
+
+                float temporary = MathUtils.random(-12, 12);
+                System.out.println(temporary);
+
                 return false;
             }
         });

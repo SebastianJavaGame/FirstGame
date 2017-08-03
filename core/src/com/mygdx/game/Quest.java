@@ -86,10 +86,16 @@ public class Quest {
                 Preferences preferences = Gdx.app.getPreferences(PREF_TASK);
                 for(int j = 0; j != -1; j++){
                     if(preferences.getInteger("TASK" +j) == idTask){
-                        preferences.putInteger("TASK" +j + "_PROGRESS", preferences.getInteger("TASK" +j + "_PROGRESS") +1);
+                        preferences.putInteger("TASK" +preferences.getInteger("TASK" +j) + "_PROGRESS", preferences.getInteger("TASK" +preferences.getInteger("TASK" +j) + "_PROGRESS") +1);
                         preferences.flush();
                         j = -2;
-                        System.out.println("pref: " + preferences.getInteger("TASK" +j + "_PROGRESS"));
+
+                        float actualStep = preferences.getInteger("TASK" +idTask + "_PROGRESS", 0);
+                        float endStep = BaseTask.getProgressMax(idTask);
+                        float percent = actualStep /endStep;
+                        if(percent >= 1) {
+                            BaseTask.setTaskComplete(idTask, true);
+                        }
                     }
                     if(preferences.getInteger("TASK" +j, -1) == -1) {
                         if (preferences.getInteger("TASK" +(j +1), -1) == -1) {

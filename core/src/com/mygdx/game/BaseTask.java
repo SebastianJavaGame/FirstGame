@@ -5,12 +5,18 @@ package com.mygdx.game;
  */
 
 public class BaseTask {
+    //[idTask][
     public static final int COUNT_TASKS = 4;
     private static final String[][] LIST_TASKS = new String[COUNT_TASKS][3];
     private static final int[][] REWARD_TASK = new int[COUNT_TASKS][2];
     private static final int[] LIST_PROGRESS = new int[COUNT_TASKS];
+    private static final boolean[] TASK_COMPLETE = new boolean[COUNT_TASKS];
 
     public static void loadAllTasks(){
+        //load default setting
+        for(boolean b: TASK_COMPLETE)
+            b = false;
+
         //Task dodajemy do npc w konstruktorze
         //task #1
         LIST_TASKS[0][0] = "Winthor";
@@ -72,5 +78,13 @@ public class BaseTask {
 
     public static int getRewardMoney(int idTask){
         return REWARD_TASK[idTask][1];
+    }
+
+    public static boolean isComplete(int idTask){
+        return TASK_COMPLETE[idTask];
+    }
+
+    public static void setTaskComplete(int idTask, boolean isComplete){
+        TASK_COMPLETE[idTask] = isComplete;
     }
 }

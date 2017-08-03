@@ -269,8 +269,6 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("X: " + screenX);
-        System.out.println("Y: " + screenY);
     if(!stopGame && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
