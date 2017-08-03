@@ -8,7 +8,7 @@ public class BaseDialogs {
     //[npc][text][nextTex]//
     private static final int COUNT_NPC = 1;
     public static final int COUNT_HERO_TEXT_OPTION = 7;
-    private static final int COUNT_ALL_TEXT = 12;
+    private static final int COUNT_ALL_TEXT = 13;
     //[npc][text][nextTex]//
     private static final String[][] TEXT = new String[COUNT_NPC][COUNT_ALL_TEXT];
     private static final int[][][] INDEX_OPTIONS = new int[COUNT_NPC][COUNT_HERO_TEXT_OPTION][];
@@ -30,6 +30,7 @@ public class BaseDialogs {
         TEXT[0][9] = " Jest to wyspa zla";
         TEXT[0][10] = " U mnie mam sklep";
         TEXT[0][11] = " Tak jest cos do zrobienie. Zabij 5 Glominow";
+        TEXT[0][12] = " Juz ci zlecilem to zadanie wykonaj je a porozmawiamy o nagrodzie";
     }
 
     public static final void loadIndexOptions(){

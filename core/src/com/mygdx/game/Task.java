@@ -74,8 +74,9 @@ public class Task {
                 else {
                     int temporaryTask = PREF.getInteger("TASK" +(i+1));
                     int temporaryProgress = PREF.getInteger("TASK" +(i+1) + "_PROGRESS");
+                    System.out.println("temporary" + temporaryProgress);
                     PREF.putInteger("TASK" +i, temporaryTask);
-                    PREF.putInteger("TASK" +i + "_PROGRESS", temporaryProgress);
+                    //PREF.putInteger("TASK" +i + "_PROGRESS", temporaryProgress);
                     PREF.putInteger("TASK" +(i+1), -1);
                     //PREF.putInteger("TASK" +(i+1) + "_PROGRESS", 0);
                     PREF.flush();
@@ -95,7 +96,7 @@ public class Task {
         float endStep = BaseTask.getProgressMax(idTask);
 
         float percent = actualStep /endStep;
-        if((int)percent == 1) {
+        if(percent >= 1) {
             lProgress.setText("Zrobione! Odbierz nagrode");
             lProgress.setColor(Color.OLIVE);
         }

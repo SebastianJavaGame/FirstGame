@@ -63,7 +63,7 @@ public class Quest {
             scrollTable.row();
             scrollTable.add(task.getTASK_PROGRESS_BACKGROUND()).padTop(-20);
             scrollTable.row();
-            scrollTable.add(task.getTASK_PROGRESS_FOREFROUND()).padTop(-20).width(task.getProgressPercent()).expandX().align(Align.left).padLeft(17);
+            scrollTable.add(task.getTASK_PROGRESS_FOREFROUND()).padTop(-20).width(task.getProgressPercent()).expandX().align(Align.left);
             scrollTable.row();
             scrollTable.add(task.getProgress()).padTop(-20);
             scrollTable.row().padTop(30);
@@ -73,24 +73,18 @@ public class Quest {
         scroll.setScrollingDisabled(true, false);
 
         final Table table = new Table();
-        table.setBounds(5, 20, 310, 310);
+        table.setBounds(28, 20, 264, 310);
         table.add(scroll);
 
         addActors(lTitle, table);
     }
 
     public static void checkKillTargetWithTask(String enemyName){
-        System.out.println("Enemy name as target: " + enemyName);
-
         for(int i = 0; i < idTaskList.size(); i++){
             int idTask = idTaskList.get(i);
-            System.out.println("id: " + idTask);
-            System.out.println("enemy: " + enemyName + " base: " + BaseTask.getTargetName(idTask).toLowerCase());
             if(enemyName.equals(BaseTask.getTargetName(idTask).toLowerCase())){
-                System.out.println("inside");
                 Preferences preferences = Gdx.app.getPreferences(PREF_TASK);
                 for(int j = 0; j != -1; j++){
-                    System.out.println(preferences.getInteger("TASK" +j));
                     if(preferences.getInteger("TASK" +j) == idTask){
                         preferences.putInteger("TASK" +j + "_PROGRESS", preferences.getInteger("TASK" +j + "_PROGRESS") +1);
                         preferences.flush();
@@ -102,14 +96,14 @@ public class Quest {
                             j = -2;
                         }
                     }
-                    if(j > 30)
+                    if(j > 30) {
                         try {
                             throw new MyException();
                         } catch (MyException e) {
                             BaseScreen.showException(e);
                             e.printStackTrace();
                         }
-
+                    }
                 }
 
             }

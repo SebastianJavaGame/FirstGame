@@ -189,6 +189,11 @@ public class FieldDialogue {
                 Hero3D.setRenderHero3d(true);
                 //TODO add animation red migajace circle around icon bag
                 for(int i = 0;; i++){
+                    if(PREF.getInteger("TASK" +i) == idTask) {
+                       //TODO show communicate at map as new class
+                        break;
+                    }
+
                     if(PREF.getInteger("TASK" + i, -1) == -1) {
                         PREF.putInteger("TASK" + i, idTask);
                         PREF.putInteger("TASK" + i + "_PROGRESS", 0);
