@@ -71,6 +71,7 @@ public class MyGdxGame extends Game{
         BaseDialogs.loadIndexOptions();
         BaseDialogs.loadIndexListener();
         BaseTask.loadAllTasks();
+        BaseEnemyAI.loadAI();
 
 		Menu lvl = new Menu(this);
 		//FightWin lvl = new FightWin(this, 10, 34, 67, 10000, 4510, "fire_sword");

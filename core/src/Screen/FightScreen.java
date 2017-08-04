@@ -18,9 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.BaseEnemyAI;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.Hero;
+import com.mygdx.game.MyException;
 
 /**
  * Created by Sebastian on 2017-07-09.
@@ -32,23 +34,6 @@ public class FightScreen extends BaseScreen {
     private static final float FONT_SCALE_PROCENT = 1.7f;
 
     private static final int[] DURATION_ANIMATION = new int[]{1, 4, 7, 10, 13, 16};
-    //ai stats
-    //enemy Defense if enemy hp < hero hp (20%)
-    private static final int[][] DEFENSE = new int[][]{{1, 4, 1, 4},
-                                                        {1, 5, 1, 3},
-                                                        {2, 4, 1, 3},
-                                                        {2, 3, 2, 3}};
-    //enemy Normal if enemy hp -hero hp > -20 && < 20 (%)
-    private static final int[][] NORMAL = new int[][]{{3, 2, 3, 2},
-                                                      {1, 5, 1, 3},
-                                                      {2, 4, 1, 3},
-                                                      {2, 3, 2, 3}};
-    //enemy Attack if enemy hp > hero hp (20%)
-    private static final int[][] ATTACK = new int[][]{{4, 1, 4, 1},
-                                                      {5, 1, 3, 1},
-                                                      {3, 1, 5, 1},
-                                                      {4, 2, 3, 1}};
-    //enemy Supper attack if enemy hp > hero hp (50%)
     private static final int[] SUPER_ATTACK = new int[]{5, 0, 5, 0};
 
     private static Hero hero;
@@ -81,6 +66,7 @@ public class FightScreen extends BaseScreen {
     private static Label[] labelPointFight;
     private static int[] pointUserPref;
     private static int freePointFight;
+    private static int pointFightEnemy;
 
     private static int energyMaxHero;
     private static int energyMaxEnemy;
@@ -98,6 +84,7 @@ public class FightScreen extends BaseScreen {
     private static Label labelRoundNumber;
     private static Label labelCalculateHp;
     private static Label labelCalculateProcent;
+    private static Label labelFreePoint;
 
     private static int enemyAiStats[];
 
@@ -138,6 +125,7 @@ public class FightScreen extends BaseScreen {
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
+        pointFightEnemy = 10;
         energyMaxEnemy = 100;
         energyMaxHero = 100;
         energyHero = energyMaxHero;
@@ -199,7 +187,7 @@ public class FightScreen extends BaseScreen {
         lHpEnemy = new Label(hpMaxEnemy + " / " + hpMaxEnemy, style);
         lEnergyHero = new Label(energyMaxHero + " / " + ENERGY_MAX, style);
         lEnergyEnemy = new Label(energyMaxEnemy + " / " + ENERGY_MAX, style);
-        Label labelFreePoint = new Label("" + freePointFight, style);
+        labelFreePoint = new Label("" + freePointFight, style);
         labelRoundNumber = new Label("1", style);
         Label labelName = new Label("Gondor", style);
         Label labelLvl = new Label("Level 35", style);
@@ -762,16 +750,52 @@ public class FightScreen extends BaseScreen {
 
     private void checkEnergy(){
         if(energyHero < 1){
-            animateEnergyMinusPoint(true);
-            energyHero +=100;
-        }else if(energyEnemy < 1){
-            animateEnergyMinusPoint(false);
-            energyEnemy +=100;
-            System.out.println(freePointFight);
-            System.out.println(labelPointFight[0]);
-            System.out.println(labelPointFight[1]);
-            System.out.println(labelPointFight[2]);
-            System.out.println(labelPointFight[3]);
+            int actualPoint0 = Integer.parseInt(labelPointFight[0].getText().toString());
+            int actualPoint1 = Integer.parseInt(labelPointFight[1].getText().toString());
+            int actualPoint2 = Integer.parseInt(labelPointFight[2].getText().toString());
+            int actualPoint3 = Integer.parseInt(labelPointFight[3].getText().toString());
+
+            int sume = freePointFight +actualPoint0 +actualPoint1 +actualPoint2 +actualPoint3;
+            System.out.println(sume);
+
+            if(sume > 10)
+                try {
+                    throw new MyException();
+                } catch (MyException e) {
+                    BaseScreen.showException(e);
+                    e.printStackTrace();
+                }
+
+            if(sume > 5) {
+                animateEnergyMinusPoint(true);
+                energyHero +=100;
+
+                if (freePointFight > 0) {
+                    freePointFight--;
+                    labelFreePoint.setText("" + freePointFight);
+                } else if (Integer.parseInt(labelPointFight[0].getText().toString()) > 0) {
+                    actualPoint0--;
+                    labelPointFight[0].setText(String.valueOf(actualPoint0));
+                } else if (Integer.parseInt(labelPointFight[1].getText().toString()) > 0) {
+                    actualPoint1--;
+                    labelPointFight[1].setText(String.valueOf(actualPoint1));
+                } else if (Integer.parseInt(labelPointFight[2].getText().toString()) > 0) {
+                    actualPoint2--;
+                    labelPointFight[2].setText(String.valueOf(actualPoint2));
+                } else if (Integer.parseInt(labelPointFight[3].getText().toString()) > 0) {
+                    actualPoint3--;
+                    labelPointFight[3].setText(String.valueOf(actualPoint3));
+                }
+            }else
+                energyHero = 0;
+        }
+        if(energyEnemy < 1){
+            if(pointFightEnemy > 5) {
+                animateEnergyMinusPoint(false);
+                energyEnemy += 100;
+                pointFightEnemy--;
+            }else
+                energyEnemy = 100;
         }
     }
 
@@ -963,16 +987,10 @@ public class FightScreen extends BaseScreen {
     }
 
     private int[] updateEnemyAi(){
-        System.out.println("hphero" + hpHero);
-        System.out.println("hpheroMax" + hpMaxHero);
         float heroPercentHp = (float)hpHero /hpMaxHero *100;
         float enemyPercentHp = (float)hpEnemy / hpMaxEnemy *100;
 
-        System.out.println("hero hp: " + heroPercentHp);
-        System.out.println("enemy hp: " + enemyPercentHp);
-        System.out.println(enemyPercentHp -heroPercentHp + "%");
-
-        if((enemyPercentHp -heroPercentHp) >= 50) {
+        if((enemyPercentHp -heroPercentHp) >= 50 && pointFightEnemy == 10) {
             System.out.println("SUPER ATTACK");
             return SUPER_ATTACK;
         }
@@ -982,15 +1000,15 @@ public class FightScreen extends BaseScreen {
 
         if((enemyPercentHp -heroPercentHp) >= 20) {
             System.out.println("ATTACK");
-            return ATTACK[random];
+            return BaseEnemyAI.getEnemyAIPoint(2, pointFightEnemy, random);
         }
         else if((enemyPercentHp - heroPercentHp) < 20 && (enemyPercentHp -heroPercentHp) > -20) {
             System.out.println("NORMAL");
-            return NORMAL[random];
+            return BaseEnemyAI.getEnemyAIPoint(1, pointFightEnemy, random);
         }
         else if ((enemyPercentHp -heroPercentHp) < -20) {
             System.out.println("Defense");
-            return DEFENSE[random];
+            return BaseEnemyAI.getEnemyAIPoint(0, pointFightEnemy, random);
         }
         else
             System.out.println("ERROR NOT CHANGE SETTING POINT FIGHT");

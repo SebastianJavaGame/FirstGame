@@ -350,19 +350,21 @@ public class FieldDialogue {
     }
 
     public static void clearDialogueReward(){
-        barUpTwo.remove();
-        barDownTwo.remove();
-        barRightTwo.remove();
-        barLeftTwo.remove();
-        lClose.remove();
-        lExp.remove();
-        lMoney.remove();
-        barDown.remove();
-        barLeft.remove();
-        barRight.remove();
-        barUp.remove();
-        iExp.remove();
-        iMoney.remove();
+        if(barUp != null) {
+            barUpTwo.remove();
+            barDownTwo.remove();
+            barRightTwo.remove();
+            barLeftTwo.remove();
+            lClose.remove();
+            lExp.remove();
+            lMoney.remove();
+            barDown.remove();
+            barLeft.remove();
+            barRight.remove();
+            barUp.remove();
+            iExp.remove();
+            iMoney.remove();
+        }
     }
 
     private void addActors(Actor... actor){
