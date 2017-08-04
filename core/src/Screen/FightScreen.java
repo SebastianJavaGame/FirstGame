@@ -32,6 +32,24 @@ public class FightScreen extends BaseScreen {
     private static final float FONT_SCALE_PROCENT = 1.7f;
 
     private static final int[] DURATION_ANIMATION = new int[]{1, 4, 7, 10, 13, 16};
+    //ai stats
+    //enemy Defense if enemy hp < hero hp (20%)
+    private static final int[][] DEFENSE = new int[][]{{1, 4, 1, 4},
+                                                        {1, 5, 1, 3},
+                                                        {2, 4, 1, 3},
+                                                        {2, 3, 2, 3}};
+    //enemy Normal if enemy hp -hero hp > -20 && < 20 (%)
+    private static final int[][] NORMAL = new int[][]{{3, 2, 3, 2},
+                                                      {1, 5, 1, 3},
+                                                      {2, 4, 1, 3},
+                                                      {2, 3, 2, 3}};
+    //enemy Attack if enemy hp > hero hp (20%)
+    private static final int[][] ATTACK = new int[][]{{4, 1, 4, 1},
+                                                      {5, 1, 3, 1},
+                                                      {3, 1, 5, 1},
+                                                      {4, 2, 3, 1}};
+    //enemy Supper attack if enemy hp > hero hp (50%)
+    private static final int[] SUPER_ATTACK = new int[]{5, 0, 5, 0};
 
     private static Hero hero;
     private static Enemy enemy;
@@ -115,8 +133,8 @@ public class FightScreen extends BaseScreen {
         Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
-        hpHero = 20;
-        hpEnemy = 0;//TODO if hp < 20% and click abort TEST!!!
+        //hpHero = 20;
+        //hpEnemy = 0;//TODO if hp < 20% and click abort TEST!!!
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -366,10 +384,12 @@ public class FightScreen extends BaseScreen {
     public void update(float dt) {
         //Update Scale bar hp and energy
         barHpHero.setSize((float)hpHero / hero.getFullHp() *120, barHpHero.getHeight());
-        barEnergyHero.setSize(energyHero / energyMaxHero *120, barEnergyHero.getHeight());
+        barEnergyHero.setSize((float)energyHero / energyMaxHero *120, barEnergyHero.getHeight());
 
         barHpEnemy.setSize((float)hpEnemy / hpMaxEnemy *-120, barHpEnemy.getHeight());
-        barEnergyEnemy.setSize(energyEnemy / energyMaxEnemy *-120, barEnergyEnemy.getHeight());
+        barEnergyEnemy.setSize((float)energyEnemy / energyMaxEnemy *-120, barEnergyEnemy.getHeight());
+
+
     }
 
     private void updateRound() throws CloneNotSupportedException {
@@ -511,13 +531,19 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
-                hpEnemy -= dmg;
-                lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
-                checkKill();
-                if(dmg == 0)
+                if(dmg == 0) {
+                    energyHero -= 30;
                     animateBlock(false);
-                else
+                    checkEnergy();
+                }else {
+                    hpEnemy -= dmg;
+                    energyHero -= 50;
+                    checkKill();
+                    checkEnergy();
                     animateBlood(false);
+                }
+                lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
+                lEnergyHero.setText(energyHero + " / " + energyMaxHero);
             }
         });
         animateMagic(labelCalculateHp, labelCalculateProcent, duration, action, true);
@@ -534,13 +560,19 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
-                hpHero -= dmg;
-                lHpHero.setText(hpHero + " / " + hpMaxHero);
-                checkKill();
-                if(dmg == 0)
+                if(dmg == 0) {
+                    energyEnemy -= 30;
                     animateBlock(true);
-                else
+                    checkEnergy();
+                }else {
+                    hpHero -= dmg;
+                    energyEnemy -= 50;
+                    checkKill();
+                    checkEnergy();
                     animateBlood(true);
+                }
+                lHpHero.setText(hpHero + " / " + hpMaxHero);
+                lEnergyEnemy.setText(energyEnemy + " / " + energyMaxEnemy);
 
             }
         });
@@ -558,13 +590,19 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
-                hpEnemy -= dmg;
-                lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
-                checkKill();
-                if(dmg == 0)
+                if(dmg == 0) {
+                    energyHero -= 30;
                     animateBlock(false);
-                else
+                    checkEnergy();
+                }else {
+                    hpEnemy -= dmg;
+                    energyHero -= 50;
+                    checkKill();
+                    checkEnergy();
                     animateBlood(false);
+                }
+                lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
+                lEnergyHero.setText(energyHero + " / " + energyMaxHero);
             }
         });
         animatePhysics(labelCalculateHp, labelCalculateProcent, duration, action, true);
@@ -581,13 +619,19 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
-                hpEnemy -= dmg;
-                lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
-                checkKill();
-                if(dmg == 0)
+                if(dmg == 0) {
+                    energyHero -= 30;
                     animateBlock(false);
-                else
+                    checkEnergy();
+                }else {
+                    hpEnemy -= dmg;
+                    energyHero -= 50;
+                    checkKill();
+                    checkEnergy();
                     animateBlood(false);
+                }
+                lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
+                lEnergyHero.setText(energyHero + " / " + energyMaxHero);
             }
         });
         animatePhysics(labelCalculateHp, labelCalculateProcent, duration, action, true);
@@ -604,13 +648,19 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
-                hpHero -= dmg;
-                lHpHero.setText(hpHero + " / " + hpMaxHero);
-                checkKill();
-                if(dmg == 0)
+                if(dmg == 0) {
+                    energyEnemy -= 30;
                     animateBlock(true);
-                else
+                    checkEnergy();
+                }else {
+                    hpHero -= dmg;
+                    energyEnemy -= 50;
+                    checkKill();
+                    checkEnergy();
                     animateBlood(true);
+                }
+                lHpHero.setText(hpHero + " / " + hpMaxHero);
+                lEnergyEnemy.setText(energyEnemy + " / " + energyMaxEnemy);
             }
         });
         animatePhysics(hpPhyHeroSecond, procentPhyHeroSecond, duration, action, false);
@@ -628,13 +678,19 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
-                hpHero -= dmg;
-                lHpHero.setText(hpHero + " / " + hpMaxHero);
-                checkKill();
-                if(dmg == 0)
+                if(dmg == 0) {
+                    energyEnemy -= 30;
                     animateBlock(true);
-                else
+                    checkEnergy();
+                }else {
+                    hpHero -= dmg;
+                    energyEnemy -= 50;
+                    checkKill();
+                    checkEnergy();
                     animateBlood(true);
+                }
+                lHpHero.setText(hpHero + " / " + hpMaxHero);
+                lEnergyEnemy.setText(energyEnemy + " / " + energyMaxEnemy);
             }
         });
         animatePhysics(hpPhyHeroFirst, procentPhyHeroFirst, duration, action, false);
@@ -686,7 +742,7 @@ public class FightScreen extends BaseScreen {
 
             game.setScreen(new FightLose(game, hero, 35, 68, -1000, -30));
         }
-        if(hpEnemy < 1){
+        else if(hpEnemy < 1){
             hpEnemy = 0;
 
             //TODO create new Thread with sleep and game.setScreen TOGEDER
@@ -702,6 +758,41 @@ public class FightScreen extends BaseScreen {
             //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
             game.setScreen(new FightWin(game, hero, enemy, 35, 68, 158, 400, "fire_sword"));
         }
+    }
+
+    private void checkEnergy(){
+        if(energyHero < 1){
+            animateEnergyMinusPoint(true);
+            energyHero +=100;
+        }else if(energyEnemy < 1){
+            animateEnergyMinusPoint(false);
+            energyEnemy +=100;
+            System.out.println(freePointFight);
+            System.out.println(labelPointFight[0]);
+            System.out.println(labelPointFight[1]);
+            System.out.println(labelPointFight[2]);
+            System.out.println(labelPointFight[3]);
+        }
+    }
+
+    private Label animateEnergyMinusPoint(boolean isHero){
+        Label label = new Label("-1 punkt akcji", style);
+        label.setColor(Color.ROYAL);
+        label.addAction(Actions.fadeOut(0));
+        label.setFontScale(2);
+
+        if(isHero){
+            label.setPosition(50, 115);
+            label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, 20, 2), Actions.fadeIn(0.6f)),
+                    Actions.parallel(Actions.moveBy(0, 20, 2), Actions.sequence(Actions.delay(1), Actions.fadeOut(1)))));
+        }else{
+            label.setPosition(BaseScreen.VIEW_WIDTH -label.getWidth()*2 -60, 430);
+            label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -20, 2), Actions.fadeIn(0.6f)),
+                    Actions.parallel(Actions.moveBy(0, -20, 2), Actions.sequence(Actions.delay(1), Actions.fadeOut(1)))));
+        }
+
+        stage.addActor(label);
+        return label;
     }
 
     private void animatePhysics(Label dmg, Label procent, int delay, Action action, boolean isHero) {
@@ -872,13 +963,45 @@ public class FightScreen extends BaseScreen {
     }
 
     private int[] updateEnemyAi(){
+        System.out.println("hphero" + hpHero);
+        System.out.println("hpheroMax" + hpMaxHero);
+        float heroPercentHp = (float)hpHero /hpMaxHero *100;
+        float enemyPercentHp = (float)hpEnemy / hpMaxEnemy *100;
+
+        System.out.println("hero hp: " + heroPercentHp);
+        System.out.println("enemy hp: " + enemyPercentHp);
+        System.out.println(enemyPercentHp -heroPercentHp + "%");
+
+        if((enemyPercentHp -heroPercentHp) >= 50) {
+            System.out.println("SUPER ATTACK");
+            return SUPER_ATTACK;
+        }
+
+        int random = MathUtils.random(0, 3);
+        System.out.println("random" + random);
+
+        if((enemyPercentHp -heroPercentHp) >= 20) {
+            System.out.println("ATTACK");
+            return ATTACK[random];
+        }
+        else if((enemyPercentHp - heroPercentHp) < 20 && (enemyPercentHp -heroPercentHp) > -20) {
+            System.out.println("NORMAL");
+            return NORMAL[random];
+        }
+        else if ((enemyPercentHp -heroPercentHp) < -20) {
+            System.out.println("Defense");
+            return DEFENSE[random];
+        }
+        else
+            System.out.println("ERROR NOT CHANGE SETTING POINT FIGHT");
+
         return new int[]{2, 3, 3, 2};
     }
 
     private float pointTable(int i, boolean heroBoolean) {
         if(heroBoolean)
             i = Integer.parseInt(labelPointFight[i].getText().toString());
-
+        //TODO set % values count point
         switch (i){
             case 1:
                 return 0.7f;

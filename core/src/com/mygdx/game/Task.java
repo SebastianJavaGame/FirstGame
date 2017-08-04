@@ -78,10 +78,10 @@ public class Task {
                 else {
                     int temporaryTask = pref.getInteger("TASK" +(i+1));
                     int temporaryProgress = pref.getInteger("TASK" +pref.getInteger("TASK" +(i+1)) + "_PROGRESS");
-                    pref.putInteger("TASK" +i, temporaryTask);
-                    pref.putInteger("TASK" + pref.getInteger("TASK" +i) + "_PROGRESS", temporaryProgress);
-                    pref.putInteger("TASK" +(i+1), -1);
-                    pref.putInteger("TASK" + pref.getInteger("TASK" +(i+1)) + "_PROGRESS", 0);
+                    pref.putInteger("TASK" +i, temporaryTask).flush();
+                    pref.putInteger("TASK" + pref.getInteger("TASK" +i) + "_PROGRESS", temporaryProgress).flush();
+                    pref.putInteger("TASK" +(i+1), -1).flush();
+                    pref.putInteger("TASK" + pref.getInteger("TASK" +(i+1)) + "_PROGRESS", 0).flush();
                     pref.flush();
                 }
             }
