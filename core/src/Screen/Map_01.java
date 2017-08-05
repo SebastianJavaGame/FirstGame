@@ -33,7 +33,7 @@ public class Map_01 extends BaseMap {
 
     @Override
     public void addEnemyToMap() {
-        addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380);
+        addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380).setDropItemName("gold_armor");
         addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
     }
 
@@ -99,7 +99,7 @@ public class Map_01 extends BaseMap {
         verticalCollision.add(point);
     }
 
-    private void addEnemy(String path, String head, String wapon, int x){
+    private Enemy addEnemy(String path, String head, String wapon, int x){
         Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))),
                 new Image(new Texture(Gdx.files.internal(wapon))),  "Glomin", 5, 180, 8, 8, 16, 10, 8, 10, 40, 70);
         enemy.setRectangle(0, 0, 0, 0);
@@ -107,6 +107,7 @@ public class Map_01 extends BaseMap {
         //TODO if not equals null add item drop;     enemy.setDropItemName();
         characters.add(enemy);
         enemy.collisionUpdate();
+        return enemy;
     }
 
     private void addNpc(String path, String head, String name, int level, int idShop, int idTask){

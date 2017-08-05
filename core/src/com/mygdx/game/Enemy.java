@@ -266,4 +266,8 @@ public class Enemy extends Character {
     public Image getWapon(){
         return wapon;
     }
+
+    public ArrayList<String> getDropItem(){
+        return dropItemName;
+    }
 }

@@ -22,6 +22,7 @@ import com.mygdx.game.BaseEnemyAI;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.Hero;
+import com.mygdx.game.InfoScreen;
 import com.mygdx.game.MyException;
 
 import java.util.ArrayList;
@@ -264,63 +265,59 @@ public class FightScreen extends BaseScreen {
                     buttonAbort.addListener(new InputListener() {
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                            Action action = Actions.run(new Runnable() {
-                                @Override
-                                public void run() {
-                                    startFight.setPosition(0, -50);
+                            if (hpHero > hpMaxHero * 0.2f) {
+                                Action action = Actions.run(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        startFight.setPosition(0, -50);
 
-                                    Label label = new Label("-20% HP", styleBlood);
-                                    label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
-                                    stage.addActor(label);
-                                    label.setFontScale(2);
+                                        Label label = new Label("-20% HP", styleBlood);
+                                        label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
+                                        stage.addActor(label);
+                                        label.setFontScale(2);
 
-                                    Action action0 = Actions.run(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            buttonAbort.addAction(Actions.sequence(Actions.moveBy(0, -60, 1), Actions.fadeOut(2), Actions.moveTo(175, -3), Actions.fadeIn(1)));
-                                            buttonAbort.clearListeners();
-                                            abortActive.remove();
-                                            hpHero -= hpMaxHero * 0.2f;
-                                            lHpHero.setText(hpHero + " / " + hpMaxHero);
-                                        }
-                                    });
+                                        Action action0 = Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                buttonAbort.addAction(Actions.sequence(Actions.moveBy(0, -60, 1), Actions.fadeOut(2), Actions.moveTo(175, -3), Actions.fadeIn(1)));
+                                                buttonAbort.clearListeners();
+                                                abortActive.remove();
+                                                hpHero -= hpMaxHero * 0.2f;
+                                                lHpHero.setText(hpHero + " / " + hpMaxHero);
+                                            }
+                                        });
 
-                                    Action action2 = Actions.run(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Label label = new Label("ABORT!", style);
-                                            label.setFontScale(3);
-                                            label.setPosition(85, 250);
-                                            stage.addActor(label);
-                                        }
-                                    });
+                                        Action action2 = Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Label label = new Label("ABORT!", style);
+                                                label.setFontScale(3);
+                                                label.setPosition(85, 250);
+                                                stage.addActor(label);
+                                            }
+                                        });
 
-                                    Action action3 = Actions.run(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if(flip) {
-                                                enemy.getTexture().flip(true, false);
-                                                enemyImage = new Image(enemy.getTexture());
-                                            }else
-                                                enemyImage = new Image(enemy.getTexture());
+                                        Action action3 = Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (flip) {
+                                                    enemy.getTexture().flip(true, false);
+                                                    enemyImage = new Image(enemy.getTexture());
+                                                } else
+                                                    enemyImage = new Image(enemy.getTexture());
 
-                                            game.setScreen(new Map_01(game));
-                                        }
-                                    });
-                                    label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
-                                            Actions.delay(18)), action2, Actions.delay(1.5f), action3));
-                                }
-                            });
-                            /*Action action1 = Actions.run(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        updateRound();
-                                    } catch (CloneNotSupportedException e) {
+                                                game.setScreen(new Map_01(game));
+                                            }
+                                        });
+                                        label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
+                                                Actions.delay(18)), action2, Actions.delay(1.5f), action3));
                                     }
-                                }
-                            });*/
-                            stage.addAction(Actions.sequence(action)); //action1 as second parameter it is next round fight
+                                });
+                                stage.addAction(Actions.sequence(action));
+                            }else{
+                                buttonAbort.remove();
+                                new InfoScreen("Masz zbyt malo punktow zycia\nucieczka spowodowalaby smierc.\nPodnies sie i walcz!", 3);
+                            }
                             return false;
                         }
                     });
@@ -760,7 +757,12 @@ public class FightScreen extends BaseScreen {
                     } else
                         enemyImage = new Image(enemy.getTexture());
 
-                    game.setScreen(new FightLose(game, hero, 35, 68, -1000, -30));
+                    float expMinus = Hero.getMaxExp();
+                    float temporary = MathUtils.random(12, 17);
+
+                    expMinus *= (temporary /100);
+
+                    game.setScreen(new FightLose(game, hero, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), -1000, -(int)expMinus));//TODO set minus gold
                 }
             })));
         }
@@ -787,20 +789,34 @@ public class FightScreen extends BaseScreen {
                     temporary = (100 +temporary) /100;
                     moneyDrop *= temporary;
 
-                    float averageTarget = 0;
-                    for(int target: avergePercentsFight)
-                        averageTarget += target;
-                    averageTarget /= avergePercentsFight.size();
+                    int sizeListDropItem = enemy.getDropItem().size();
+                    String dropItemName = "";
 
-                    float averageDmg = 0;
-                    for(int dmg: avergeDmgFight)
-                        averageDmg += dmg;
-                    averageDmg /= avergeDmgFight.size();
+                    if(sizeListDropItem > 0) {
+                        int chanceOnDrop = (int)(enemy.getRandomDrop() *10);
+                        temporary = MathUtils.random(1, 1000);
 
-                    game.setScreen(new FightWin(game, hero, enemy, (int)averageDmg, averageTarget, (int)moneyDrop, (int)expDrop, "fire_sword"));
+                        if(temporary <= chanceOnDrop) {//TODO
+                            temporary = MathUtils.random(0, sizeListDropItem - 1);
+                            dropItemName = enemy.getDropItem().get((int) temporary);
+                        }else{
+                            System.out.println(chanceOnDrop + "szansa");
+                            System.out.println(temporary + "szansa");
+                        }
+                    }
+
+                    game.setScreen(new FightWin(game, hero, enemy, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), (int)moneyDrop, (int)expDrop, dropItemName));
                 }
             })));
         }
+    }
+
+    private float calculateAverageWithArrey(ArrayList<Integer> numbers){
+        float value = 0;
+        for(int dmg: numbers)
+            value += dmg;
+        value /= numbers.size();
+        return value;
     }
 
     private void checkEnergy(){
@@ -864,12 +880,12 @@ public class FightScreen extends BaseScreen {
         magicEnemy.remove();
         block.remove();
         blood.remove();
-//TODO remove button fight and unactibe button abort
         for(Label l: labelCalculateHp)
                 l.remove();
 
         for(Label l: labelCalculateProcent)
                 l.remove();
+        startFight.remove();
     }
 
     private Label animateEnergyMinusPoint(boolean isHero){
