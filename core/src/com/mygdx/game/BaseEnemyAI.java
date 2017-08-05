@@ -111,6 +111,12 @@ public class BaseEnemyAI {
     }
 
     public static int[] getEnemyAIPoint(int type, int freePoint, int combination){
+            try {
+                    System.out.println(AI[type][freePoint - 5][combination][0]);
+                    System.out.println(AI[type][freePoint - 5][combination][1]);
+                    System.out.println(AI[type][freePoint - 5][combination][2]);
+                    System.out.println(AI[type][freePoint - 5][combination][3]);
+            }catch (Exception e){}
         return AI[type][freePoint -5][combination];
     }
 }

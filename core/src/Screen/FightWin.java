@@ -131,7 +131,7 @@ public class FightWin extends BaseScreen {
         Label lDrop = new Label("Szansa na drop: " + dropProcent + "%", style);
         lDropChar = new Label("?", style);
         Label lStatsDmgAverrage = new Label("Srednie zadane obrazenia: " + dmgAverrage, style);
-        Label lStatsCelnosc = new Label("Srednia target atakow: " + target + "%", style);
+        Label lStatsCelnosc = new Label("Srednia celnosc atakow: " + String.format("%, .2f", target) + "%", style);
         lFull = new Label(" Plecak\njest pelny", styleRed);
 
         float lenghtText = 90 / lExp.getWidth() * 0.75f;

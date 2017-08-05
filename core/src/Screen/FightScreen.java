@@ -24,6 +24,8 @@ import com.mygdx.game.Equipment;
 import com.mygdx.game.Hero;
 import com.mygdx.game.MyException;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sebastian on 2017-07-09.
  */
@@ -93,6 +95,8 @@ public class FightScreen extends BaseScreen {
     private static boolean abortFirstTap;
     private static boolean animationPlay;
 
+    private static ArrayList<Integer> avergePercentsFight;
+
     BitmapFont font = new BitmapFont();
     Label.LabelStyle style = new Label.LabelStyle();
     Label.LabelStyle styleBlood = new Label.LabelStyle();
@@ -112,6 +116,7 @@ public class FightScreen extends BaseScreen {
         this.flip = flip;
         abort = true;
         abortFirstTap = true;
+        avergePercentsFight = new ArrayList<Integer>();
         create();
     }
 
@@ -121,7 +126,7 @@ public class FightScreen extends BaseScreen {
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
         //hpHero = 20;
-        //hpEnemy = 0;//TODO if hp < 20% and click abort TEST!!!
+        hpEnemy = 20;//TODO if hp < 20% and click abort TEST!!!
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -508,7 +513,7 @@ public class FightScreen extends BaseScreen {
             return dmg;
     }
 
-    private void sixAttack(final int dmg, int procent, int duration) {
+    private void sixAttack(final int dmg, final int procent, int duration) {
         labelCalculateHp = new Label("-" + dmg, styleBlood);
         labelCalculateProcent = new Label(procent + "%", style);
         labelCalculateHp.setFontScale(FONT_SCALE_HP);
@@ -519,6 +524,8 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
+                avergePercentsFight.add(procent);
+
                 if(dmg == 0) {
                     energyHero -= 30;
                     animateBlock(false);
@@ -537,7 +544,7 @@ public class FightScreen extends BaseScreen {
         animateMagic(labelCalculateHp, labelCalculateProcent, duration, action, true);
     }
 
-    private void fiveAttack(final int dmg, int procent, int duration) {
+    private void fiveAttack(final int dmg, final int procent, int duration) {
         labelCalculateHp = new Label("-" + dmg, styleBlood);
         labelCalculateProcent = new Label(procent + "%", style);
         labelCalculateHp.setFontScale(FONT_SCALE_HP);
@@ -567,7 +574,7 @@ public class FightScreen extends BaseScreen {
         animateMagic(labelCalculateHp, labelCalculateProcent, duration, action, false);
     }
 
-    private void fourthAttack(final int dmg, int procent, int duration) {
+    private void fourthAttack(final int dmg, final int procent, int duration) {
         labelCalculateHp = new Label("-" + dmg, styleBlood);
         labelCalculateProcent = new Label(procent + "%", style);
         labelCalculateHp.setFontScale(FONT_SCALE_HP);
@@ -578,6 +585,8 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
+                avergePercentsFight.add(procent);
+
                 if(dmg == 0) {
                     energyHero -= 30;
                     animateBlock(false);
@@ -596,7 +605,7 @@ public class FightScreen extends BaseScreen {
         animatePhysics(labelCalculateHp, labelCalculateProcent, duration, action, true);
     }
 
-    private void thirdAttack(final int dmg, int procent, int duration) throws CloneNotSupportedException {
+    private void thirdAttack(final int dmg, final int procent, int duration) throws CloneNotSupportedException {
         Label labelCalculateHp = new Label("-" + dmg, styleBlood);
         Label labelCalculateProcent = new Label(procent + "%", style);
         labelCalculateHp.setFontScale(FONT_SCALE_HP);
@@ -607,6 +616,8 @@ public class FightScreen extends BaseScreen {
         Action action = Actions.run(new Runnable() {
             @Override
             public void run() {
+                avergePercentsFight.add(procent);
+
                 if(dmg == 0) {
                     energyHero -= 30;
                     animateBlock(false);
@@ -625,7 +636,7 @@ public class FightScreen extends BaseScreen {
         animatePhysics(labelCalculateHp, labelCalculateProcent, duration, action, true);
     }
 
-    private void secondAttack(final int dmg, int procent, int duration) {
+    private void secondAttack(final int dmg, final int procent, int duration) {
         Label hpPhyHeroSecond = new Label("-" + dmg, styleBlood);
         Label procentPhyHeroSecond = new Label(procent + "%", style);
         hpPhyHeroSecond.setFontScale(FONT_SCALE_HP);
@@ -655,7 +666,7 @@ public class FightScreen extends BaseScreen {
 
     }
 
-    private void firstAttack(final int dmg, int procent, int duration) {
+    private void firstAttack(final int dmg, final int procent, int duration) {
         Label hpPhyHeroFirst = new Label("-" + dmg, styleBlood);
         Label procentPhyHeroFirst = new Label(procent + "%", style);
         hpPhyHeroFirst.setFontScale(FONT_SCALE_HP);
@@ -740,11 +751,26 @@ public class FightScreen extends BaseScreen {
 
             //TODO calculate average damage
             //TODO calculate target average percent
-            //TODO calculate drop money
-            //TODO calculate drop experience
             //TODO random drop item
+            float expDrop = enemy.getExpDrop();
+            float moneyDrop = enemy.getMoneyDrop();
+            float temporary = MathUtils.random(-12, 12);
+
+            temporary = (100 +temporary) /100;
+            expDrop *= temporary;
+
+            temporary = MathUtils.random(-15, 15);
+            temporary = (100 +temporary) /100;
+            moneyDrop *= temporary;
+
+            float averageTarget = 0;
+            for(int target: avergePercentsFight) {
+                averageTarget += target;
+            }
+            averageTarget /= avergePercentsFight.size();
+
             //game.setScreen(new FightWin(game, hero, enemy.getRandomDrop(), dmgAverrage, targetAverrage, moneyDrop, expDrop, "dropItemKey"));
-            game.setScreen(new FightWin(game, hero, enemy, 35, 68, 158, 400, "fire_sword"));
+            game.setScreen(new FightWin(game, hero, enemy, 35, averageTarget, (int)moneyDrop, (int)expDrop, "fire_sword"));
         }
     }
 
@@ -995,8 +1021,14 @@ public class FightScreen extends BaseScreen {
             return SUPER_ATTACK;
         }
 
-        int random = MathUtils.random(0, 3);
-        System.out.println("random" + random);
+        int random;
+        if(pointFightEnemy > 8) {
+            random = MathUtils.random(0, 3);
+            System.out.println("random" + random);
+        }else{
+            random = MathUtils.random(0, 2);
+            System.out.println("random" + random);
+        }
 
         if((enemyPercentHp -heroPercentHp) >= 20) {
             System.out.println("ATTACK");

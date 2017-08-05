@@ -39,14 +39,14 @@ public class Enemy extends Character {
     private ArrayList<String> dropItemName;
     private float randomDrop;
 
-    private Vector2 expToKill;
-    private Vector2 moneyToKill;
+    private int expDrop;
+    private int moneyDrop;
 
     private float defaultScreenZeroX;
     private float defaultScreenZeroY;
 
     public Enemy(Texture texture, Image head, Image wapon, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
-                 float randomDrop, int expToKillMin, int expToKillMax, int moneyToKillMin, int moneyToKillMax) {
+                 float randomDrop, int expDrop ,int moneyDrop) {
         super(texture);
         this.head = head;
         this.wapon = wapon;
@@ -59,8 +59,8 @@ public class Enemy extends Character {
         this.defensePhysics = defensePhysics;
         this.defenseMagic = defenseMagic;
         this.randomDrop = randomDrop;
-        this.expToKill = new Vector2(expToKillMin, expToKillMax);
-        this.moneyToKill = new Vector2(moneyToKillMin, moneyToKillMax);
+        this.moneyDrop = moneyDrop;
+        this.expDrop = expDrop;
         dropItemName = new ArrayList();
 
         setSize(this.getWidth() *0.45f, this.getHeight() *0.45f);
@@ -249,6 +249,14 @@ public class Enemy extends Character {
 
     public float getRandomDrop(){
         return randomDrop;
+    }
+
+    public int getExpDrop(){
+        return expDrop;
+    }
+
+    public int getMoneyDrop(){
+        return moneyDrop;
     }
 
     public Image getHead() {
