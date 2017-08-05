@@ -36,6 +36,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     protected static Stage stage;
 
     private static boolean exception = false;
+    protected static boolean gameOver = false;
 
     public BaseScreen(Game g)
     {
@@ -59,7 +60,8 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     public void render(float dt)
     {
         try {
-            stage.act(dt);
+            if(!gameOver)
+                stage.act(dt);
 
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
