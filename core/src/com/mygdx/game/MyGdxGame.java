@@ -33,33 +33,7 @@ public class MyGdxGame extends Game{
 
             Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
             prefStats.clear();
-            prefStats.putInteger("LEVEL", 2);
-            prefStats.putInteger("FREE_POINT", 5);
-            prefStats.putInteger("EXP", 80);
-            prefStats.putInteger("MONEY", 3500);
-            prefStats.putInteger("DEAD", 0);
-
-            prefStats.putInteger("MAX_HP", 200);
-            prefStats.putInteger("ARMOR", 10);
-            prefStats.putInteger("STRONG", 10);
-            prefStats.putInteger("WIEDZA", 10);
-            prefStats.putInteger("DEFENSE_FIZ", 2);
-            prefStats.putInteger("DEFENSE_MAG", 3);
-
-            //prefStats.putInteger("COLLISION", ???);
             prefStats.flush();
-
-            Preferences prefTask = Gdx.app.getPreferences(Quest.PREF_TASK);
-            prefTask.clear();
-            prefTask.putInteger("TASK0", 0);
-            prefTask.putInteger("TASK0_PROGRESS", 2);
-            prefTask.putInteger("TASK1", 1);
-            prefTask.putInteger("TASK1_PROGRESS", 11);
-            prefTask.putInteger("TASK2", 2);
-            prefTask.putInteger("TASK2_PROGRESS", 3);
-            prefTask.putInteger("TASK3", 3);
-            prefTask.putInteger("TASK3_PROGRESS", 1);
-            prefTask.flush();
 
             firstLoad.putString("FIRST", "IS LOAD");
             firstLoad.flush();
@@ -74,7 +48,6 @@ public class MyGdxGame extends Game{
         BaseEnemyAI.loadAI();
 
 		Menu lvl = new Menu(this);
-		//FightWin lvl = new FightWin(this, 10, 34, 67, 10000, 4510, "fire_sword");
 		setScreen(lvl);
 	}
 

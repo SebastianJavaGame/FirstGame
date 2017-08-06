@@ -2,7 +2,9 @@ package Screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,6 +26,7 @@ import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
 import com.mygdx.game.ImplementObjectMap;
 import com.mygdx.game.RenderCollisionLine_Test;
+import com.mygdx.game.StatsHero;
 
 import java.util.ArrayList;
 
@@ -43,6 +46,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     protected static Hero3D hero3D;
     protected static Image bgTexture;
     protected static BaseMap actualMap;
+    private Preferences preferences;
+
+    private float hpRefresh;
 
     protected static ArrayList<Rectangle> entriaceToMapRectangle;
     protected static ArrayList<Integer> indexToLoadNextMap;
@@ -88,11 +94,15 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             this.mapHeight = mapHeight;
             this.bgTexture = imageBg;
 
+            preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+
             realWidth = (float) Gdx.app.getGraphics().getWidth() / VIEW_WIDTH;
             realHeight = (float) Gdx.app.getGraphics().getHeight() / VIEW_HEIGHT;
 
             windowStatsOpen = false;
             stopGame = false;
+
+            hpRefresh = 0;
 
             create();
             initializeUiStage();
@@ -107,13 +117,17 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         indexToLoadNextMap.clear();
         generateMap();
 
+        new Bag(BaseScreen.getStage());
+
         hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, charactersList);
-        hero.setPosition(450, 350);
-        hero.setSize(10, 10);
+        hero.setPosition(preferences.getInteger("POS_X"), preferences.getInteger("POS_Y"));
+        hero.setSize(8, 8);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
         stage.addActor(hero);
 
         testRender = new RenderCollisionLine_Test(camera, hero);
+
+        System.out.println(hero.getFullHp());
     }
 
     @Override
@@ -143,8 +157,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         //for(Vector2 v: Hero.temporaryListVector)
            // RenderCollisionLine_Test.drawPointSquare(v);
 
-        //if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
-          //  System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
+            System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
 
         if(hero.isMoveStop())
             hero.objectCollision();
@@ -163,6 +177,21 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         if(hero.isCharacterCollisionLook())
             hero.collisionCharacter();
+    }
+
+    @Override
+    public void pause()   {
+        preferences.putInteger("FREE_POINT", preferences.getInteger("FREE_POINT")).flush();
+        preferences.putInteger("EXP", hero.getExp()).flush();
+        preferences.putInteger("MONEY", hero.getMoneyNoStatic()).flush();
+        preferences.putInteger("HP", hero.getHp()).flush();
+        preferences.putInteger("ARMOR", hero.getArmor()).flush();
+        preferences.putInteger("STRONG", hero.getStrong()).flush();
+        preferences.putInteger("WIEDZA", hero.getWiedza()).flush();
+        preferences.putInteger("DEFENSE_FIZ", hero.getDefenseFiz()).flush();
+        preferences.putInteger("DEFENSE_MAG", hero.getDefenseMag()).flush();
+        preferences.putInteger("POS_X", (int)hero.getX()).flush();
+        preferences.putInteger("POS_Y", (int)hero.getY()).flush();
     }
 
     public void clearCharacterList(){
@@ -188,9 +217,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         addImageToStageUi("uiExp.png", 60, 430, ICON_ITEM_SIZE, ICON_ITEM_SIZE);
         addImageToStageUi("uiMoney.png", 194, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
 
-        uiBarEmptyHp = addImageToStageUi("barEmpty.png", 80, 460, 118, 20);
-        uiBarEmptyExp = addImageToStageUi("barEmpty.png", 80, 435, 118, 20);
-        uiBarHp = addImageToStageUi("barHp.png", 86, 465, 100, 10);
+        uiBarEmptyHp = addImageToStageUi("barEmpty.png", 85, 462, 102, 14);
+        uiBarEmptyExp = addImageToStageUi("barEmpty.png", 85, 438, 102, 14);
+        uiBarHp = addImageToStageUi("barHp.png", 86, 464, 100, 10);
         uiBarExp = addImageToStageUi("barExp.png", 86, 440, 100, 10);
         moneyLabel = addLabelToStageUi(220, 470, 0.9f);
         hpLabel = addLabelToStageUi(5, 0, 0.85f);
@@ -247,15 +276,29 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     private void uiUpdate() {
+        hpRefresh += Gdx.graphics.getDeltaTime();
+        if(hpRefresh > 2){
+            System.out.println(hero.getHp());
+            hero.setHp((int)(hero.getHp() +(hero.getFullHp() *0.02f)));
+
+            System.out.println(hero.getHp());
+
+            if(hero.getHp() > hero.getFullHp())
+                hero.setHp(hero.getFullHp());
+
+            System.out.println("add hp for two second");
+            hpRefresh = 0;
+        }
+
         levelLabel.setText(String.valueOf(hero.getLevel()));
         hpLabel.setText(hero.getHp() + " / " + hero.getFullHp());
         expLabel.setText(hero.getExp() + " / " + hero.getMaxExp());
         moneyLabel.setText(hero.getMoneyString());
 
         hpLabel.setPosition(uiBarEmptyHp.getX() + uiBarEmptyHp.getWidth() /2 - ((String.valueOf(hero.getHp()).length() + 3
-                + String.valueOf(hero.getMaxHp()).length()) *3 +1), 460 + uiBarEmptyHp.getHeight() /2);
+                + String.valueOf(hero.getMaxHp()).length()) *3 +1), 463 + uiBarEmptyHp.getHeight() /2);
         expLabel.setPosition(uiBarEmptyExp.getX() + uiBarEmptyExp.getWidth() /2 - ((String.valueOf(hero.getExp()).length() + 3
-                + String.valueOf(hero.getMaxExp()).length()) *3 +1), 435 + uiBarEmptyExp.getHeight() /2);
+                + String.valueOf(hero.getMaxExp()).length()) *3 +1), 438 + uiBarEmptyExp.getHeight() /2);
 
         uiBarHp.setSize((float) hero.getHp() / hero.getFullHp() * 100, uiBarHp.getHeight());
         uiBarExp.setSize((float) hero.getExp() / hero.getMaxExp() * 100, uiBarExp.getHeight());

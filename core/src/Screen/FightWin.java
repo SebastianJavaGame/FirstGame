@@ -199,6 +199,7 @@ public class FightWin extends BaseScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Quest.checkKillTargetWithTask(enemy.getName().toLowerCase());
+                Menu.setIsFirstSpawnHeroPosition(true);
 
                 expMax = ExperienceRequired.getMaxExperience(twoBase);
                 float resultPrecent;
@@ -218,10 +219,9 @@ public class FightWin extends BaseScreen {
                             hero.setExp(allExp);
 
                         hero.setMoney(hero.getMoney() + moneyDrop);
-                        prefStats.putInteger("MONEY", hero.getMoney());
-                        prefStats.putInteger("LEVEL", hero.getLevel());
-                        prefStats.putInteger("EXP", hero.getExp());
-                        prefStats.flush();
+                        prefStats.putInteger("MONEY", hero.getMoney()).flush();
+                        prefStats.putInteger("LEVEL", hero.getLevel()).flush();
+                        prefStats.putInteger("EXP", hero.getExp()).flush();
 
                         if (!dropItem.equals("")) {
                             for (int j = 0; j < 18; j++) {
@@ -234,7 +234,7 @@ public class FightWin extends BaseScreen {
                             }
                         }
                         if(!BaseScreen.getException())
-                            game.setScreen(new Map_01(game));
+                            Menu.setMap();
                         break;
                     } else {
                         resultPrecent = 100 - precentStart;
@@ -242,8 +242,7 @@ public class FightWin extends BaseScreen {
                         expMax = ExperienceRequired.getMaxExperience(twoBase);
                         resultActualExp = (float) allExp / expMax * 100;
                         precentStart = 0;
-                        hero.setLevel(hero.getLevel() + 1);
-                        hero.setMaxExp(ExperienceRequired.getMaxExperience(hero.getLevel()));
+                        hero.levelUp();
                     }
                 }
                 return false;

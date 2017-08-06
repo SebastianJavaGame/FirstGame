@@ -131,8 +131,8 @@ public class FightScreen extends BaseScreen {
         Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
-        hpHero = 0;
-        //hpEnemy = 1;
+        //hpHero = 0;
+        //hpEnemy = 0;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -223,7 +223,8 @@ public class FightScreen extends BaseScreen {
         abortNonActive.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("click");
+                Menu.setIsFirstSpawnHeroPosition(true);
+
                 if(abort && !animationPlay) {
                     Label label = new Label("ABORT!", style);
                     label.setFontScale(3);
@@ -239,7 +240,7 @@ public class FightScreen extends BaseScreen {
                             }else
                                 enemyImage = new Image(enemy.getTexture());
 
-                            game.setScreen(new Map_01(game));
+                            Menu.setMap();
                         }
                     });
                     stage.addAction(Actions.sequence(Actions.delay(1), action));
@@ -266,6 +267,8 @@ public class FightScreen extends BaseScreen {
                     buttonAbort.addListener(new InputListener() {
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            Menu.setIsFirstSpawnHeroPosition(true);
+
                             if (hpHero > hpMaxHero * 0.2f) {
                                 Action action = Actions.run(new Runnable() {
                                     @Override
@@ -307,11 +310,11 @@ public class FightScreen extends BaseScreen {
                                                 } else
                                                     enemyImage = new Image(enemy.getTexture());
 
-                                                game.setScreen(new Map_01(game));
+                                                Menu.setMap();
                                             }
                                         });
                                         label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
-                                                Actions.delay(18)), action2, Actions.delay(1.5f), action3));
+                                                Actions.delay(3)), action2, Actions.delay(1.5f), action3));
                                     }
                                 });
                                 stage.addAction(Actions.sequence(action));
@@ -535,13 +538,13 @@ public class FightScreen extends BaseScreen {
                 avergePercentsFight.add(procent);
 
                 if(dmg == 0) {
-                    energyHero -= 30;
+                    energyHero -= 15;
                     animateBlock(false);
                     checkEnergy();
                 }else {
                     avergeDmgFight.add(dmg);
                     hpEnemy -= dmg;
-                    energyHero -= 50;
+                    energyHero -= 20;
                     checkKill();
                     checkEnergy();
                     animateBlood(false);
@@ -565,12 +568,12 @@ public class FightScreen extends BaseScreen {
             @Override
             public void run() {
                 if(dmg == 0) {
-                    energyEnemy -= 30;
+                    energyEnemy -= 15;
                     animateBlock(true);
                     checkEnergy();
                 }else {
                     hpHero -= dmg;
-                    energyEnemy -= 50;
+                    energyEnemy -= 20;
                     checkKill();
                     checkEnergy();
                     animateBlood(true);
@@ -597,13 +600,13 @@ public class FightScreen extends BaseScreen {
                 avergePercentsFight.add(procent);
 
                 if(dmg == 0) {
-                    energyHero -= 30;
+                    energyHero -= 10;
                     animateBlock(false);
                     checkEnergy();
                 }else {
                     avergeDmgFight.add(dmg);
                     hpEnemy -= dmg;
-                    energyHero -= 50;
+                    energyHero -= 15;
                     checkKill();
                     checkEnergy();
                     animateBlood(false);
@@ -629,13 +632,13 @@ public class FightScreen extends BaseScreen {
                 avergePercentsFight.add(procent);
 
                 if(dmg == 0) {
-                    energyHero -= 30;
+                    energyHero -= 10;
                     animateBlock(false);
                     checkEnergy();
                 }else {
                     avergeDmgFight.add(dmg);
                     hpEnemy -= dmg;
-                    energyHero -= 50;
+                    energyHero -= 15;
                     checkKill();
                     checkEnergy();
                     animateBlood(false);
@@ -659,12 +662,12 @@ public class FightScreen extends BaseScreen {
             @Override
             public void run() {
                 if(dmg == 0) {
-                    energyEnemy -= 30;
+                    energyEnemy -= 10;
                     animateBlock(true);
                     checkEnergy();
                 }else {
                     hpHero -= dmg;
-                    energyEnemy -= 50;
+                    energyEnemy -= 15;
                     checkKill();
                     checkEnergy();
                     animateBlood(true);
@@ -689,12 +692,12 @@ public class FightScreen extends BaseScreen {
             @Override
             public void run() {
                 if(dmg == 0) {
-                    energyEnemy -= 30;
+                    energyEnemy -= 10;
                     animateBlock(true);
                     checkEnergy();
                 }else {
                     hpHero -= dmg;
-                    energyEnemy -= 50;
+                    energyEnemy -= 15;
                     checkKill();
                     checkEnergy();
                     animateBlood(true);

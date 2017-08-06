@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -92,6 +93,9 @@ public class Enemy extends Character {
 
         attackScreen.addListener(new InputListener() {
             public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+                preferences.putInteger("POS_X", (int)hero.getX()).flush();
+                preferences.putInteger("POS_Y", (int)hero.getY()).flush();
                 shadow.remove();
                 attackScreen.remove();
                 infoEnemy.remove();

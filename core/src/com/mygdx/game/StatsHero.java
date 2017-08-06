@@ -81,7 +81,7 @@ public class StatsHero {
         uiBarEmptyExp = new Image(new Texture(Gdx.files.internal("barEmpty.png")));
         money = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
         moneyValue = new Label(" " + hero.getMoney(), styleWhite);
-        freePoint = new Label("Free points:", styleWhite);
+        freePoint = new Label("Wolne punkty:", styleWhite);
         pointToAdd = new Label(" " + hero.getPoint(), styleGreen);
         infoOne = new Label("Non EQ", styleWhite);
         infoTwo = new Label("With Eq", styleGreen);
@@ -229,18 +229,20 @@ public class StatsHero {
         expLabel.setPosition(BaseMap.VIEW_WIDTH /2 - expLabel.getWidth() /2, 14);
         expirience.setPosition(BaseMap.VIEW_WIDTH /2 - expirience.getWidth() /2, expLabel.getY() + 20);
         uiBarEmptyExp.setPosition(10, 10);
-        uiBarEmptyExp.setSize(BaseMap.VIEW_WIDTH - 10, 25);
-        uiBarExp.setPosition(uiBarEmptyExp.getX() + 15, uiBarEmptyExp .getY()+ 6);
+        uiBarEmptyExp.setSize(BaseMap.VIEW_WIDTH -20, 24);
+        uiBarExp.setPosition(uiBarEmptyExp.getX() +5, uiBarEmptyExp .getY()+ 3);
 
         float procent = (float)hero.getExp() / hero.getMaxExp() * 100;
-        uiBarExp.setSize(procent /100 * uiBarEmptyExp.getWidth() -15, uiBarExp.getHeight() -1);
+        if(procent < 3)
+            procent = 3;
+        uiBarExp.setSize(procent /100 * uiBarEmptyExp.getWidth() -9, uiBarEmptyExp.getHeight() -6);
 
-        barUp.setBounds(0, 345, BaseMap.VIEW_WIDTH +15, 35);
-        money.setBounds(35, barUp.getY() + 2, 32, 31);
+        barUp.setBounds(0, 340, BaseMap.VIEW_WIDTH +15, 35);
+        money.setBounds(40 +moneyValue.getWidth(), barUp.getY() + 2, 32, 31);
 
         table.row().padTop(40);
         table.add();
-        table.add(moneyValue).align(Align.left);
+        table.add(moneyValue).align(Align.left).padLeft(-35);
         table.add(freePoint);
         table.add(pointToAdd).align(Align.left);
         table.row().padTop(15);

@@ -2,6 +2,7 @@ package Screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Character;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Npc;
+import com.mygdx.game.StatsHero;
 
 import java.util.ArrayList;
 
@@ -18,9 +20,12 @@ import java.util.ArrayList;
  */
 
 public class Map_02 extends BaseMap {
+    public static final int STARTING_POS_X = 200;
+    public static final int STARTING_POS_Y = 200;
     public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("background.png")));
     public final static int MAP_WIDTH = (int)MAP_IMAGE.getWidth();
     public final static int MAP_HEIGHT = (int)MAP_IMAGE.getHeight();
+    private Preferences pref;
 
     private static boolean firstRun;
 
@@ -40,7 +45,7 @@ public class Map_02 extends BaseMap {
 
     @Override
     public void addNpcToMap() {
-        addNpc("mag.png", "glominHead.png", "Witherman", 20, 0, 1);
+        //addNpc("mag.png", "glominHead.png", "Witherman", 20, 0, 1);
     }
 
     @Override
@@ -86,6 +91,19 @@ public class Map_02 extends BaseMap {
 
         for(Character character: characters) {
             stage.addActor(character);
+        }
+
+        pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+
+        if(Menu.getIsFirstSpawnHeroPosition()) {
+            pref.putInteger("POS_X", pref.getInteger("POS_X", STARTING_POS_X)).flush();
+            pref.putInteger("POS_Y", pref.getInteger("POS_Y", STARTING_POS_Y)).flush();
+            pref.putInteger("MAP", 1).flush();
+            Menu.setIsFirstSpawnHeroPosition(false);
+        }else{
+            pref.putInteger("POS_X", STARTING_POS_X).flush();
+            pref.putInteger("POS_Y", STARTING_POS_Y).flush();
+            pref.putInteger("MAP", 1).flush();
         }
     }
 

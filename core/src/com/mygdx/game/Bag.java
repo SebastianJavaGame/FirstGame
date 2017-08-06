@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -37,6 +38,10 @@ public class Bag {
     private Label.LabelStyle styleWhite;
     private Label infoCloseCard;
     private Label infoCloseGame;
+
+    public Bag(Stage card){
+        this.card = card;
+    }
 
     public Bag(Stage stage, Stage card, Hero hero){
         this.hero = hero;
@@ -120,7 +125,7 @@ public class Bag {
         new StatsHero(card, hero);
     }
 
-    public static void initCardQuest() {
+    public static void initCardQuest(){
         card.clear();
         new Quest(card);
     }
@@ -148,6 +153,19 @@ public class Bag {
         closeGame.addListener(new InputListener(){
             public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
                 //TODO point saving game
+                Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+
+                preferences.putInteger("FREE_POINT", preferences.getInteger("FREE_POINT")).flush();
+                preferences.putInteger("EXP", hero.getExp()).flush();
+                preferences.putInteger("MONEY", hero.getMoneyNoStatic()).flush();
+                preferences.putInteger("HP", hero.getHp()).flush();
+                preferences.putInteger("ARMOR", hero.getArmor()).flush();
+                preferences.putInteger("STRONG", hero.getStrong()).flush();
+                preferences.putInteger("WIEDZA", hero.getWiedza()).flush();
+                preferences.putInteger("DEFENSE_FIZ", hero.getDefenseFiz()).flush();
+                preferences.putInteger("DEFENSE_MAG", hero.getDefenseMag()).flush();
+                preferences.putInteger("POS_X", (int)hero.getX()).flush();
+                preferences.putInteger("POS_Y", (int)hero.getY()).flush();
                 Gdx.app.exit();
                 return false;
             }

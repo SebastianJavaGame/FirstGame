@@ -129,6 +129,8 @@ public class FightLose extends BaseScreen {
         confirm.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.setIsFirstSpawnHeroPosition(true);
+
                 float percentexp = 0;
                 precentStart = (float) expActual / expMax * 100;
 
@@ -165,7 +167,7 @@ public class FightLose extends BaseScreen {
                 prefStats.putInteger("EXP", hero.getExp()).flush();
                 prefStats.putInteger("DEAD", prefStats.getInteger("DEAD", 0) +1).flush();
 
-                game.setScreen(new Map_01(game));
+                Menu.setMap();
                 return false;
             }
         });

@@ -91,7 +91,7 @@ public class Hero extends Character {
     private int defenseFizEq;
     private int defenseMagEq;
 
-    private int point;
+    private static int point;
 
     public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D,
                 ArrayList<Character> characters) {
@@ -116,21 +116,20 @@ public class Hero extends Character {
     }
 
     private void create(){
-        setLevel(preferences.getInteger("LEVEL"));
+        setLevel(preferences.getInteger("LEVEL", 1));
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
 
-        setMaxHp(preferences.getInteger("MAX_HP"));
+        setMaxHp(preferences.getInteger("MAX_HP", 200));
         setHpNonEq(getMaxHp());
-        setHp(getHpNonEq());
 
         actualIndexCharacter = preferences.getInteger("COLLISION", 0);
-        strong = preferences.getInteger("STRONG");
-        wiedza = preferences.getInteger("WIEDZA");
-        armor = preferences.getInteger("SPEED_ATTACK");
-        defenseFiz = preferences.getInteger("DEFENSE_FIZ");
-        defenseMag = preferences.getInteger("DEFENSE_MAG");
+        strong = preferences.getInteger("STRONG", 10);
+        wiedza = preferences.getInteger("WIEDZA", 10);
+        armor = preferences.getInteger("ARMOR", 10);
+        defenseFiz = preferences.getInteger("DEFENSE_FIZ", 10);
+        defenseMag = preferences.getInteger("DEFENSE_MAG", 10);
 
-        int experience = preferences.getInteger("EXP");
+        int experience = preferences.getInteger("EXP", 0);
         if(experience <= getMaxExp())
             setExp(experience);
         else {
@@ -145,12 +144,14 @@ public class Hero extends Character {
             setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
         }
 
-        setMoney(preferences.getInteger("MONEY"));
-        point = preferences.getInteger("FREE_POINT");
+        setMoney(preferences.getInteger("MONEY", 5000));
+        point = preferences.getInteger("FREE_POINT", 5);
 
         try {
             new UpdateHeroStats(this);
         } catch (CloneNotSupportedException e) {}
+
+        setHp(preferences.getInteger("HP", getFullHp()));
     }
 
     @Override
@@ -190,38 +191,22 @@ public class Hero extends Character {
                 if(x < y){
                     int heroBoxCenterX = (int)(heroBox.getX() + heroBox.getWidth() /2);
                     if(heroBoxCenterX < cornerEnemy.x){
-                        if(posX < cornerEnemy.x) {
-                            System.out.println("LEFT - MOVE");
+                        if(posX < cornerEnemy.x)
                             setCharacterCollision(true);
-                        }
-                        else
-                            System.out.println("LEFT - FIGHT");
                     }
                     else{
-                        if(posX > cornerEnemy.x) {
-                            System.out.println("RIGHT - MOVE");
+                        if(posX > cornerEnemy.x)
                             setCharacterCollision(true);
-                        }
-                        else
-                            System.out.println("RIGHT - FIGHT");
                     }
                 }else {
                     int heroBoxCenterY = (int) (heroBox.getY() + heroBox.getHeight() / 2);
                     if(heroBoxCenterY < cornerEnemy.y) {
-                        if(posY < cornerEnemy.y) {
-                            System.out.println("DOWN - MOVE");
+                        if(posY < cornerEnemy.y)
                             setCharacterCollision(true);
-                        }
-                        else
-                            System.out.println("DOWN - FIGHT");
                     }
                     else{
-                        if(posY > cornerEnemy.y) {
-                            System.out.println("UP - MOVE");
+                        if(posY > cornerEnemy.y)
                             setCharacterCollision(true);
-                        }
-                        else
-                            System.out.println("UP - FIGHT");
                     }
                 }
             }
@@ -229,38 +214,22 @@ public class Hero extends Character {
                 if(cornerEnemy == o4 || cornerEnemy == o2){
                     int heroBoxCenterX = (int)(heroBox.getX() + heroBox.getWidth() /2);
                     if(heroBoxCenterX < cornerEnemy.x){
-                        if(posX < cornerEnemy.x) {
-                            System.out.println("LEFT - MOVE");
+                        if(posX < cornerEnemy.x)
                             setCharacterCollision(true);
-                        }
-                        else
-                            System.out.println("LEFT - FIGHT");
                     }
                     else{
-                        if(posX > cornerEnemy.x) {
-                            System.out.println("RIGHT - MOVE");
+                        if(posX > cornerEnemy.x)
                             setCharacterCollision(true);
-                        }
-                        else
-                            System.out.println("RIGHT - FIGHT");
                     }
                 }else {
                     int heroBoxCenterY = (int) (heroBox.getY() + heroBox.getHeight() / 2);
                     if(heroBoxCenterY < cornerEnemy.y) {
-                        if(posY < cornerEnemy.y) {
-                            System.out.println("DOWN - MOVE");
+                        if(posY < cornerEnemy.y)
                             setCharacterCollision(true);
-                        }
-                        else
-                            System.out.println("DOWN - FIGHT");
                     }
                     else{
-                        if(posY > cornerEnemy.y) {
-                            System.out.println("UP - MOVE");
+                        if(posY > cornerEnemy.y)
                             setCharacterCollision(true);
-                        }
-                        else
-                            System.out.println("UP - FIGHT");
                     }
                 }
 
@@ -570,6 +539,14 @@ public class Hero extends Character {
         }
     }
 
+    public void levelUp(){
+        preferences.putInteger("LEVEL", preferences.getInteger("LEVEL") +1).flush();
+        preferences.putInteger("FREE_POINT", preferences.getInteger("FREE_POINT") +5).flush();
+        setLevel(getLevel() + 1);
+        setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
+        setPoint(getPoint() +5);
+    }
+
     private float calculateAction(int index, boolean xOrY){
         if(xOrY)
             return queueWay.get(queueWay.size() - index).x - this.getWidth() /2;
@@ -727,6 +704,7 @@ public class Hero extends Character {
 
         for(int i = 0; i < BaseMap.getEntriaceToMapRectangle().size(); i++){
             if(calculateCollisionTwoRectangle(heroBox, BaseMap.getEntriaceToMapRectangle().get(i))){
+                Hero3D.setStopAnimation();
                 /**
                  * i = indexToLoadMap
                  */
@@ -848,6 +826,8 @@ public class Hero extends Character {
         return money;
     }
 
+    public int getMoneyNoStatic(){return money;}
+
     public String getMoneyString() {
         if(money >= 1000000)
             return " " + money / 1000000 + " KK";
@@ -873,7 +853,7 @@ public class Hero extends Character {
         return maxExp;
     }
 
-    public int getPoint() {
+    public static int getPoint() {
         return point;
     }
 
@@ -1062,8 +1042,8 @@ public class Hero extends Character {
         this.hpNonEq = hpNonEq;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public static void setPoint(int setPoint) {
+        point = setPoint;
     }
 
     public void setCharacterCollisionLook(boolean charactersCollisionLook) {

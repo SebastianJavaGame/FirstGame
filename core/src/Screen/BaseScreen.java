@@ -145,7 +145,9 @@ public abstract class BaseScreen implements Screen, InputProcessor{
        stage.getViewport().update(width, height);
     }
 
-    public void pause()   {  }
+    public void pause()   {
+
+    }
     public void resume()  {  }
     public void dispose() {
         game.dispose();
