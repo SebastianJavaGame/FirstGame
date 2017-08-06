@@ -17,7 +17,6 @@ public class MyGdxGame extends Game{
 
 	@Override
 	public void create() {
-		new LoadAllItemToGame().loadItems();
 
         Preferences firstLoad = Gdx.app.getPreferences("START");
         firstLoad.clear();
@@ -31,21 +30,10 @@ public class MyGdxGame extends Game{
             prefEq.putString("SLOT1", "fire_sword");
             prefEq.flush();
 
-            Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
-            prefStats.clear();
-            prefStats.flush();
-
             firstLoad.putString("FIRST", "IS LOAD");
             firstLoad.flush();
         }
         //TODO delete all and load in hero... with default values
-
-        ExperienceRequired.loadExperienceList();
-        BaseDialogs.loadNpcTextList();
-        BaseDialogs.loadIndexOptions();
-        BaseDialogs.loadIndexListener();
-        BaseTask.loadAllTasks();
-        BaseEnemyAI.loadAI();
 
 		Menu lvl = new Menu(this);
 		setScreen(lvl);
