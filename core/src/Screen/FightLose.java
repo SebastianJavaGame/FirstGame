@@ -97,10 +97,7 @@ public class FightLose extends BaseScreen {
         lMoney = new Label("Zloto: " + moneyDrop, style);
         Label lStatsDmgAverrage = new Label("Srednie zadane obrazenia: " + dmgAverrage, style);
         Label lStatsCelnosc = new Label("Srednia target atakow: " + target + "%", style);
-        Label lDead = new Label("Zgony: " + prefStats.getInteger("DEAD", 0), style);
-
-        if(lDead.getText().equals("Zgony: 0"))
-            lDead.setText("Zgon");
+        Label lDead = new Label("Zgony: " + prefStats.getInteger("DEAD", 1), style);
 
         float lenghtText = 90 / lExp.getWidth() * 0.75f;
 
@@ -164,9 +161,9 @@ public class FightLose extends BaseScreen {
                 else
                     hero.setMoney(money);
 
-                prefStats.putInteger("MONEY", hero.getMoney());
-                prefStats.putInteger("EXP", hero.getExp());
-                prefStats.flush();
+                prefStats.putInteger("MONEY", hero.getMoney()).flush();
+                prefStats.putInteger("EXP", hero.getExp()).flush();
+                prefStats.putInteger("DEAD", prefStats.getInteger("DEAD", 0) +1).flush();
 
                 game.setScreen(new Map_01(game));
                 return false;

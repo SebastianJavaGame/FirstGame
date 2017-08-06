@@ -34,7 +34,7 @@ public class Map_01 extends BaseMap {
     @Override
     public void addEnemyToMap() {
         addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380).setDropItemName("gold_armor");
-        addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
+        addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300).setDropItemName("silver_sword");
     }
 
     @Override
@@ -101,7 +101,7 @@ public class Map_01 extends BaseMap {
 
     private Enemy addEnemy(String path, String head, String wapon, int x){
         Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))),
-                new Image(new Texture(Gdx.files.internal(wapon))),  "Glomin", 5, 180, 8, 8, 16, 10, 8, 10, 40, 70);
+                new Image(new Texture(Gdx.files.internal(wapon))),  "Glomin", 5, 180, 8, 8, 16, 10, 8, 24.5f, 40, 70);
         enemy.setRectangle(0, 0, 0, 0);
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();

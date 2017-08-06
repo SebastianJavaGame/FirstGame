@@ -131,8 +131,8 @@ public class FightScreen extends BaseScreen {
         Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
-        //hpHero = 20;
-        hpEnemy = 1;//TODO if hp < 20% and click abort TEST!!!
+        hpHero = 0;
+        //hpEnemy = 1;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -253,9 +253,10 @@ public class FightScreen extends BaseScreen {
         abortActive.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("anot");
                 if (abortFirstTap && !animationPlay) {
-                    abortFirstTap = false;
+                    if(hpHero > hpMaxHero * 0.2f)
+                        abortFirstTap = false;
+
                     final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
                     textStyleAbort.font = font;
                     textStyleAbort.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
@@ -777,7 +778,6 @@ public class FightScreen extends BaseScreen {
             }),Actions.delay(3), Actions.run(new Runnable() {
                 @Override
                 public void run() {
-                    //TODO random drop item
                     float expDrop = enemy.getExpDrop();
                     float moneyDrop = enemy.getMoneyDrop();
                     float temporary = MathUtils.random(-12, 12);
@@ -793,15 +793,12 @@ public class FightScreen extends BaseScreen {
                     String dropItemName = "";
 
                     if(sizeListDropItem > 0) {
-                        int chanceOnDrop = (int)(enemy.getRandomDrop() *10);
+                        float chanceOnDrop = enemy.getRandomDrop() *10;
                         temporary = MathUtils.random(1, 1000);
 
-                        if(temporary <= chanceOnDrop) {//TODO
+                        if((int)temporary <= (int)chanceOnDrop) {
                             temporary = MathUtils.random(0, sizeListDropItem - 1);
                             dropItemName = enemy.getDropItem().get((int) temporary);
-                        }else{
-                            System.out.println(chanceOnDrop + "szansa");
-                            System.out.println(temporary + "szansa");
                         }
                     }
 
