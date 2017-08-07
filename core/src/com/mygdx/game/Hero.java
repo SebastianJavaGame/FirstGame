@@ -28,10 +28,11 @@ import Screen.Map_02;
 
 public class Hero extends Character {
     public final static int SPEED_MOVE = 25;
-    public static final Texture ARM = new Texture(Gdx.files.internal("heroArm.png"));
+    public Texture arm;
     public static ArrayList<Vector2> temporaryListVector = new ArrayList<Vector2>(8);
 
     private final Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+    private Asset asset = new Asset();
 
     private Game game;
     private Camera camera;
@@ -112,7 +113,13 @@ public class Hero extends Character {
 
         for(Character character: characters)
             character.setHero(this);
-        create();
+
+        asset.loadHero();
+        asset.manager.finishLoading();
+        if(asset.manager.update()){
+            arm = asset.manager.get("heroArm.png", Texture.class);
+            create();
+        }
     }
 
     private void create(){

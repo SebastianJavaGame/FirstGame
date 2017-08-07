@@ -22,9 +22,10 @@ public class Task {
     private static final BitmapFont FONT = new BitmapFont();
     private static final Label.LabelStyle STYLE = new Label.LabelStyle();
     private static final TextButton.TextButtonStyle BUTTON_STYLE = new TextButton.TextButtonStyle();
-    private final Image TASK_BACKGROUND = new Image(new Texture(Gdx.files.internal("taskBackground.png")));
-    private final Image TASK_PROGRESS_BACKGROUND = new Image(new Texture(Gdx.files.internal("taskProgressBackground.png")));
-    private final Image TASK_PROGRESS_FOREFROUND = new Image(new Texture(Gdx.files.internal("taskProgress.png")));
+    private Asset asset = new Asset();
+    private Image taskBackground;
+    private Image taskProgressBackground;
+    private Image taskProgressForefround;
     public static final int MAX_PROGRESS_PERCENT = 264;
 
     private Label lNpcName;
@@ -38,26 +39,34 @@ public class Task {
     static {
         STYLE.font = FONT;
         BUTTON_STYLE.font = FONT;
-        BUTTON_STYLE.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonTaskCancel.png"))));
     }
 
     public Task(final int idTask, final int indexTask){
         this.indexTask = indexTask;
         this.idTask = idTask;
 
-        lNpcName = new Label(BaseTask.getNpcName(idTask), STYLE);
-        lTarget = new Label(BaseTask.getTarget(idTask), STYLE);
-        lProgress = new Label("W toku   " + PREF.getInteger("TASK" + idTask + "_PROGRESS") + " / " + BaseTask.getProgressMax(idTask), STYLE);
+        asset.loadTask();
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            taskBackground = new Image(asset.manager.get("taskBackground.png", Texture.class));
+            taskProgressBackground = new Image(asset.manager.get("taskProgressBackground.png", Texture.class));
+            taskProgressForefround = new Image(asset.manager.get("taskProgress.png", Texture.class));
+            BUTTON_STYLE.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonTaskCancel.png", Texture.class)));
 
-        cancel = new TextButton("Anuluj", BUTTON_STYLE);
-        cancel.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                deleteTask(indexTask, idTask);
-                BaseTask.setTaskComplete(idTask, false);
-                return false;
-            }
-        });
+            lNpcName = new Label(BaseTask.getNpcName(idTask), STYLE);
+            lTarget = new Label(BaseTask.getTarget(idTask), STYLE);
+            lProgress = new Label("W toku   " + PREF.getInteger("TASK" + idTask + "_PROGRESS") + " / " + BaseTask.getProgressMax(idTask), STYLE);
+
+            cancel = new TextButton("Anuluj", BUTTON_STYLE);
+            cancel.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    deleteTask(indexTask, idTask);
+                    BaseTask.setTaskComplete(idTask, false);
+                    return false;
+                }
+            });
+        }
     }
 
     public static void deleteTask(int indexTask, int idTask){
@@ -110,8 +119,8 @@ public class Task {
         return (int)(MAX_PROGRESS_PERCENT *percent);
     }
 
-    public Image getTASK_BACKGROUND(){
-        return TASK_BACKGROUND;
+    public Image getTaskBackground(){
+        return taskBackground;
     }
 
     public Label getNpcName(){
@@ -130,11 +139,11 @@ public class Task {
         return cancel;
     }
 
-    public Image getTASK_PROGRESS_BACKGROUND(){
-        return TASK_PROGRESS_BACKGROUND;
+    public Image getTaskProgressBackground(){
+        return taskProgressBackground;
     }
 
-    public Image getTASK_PROGRESS_FOREFROUND(){
-        return TASK_PROGRESS_FOREFROUND;
+    public Image getTaskProgressForefround(){
+        return taskProgressForefround;
     }
 }

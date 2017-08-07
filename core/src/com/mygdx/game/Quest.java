@@ -53,7 +53,7 @@ public class Quest {
 
         for(int i = 0; i < idTaskList.size(); i++){
             Task task = new Task(idTaskList.get(i), indexArray[i]);
-            scrollTable.add(task.getTASK_BACKGROUND());
+            scrollTable.add(task.getTaskBackground());
             scrollTable.row();
             scrollTable.add(task.getCancel()).padTop(-150).align(Align.right).padRight(15);
             scrollTable.row();
@@ -61,9 +61,9 @@ public class Quest {
             scrollTable.row();
             scrollTable.add(task.getTarget()).padTop(-90);
             scrollTable.row();
-            scrollTable.add(task.getTASK_PROGRESS_BACKGROUND()).padTop(-20);
+            scrollTable.add(task.getTaskProgressBackground()).padTop(-20);
             scrollTable.row();
-            scrollTable.add(task.getTASK_PROGRESS_FOREFROUND()).padTop(-20).width(task.getProgressPercent()).expandX().align(Align.left);
+            scrollTable.add(task.getTaskProgressForefround()).padTop(-20).width(task.getProgressPercent()).expandX().align(Align.left);
             scrollTable.row();
             scrollTable.add(task.getProgress()).padTop(-20);
             scrollTable.row().padTop(30);

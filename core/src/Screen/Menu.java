@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Asset;
 import com.mygdx.game.BaseDialogs;
 import com.mygdx.game.BaseEnemyAI;
 import com.mygdx.game.BaseTask;
@@ -27,44 +28,88 @@ import com.mygdx.game.StatsHero;
  */
 
 public class Menu extends BaseScreen {
+    private Asset asset;
     private final BitmapFont FONT = new BitmapFont();
     private final Label.LabelStyle STYLE = new Label.LabelStyle();
     private TextButton.TextButtonStyle textStyle;
+    private TextButton.TextButtonStyle textStyleDisapear;
     private Image texture;
     private static boolean isFirstSpawnHeroPosition = true;
 
-    private Label lNewGame;
-    private Label lLoadGame;
-    private Label lMore;
-    private Label lExit;
+    private TextButton lNewGame;
+    private TextButton lLoadGame;
+    private TextButton lMore;
+    private TextButton lExit;
 
     public Menu(Game g) {
         super(g);
+        asset = new Asset();
         textStyle = new TextButton.TextButtonStyle();
+        textStyleDisapear = new TextButton.TextButtonStyle();
         textStyle.font = FONT;
+        textStyleDisapear.font = FONT;
         create();
     }
 
     @Override
     public void create() {
+        asset.loadMenu();
+        asset.manager.finishLoading();
+        if(asset.manager.update()){
+            texture = new Image(asset.manager.get("menu.png", Texture.class));
+            textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("confirmButtonNewGame.png", Texture.class)));
+            textStyleDisapear.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("menuButton.png", Texture.class)));
+        }
+
         STYLE.font = FONT;
-        texture = new Image(new Texture(Gdx.files.internal("menu.png")));
-        textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("confirmButtonNewGame.png"))));
+        lNewGame = new TextButton("Nowa gra", textStyleDisapear);
+        lLoadGame = new TextButton ("Wczytaj gre", textStyleDisapear);
+        lMore = new TextButton("Jak grac?", textStyleDisapear);
+        lExit = new TextButton("Wyjscie", textStyleDisapear);
 
-        lNewGame = new Label("Nowa gra", STYLE);
-        lLoadGame = new Label("Wczytaj gre", STYLE);
-        lMore = new Label("Jak grac?", STYLE);
-        lExit = new Label("Wyjscie", STYLE);
+        lNewGame.setPosition(BaseScreen.VIEW_WIDTH /2 -lNewGame.getWidth() /2, 300);
+        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH /2 -lLoadGame.getWidth() /2, 228);
+        lMore.setPosition(BaseScreen.VIEW_WIDTH /2 -lMore.getWidth() /2, 156);
+        lExit.setPosition(BaseScreen.VIEW_WIDTH /2 -lExit.getWidth() /2, 85);
 
-        lNewGame.setPosition(BaseScreen.VIEW_WIDTH /2 -lNewGame.getWidth() /2, 330);
-        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH /2 -lNewGame.getWidth() /2, 270);
-        lMore.setPosition(BaseScreen.VIEW_WIDTH /2 -lNewGame.getWidth() /2, 210);
-        lExit.setPosition(BaseScreen.VIEW_WIDTH /2 -lNewGame.getWidth() /2, 160);
+        lNewGame.getLabel().setFontScale(2);
 
         lNewGame.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 confirmDialog();
+                return false;
+            }
+        });
+
+        lLoadGame.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                new Quest(stage);
+                new LoadAllItemToGame().loadItems();
+                ExperienceRequired.loadExperienceList();
+                BaseDialogs.loadNpcTextList();
+                BaseDialogs.loadIndexOptions();
+                BaseDialogs.loadIndexListener();
+                BaseTask.loadAllTasks();
+                BaseEnemyAI.loadAI();
+                setMap();
+                return false;
+            }
+        });
+
+        lMore.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                new HowPlay(game);
+                return false;
+            }
+        });
+
+        lExit.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.exit();
                 return false;
             }
         });
@@ -83,41 +128,48 @@ public class Menu extends BaseScreen {
     }*/
 
     private void confirmDialog() {
-        Image background = new Image(new Texture(Gdx.files.internal("confirmNewGame.png")));
-        TextButton bYes = new TextButton("Tak", textStyle);
-        TextButton bNo = new TextButton("Nie", textStyle);
+        asset.loadMenu();
+        asset.manager.finishLoading();
+        if(asset.manager.update()){
+            Image background = new Image(asset.manager.get("confirmNewGame.png", Texture.class));
+            TextButton bYes = new TextButton("Tak", textStyle);
+            TextButton bNo = new TextButton("Nie", textStyle);
+            Label label = new Label("Czy napewno chcesz rozapoczac nowa gre?", STYLE);
 
-        background.setPosition(BaseScreen.VIEW_WIDTH /2 -background.getWidth() /2, 350);
-        bYes.setPosition(BaseScreen.VIEW_WIDTH /4 -bYes.getWidth() /2, 340);
-        bNo.setPosition(BaseScreen.VIEW_WIDTH /4 *3 -bYes.getWidth() /2, 340);
+            background.setSize(background.getWidth() + 24, 50);
+            background.setPosition(BaseScreen.VIEW_WIDTH /2 -background.getWidth() /2, 300);
+            label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() /2, background.getY() +background.getHeight() /2 -label.getHeight() /2);
+            bYes.setPosition(BaseScreen.VIEW_WIDTH /4 -bYes.getWidth() /2, 285);
+            bNo.setPosition(BaseScreen.VIEW_WIDTH /4 *3 -bYes.getWidth() /2, 285);
 
-        bYes.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                new Quest(stage);
-                clearAllPreference();
-                new LoadAllItemToGame().loadItems();
-                ExperienceRequired.loadExperienceList();
-                BaseDialogs.loadNpcTextList();
-                BaseDialogs.loadIndexOptions();
-                BaseDialogs.loadIndexListener();
-                BaseTask.loadAllTasks();
-                BaseEnemyAI.loadAI();
-                setMap();
-                return false;
-            }
-        });
+            bYes.addListener(new InputListener(){
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    new Quest(stage);
+                    clearAllPreference();
+                    new LoadAllItemToGame().loadItems();
+                    ExperienceRequired.loadExperienceList();
+                    BaseDialogs.loadNpcTextList();
+                    BaseDialogs.loadIndexOptions();
+                    BaseDialogs.loadIndexListener();
+                    BaseTask.loadAllTasks();
+                    BaseEnemyAI.loadAI();
+                    setMap();
+                    return false;
+                }
+            });
 
-        bNo.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                stage.clear();
-                create();
-                return false;
-            }
-        });
+            bNo.addListener(new InputListener(){
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    stage.clear();
+                    create();
+                    return false;
+                }
+            });
 
-        addActors(background, bYes, bNo);
+            addActors(background, label, bYes, bNo);
+        }
     }
 
     private void clearAllPreference() {

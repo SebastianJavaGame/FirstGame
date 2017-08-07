@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.Asset;
 import com.mygdx.game.Bag;
 import com.mygdx.game.Character;
 import com.mygdx.game.Hero;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 
 public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     public final static int ICON_ITEM_SIZE = 25;
+    private Asset asset = new Asset();
 
     protected int mapWidth;
     protected int mapHeight;
@@ -104,8 +106,12 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
             hpRefresh = 0;
 
-            create();
-            initializeUiStage();
+            asset.loadBaseMap();
+            asset.manager.finishLoading();
+            if(asset.manager.update()) {
+                 create();
+                 initializeUiStage();
+             }
     }
 
     protected abstract void generateMap();
@@ -119,7 +125,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         new Bag(BaseScreen.getStage());
 
-        hero = new Hero(new Texture(Gdx.files.internal("hero.png")), objectPolygon, verticalPolygon, camera, hero3D, charactersList);
+        hero = new Hero(asset.manager.get("hero.png", Texture.class), objectPolygon, verticalPolygon, camera, hero3D, charactersList);
         hero.setPosition(preferences.getInteger("POS_X"), preferences.getInteger("POS_Y"));
         hero.setSize(8, 8);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
@@ -261,14 +267,14 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     private Image addImageToStageUi(String path, float posX, float posY){
-        Image image = new Image(new Texture(Gdx.files.internal(path)));
+        Image image = new Image(asset.manager.get(path, Texture.class));
         image.setPosition(posX, posY);
         stageUi.addActor(image);
         return image;
     }
 
     private Image addImageToStageUi(String path, float posX, float posY, float sizeX, float sizeY){
-        Image image = new Image(new Texture(Gdx.files.internal(path)));
+        Image image = new Image(asset.manager.get(path, Texture.class));
         image.setPosition(posX, posY);
         image.setSize(sizeX, sizeY);
         stageUi.addActor(image);

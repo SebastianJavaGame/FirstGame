@@ -21,10 +21,11 @@ import Screen.BaseScreen;
  */
 
 public class FieldDialogue {
-    private final Image BAR_VERTICAL_LEFT = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
-    private final Image BAR_VERTICAL_RIGHT = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
-    private final Image BAR_HORIZONTAL_UP = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
-    private final Image BAR_HORIZONTAL_DOWN = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
+    private Asset asset = new Asset();
+    private Image barVerticalLeft;
+    private Image barVerticalRight;
+    private Image barHorizontalUp;
+    private Image barHorizontalDown;
     private final Stage STAGE = BaseScreen.getStage();
     private static final BitmapFont FONT = new BitmapFont();
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
@@ -66,78 +67,86 @@ public class FieldDialogue {
     private int answerThird = -1;
 
     public FieldDialogue(int idNpc, int indexText){
-        this.idNpc = idNpc;
-        this.idIndexText = indexText;
-        String getText = BaseDialogs.getText(idNpc, indexText);
-        String text = "";
-        int i = -1;
-        int textLength;
+        asset.loadFieldDialogue();
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            barVerticalLeft = new Image(asset.manager.get("dialogueShortBar.png", Texture.class));
+            barVerticalRight = new Image(asset.manager.get("dialogueShortBar.png", Texture.class));
+            barHorizontalUp = new Image(asset.manager.get("dialogueLongBar.png", Texture.class));
+            barHorizontalDown = new Image(asset.manager.get("dialogueLongBar.png", Texture.class));
+            this.idNpc = idNpc;
+            this.idIndexText = indexText;
+            String getText = BaseDialogs.getText(idNpc, indexText);
+            String text = "";
+            int i = -1;
+            int textLength;
 
-        try {
-            int start = 0;
-            int end = 1;
-            int minus = 0;
-            if(getText.length()-1 >= LINE_LENGTH) {
-                do {
-                    i++;
-                    int j = LINE_LENGTH * (i + 1) - minus;
-                    while (!getText.substring(j, j + 1).equals(" ")) {
-                        if (j == 0) throw new MyException();
-                        else j--;
-                        minus++;
-                    }
-                    textLength = getText.length() - j;
+            try {
+                int start = 0;
+                int end = 1;
+                int minus = 0;
+                if (getText.length() - 1 >= LINE_LENGTH) {
+                    do {
+                        i++;
+                        int j = LINE_LENGTH * (i + 1) - minus;
+                        while (!getText.substring(j, j + 1).equals(" ")) {
+                            if (j == 0) throw new MyException();
+                            else j--;
+                            minus++;
+                        }
+                        textLength = getText.length() - j;
 
-                    end = j;
-                    text += getText.substring(start + 1, end);
-                    start = j;
+                        end = j;
+                        text += getText.substring(start + 1, end);
+                        start = j;
 
-                    if (textLength > 0)
-                        text += "\n";
+                        if (textLength > 0)
+                            text += "\n";
 
-                } while (textLength > LINE_LENGTH);
+                    } while (textLength > LINE_LENGTH);
+                }
+
+                text += getText.substring(end, getText.length());
+            } catch (Exception e) {
+                BaseScreen.showException(e);
+                e.printStackTrace();
             }
 
-            text += getText.substring(end, getText.length());
-        }catch (Exception e){
-            BaseScreen.showException(e);
-            e.printStackTrace();
-        }
+            if (indexText < BaseDialogs.COUNT_HERO_TEXT_OPTION)
+                label = new Label(text, STYLE_GREEN);
+            else
+                label = new Label(text, STYLE_WHITE);
+            label.setFontScale(FONT_SIZE);
 
-        if (indexText < BaseDialogs.COUNT_HERO_TEXT_OPTION)
-            label = new Label(text, STYLE_GREEN);
-        else
-            label = new Label(text, STYLE_WHITE);
-        label.setFontScale(FONT_SIZE);
-
-        try {
-            if (indexText < 3) {
-                int[] fieldsText = new int[BaseDialogs.getIndexToNextText(idNpc, indexText).length];
-                textNpc = fieldsText[0];
-                answerFirst = fieldsText[1];
-                if (fieldsText.length > 2)
-                    answerSecond = fieldsText[2];
-                if (fieldsText.length > 3)
-                    answerThird = fieldsText[3];
+            try {
+                if (indexText < 3) {
+                    int[] fieldsText = new int[BaseDialogs.getIndexToNextText(idNpc, indexText).length];
+                    textNpc = fieldsText[0];
+                    answerFirst = fieldsText[1];
+                    if (fieldsText.length > 2)
+                        answerSecond = fieldsText[2];
+                    if (fieldsText.length > 3)
+                        answerThird = fieldsText[3];
+                }
+            } catch (Exception e) {
+                BaseScreen.showException(e);
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            BaseScreen.showException(e);
-            e.printStackTrace();
         }
     }
 
     public FieldDialogue setPosition(int downY){
         int y = downY -(int)label.getHeight();
         label.setPosition(POSITION_X +2, y);
-        BAR_HORIZONTAL_UP.setPosition(POSITION_X +2, y +label.getHeight() -5);
-        BAR_HORIZONTAL_DOWN.setPosition(POSITION_X +2, y -5);
+        barHorizontalUp.setPosition(POSITION_X +2, y +label.getHeight() -5);
+        barHorizontalDown.setPosition(POSITION_X +2, y -5);
 
-        BAR_VERTICAL_LEFT.setSize(BAR_VERTICAL_LEFT.getWidth(), label.getHeight() +10);
-        BAR_VERTICAL_LEFT.setPosition(POSITION_X -5, BAR_HORIZONTAL_DOWN.getY());
-        BAR_VERTICAL_RIGHT.setSize(BAR_VERTICAL_RIGHT.getWidth(), label.getHeight() +10);
-        BAR_VERTICAL_RIGHT.setPosition(POSITION_X + BAR_HORIZONTAL_DOWN.getWidth() +1, BAR_HORIZONTAL_DOWN.getY());
+        barVerticalLeft.setSize(barVerticalLeft.getWidth(), label.getHeight() +10);
+        barVerticalLeft.setPosition(POSITION_X -5, barHorizontalDown.getY());
+        barVerticalRight.setSize(barVerticalRight.getWidth(), label.getHeight() +10);
+        barVerticalRight.setPosition(POSITION_X + barHorizontalDown.getWidth() +1, barHorizontalDown.getY());
 
-        addActors(BAR_HORIZONTAL_DOWN, BAR_HORIZONTAL_UP, BAR_VERTICAL_LEFT, BAR_VERTICAL_RIGHT, label);
+        addActors(barHorizontalDown, barHorizontalUp, barVerticalLeft, barVerticalRight, label);
         return this;
     }
 
@@ -287,18 +296,18 @@ public class FieldDialogue {
                 lMoney = new Label("Otrzymales " + money + " zlota", STYLE_WHITE);
                 lClose = new Label("Ruszam dalej", STYLE_GREEN);
 
-                barLeft = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
-                barRight = new Image(new Texture(Gdx.files.internal("dialogueShortBar.png")));
-                barUp = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
-                barDown = new Image(new Texture(Gdx.files.internal("dialogueLongBar.png")));
+                barLeft = new Image(asset.manager.get("dialogueShortBar.png", Texture.class));
+                barRight = new Image(asset.manager.get("dialogueShortBar.png", Texture.class));
+                barUp = new Image(asset.manager.get("dialogueLongBar.png", Texture.class));
+                barDown = new Image(asset.manager.get("dialogueLongBar.png", Texture.class));
 
-                barLeftTwo = BAR_VERTICAL_LEFT;
-                barRightTwo = BAR_VERTICAL_RIGHT;
-                barDownTwo = BAR_HORIZONTAL_DOWN;
-                barUpTwo = BAR_HORIZONTAL_UP;
+                barLeftTwo = barVerticalLeft;
+                barRightTwo = barVerticalRight;
+                barDownTwo = barHorizontalDown;
+                barUpTwo = barHorizontalUp;
 
-                iMoney = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
-                iExp = new Image(new Texture(Gdx.files.internal("uiExp.png")));
+                iMoney = new Image(asset.manager.get("uiMoney.png", Texture.class));
+                iExp = new Image(asset.manager.get("uiExp.png", Texture.class));
 
                 lExp.setPosition(POSITION_X +4, DialogNpc.POS_TEXT_FIELD_NPC -lExp.getHeight());
                 lMoney.setPosition(POSITION_X +4, lExp.getY() -25);
@@ -329,10 +338,10 @@ public class FieldDialogue {
 
                 barUpTwo.setPosition(POSITION_X +2, lClose.getY() +lClose.getHeight() -6);
                 barDownTwo.setPosition(POSITION_X +2, lClose.getY() -2);
-                barLeftTwo.setSize(BAR_VERTICAL_LEFT.getWidth(), lClose.getHeight());
-                barLeftTwo.setPosition(POSITION_X -5, BAR_HORIZONTAL_DOWN.getY());
-                barRightTwo.setSize(BAR_VERTICAL_RIGHT.getWidth(), lClose.getHeight());
-                barRightTwo.setPosition(POSITION_X + BAR_HORIZONTAL_DOWN.getWidth() +1, BAR_HORIZONTAL_DOWN.getY());
+                barLeftTwo.setSize(barVerticalLeft.getWidth(), lClose.getHeight());
+                barLeftTwo.setPosition(POSITION_X -5, barHorizontalDown.getY());
+                barRightTwo.setSize(barVerticalRight.getWidth(), lClose.getHeight());
+                barRightTwo.setPosition(POSITION_X + barHorizontalDown.getWidth() +1, barHorizontalDown.getY());
 
                 addActors(lExp, lMoney, lClose, barUp, barDown, barLeft, barRight, iExp, iMoney, barDownTwo, barLeftTwo, barRightTwo, barUpTwo);
                 return false;
@@ -381,15 +390,15 @@ public class FieldDialogue {
     }
 
     public void clearField(){
-        BAR_VERTICAL_LEFT.remove();
-        BAR_HORIZONTAL_UP.remove();
-        BAR_VERTICAL_RIGHT.remove();
-        BAR_HORIZONTAL_DOWN.remove();
+        barVerticalLeft.remove();
+        barHorizontalUp.remove();
+        barVerticalRight.remove();
+        barHorizontalDown.remove();
         label.remove();
     }
 
     public int getHeightFieldText(){
-        return (int)BAR_HORIZONTAL_UP.getY() +(int)BAR_HORIZONTAL_UP.getHeight() -(int)BAR_HORIZONTAL_DOWN.getY();
+        return (int) barHorizontalUp.getY() +(int) barHorizontalUp.getHeight() -(int) barHorizontalDown.getY();
     }
 
     public Label getLabel(){

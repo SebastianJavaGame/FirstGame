@@ -25,9 +25,10 @@ import Screen.Map_01;
 
 public class Shop extends BaseScreen{
     private final Preferences PREF = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
-    private final Image BACKGROUND = new Image(new Texture(Gdx.files.internal("shopBackground.png")));
-    private final Image BACKGROUND_MENU = new Image(new Texture(Gdx.files.internal("shopMenuBackground.png")));
-    private final ImageButton CLOSE = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
+    private Asset asset = new Asset();
+    private Image background;
+    private Image backgroundMenu;
+    private ImageButton close;
     public static final int POS_Y_NEXT_BACKGROUND = 164;
 
     private static final BitmapFont font = new BitmapFont();
@@ -63,44 +64,51 @@ public class Shop extends BaseScreen{
 
     @Override
     public void create() {
-        lName = new Label(name, style);
-        lLevel = new Label("Poziom " +level, style);
+        asset.loadShop();
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            background = new Image(asset.manager.get("shopBackground.png", Texture.class));
+            backgroundMenu = new Image(asset.manager.get("shopMenuBackground.png", Texture.class));
+            close = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonCancel.png", Texture.class))));
 
-        image.setPosition(20, BaseScreen.VIEW_HEIGHT -image.getHeight() +5);
-        int lengthX = 135;
-        lName.setPosition(lengthX -lName.getWidth() /2, BaseScreen.VIEW_HEIGHT -20);
-        lLevel.setPosition(lengthX -lLevel.getWidth() /2, BaseScreen.VIEW_HEIGHT -38);
+            lName = new Label(name, style);
+            lLevel = new Label("Poziom " + level, style);
 
-        CLOSE.setSize(55, 55);
-        CLOSE.setPosition(BaseScreen.VIEW_WIDTH -CLOSE.getWidth() -25, BaseScreen.VIEW_HEIGHT -CLOSE.getHeight() +6);
-        CLOSE.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Hero.setActiveMove(false);
-                BaseScreen.getGame().setScreen(new Map_01(BaseScreen.getGame()));
-                return false;
-            }
-        });
+            image.setPosition(20, BaseScreen.VIEW_HEIGHT - image.getHeight() + 5);
+            int lengthX = 135;
+            lName.setPosition(lengthX - lName.getWidth() / 2, BaseScreen.VIEW_HEIGHT - 20);
+            lLevel.setPosition(lengthX - lLevel.getWidth() / 2, BaseScreen.VIEW_HEIGHT - 38);
 
-        addActors(BACKGROUND, CLOSE, image, lName, lLevel);
-
-        //load item with eq to inventory
-        Equipment.slotEmpty = new boolean[18];
-        for (int i = 0; i < 18; i++) {
-            String value = PREF.getString("SLOT" + i, "");
-
-            if (!value.equals(""))
-                try {
-                    FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(value), i);
-                } catch (CloneNotSupportedException e) {
-                    BaseScreen.showException(e);
-                    e.printStackTrace();
+            close.setSize(55, 55);
+            close.setPosition(BaseScreen.VIEW_WIDTH - close.getWidth() - 25, BaseScreen.VIEW_HEIGHT - close.getHeight() + 6);
+            close.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Hero.setActiveMove(false);
+                    BaseScreen.getGame().setScreen(new Map_01(BaseScreen.getGame()));
+                    return false;
                 }
-            else
-                Equipment.setSlotEmpty(i, false);
-        }
+            });
 
-        createShopMenu();
+            addActors(background, close, image, lName, lLevel);
+
+            //load item with eq to inventory
+            Equipment.slotEmpty = new boolean[18];
+            for (int i = 0; i < 18; i++) {
+                String value = PREF.getString("SLOT" + i, "");
+
+                if (!value.equals(""))
+                    try {
+                        FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(value), i);
+                    } catch (CloneNotSupportedException e) {
+                        BaseScreen.showException(e);
+                        e.printStackTrace();
+                    }
+                else
+                    Equipment.setSlotEmpty(i, false);
+            }
+
+            createShopMenu();
         /*
         int positionXFirstColumn = 50;
         int positionXSecondColumn = 200;
@@ -123,11 +131,12 @@ public class Shop extends BaseScreen{
         lRing.setPosition(positionXSecondColumn, POS_Y_NEXT_BACKGROUND +40);
         //addActors(BACKGROUND_MENU, lHelmet, lArmor, lPants, lShoes, lWapon, lItemBlock, lItemHand, lRing);
         */
+        }
     }
 
     private void createShopMenu() {
-        BACKGROUND_MENU.setPosition(-10, POS_Y_NEXT_BACKGROUND);
-        addActors(BACKGROUND_MENU);
+        backgroundMenu.setPosition(-10, POS_Y_NEXT_BACKGROUND);
+        addActors(backgroundMenu);
 
         buttonMenu[0] = createButton(20, 365);
         buttonMenu[0].addListener(new InputListener(){
@@ -194,7 +203,7 @@ public class Shop extends BaseScreen{
     }
 
     private void removeMenu(){
-        BACKGROUND_MENU.remove();
+        backgroundMenu.remove();
         for(Button b: buttonMenu)
             b.remove();
     }

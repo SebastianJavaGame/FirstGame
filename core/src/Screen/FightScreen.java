@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Asset;
 import com.mygdx.game.BaseEnemyAI;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
  */
 
 public class FightScreen extends BaseScreen {
+    private Asset asset = new Asset();
     private static final int ENERGY_MAX = 100;
     private static final float FONT_SCALE_HP = 2;
     private static final float FONT_SCALE_PROCENT = 1.7f;
@@ -147,236 +149,240 @@ public class FightScreen extends BaseScreen {
         pointUserPref[1] = preferences.getInteger("ATTACK_MAGIC", 0);
         pointUserPref[0] = preferences.getInteger("DEFENSE_MAGIC", 0);
 
-        backgroundFight = new Image(new Texture(Gdx.files.internal("fight.png")));
-        barHpHero = new Image(new Texture(Gdx.files.internal("barHpFight.png")));
-        barHpEnemy = new Image(new Texture(Gdx.files.internal("barHpFight.png")));
-        barEnergyHero = new Image(new Texture(Gdx.files.internal("barEnergyFight.png")));
-        barEnergyEnemy = new Image(new Texture(Gdx.files.internal("barEnergyFight.png")));
-        heroImage = new Image(new Texture(Gdx.files.internal("heroImage.png")));
+        asset.loadFightScreen();
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            backgroundFight = new Image(asset.manager.get("fight.png", Texture.class));
+            barHpHero = new Image(asset.manager.get("barHpFight.png", Texture.class));
+            barHpEnemy = new Image(asset.manager.get("barHpFight.png", Texture.class));
+            barEnergyHero = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
+            barEnergyEnemy = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
+            heroImage = new Image(asset.manager.get("heroImage.png", Texture.class));
 
-        if(flip) {
-            enemy.getTexture().flip(true, false);
-            enemyImage = new Image(enemy.getTexture());
-        }else
-            enemyImage = new Image(enemy.getTexture());
+            if (flip) {
+                enemy.getTexture().flip(true, false);
+                enemyImage = new Image(enemy.getTexture());
+            } else
+                enemyImage = new Image(enemy.getTexture());
 
-        try {
-            waponHero = flipY();
-            waponHero.setPosition(130, 280);
-            waponHero.setSize(80, 80);
-        } catch (CloneNotSupportedException e) {
-        }
-
-        heroImage.setBounds(25, 175, BaseScreen.VIEW_WIDTH /2 - 50, 190);
-        enemyImage.setSize(enemyImage.getWidth(), enemyImage.getHeight());
-        targetX = (BaseScreen.VIEW_WIDTH /2 -enemyImage.getWidth())/ 2 +BaseScreen.VIEW_WIDTH /2;
-        enemyImage.setPosition(targetX, 175);
-        System.out.println(targetX + "target");
-        waponEnemy = enemy.getWapon();
-        waponEnemy.setPosition(95, 280);
-        waponEnemy.setSize(80, 80);
-        waponEnemy.setOrigin(waponEnemy.getWidth(), 0);
-
-        magicHero = new Image(new Texture(Gdx.files.internal("magicHero.png")));
-        magicHero.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() /2, enemyImage.getWidth() -30, enemyImage.getHeight() -120);
-
-        magicEnemy = new Image(new Texture(Gdx.files.internal("magicEnemy.png")));
-        magicEnemy.setBounds(heroImage.getX() +40, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
-
-        block = new Image(new Texture(Gdx.files.internal("blockAttack.png")));
-        blood = new Image(new Texture(Gdx.files.internal("blood.png")));
-
-        enemy.getHead().setPosition(270, 435);
-        barHpHero.setBounds(53, 19, 120, 10);
-        barHpEnemy.setBounds(267, 466, -120, 10);
-        barEnergyHero.setBounds(53, 4, 120, 10);
-        barEnergyEnemy.setBounds(267, 451, -120, 10);
-
-        final float fontSize = 0.85f;
-
-        lHpHero = new Label(hpHero + " / " + hpMaxHero, style);
-        lHpEnemy = new Label(hpMaxEnemy + " / " + hpMaxEnemy, style);
-        lEnergyHero = new Label(energyMaxHero + " / " + ENERGY_MAX, style);
-        lEnergyEnemy = new Label(energyMaxEnemy + " / " + ENERGY_MAX, style);
-        labelFreePoint = new Label("" + freePointFight, style);
-        labelRoundNumber = new Label("1", style);
-        Label labelName = new Label("Gondor", style);
-        Label labelLvl = new Label("Level 35", style);
-
-        lHpHero.setPosition(53 + barHpHero.getWidth() /2 -(lHpHero.getWidth() *fontSize) /2, 15);
-        lHpEnemy.setPosition(267 + barHpEnemy.getWidth() /2 -(lHpEnemy.getWidth() *fontSize) /2, 461);
-        lEnergyHero.setPosition(53 + barEnergyHero.getWidth() /2 -(lEnergyHero.getWidth() *fontSize) /2, 0);
-        lEnergyEnemy.setPosition(267 + barEnergyEnemy.getWidth() /2 -(lEnergyEnemy.getWidth() *fontSize) /2, 446);
-        labelName.setPosition((BaseScreen.VIEW_WIDTH - 190) /2 - labelName.getWidth() /2, 460);
-        labelLvl.setPosition((BaseScreen.VIEW_WIDTH - 190) /2 - labelLvl.getWidth() /2 +10, 445);
-        labelFreePoint.setPosition(131, 105);
-        labelRoundNumber.setPosition(287, 105);
-
-        labelName.setFontScale(1.2f);
-        lHpHero.setFontScale(fontSize);
-        lHpEnemy.setFontScale(fontSize);
-        lEnergyHero.setFontScale(fontSize);
-        lEnergyEnemy.setFontScale(fontSize);
-
-        abortNonActive = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbord.png")))));
-        abortNonActive.setBounds(255, 0, 45, 45);
-        abortNonActive.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Menu.setIsFirstSpawnHeroPosition(true);
-
-                if(abort && !animationPlay) {
-                    Label label = new Label("ABORT!", style);
-                    label.setFontScale(3);
-                    label.setPosition(85, 250);
-                    stage.addActor(label);
-
-                    Action action = Actions.run(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(flip) {
-                                enemy.getTexture().flip(true, false);
-                                enemyImage = new Image(enemy.getTexture());
-                            }else
-                                enemyImage = new Image(enemy.getTexture());
-
-                            Menu.setMap();
-                        }
-                    });
-                    stage.addAction(Actions.sequence(Actions.delay(1), action));
-                }
-                return false;
+            try {
+                waponHero = flipY();
+                waponHero.setPosition(130, 280);
+                waponHero.setSize(80, 80);
+            } catch (CloneNotSupportedException e) {
             }
-        });
 
-        abortActive = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbordActive.png")))));
-        abortActive.setBounds(255, 0, 45, 45);
-        abortActive.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (abortFirstTap && !animationPlay) {
-                    if(hpHero > hpMaxHero * 0.2f)
-                        abortFirstTap = false;
+            heroImage.setBounds(25, 175, BaseScreen.VIEW_WIDTH / 2 - 50, 190);
+            enemyImage.setSize(enemyImage.getWidth(), enemyImage.getHeight());
+            targetX = (BaseScreen.VIEW_WIDTH / 2 - enemyImage.getWidth()) / 2 + BaseScreen.VIEW_WIDTH / 2;
+            enemyImage.setPosition(targetX, 175);
+            System.out.println(targetX + "target");
+            waponEnemy = enemy.getWapon();
+            waponEnemy.setPosition(95, 280);
+            waponEnemy.setSize(80, 80);
+            waponEnemy.setOrigin(waponEnemy.getWidth(), 0);
 
-                    final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
-                    textStyleAbort.font = font;
-                    textStyleAbort.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
-                    buttonAbort = new TextButton("Abort!", textStyleAbort);
-                    buttonAbort.setSize(150, 50);
-                    buttonAbort.setPosition(BaseScreen.VIEW_WIDTH / 2 - startFight.getWidth() / 2, 180);
-                    buttonAbort.addListener(new InputListener() {
-                        @Override
-                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                            Menu.setIsFirstSpawnHeroPosition(true);
+            magicHero = new Image(asset.manager.get("magicHero.png", Texture.class));
+            magicHero.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() / 2, enemyImage.getWidth() - 30, enemyImage.getHeight() - 120);
 
-                            if (hpHero > hpMaxHero * 0.2f) {
-                                Action action = Actions.run(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        startFight.setPosition(0, -50);
+            magicEnemy = new Image(asset.manager.get("magicEnemy.png", Texture.class));
+            magicEnemy.setBounds(heroImage.getX() + 40, heroImage.getY() + 80, heroImage.getWidth() - 30, heroImage.getHeight() - 120);
 
-                                        Label label = new Label("-20% HP", styleBlood);
-                                        label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
-                                        stage.addActor(label);
-                                        label.setFontScale(2);
+            block = new Image(asset.manager.get("blockAttack.png", Texture.class));
+            blood = new Image(asset.manager.get("blood.png", Texture.class));
 
-                                        Action action0 = Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                buttonAbort.addAction(Actions.sequence(Actions.moveBy(0, -60, 1), Actions.fadeOut(2), Actions.moveTo(175, -3), Actions.fadeIn(1)));
-                                                buttonAbort.clearListeners();
-                                                abortActive.remove();
-                                                hpHero -= hpMaxHero * 0.2f;
-                                                lHpHero.setText(hpHero + " / " + hpMaxHero);
-                                            }
-                                        });
+            enemy.getHead().setPosition(270, 435);
+            barHpHero.setBounds(53, 19, 120, 10);
+            barHpEnemy.setBounds(267, 466, -120, 10);
+            barEnergyHero.setBounds(53, 4, 120, 10);
+            barEnergyEnemy.setBounds(267, 451, -120, 10);
 
-                                        Action action2 = Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Label label = new Label("ABORT!", style);
-                                                label.setFontScale(3);
-                                                label.setPosition(85, 250);
-                                                stage.addActor(label);
-                                            }
-                                        });
+            final float fontSize = 0.85f;
 
-                                        Action action3 = Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if (flip) {
-                                                    enemy.getTexture().flip(true, false);
-                                                    enemyImage = new Image(enemy.getTexture());
-                                                } else
-                                                    enemyImage = new Image(enemy.getTexture());
+            lHpHero = new Label(hpHero + " / " + hpMaxHero, style);
+            lHpEnemy = new Label(hpMaxEnemy + " / " + hpMaxEnemy, style);
+            lEnergyHero = new Label(energyMaxHero + " / " + ENERGY_MAX, style);
+            lEnergyEnemy = new Label(energyMaxEnemy + " / " + ENERGY_MAX, style);
+            labelFreePoint = new Label("" + freePointFight, style);
+            labelRoundNumber = new Label("1", style);
+            Label labelName = new Label("Gondor", style);
+            Label labelLvl = new Label("Level 35", style);
 
-                                                Menu.setMap();
-                                            }
-                                        });
-                                        label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
-                                                Actions.delay(3)), action2, Actions.delay(1.5f), action3));
-                                    }
-                                });
-                                stage.addAction(Actions.sequence(action));
-                            }else{
-                                buttonAbort.remove();
-                                new InfoScreen("Masz zbyt malo punktow zycia\nucieczka spowodowalaby smierc.\nPodnies sie i walcz!", 3);
+            lHpHero.setPosition(53 + barHpHero.getWidth() / 2 - (lHpHero.getWidth() * fontSize) / 2, 15);
+            lHpEnemy.setPosition(267 + barHpEnemy.getWidth() / 2 - (lHpEnemy.getWidth() * fontSize) / 2, 461);
+            lEnergyHero.setPosition(53 + barEnergyHero.getWidth() / 2 - (lEnergyHero.getWidth() * fontSize) / 2, 0);
+            lEnergyEnemy.setPosition(267 + barEnergyEnemy.getWidth() / 2 - (lEnergyEnemy.getWidth() * fontSize) / 2, 446);
+            labelName.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelName.getWidth() / 2, 460);
+            labelLvl.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelLvl.getWidth() / 2 + 10, 445);
+            labelFreePoint.setPosition(131, 105);
+            labelRoundNumber.setPosition(287, 105);
+
+            labelName.setFontScale(1.2f);
+            lHpHero.setFontScale(fontSize);
+            lHpEnemy.setFontScale(fontSize);
+            lEnergyHero.setFontScale(fontSize);
+            lEnergyEnemy.setFontScale(fontSize);
+
+            abortNonActive = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbord.png", Texture.class))));
+            abortNonActive.setBounds(255, 0, 45, 45);
+            abortNonActive.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Menu.setIsFirstSpawnHeroPosition(true);
+
+                    if (abort && !animationPlay) {
+                        Label label = new Label("ABORT!", style);
+                        label.setFontScale(3);
+                        label.setPosition(85, 250);
+                        stage.addActor(label);
+
+                        Action action = Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (flip) {
+                                    enemy.getTexture().flip(true, false);
+                                    enemyImage = new Image(enemy.getTexture());
+                                } else
+                                    enemyImage = new Image(enemy.getTexture());
+
+                                Menu.setMap();
                             }
-                            return false;
-                        }
-                    });
-                    stage.addActor(buttonAbort);
+                        });
+                        stage.addAction(Actions.sequence(Actions.delay(1), action));
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();
-        textStyle.font = font;
-        textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
+            abortActive = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbordActive.png", Texture.class))));
+            abortActive.setBounds(255, 0, 45, 45);
+            abortActive.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    if (abortFirstTap && !animationPlay) {
+                        if (hpHero > hpMaxHero * 0.2f)
+                            abortFirstTap = false;
 
-        startFight = new TextButton("Fight!", textStyle);
-        startFight.setSize(150, 50);
-        startFight.setPosition(BaseScreen.VIEW_WIDTH /2 - startFight.getWidth() /2, 135);
-        startFight.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Start");
-                startFight.remove();
-                try {
-                    updateRound();
-                } catch (CloneNotSupportedException e) {
+                        final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
+                        textStyleAbort.font = font;
+                        textStyleAbort.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbort.png", Texture.class)));
+                        buttonAbort = new TextButton("Abort!", textStyleAbort);
+                        buttonAbort.setSize(150, 50);
+                        buttonAbort.setPosition(BaseScreen.VIEW_WIDTH / 2 - startFight.getWidth() / 2, 180);
+                        buttonAbort.addListener(new InputListener() {
+                            @Override
+                            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                Menu.setIsFirstSpawnHeroPosition(true);
+
+                                if (hpHero > hpMaxHero * 0.2f) {
+                                    Action action = Actions.run(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            startFight.setPosition(0, -50);
+
+                                            Label label = new Label("-20% HP", styleBlood);
+                                            label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
+                                            stage.addActor(label);
+                                            label.setFontScale(2);
+
+                                            Action action0 = Actions.run(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    buttonAbort.addAction(Actions.sequence(Actions.moveBy(0, -60, 1), Actions.fadeOut(2), Actions.moveTo(175, -3), Actions.fadeIn(1)));
+                                                    buttonAbort.clearListeners();
+                                                    abortActive.remove();
+                                                    hpHero -= hpMaxHero * 0.2f;
+                                                    lHpHero.setText(hpHero + " / " + hpMaxHero);
+                                                }
+                                            });
+
+                                            Action action2 = Actions.run(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Label label = new Label("ABORT!", style);
+                                                    label.setFontScale(3);
+                                                    label.setPosition(85, 250);
+                                                    stage.addActor(label);
+                                                }
+                                            });
+
+                                            Action action3 = Actions.run(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    if (flip) {
+                                                        enemy.getTexture().flip(true, false);
+                                                        enemyImage = new Image(enemy.getTexture());
+                                                    } else
+                                                        enemyImage = new Image(enemy.getTexture());
+
+                                                    Menu.setMap();
+                                                }
+                                            });
+                                            label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
+                                                    Actions.delay(3)), action2, Actions.delay(1.5f), action3));
+                                        }
+                                    });
+                                    stage.addAction(Actions.sequence(action));
+                                } else {
+                                    buttonAbort.remove();
+                                    new InfoScreen("Masz zbyt malo punktow zycia\nucieczka spowodowalaby smierc.\nPodnies sie i walcz!", 3);
+                                }
+                                return false;
+                            }
+                        });
+                        stage.addActor(buttonAbort);
+                    }
+                    return false;
                 }
-                abort = false;
-                if(buttonAbort != null)
-                    buttonAbort.remove();
-                return false;
+            });
+
+            final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();
+            textStyle.font = font;
+            textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("itemButton.png", Texture.class)));
+
+            startFight = new TextButton("Fight!", textStyle);
+            startFight.setSize(150, 50);
+            startFight.setPosition(BaseScreen.VIEW_WIDTH / 2 - startFight.getWidth() / 2, 135);
+            startFight.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    System.out.println("Start");
+                    startFight.remove();
+                    try {
+                        updateRound();
+                    } catch (CloneNotSupportedException e) {
+                    }
+                    abort = false;
+                    if (buttonAbort != null)
+                        buttonAbort.remove();
+                    return false;
+                }
+            });
+
+            for (int i = 0; i < 4; i++) {
+                plusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("plus.png", Texture.class))));
+                minusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("minus.png", Texture.class))));
+                plusButton[i].setPosition(i * 78, 79);
+                minusButton[i].setPosition(i * 78, 35);
+
+                labelPointFight[i] = new Label("" + pointUserPref[i], style);
+                labelPointFight[i].setPosition(54 + i * 78, 69);
+                labelPointFight[i].setFontScale(1.2f);
+
+                addListener(i, true, labelFreePoint);
+                addListener(i, false, labelFreePoint);
             }
-        });
 
-        for(int i = 0; i < 4; i++) {
-            plusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("plus.png")))));
-            minusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("minus.png")))));
-            plusButton[i].setPosition(i* 78, 79);
-            minusButton[i].setPosition(i* 78, 35);
+            addActors(backgroundFight);
+            for (int i = 0; i < 4; i++) {
+                stage.addActor(plusButton[i]);
+                stage.addActor(minusButton[i]);
+                stage.addActor(labelPointFight[i]);
+            }
 
-            labelPointFight[i] = new Label("" + pointUserPref[i], style);
-            labelPointFight[i].setPosition(54 + i* 78, 69);
-            labelPointFight[i].setFontScale(1.2f);
-
-            addListener(i, true, labelFreePoint);
-            addListener(i, false, labelFreePoint);
+            addActors(labelFreePoint, labelRoundNumber, labelName, labelLvl, abortActive, abortNonActive, barHpHero, barHpEnemy, heroImage, barEnergyHero,
+                    barEnergyEnemy, enemyImage, enemy.getHead(), lHpHero, lHpEnemy, lEnergyHero, lEnergyEnemy, startFight);
         }
-
-        addActors(backgroundFight);
-        for(int i = 0; i < 4; i++){
-            stage.addActor(plusButton[i]);
-            stage.addActor(minusButton[i]);
-            stage.addActor(labelPointFight[i]);
-        }
-
-        addActors(labelFreePoint, labelRoundNumber, labelName, labelLvl, abortActive, abortNonActive, barHpHero, barHpEnemy, heroImage, barEnergyHero,
-                barEnergyEnemy, enemyImage, enemy.getHead(), lHpHero, lHpEnemy, lEnergyHero, lEnergyEnemy, startFight);
     }
 
     @Override
@@ -735,7 +741,7 @@ public class FightScreen extends BaseScreen {
 
             return image;
         }else{
-            final TextureRegion texture = new TextureRegion(Hero.ARM);
+            final TextureRegion texture = new TextureRegion(new Texture(Gdx.files.internal("heroArm.png")));
             texture.flip(true, false);
             Image image = new Image(texture);
 

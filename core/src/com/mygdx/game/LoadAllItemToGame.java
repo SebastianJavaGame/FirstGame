@@ -15,6 +15,7 @@ public class LoadAllItemToGame {
         ITEMS.put("fire_sword", new Item("fire_sword", "Items/Fire_sword.png", "Piekielny miecz ognia", Item.ItemType.WAPON, 3, 60, 10, 2, 10, 0, 0, 2000));
     }
 
+
     public static Item getItem(String key) throws CloneNotSupportedException {
         return ITEMS.get(key).clone();
     }

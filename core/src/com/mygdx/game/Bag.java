@@ -21,6 +21,7 @@ import Screen.BaseScreen;
 
 public class Bag {
     private Hero hero;
+    private Asset asset = new Asset();
 
     private Stage stage;
     private static Stage card;
@@ -52,65 +53,69 @@ public class Bag {
     }
 
     private void create() {
-        background = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
-        background.setSize(BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT - 50);
+        asset.loadBag();
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            background = new Image(asset.manager.get("statsBackground.png", Texture.class));
+            background.setSize(BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT - 50);
 
-        buttonEq = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("eq.png"))));
-        buttonEq.addListener(new InputListener(){
-            public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                if(!Equipment.getBlockClick()) {
-                    try {
-                        initCardEq();
-                    } catch (CloneNotSupportedException e) {
-                        e.printStackTrace();
+            buttonEq = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("eq.png", Texture.class))));
+            buttonEq.addListener(new InputListener() {
+                public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                    if (!Equipment.getBlockClick()) {
+                        try {
+                            initCardEq();
+                        } catch (CloneNotSupportedException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    return false;
                 }
-                return false;
-            }
-        });
-        buttonEq.setPosition(background.getX() + 30, 385);
+            });
+            buttonEq.setPosition(background.getX() + 30, 385);
 
-        buttonStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("stats.png"))));
-        buttonStats.addListener(new InputListener(){
-            public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                if(!Equipment.getBlockClick())
-                    initCardStats();
-                return false;
-            }
-        });
-        buttonStats.setPosition(background.getX() + 103, 385);
+            buttonStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("stats.png", Texture.class))));
+            buttonStats.addListener(new InputListener() {
+                public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                    if (!Equipment.getBlockClick())
+                        initCardStats();
+                    return false;
+                }
+            });
+            buttonStats.setPosition(background.getX() + 103, 385);
 
-        buttonQuest = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("quest.png"))));
-        buttonQuest.addListener(new InputListener(){
-            public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                if(!Equipment.getBlockClick())
-                    initCardQuest();
-                return false;
-            }
-        });
-        buttonQuest.setPosition(background.getX() + 176, 385);
+            buttonQuest = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("quest.png", Texture.class))));
+            buttonQuest.addListener(new InputListener() {
+                public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                    if (!Equipment.getBlockClick())
+                        initCardQuest();
+                    return false;
+                }
+            });
+            buttonQuest.setPosition(background.getX() + 176, 385);
 
-        buttonExit = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("exit.png"))));
-        buttonExit.addListener(new InputListener(){
-            public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                if(!Equipment.getBlockClick())
-                    initCardExit();
-                return false;
-            }
-        });
-        buttonExit.setPosition(background.getX() + 250, 385);
+            buttonExit = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("exit.png", Texture.class))));
+            buttonExit.addListener(new InputListener() {
+                public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                    if (!Equipment.getBlockClick())
+                        initCardExit();
+                    return false;
+                }
+            });
+            buttonExit.setPosition(background.getX() + 250, 385);
 
-        stage.addActor(background);
-        stage.addActor(buttonEq);
-        stage.addActor(buttonStats);
-        stage.addActor(buttonQuest);
-        stage.addActor(buttonExit);
+            stage.addActor(background);
+            stage.addActor(buttonEq);
+            stage.addActor(buttonStats);
+            stage.addActor(buttonQuest);
+            stage.addActor(buttonExit);
 
-        if(!Equipment.getBlockClick()) {
-            try {
-                initCardEq();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
+            if (!Equipment.getBlockClick()) {
+                try {
+                    initCardEq();
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -141,7 +146,7 @@ public class Bag {
         infoCloseCard.setPosition((background.getWidth() - infoCloseCard.getWidth()) /2, 300);
         infoCloseCard.setFontScale(1.1f);
 
-        separator = new Image(new Texture(Gdx.files.internal("bar.png")));
+        separator = new Image(asset.manager.get("bar.png", Texture.class));
         separator.setPosition(5, 250);
         separator.setSize(310, 3);
 
@@ -149,7 +154,7 @@ public class Bag {
         infoCloseGame.setPosition((background.getWidth() - infoCloseGame.getWidth()) /2, 180);
         infoCloseGame.setFontScale(1.1f);
 
-        closeGame = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitGame.png")))));
+        closeGame = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("exitGame.png", Texture.class))));
         closeGame.addListener(new InputListener(){
             public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
                 //TODO point saving game

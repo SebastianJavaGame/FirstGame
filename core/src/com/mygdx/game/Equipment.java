@@ -53,6 +53,7 @@ public class Equipment{
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 218}};
 
     private static final BitmapFont font = new BitmapFont();
+    private Asset asset = new Asset();
 
     private TextButton takeOn;
     private TextButton takeOff;
@@ -122,142 +123,146 @@ public class Equipment{
     }
 
     private void create() throws CloneNotSupportedException {
-        ImageButton userPref = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonUserPref.png")))));
-        userPref.setPosition(250, 180);
-        userPref.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                setBlockClick(true);
-                final Image background = new Image(new Texture(Gdx.files.internal("userPrefBackground.png")));
-                labelPointFight = new Label[4];
-                plusButton = new ImageButton[4];
-                minusButton = new ImageButton[4];
+        asset.loadEquipment();
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            ImageButton userPref = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonUserPref.png", Texture.class))));
+            userPref.setPosition(250, 180);
+            userPref.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    setBlockClick(true);
+                    final Image background = new Image(asset.manager.get("userPrefBackground.png", Texture.class));
+                    labelPointFight = new Label[4];
+                    plusButton = new ImageButton[4];
+                    minusButton = new ImageButton[4];
 
-                BitmapFont font = new BitmapFont();
-                Label.LabelStyle style = new Label.LabelStyle();
-                style.font = font;
+                    BitmapFont font = new BitmapFont();
+                    Label.LabelStyle style = new Label.LabelStyle();
+                    style.font = font;
 
-                labelFreePoint = new Label("Free points: " + PREF_FIGHT.getInteger("FIGHT_POINT", 10), style);
-                labelFreePoint.setPosition(5, 425);
-                labelFreePoint.setFontScale(1.4f);
+                    labelFreePoint = new Label("Free points: " + PREF_FIGHT.getInteger("FIGHT_POINT", 10), style);
+                    labelFreePoint.setPosition(5, 425);
+                    labelFreePoint.setFontScale(1.4f);
 
-                final TextButton.TextButtonStyle styleSave = new TextButton.TextButtonStyle();
-                styleSave.font = font;
-                styleSave.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonAbort.png"))));
+                    final TextButton.TextButtonStyle styleSave = new TextButton.TextButtonStyle();
+                    styleSave.font = font;
+                    styleSave.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbort.png", Texture.class)));
 
-                final TextButton buttonSave = new TextButton("Save", styleSave);
-                final TextButton buttonCancel = new TextButton("Cancel", styleSave);
+                    final TextButton buttonSave = new TextButton("Save", styleSave);
+                    final TextButton buttonCancel = new TextButton("Cancel", styleSave);
 
-                buttonSave.setBounds(30, 5, 110, 40);
-                buttonCancel.setBounds(buttonSave.getWidth() +70, 5, 110, 40);
+                    buttonSave.setBounds(30, 5, 110, 40);
+                    buttonCancel.setBounds(buttonSave.getWidth() + 70, 5, 110, 40);
 
-                buttonSave.addListener(new InputListener(){
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        PREF_FIGHT.putInteger("ATTACK_PHYSICS", Integer.parseInt(labelPointFight[0].getText().toString()));
-                        PREF_FIGHT.putInteger("DEFENSE_PHYSICS", Integer.parseInt(labelPointFight[1].getText().toString()));
-                        PREF_FIGHT.putInteger("ATTACK_MAGIC", Integer.parseInt(labelPointFight[2].getText().toString()));
-                        PREF_FIGHT.putInteger("DEFENSE_MAGIC", Integer.parseInt(labelPointFight[3].getText().toString()));
-                        PREF_FIGHT.putInteger("FIGHT_POINT", freePointFight);
-                        PREF_FIGHT.flush();
+                    buttonSave.addListener(new InputListener() {
+                        @Override
+                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            PREF_FIGHT.putInteger("ATTACK_PHYSICS", Integer.parseInt(labelPointFight[0].getText().toString()));
+                            PREF_FIGHT.putInteger("DEFENSE_PHYSICS", Integer.parseInt(labelPointFight[1].getText().toString()));
+                            PREF_FIGHT.putInteger("ATTACK_MAGIC", Integer.parseInt(labelPointFight[2].getText().toString()));
+                            PREF_FIGHT.putInteger("DEFENSE_MAGIC", Integer.parseInt(labelPointFight[3].getText().toString()));
+                            PREF_FIGHT.putInteger("FIGHT_POINT", freePointFight);
+                            PREF_FIGHT.flush();
 
-                        setBlockClick(false);
-                        background.remove();
-                        buttonSave.remove();
-                        buttonCancel.remove();
-                        labelFreePoint.remove();
-                        for(int i = 0; i < 4; i++){
-                            minusButton[i].remove();
-                            plusButton[i].remove();
-                            labelPointFight[i].remove();
+                            setBlockClick(false);
+                            background.remove();
+                            buttonSave.remove();
+                            buttonCancel.remove();
+                            labelFreePoint.remove();
+                            for (int i = 0; i < 4; i++) {
+                                minusButton[i].remove();
+                                plusButton[i].remove();
+                                labelPointFight[i].remove();
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                });
+                    });
 
-                buttonCancel.addListener(new InputListener(){
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        setBlockClick(false);
-                        background.remove();
-                        buttonSave.remove();
-                        buttonCancel.remove();
-                        labelFreePoint.remove();
-                        for(int i = 0; i < 4; i++){
-                            minusButton[i].remove();
-                            plusButton[i].remove();
-                            labelPointFight[i].remove();
+                    buttonCancel.addListener(new InputListener() {
+                        @Override
+                        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            setBlockClick(false);
+                            background.remove();
+                            buttonSave.remove();
+                            buttonCancel.remove();
+                            labelFreePoint.remove();
+                            for (int i = 0; i < 4; i++) {
+                                minusButton[i].remove();
+                                plusButton[i].remove();
+                                labelPointFight[i].remove();
+                            }
+                            return false;
                         }
-                        return false;
+                    });
+
+                    card.addActor(background);
+                    card.addActor(labelFreePoint);
+                    card.addActor(buttonSave);
+                    card.addActor(buttonCancel);
+
+                    for (int i = 0; i < 4; i++) {
+                        plusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("plusPref.png", Texture.class))));
+                        minusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("minusPref.png", Texture.class))));
+                        plusButton[i].setPosition(200, (i + 1) * 95);
+                        minusButton[i].setPosition(70, (i + 1) * 95);
+
+                        labelPointFight[i] = new Label(String.valueOf(PREF_FIGHT.getInteger(KEY_PREF_FIGHT[i])), style);
+                        labelPointFight[i].setPosition(BaseMap.VIEW_WIDTH / 2 - labelPointFight[i].getWidth() / 2 - 3, 98 + i * 95);
+                        labelPointFight[i].setFontScale(2);
+
+                        addListener(i, true, labelFreePoint);
+                        addListener(i, false, labelFreePoint);
+
+                        card.addActor(plusButton[i]);
+                        card.addActor(minusButton[i]);
+                        card.addActor(labelPointFight[i]);
                     }
-                });
-
-                card.addActor(background);
-                card.addActor(labelFreePoint);
-                card.addActor(buttonSave);
-                card.addActor(buttonCancel);
-
-                for(int i = 0; i < 4; i++) {
-                    plusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("plusPref.png")))));
-                    minusButton[i] = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("minusPref.png")))));
-                    plusButton[i].setPosition(200, (i+1) *95);
-                    minusButton[i].setPosition(70, (i+1) *95);
-
-                    labelPointFight[i] = new Label(String.valueOf(PREF_FIGHT.getInteger(KEY_PREF_FIGHT[i])), style);
-                    labelPointFight[i].setPosition(BaseMap.VIEW_WIDTH /2 - labelPointFight[i].getWidth() /2 -3, 98 +i *95);
-                    labelPointFight[i].setFontScale(2);
-
-                    addListener(i, true, labelFreePoint);
-                    addListener(i, false, labelFreePoint);
-
-                    card.addActor(plusButton[i]);
-                    card.addActor(minusButton[i]);
-                    card.addActor(labelPointFight[i]);
+                    return false;
                 }
-                return false;
+            });
+            card.addActor(userPref);
+
+            //load item or load default image
+            for (int i = 0; i < 8; i++) {
+                emptyBlock[i] = new Image(asset.manager.get("slot.png", Texture.class));
+                String value = PREF_ITEMS.getString(PREF_ITEM_HUMAN[i], "");
+
+                if (!value.equals("")) {
+                    blockEmpty[i] = false;
+                    block[i] = LoadAllItemToGame.getItem(value);
+                    block[i].setStan(Item.Stan.HUMAN);
+                    imageAddListener(block[i], block[i].getImage(), block[i].getPathImage());
+                    updatePositionFitIn(block[i]);
+                    updateStats();
+                    emptyBlock[i].setBounds(block[i].getImage().getX() - 2, block[i].getImage().getY() - 2, Item.BLOCK_SIZE + 4, Item.BLOCK_SIZE + 4);
+                    card.addActor(emptyBlock[i]);
+                    card.addActor(block[i].getImage());
+                } else {
+                    blockEmpty[i] = false;
+                    Item item = new Item(PATH_DEFAULT_IMAGE[i], ITEM_TYPES[i]);
+                    emptyBlock[i].setBounds(BLOCK_POSITION[i][0] - 2, BLOCK_POSITION[i][1] - 2, Item.BLOCK_SIZE + 4, Item.BLOCK_SIZE + 4);
+                    card.addActor(emptyBlock[i]);
+                    updatePositionFitIn(item);
+                }
             }
-        });
-        card.addActor(userPref);
 
-        //load item or load default image
-        for (int i = 0; i < 8; i++) {
-            emptyBlock[i] = new Image(new Texture(Gdx.files.internal("slot.png")));
-            String value = PREF_ITEMS.getString(PREF_ITEM_HUMAN[i], "");
-
-            if (!value.equals("")) {
-                blockEmpty[i] = false;
-                block[i] = LoadAllItemToGame.getItem(value);
-                block[i].setStan(Item.Stan.HUMAN);
-                imageAddListener(block[i], block[i].getImage(), block[i].getPathImage());
-                updatePositionFitIn(block[i]);
-                updateStats();
-                emptyBlock[i].setBounds(block[i].getImage().getX() -2, block[i].getImage().getY() -2, Item.BLOCK_SIZE +4, Item.BLOCK_SIZE +4);
-                card.addActor(emptyBlock[i]);
-                card.addActor(block[i].getImage());
-            }else{
-                blockEmpty[i] = false;
-                Item item = new Item(PATH_DEFAULT_IMAGE[i], ITEM_TYPES[i]);
-                emptyBlock[i].setBounds(BLOCK_POSITION[i][0] -2, BLOCK_POSITION[i][1] -2, Item.BLOCK_SIZE +4, Item.BLOCK_SIZE +4);
-                card.addActor(emptyBlock[i]);
-                updatePositionFitIn(item);
+            //load item to bag from preferences
+            for (int i = 2; i >= 0; i--) {
+                for (int j = 0; j < 6; j++) {
+                    Image image = new Image(asset.manager.get("emptySlot.png", Texture.class));
+                    image.setBounds(10 + j * Item.BLOCK_SIZE, i * Item.BLOCK_SIZE + 10, Item.BLOCK_SIZE, Item.BLOCK_SIZE);
+                    card.addActor(image);
+                }
             }
-        }
+            for (int i = 0; i < 18; i++) {
+                String value = PREF_ITEMS.getString("SLOT" + i, "");
 
-        //load item to bag from preferences
-        for (int i = 2; i >= 0; i--) {
-            for (int j = 0; j < 6; j++) {
-                Image image = new Image(new Texture(Gdx.files.internal("emptySlot.png")));
-                image.setBounds(10 + j * Item.BLOCK_SIZE, i * Item.BLOCK_SIZE + 10, Item.BLOCK_SIZE, Item.BLOCK_SIZE);
-                card.addActor(image);
+                if (!value.equals(""))
+                    addItemToBag(LoadAllItemToGame.getItem(value), i);
+                else
+                    slotEmpty[i] = false;
             }
-        }
-        for (int i = 0; i < 18; i++) {
-            String value = PREF_ITEMS.getString("SLOT" + i, "");
-
-            if (!value.equals(""))
-                addItemToBag(LoadAllItemToGame.getItem(value), i);
-            else
-                slotEmpty[i] = false;
         }
     }
 
@@ -392,13 +397,13 @@ public class Equipment{
 
                     final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();
                     textStyle.font = font;
-                    textStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
+                    textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("itemButton.png", Texture.class)));
 
                     takeOn = new TextButton("Take on", textStyle);
                     takeOff = new TextButton("Take off", textStyle);
                     drop = new TextButton("Drop", textStyle);
                     cancel = new TextButton("Cancel", textStyle);
-                    backgroundUp = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
+                    backgroundUp = new Image(asset.manager.get("statsBackground.png", Texture.class));
                     backgroundUp.setBounds(0, 240, BaseMap.VIEW_WIDTH, 190);
 
                     Label.LabelStyle style = new Label.LabelStyle();
@@ -408,7 +413,7 @@ public class Equipment{
                     styleGreen.font = font;
                     styleGreen.fontColor = new Color(Color.LIGHT_GRAY);
 
-                    itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
+                    itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));//TODO asset manager
                     itemName = new Label("" + item.getItemName(), style);
                     itemLevelRequire = new Label("Wymagany poziom: " + item.getLevelRequire(), style);
                     itemHp = new Label("Hp: +" + item.getHp(), style);
@@ -417,12 +422,12 @@ public class Equipment{
                     itemArmor = new Label("Armor: +" + item.getArmor() + "%", style);
                     itemDefenseFiz = new Label("Defense physics: +" + item.getDefenseFiz(), style);
                     itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
-                    money = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
+                    money = new Image(asset.manager.get("uiMoney.png", Texture.class));
                     itemPrice = new Label("Cena: " + item.getCashValue(), style);
                     infoStorage = new Label("BAG", styleGreen);
-                    itemBackground = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
-                    barName = new Image(new Texture(Gdx.files.internal("nameBar.png")));
-                    barPrice = new Image(new Texture(Gdx.files.internal("barX.png")));
+                    itemBackground = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
+                    barName = new Image(asset.manager.get("nameBar.png", Texture.class));
+                    barPrice = new Image(asset.manager.get("barX.png", Texture.class));
 
                     if(item.getLevelRequire() > hero.getLevel())
                         itemLevelRequire.setColor(Color.RED);
@@ -448,7 +453,7 @@ public class Equipment{
                             System.out.println("BAG");
                             try {
                                 if (!PREF_ITEMS.getString(item.getItemType().toString()).equals("")) {
-                                    backgroundDown = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
+                                    backgroundDown = new Image(asset.manager.get("statsBackground.png", Texture.class));
                                     backgroundDown.setBounds(0, 0, BaseMap.VIEW_WIDTH, 190);
 
                                     final Item itemUp = LoadAllItemToGame.getItem(PREF_ITEMS.getString(item.getItemType().toString()));
@@ -462,12 +467,12 @@ public class Equipment{
                                     itemArmorDown = new Label("Armor: +" + itemUp.getArmor() + "%", style);
                                     itemDefenseFizDown = new Label("Defense physics: +" + itemUp.getDefenseFiz(), style);
                                     itemDefenseMagDown = new Label("Defense magic: +" + itemUp.getDefenseMag(), style);
-                                    moneyDown = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
+                                    moneyDown = new Image(asset.manager.get("uiMoney.png", Texture.class));
                                     itemPriceDown = new Label("Cena: " + itemUp.getCashValue(), style);
                                     infoStorageDown = new Label("HUMAN", styleGreen);
-                                    itemBackgroundDown = new Image(new Texture(Gdx.files.internal("slotInfoItem.png")));
-                                    barNameDown = new Image(new Texture(Gdx.files.internal("nameBar.png")));
-                                    barPriceDown = new Image(new Texture(Gdx.files.internal("barX.png")));
+                                    itemBackgroundDown = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
+                                    barNameDown = new Image(asset.manager.get("nameBar.png", Texture.class));
+                                    barPriceDown = new Image(asset.manager.get("barX.png", Texture.class));
 
                                     if(itemUp.getLevelRequire() > hero.getLevel())
                                         itemLevelRequire.setColor(Color.ROYAL);

@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -19,6 +18,7 @@ public class Item implements Cloneable{
         BAG, HUMAN
     }
 
+    private Asset asset = new Asset();
     private ItemType itemType;
     private Stan stan;
 
@@ -39,8 +39,14 @@ public class Item implements Cloneable{
 
     public Item(String  pathImage, ItemType itemType){
         this.pathImage = pathImage;
-        this.texture = new Texture(Gdx.files.internal(pathImage));
-        this.image = new Image(texture);
+
+        asset.manager.load(pathImage, Texture.class);
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            this.texture = asset.manager.get(pathImage, Texture.class);
+            this.image = new Image(texture);
+        }
+
         this.itemType = itemType;
         image.setSize(BLOCK_SIZE, BLOCK_SIZE);
     }
@@ -48,8 +54,14 @@ public class Item implements Cloneable{
     public Item(String itemKey, String pathImage, String itemName, ItemType itemType, int levelRequire, int hp, int strong, int wiedza, int armor, int defenseFiz, int defenseMag, int cashValue) {
         this.itemKey = itemKey;
         this.pathImage = pathImage;
-        this.texture = new Texture(Gdx.files.internal(pathImage));
-        this.image = new Image(texture);
+
+        asset.manager.load(pathImage, Texture.class);
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            this.texture = asset.manager.get(pathImage, Texture.class);
+            this.image = new Image(texture);
+        }
+
         this.itemName = itemName;
         this.itemType = itemType;
         image.setSize(BLOCK_SIZE, BLOCK_SIZE);
@@ -66,7 +78,7 @@ public class Item implements Cloneable{
     @Override
     public Item clone() throws CloneNotSupportedException{
         Item item =  (Item) super.clone();
-        item.image = new Image(new Texture(pathImage));
+        item.image = new Image(asset.manager.get(pathImage, Texture.class));
         item.image.setSize(BLOCK_SIZE, BLOCK_SIZE);
         return item;
     }

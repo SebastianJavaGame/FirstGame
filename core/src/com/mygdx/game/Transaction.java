@@ -24,7 +24,8 @@ import Screen.BaseScreen;
  */
 
 class Transaction {
-    private static final Image BACKGROUND_TRANSACTION = new Image(new Texture(Gdx.files.internal("shopBackgroundTransaction.png")));
+    private Asset asset = new Asset();
+    private Image backgroundTransaction;
     public static final BitmapFont FONT = new BitmapFont();
     private static final TextButton.TextButtonStyle STYLE_TRANSACTION_BUY = new TextButton.TextButtonStyle();
     private static final TextButton.TextButtonStyle STYLE_TRANSACTION_SELL = new TextButton.TextButtonStyle();
@@ -37,11 +38,8 @@ class Transaction {
     static {
         style.font = FONT;
         STYLE_TRANSACTION_BUY.font = FONT;
-        STYLE_TRANSACTION_BUY.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonTransaction.png"))));
         STYLE_TRANSACTION_SELL.font = FONT;
-        STYLE_TRANSACTION_SELL.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonTransaction.png"))));
         STYLE_BACK.font = FONT;
-        STYLE_BACK.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonBack.png"))));
     }
 
     private static Label lTextLeft;
@@ -67,111 +65,120 @@ class Transaction {
         this.idShop = idShop;
         stage = BaseScreen.getStage();
 
-        FuncionalityShop.setActive(true);
+        asset.loadTransaction();
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            STYLE_BACK.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonBack.png", Texture.class)));
+            STYLE_TRANSACTION_SELL.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonTransaction.png", Texture.class)));
+            STYLE_TRANSACTION_BUY.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonTransaction.png", Texture.class)));
+            backgroundTransaction = new Image(asset.manager.get("shopBackgroundTransaction.png", Texture.class));
 
-        BACKGROUND_TRANSACTION.setPosition(0, Shop.POS_Y_NEXT_BACKGROUND);
+            FuncionalityShop.setActive(true);
 
-        bBack = new TextButton("Wroc do menu", STYLE_BACK);
-        bBuy = new TextButton("Kup", STYLE_TRANSACTION_BUY);
-        bSell = new TextButton("Sprzedaj", STYLE_TRANSACTION_BUY);
+            backgroundTransaction.setPosition(0, Shop.POS_Y_NEXT_BACKGROUND);
 
-        bBack.setPosition(174, 238);
-        bBuy.setPosition(18, Shop.POS_Y_NEXT_BACKGROUND + 10);
-        bSell.setPosition(214, Shop.POS_Y_NEXT_BACKGROUND + 10);
+            bBack = new TextButton("Wroc do menu", STYLE_BACK);
+            bBuy = new TextButton("Kup", STYLE_TRANSACTION_BUY);
+            bSell = new TextButton("Sprzedaj", STYLE_TRANSACTION_BUY);
 
-        addActors(BACKGROUND_TRANSACTION, bBack, bBuy, bSell);
+            bBack.setPosition(174, 238);
+            bBuy.setPosition(18, Shop.POS_Y_NEXT_BACKGROUND + 10);
+            bSell.setPosition(214, Shop.POS_Y_NEXT_BACKGROUND + 10);
 
-        String[] itemList = BaseShopDepartaments.getItemsFromDepartament(idShop, itemGroup);
-        showEq(itemList);
+            addActors(backgroundTransaction, bBack, bBuy, bSell);
 
-        bBack.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                stage.clear();
-                if(FuncionalityShop.getImageAnimTransaction() != null && FuncionalityShop.getlAnimTransaction() != null) {
-                    FuncionalityShop.getlAnimTransaction().remove();
-                    FuncionalityShop.getImageAnimTransaction().remove();
+            String[] itemList = BaseShopDepartaments.getItemsFromDepartament(idShop, itemGroup);
+            showEq(itemList);
+
+            bBack.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    stage.clear();
+                    if (FuncionalityShop.getImageAnimTransaction() != null && FuncionalityShop.getlAnimTransaction() != null) {
+                        FuncionalityShop.getlAnimTransaction().remove();
+                        FuncionalityShop.getImageAnimTransaction().remove();
+                    }
+                    FuncionalityShop.setFirstClick(true);
+                    FuncionalityShop.setActive(false);
+                    BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
+                    return false;
                 }
-                FuncionalityShop.setFirstClick(true);
-                FuncionalityShop.setActive(false);
-                BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
-                return false;
-            }
-        });
+            });
 
-        bBuy.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                updateBuyTouchable(false);
-                for(int i = 0; i < 18; i++){
-                    String value = preferences.getString("SLOT" +i, "");
+            bBuy.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    updateBuyTouchable(false);
+                    for (int i = 0; i < 18; i++) {
+                        String value = preferences.getString("SLOT" + i, "");
 
-                    if(value.equals("")){
-                        try {
-                            int money = preferencesStats.getInteger("MONEY");
-                            if(money >= FuncionalityShop.getPrice()) {
-                                FuncionalityShop.animationEndTransaction("-" + FuncionalityShop.getPrice(), Color.RED);
-                                FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(FuncionalityShop.getActualItemNameShop()), i);
+                        if (value.equals("")) {
+                            try {
+                                int money = preferencesStats.getInteger("MONEY");
+                                if (money >= FuncionalityShop.getPrice()) {
+                                    FuncionalityShop.animationEndTransaction("-" + FuncionalityShop.getPrice(), Color.RED);
+                                    FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(FuncionalityShop.getActualItemNameShop()), i);
 
-                                preferences.putString("SLOT" + i, FuncionalityShop.getActualItemNameShop());
-                                preferences.flush();
-                                Hero.setMoney(Hero.getMoney() -FuncionalityShop.getPrice());
-                                preferencesStats.putInteger("MONEY", Hero.getMoney());
-                                preferencesStats.flush();
+                                    preferences.putString("SLOT" + i, FuncionalityShop.getActualItemNameShop());
+                                    preferences.flush();
+                                    Hero.setMoney(Hero.getMoney() - FuncionalityShop.getPrice());
+                                    preferencesStats.putInteger("MONEY", Hero.getMoney());
+                                    preferencesStats.flush();
 
-                                lMoneyLeft.setText("" + Hero.getMoney());
-                                lMoneyRight.setText("" + Hero.getMoney());
-                            }else{
-                                FuncionalityShop.getlAnimTransaction().remove();
-                                FuncionalityShop.getImageAnimTransaction().remove();
-                                FuncionalityShop.animationEndTransaction("Brak zlota!", Color.RED);
+                                    lMoneyLeft.setText("" + Hero.getMoney());
+                                    lMoneyRight.setText("" + Hero.getMoney());
+                                } else {
+                                    FuncionalityShop.getlAnimTransaction().remove();
+                                    FuncionalityShop.getImageAnimTransaction().remove();
+                                    FuncionalityShop.animationEndTransaction("Brak zlota!", Color.RED);
+                                }
+                                FuncionalityShop.removeAllShop();
+                            } catch (CloneNotSupportedException e) {
+                                e.printStackTrace();
                             }
-                            FuncionalityShop.removeAllShop();
-                        } catch (CloneNotSupportedException e) {
-                            e.printStackTrace();
+                            break;
                         }
-                        break;
+                        if (i == 17) {//TODO TEST!
+                            Label label = new Label("Brak pustego miejsca w ekwipunku", style);
+                            label.setFontScale(2);
+                            label.setPosition(BaseScreen.VIEW_WIDTH / 2 - label.getWidth() / 2, BaseScreen.VIEW_HEIGHT / 2);
+                            label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.6f), Actions.delay(1), Actions.fadeOut(0.4f)));
+                            stage.addActor(label);
+                        }
                     }
-                    if(i == 17){//TODO TEST!
-                        Label label = new Label("Brak pustego miejsca w ekwipunku", style);
-                        label.setFontScale(2);
-                        label.setPosition(BaseScreen.VIEW_WIDTH /2 - label.getWidth() /2, BaseScreen.VIEW_HEIGHT /2);
-                        label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.6f), Actions.delay(1), Actions.fadeOut(0.4f)));
-                        stage.addActor(label);
-                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        bSell.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                updateSellTouchable(false);
-                FuncionalityShop.animationEndTransaction("+" +FuncionalityShop.getPrice(), Color.GREEN);
-                FuncionalityShop.removeAllShop();
+            bSell.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    updateSellTouchable(false);
+                    FuncionalityShop.animationEndTransaction("+" + FuncionalityShop.getPrice(), Color.GREEN);
+                    FuncionalityShop.removeAllShop();
 
-                int slotNr = FuncionalityShop.getActualSlotNrBag();
-                Equipment.slotEmpty[slotNr] = false;
-                FuncionalityShop.getActualItemImageBag().remove();
+                    int slotNr = FuncionalityShop.getActualSlotNrBag();
+                    Equipment.slotEmpty[slotNr] = false;
+                    FuncionalityShop.getActualItemImageBag().remove();
 
-                preferences.putString("SLOT" + slotNr, "");
-                preferences.flush();
-                Hero.setMoney(Hero.getMoney() +FuncionalityShop.getPrice());
-                preferencesStats.putInteger("MONEY", Hero.getMoney());
-                preferencesStats.flush();
+                    preferences.putString("SLOT" + slotNr, "");
+                    preferences.flush();
+                    Hero.setMoney(Hero.getMoney() + FuncionalityShop.getPrice());
+                    preferencesStats.putInteger("MONEY", Hero.getMoney());
+                    preferencesStats.flush();
 
-                lMoneyLeft.setText("" + Hero.getMoney());
-                lMoneyRight.setText("" + Hero.getMoney());
-                return false;
-            }
-        });
+                    lMoneyLeft.setText("" + Hero.getMoney());
+                    lMoneyRight.setText("" + Hero.getMoney());
+                    return false;
+                }
+            });
 
-        showHeroMoney();
-        setHeroMoneyVisibleLeft(false);
-        setHeroMoneyVisibleRight(false);
-        updateSellTouchable(false);
-        updateBuyTouchable(false);
+            showHeroMoney();
+            setHeroMoneyVisibleLeft(false);
+            setHeroMoneyVisibleRight(false);
+            updateSellTouchable(false);
+            updateBuyTouchable(false);
+        }
     }
 
     private void showEq(String[] itemList) {
