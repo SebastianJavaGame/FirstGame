@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.mygdx.game.Asset;
 import com.mygdx.game.Bag;
 import com.mygdx.game.Character;
@@ -206,9 +206,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     private void initializeUiStage(){
-        stageUi = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
-        stageStats = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
-        stageCard = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT));
+        stageUi = new Stage(new FillViewport(VIEW_WIDTH, VIEW_HEIGHT));
+        stageStats = new Stage(new FillViewport(VIEW_WIDTH, VIEW_HEIGHT));
+        stageCard = new Stage(new FillViewport(VIEW_WIDTH, VIEW_HEIGHT));
 
         im = new InputMultiplexer(this, stageUi, stageStats, stageCard, stage);
         Gdx.input.setInputProcessor(im);

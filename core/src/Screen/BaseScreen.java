@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.MyGdxGame;
 
 /**
@@ -44,7 +44,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             camera = new OrthographicCamera();
             camera.setToOrtho(false, VIEW_WIDTH, VIEW_HEIGHT);
 
-            stage = new Stage(new FitViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
+            stage = new Stage(new StretchViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
 
             InputMultiplexer im = new InputMultiplexer(this, stage);
             Gdx.input.setInputProcessor(im);
