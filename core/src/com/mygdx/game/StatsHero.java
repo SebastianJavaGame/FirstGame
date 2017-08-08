@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 
 import Screen.BaseMap;
+import Screen.Menu;
 
 /**
  * Created by Sebastian on 2017-07-03.
@@ -105,6 +106,7 @@ public class StatsHero {
             buttonAdd[0].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
+                        Menu.getSoundClick().play();
                         hero.setMaxHp(hero.getMaxHp() + 10);
                         hero.setHpEq(hero.getHpEq() + 10);
                         hero.setPoint(hero.getPoint() - 1);
@@ -129,6 +131,7 @@ public class StatsHero {
             buttonAdd[1].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
+                        Menu.getSoundClick().play();
                         hero.setArmor(hero.getArmor() + 1);
                         hero.setArmorEq(hero.getArmorEq() + 1);
                         hero.setPoint(hero.getPoint() - 1);
@@ -147,6 +150,7 @@ public class StatsHero {
             buttonAdd[2].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
+                        Menu.getSoundClick().play();
                         hero.setStrong(hero.getStrong() + 1);
                         hero.setStrongEq(hero.getStrongEq() + 1);
                         implementListener(4, hero.getStrong(), hero.getStrongEq(), "STRONG");
@@ -171,6 +175,7 @@ public class StatsHero {
             buttonAdd[4].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
+                        Menu.getSoundClick().play();
                         hero.setDefenseFiz(hero.getDefenseFiz() + 1);
                         hero.setDefenseFizEq(hero.getDefenseFizEq() + 1);
                         implementListener(8, hero.getDefenseFiz(), hero.getDefenseFizEq(), "DEFENSE_FIZ");

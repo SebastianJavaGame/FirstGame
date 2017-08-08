@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Screen.BaseScreen;
 import Screen.Map_01;
+import Screen.Menu;
 
 /**
  * Created by Sebastian on 2017-07-30.
@@ -84,6 +85,7 @@ public class Shop extends BaseScreen{
             close.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Menu.getSoundClick().play();
                     Hero.setActiveMove(false);
                     BaseScreen.getGame().setScreen(new Map_01(BaseScreen.getGame()));
                     return false;
@@ -142,6 +144,7 @@ public class Shop extends BaseScreen{
         buttonMenu[0].addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
                 removeMenu();
                 new Transaction(0, image, name, level, idShop);
                 return false;
@@ -152,6 +155,7 @@ public class Shop extends BaseScreen{
         buttonMenu[1].addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
                 removeMenu();
                 new Transaction(1, image, name, level, idShop);
                 return false;
@@ -165,6 +169,7 @@ public class Shop extends BaseScreen{
         buttonMenu[4].addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
                 removeMenu();
                 new Transaction(4, image, name, level, idShop);
                 return false;

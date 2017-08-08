@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -75,6 +76,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     private Label hpLabel;
     private Label expLabel;
     private Label levelLabel;
+
+    private Sound card;
 
     private RenderCollisionLine_Test testRender;
 
@@ -213,6 +216,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         im = new InputMultiplexer(this, stageUi, stageStats, stageCard, stage);
         Gdx.input.setInputProcessor(im);
 
+        card = asset.manager.get("sound/card.ogg", Sound.class);
+
         BitmapFont font = new BitmapFont();
         labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
@@ -242,10 +247,12 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
                     windowStatsOpen = false;
                     stageStats.clear();
                     stageCard.clear();
+                    card.play();
                 }else{
                     windowStatsOpen = true;
                     stopGame = true;
                     new Bag(stageStats, stageCard, hero);
+                    card.play();
                 }
                 System.out.println(windowStatsOpen);
                 return false;
@@ -315,7 +322,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("x: " + screenX);
-        System.out.println("y: " + screenX);
+        System.out.println("y: " + screenY);
     if(!stopGame && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
@@ -343,6 +350,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         stageStats.dispose();
         stageCard.dispose();
         hero3D.dispose();
+        card.dispose();
     }
 
     public static BaseMap getActualMap(){

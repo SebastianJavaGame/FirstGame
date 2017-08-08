@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Screen.BaseScreen;
+import Screen.Menu;
 
 /**
  * Created by Sebastian on 2017-07-30.
@@ -58,6 +60,8 @@ class Transaction {
     private static TextButton bBuy;
     private static TextButton bSell;
 
+    private Sound soundShop;
+
     public Transaction(int itemGroup, final Image image, final String name, final int level, final int idShop) {
         this.image = image;
         this.name = name;
@@ -68,6 +72,7 @@ class Transaction {
         asset.loadTransaction();
         asset.manager.finishLoading();
         if(asset.manager.update()) {
+            soundShop = asset.manager.get("sound/shop.ogg", Sound.class);
             STYLE_BACK.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonBack.png", Texture.class)));
             STYLE_TRANSACTION_SELL.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonTransaction.png", Texture.class)));
             STYLE_TRANSACTION_BUY.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonTransaction.png", Texture.class)));
@@ -98,6 +103,7 @@ class Transaction {
                         FuncionalityShop.getlAnimTransaction().remove();
                         FuncionalityShop.getImageAnimTransaction().remove();
                     }
+                    Menu.getSoundClick().play();
                     FuncionalityShop.setFirstClick(true);
                     FuncionalityShop.setActive(false);
                     BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
@@ -116,6 +122,7 @@ class Transaction {
                             try {
                                 int money = preferencesStats.getInteger("MONEY");
                                 if (money >= FuncionalityShop.getPrice()) {
+                                    soundShop.play();
                                     FuncionalityShop.animationEndTransaction("-" + FuncionalityShop.getPrice(), Color.RED);
                                     FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(FuncionalityShop.getActualItemNameShop()), i);
 
@@ -153,6 +160,7 @@ class Transaction {
             bSell.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    soundShop.play();
                     updateSellTouchable(false);
                     FuncionalityShop.animationEndTransaction("+" + FuncionalityShop.getPrice(), Color.GREEN);
                     FuncionalityShop.removeAllShop();

@@ -3,6 +3,7 @@ package Screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -41,6 +42,8 @@ public class Menu extends BaseScreen {
     private TextButton lMore;
     private TextButton lExit;
 
+    private static Sound soundClick;
+
     public Menu(Game g) {
         super(g);
         asset = new Asset();
@@ -56,6 +59,7 @@ public class Menu extends BaseScreen {
         asset.loadMenu();
         asset.manager.finishLoading();
         if(asset.manager.update()){
+            soundClick = asset.manager.get("sound/click.ogg", Sound.class);
             texture = new Image(asset.manager.get("menu.png", Texture.class));
             textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("confirmButtonNewGame.png", Texture.class)));
             textStyleDisapear.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("menuButton.png", Texture.class)));
@@ -77,6 +81,7 @@ public class Menu extends BaseScreen {
         lNewGame.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                getSoundClick().play();
                 confirmDialog();
                 return false;
             }
@@ -85,6 +90,7 @@ public class Menu extends BaseScreen {
         lLoadGame.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                getSoundClick().play();
                 new Quest(stage);
                 new LoadAllItemToGame().loadItems();
                 ExperienceRequired.loadExperienceList();
@@ -101,6 +107,7 @@ public class Menu extends BaseScreen {
         lMore.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                getSoundClick().play();
                 new HowPlay(game);
                 return false;
             }
@@ -109,6 +116,7 @@ public class Menu extends BaseScreen {
         lExit.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                getSoundClick().play();
                 Gdx.app.exit();
                 return false;
             }
@@ -145,6 +153,7 @@ public class Menu extends BaseScreen {
             bYes.addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    getSoundClick().play();
                     new Quest(stage);
                     clearAllPreference();
                     new LoadAllItemToGame().loadItems();
@@ -162,6 +171,7 @@ public class Menu extends BaseScreen {
             bNo.addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    getSoundClick().play();
                     stage.clear();
                     create();
                     return false;
@@ -218,5 +228,9 @@ public class Menu extends BaseScreen {
 
     public static boolean getIsFirstSpawnHeroPosition(){
         return isFirstSpawnHeroPosition;
+    }
+
+    public static Sound getSoundClick(){
+        return soundClick;
     }
 }

@@ -200,6 +200,7 @@ public class FightWin extends BaseScreen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Quest.checkKillTargetWithTask(enemy.getName().toLowerCase());
                 Menu.setIsFirstSpawnHeroPosition(true);
+                Menu.getSoundClick().play();
 
                 expMax = ExperienceRequired.getMaxExperience(twoBase);
                 float resultPrecent;
@@ -210,8 +211,6 @@ public class FightWin extends BaseScreen {
                 for (int i = 0; i < 100; i++) {
                     oneBase++;
                     twoBase++;
-                    System.out.println(oneBase);
-                    System.out.println(twoBase);
                     if (resultActualExp < 100) {
                         if (heroLevel == hero.getLevel())
                             hero.setExp(hero.getExp() + allExp);

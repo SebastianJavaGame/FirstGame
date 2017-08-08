@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -31,7 +32,6 @@ public class FieldDialogue {
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
     public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
-    public final int POSITION_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
     private static final int LINE_LENGTH = 33;
     private static final float FONT_SIZE = 1f;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
@@ -67,10 +67,13 @@ public class FieldDialogue {
     private int answerSecond = -1;
     private int answerThird = -1;
 
+    private Sound textDialog;
+
     public FieldDialogue(int idNpc, int indexText){
         asset.loadFieldDialogue();
         asset.manager.finishLoading();
         if(asset.manager.update()) {
+            textDialog = asset.manager.get("sound/textDialog.ogg", Sound.class);
             barVerticalLeft = new Image(asset.manager.get("dialogueShortBar.png", Texture.class));
             barVerticalRight = new Image(asset.manager.get("dialogueShortBar.png", Texture.class));
             barHorizontalUp = new Image(asset.manager.get("dialogueLongBar.png", Texture.class));
@@ -158,6 +161,7 @@ public class FieldDialogue {
         label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                textDialog.play(0.5f);
                 clearFieldDialogue();
                 int[] arrayNewDialog = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
                 for(int i = 0; i < arrayNewDialog.length; i++) {
@@ -178,6 +182,7 @@ public class FieldDialogue {
         label.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                textDialog.play(0.5f);
                 DialogNpc.removeAll();
                 Hero.setActiveMove(false);
                 Hero3D.setRenderHero3d(true);
@@ -194,6 +199,7 @@ public class FieldDialogue {
         label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                textDialog.play(0.5f);
                 DialogNpc.removeAll();
                 BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
                 System.out.println("shop");
@@ -210,6 +216,7 @@ public class FieldDialogue {
         label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                textDialog.play(0.5f);
                 DialogNpc.removeAll();
                 Hero.setActiveMove(false);
                 Hero3D.setRenderHero3d(true);
@@ -241,6 +248,7 @@ public class FieldDialogue {
         label.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                textDialog.play(0.5f);
                 // int[] nextDialogueText = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
                 //add new Field with text;
                 return false;
@@ -256,6 +264,7 @@ public class FieldDialogue {
         label.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                textDialog.play(0.5f);
                 clearFieldDialogue();
 
                 for(int j = 0; j != -1; j++) {
@@ -353,6 +362,7 @@ public class FieldDialogue {
     }
 
     private void levelUp(){
+        Hero.playSoundLvlUp();
         PREFERENCE.putInteger("LEVEL", PREFERENCE.getInteger("LEVEL") +1).flush();
         PREFERENCE.putInteger("FREE_POINT", PREFERENCE.getInteger("FREE_POINT") +5).flush();
         Hero.setLevel(Hero.getLevel() +1);

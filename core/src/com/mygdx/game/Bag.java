@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Screen.BaseScreen;
+import Screen.Menu;
 
 /**
  * Created by Sebastian on 2017-06-10.
@@ -40,6 +42,8 @@ public class Bag {
     private Label infoCloseCard;
     private Label infoCloseGame;
 
+    private Sound page;
+
     public Bag(Stage card){
         this.card = card;
     }
@@ -54,9 +58,10 @@ public class Bag {
 
     private void create() {
         asset.loadBag();
-
         asset.manager.finishLoading();
         if(asset.manager.update()) {
+            page = asset.manager.get("sound/card.ogg", Sound.class);
+
             background = new Image(asset.manager.get("statsBackground.png", Texture.class));
             background.setSize(BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT - 50);
 
@@ -65,6 +70,7 @@ public class Bag {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (!Equipment.getBlockClick()) {
                         try {
+                            page.play();
                             initCardEq();
                         } catch (CloneNotSupportedException e) {
                             e.printStackTrace();
@@ -78,8 +84,10 @@ public class Bag {
             buttonStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("stats.png", Texture.class))));
             buttonStats.addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                    if (!Equipment.getBlockClick())
+                    if (!Equipment.getBlockClick()) {
+                        page.play();
                         initCardStats();
+                    }
                     return false;
                 }
             });
@@ -88,8 +96,10 @@ public class Bag {
             buttonQuest = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("quest.png", Texture.class))));
             buttonQuest.addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                    if (!Equipment.getBlockClick())
+                    if (!Equipment.getBlockClick()){
+                        page.play();
                         initCardQuest();
+                    }
                     return false;
                 }
             });
@@ -98,8 +108,10 @@ public class Bag {
             buttonExit = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("exit.png", Texture.class))));
             buttonExit.addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                    if (!Equipment.getBlockClick())
+                    if (!Equipment.getBlockClick()){
+                        page.play();
                         initCardExit();
+                    }
                     return false;
                 }
             });
@@ -177,6 +189,7 @@ public class Bag {
                 preferences.putInteger("DEFENSE_MAG", hero.getDefenseMag()).flush();
                 preferences.putInteger("POS_X", (int)hero.getX()).flush();
                 preferences.putInteger("POS_Y", (int)hero.getY()).flush();
+                Menu.getSoundClick().play();
                 Gdx.app.exit();
                 return false;
             }

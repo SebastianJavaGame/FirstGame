@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Screen.BaseMap;
 import Screen.BaseScreen;
+import Screen.Menu;
 
 /**
  * Created by Sebastian on 2017-07-26.
@@ -63,6 +64,7 @@ public class DialogNpc {
         CLOSE_BUTTON.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
                 removeAll();
                 FieldDialogue.clearDialogueReward();
                 Hero.setActiveMove(false);

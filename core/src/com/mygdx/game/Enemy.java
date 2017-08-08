@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import Screen.BaseMap;
 import Screen.BaseScreen;
 import Screen.FightScreen;
+import Screen.Menu;
 
 /**
  * Created by Sebastian on 2017-05-31.
@@ -48,6 +50,9 @@ public class Enemy extends Character {
     private float defaultScreenZeroY;
 
     private boolean attackType;
+
+    private Sound soundCollision;
+    private Sound soundView;
 
     public Enemy(Texture texture, Image head, Image wapon, boolean attackType, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
                  float randomDrop, int expDrop ,int moneyDrop) {
@@ -81,6 +86,9 @@ public class Enemy extends Character {
         asset.loadEnemy();
         asset.manager.finishLoading();
         if(asset.manager.update()) {
+            soundCollision = asset.manager.get("sound/collisionEnemy.ogg", Sound.class);
+            soundView = asset.manager.get("sound/card.ogg", Sound.class);
+            soundCollision.play(0.3f);
             final Image shadow = new Image(asset.manager.get("shadow.png", Texture.class));
             final ImageButton attackScreen = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAttack.png", Texture.class))));
             final ImageButton infoEnemy = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonInfo.png", Texture.class))));
@@ -115,6 +123,7 @@ public class Enemy extends Character {
 
             infoEnemy.addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                    soundView.play();
                     shadow.remove();
                     attackScreen.remove();
                     infoEnemy.remove();
@@ -193,6 +202,7 @@ public class Enemy extends Character {
                     attackScreen.remove();
                     infoEnemy.remove();
                     cancel.remove();
+                    Menu.getSoundClick().play();
                     hero.setActiveMove(false);
                     return false;
                 }

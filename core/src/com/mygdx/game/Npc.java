@@ -31,6 +31,7 @@ public class Npc extends Character{
 
     @Override
     public void collisionDo() {
+        Hero.setStopStep();
         new DialogNpc(this);
     }
 

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,14 +24,24 @@ public class Quest {
     private final Preferences PREF = Gdx.app.getPreferences(PREF_TASK);
     private static final BitmapFont FONT = new BitmapFont();
     private static final Label.LabelStyle STYLE = new Label.LabelStyle();
+    private Asset asset;
     private Stage stage;
 
     private static ArrayList<Integer> idTaskList;
     private Label lTitle;
 
+    private static Sound soundComplite;
+
     public Quest(Stage stage) {
         this.stage = stage;
         idTaskList = new ArrayList<Integer>();
+
+        asset = new Asset();
+        asset.loadQuest();
+        asset.manager.finishLoading();
+        if(asset.manager.update()){
+            soundComplite = asset.manager.get("sound/taskComplite.ogg", Sound.class);
+        }
 
         STYLE.font = FONT;
         lTitle = new Label("Lista zadan", STYLE);
@@ -94,6 +105,7 @@ public class Quest {
                         float endStep = BaseTask.getProgressMax(idTask);
                         float percent = actualStep /endStep;
                         if(percent >= 1) {
+                            soundComplite.play();
                             BaseTask.setTaskComplete(idTask, true);
                         }
                     }

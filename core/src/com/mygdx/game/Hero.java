@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -94,6 +95,10 @@ public class Hero extends Character {
 
     private static int point;
 
+    private Sound soundNextMap;
+    private static Sound soundStep;
+    private static Sound soundLvlUp;
+
     public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D,
                 ArrayList<Character> characters) {
         super(texture);
@@ -118,6 +123,9 @@ public class Hero extends Character {
         asset.manager.finishLoading();
         if(asset.manager.update()){
             arm = asset.manager.get("heroArm.png", Texture.class);
+            soundNextMap = asset.manager.get("sound/nextMap.ogg", Sound.class);
+            soundStep = asset.manager.get("sound/step.ogg", Sound.class);
+            soundLvlUp = asset.manager.get("sound/lvlUp.ogg", Sound.class);
             create();
         }
     }
@@ -175,6 +183,9 @@ public class Hero extends Character {
         clearActions();
         heroPolygonUpdate();
         heroUpdateCollisionBox();
+
+        soundStep.stop();
+        soundStep.loop(0.2f, 0.5f, 0);
 
         start.set((int) getX() + getWidth() / 2, (int) getY() + getHeight() / 2);
         end.set((int) posX + getWidth() / 2, (int) posY + getHeight() / 2);
@@ -547,6 +558,7 @@ public class Hero extends Character {
     }
 
     public void levelUp(){
+        soundLvlUp.play();
         preferences.putInteger("LEVEL", preferences.getInteger("LEVEL") +1).flush();
         preferences.putInteger("FREE_POINT", preferences.getInteger("FREE_POINT") +5).flush();
         setLevel(getLevel() + 1);
@@ -577,6 +589,7 @@ public class Hero extends Character {
         if(Intersector.overlapConvexPolygons(heroPolygon, getActualCollision())){
             hero3D.setStopAnimation();
             this.clearActions();
+            soundStep.stop();
         }
     }
 
@@ -604,6 +617,7 @@ public class Hero extends Character {
                 actualIndexCharacter = i;
                 preferences.putInteger("COLLISION", actualIndexCharacter);
                 preferences.flush();
+                soundStep.stop();
             }
         }
     }
@@ -707,11 +721,13 @@ public class Hero extends Character {
             hero3D.setStopAnimation();
             animationPlay = false;
             setCharacterCollisionLook(false);
+            soundStep.stop();
         }
 
         for(int i = 0; i < BaseMap.getEntriaceToMapRectangle().size(); i++){
             if(calculateCollisionTwoRectangle(heroBox, BaseMap.getEntriaceToMapRectangle().get(i))){
                 Hero3D.setStopAnimation();
+                soundNextMap.play(0.8f);
                 /**
                  * i = indexToLoadMap
                  */
@@ -1059,6 +1075,14 @@ public class Hero extends Character {
 
     public void setCharacterCollision(boolean charactersCollision) {
         this.characterCollision = charactersCollision;
+    }
+
+    public static void setStopStep(){
+        soundStep.stop();
+    }
+
+    public static void playSoundLvlUp(){
+        soundLvlUp.play();
     }
 
     public Hero getHero(){

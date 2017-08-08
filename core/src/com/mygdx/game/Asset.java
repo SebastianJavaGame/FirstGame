@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -16,6 +17,8 @@ public class Asset implements Disposable {
         manager.load("confirmButtonNewGame.png", Texture.class);
         manager.load("menuButton.png", Texture.class);
         manager.load("confirmNewGame.png", Texture.class);
+
+        manager.load("sound/click.ogg", Sound.class);
     }
 
     public void loadBag(){
@@ -26,6 +29,8 @@ public class Asset implements Disposable {
         manager.load("exit.png", Texture.class);
         manager.load("bar.png", Texture.class);
         manager.load("exitGame.png", Texture.class);
+
+        manager.load("sound/card.ogg", Sound.class);
     }
 
     public void loadEnemy(){
@@ -34,6 +39,9 @@ public class Asset implements Disposable {
         manager.load("buttonInfo.png", Texture.class);
         manager.load("buttonCancel.png", Texture.class);
         manager.load("infoEnemy.png", Texture.class);
+
+        manager.load("sound/collisionEnemy.ogg", Sound.class);
+        manager.load("sound/card.ogg", Sound.class);
     }
 
     public void loadEquipment(){
@@ -50,6 +58,8 @@ public class Asset implements Disposable {
         manager.load("slotInfoItem.png", Texture.class);
         manager.load("nameBar.png", Texture.class);
         manager.load("barX.png", Texture.class);
+
+        manager.load("sound/soundEquipment.ogg", Sound.class);
     }
 
     public void loadFieldDialogue(){
@@ -57,6 +67,8 @@ public class Asset implements Disposable {
         manager.load("dialogueLongBar.png", Texture.class);
         manager.load("uiMoney.png", Texture.class);
         manager.load("uiExp.png", Texture.class);
+
+        manager.load("sound/textDialog.ogg", Sound.class);
     }
 
     public void loadFunctionalityShop(){
@@ -70,6 +82,10 @@ public class Asset implements Disposable {
 
     public void loadHero(){
         manager.load("heroArm.png", Texture.class);
+
+        manager.load("sound/nextMap.ogg", Sound.class);
+        manager.load("sound/step.ogg", Sound.class);
+        manager.load("sound/lvlUp.ogg", Sound.class);
     }
 
     public void loadShop(){
@@ -92,12 +108,15 @@ public class Asset implements Disposable {
         manager.load("taskProgressBackground.png", Texture.class);
         manager.load("taskProgress.png", Texture.class);
         manager.load("buttonTaskCancel.png", Texture.class);
+
     }
 
     public void loadTransaction(){
         manager.load("buttonBack.png", Texture.class);
         manager.load("buttonTransaction.png", Texture.class);
         manager.load("shopBackgroundTransaction.png", Texture.class);
+
+        manager.load("sound/shop.ogg", Sound.class);
     }
 
     public void loadBaseMap(){
@@ -109,6 +128,8 @@ public class Asset implements Disposable {
         manager.load("barEmpty.png", Texture.class);
         manager.load("barHp.png", Texture.class);
         manager.load("barExp.png", Texture.class);
+
+        manager.load("sound/card.ogg", Sound.class);
     }
 
     public void loadFightScreen(){
@@ -125,6 +146,10 @@ public class Asset implements Disposable {
         manager.load("itemButton.png", Texture.class);
         manager.load("plus.png", Texture.class);
         manager.load("minus.png", Texture.class);
+    }
+
+    public void loadQuest(){
+        manager.load("sound/taskComplite.ogg", Sound.class);
     }
 
     public void loadMap_01(){

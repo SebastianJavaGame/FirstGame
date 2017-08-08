@@ -23,8 +23,8 @@ import com.mygdx.game.BaseEnemyAI;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.Hero;
-import com.mygdx.game.InfoScreen;
 import com.mygdx.game.MyException;
+import com.mygdx.game.Task;
 
 import java.util.ArrayList;
 
@@ -229,6 +229,7 @@ public class FightScreen extends BaseScreen {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Menu.setIsFirstSpawnHeroPosition(true);
+                    Menu.getSoundClick().play();
 
                     if (abort && !animationPlay) {
                         Label label = new Label("ABORT!", style);
@@ -259,6 +260,7 @@ public class FightScreen extends BaseScreen {
             abortActive.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Menu.getSoundClick().play();
                     if (abortFirstTap && !animationPlay) {
                         if (hpHero > hpMaxHero * 0.2f)
                             abortFirstTap = false;
@@ -272,6 +274,7 @@ public class FightScreen extends BaseScreen {
                         buttonAbort.addListener(new InputListener() {
                             @Override
                             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                Menu.getSoundClick().play();
                                 Menu.setIsFirstSpawnHeroPosition(true);
 
                                 if (hpHero > hpMaxHero * 0.2f) {
@@ -325,7 +328,7 @@ public class FightScreen extends BaseScreen {
                                     stage.addAction(Actions.sequence(action));
                                 } else {
                                     buttonAbort.remove();
-                                    new InfoScreen("Masz zbyt malo punktow zycia\nucieczka spowodowalaby smierc.\nPodnies sie i walcz!", 3);
+                                    new InfoScreen("Masz zbyt malo punktow zycia\nucieczka spowodowalaby smierc.\nPodnies sie i walcz!", 3, BaseScreen.getStage());
                                 }
                                 return false;
                             }
@@ -346,7 +349,7 @@ public class FightScreen extends BaseScreen {
             startFight.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println("Start");
+                    Menu.getSoundClick().play();
                     startFight.remove();
                     try {
                         updateRound();
@@ -1162,7 +1165,7 @@ public class FightScreen extends BaseScreen {
             plusButton[iterator].addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println("PLUS");
+                    Menu.getSoundClick().play();
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
                     if(actualPoint < 5 && freePointFight > 0) {
                         actualPoint++;
@@ -1177,7 +1180,7 @@ public class FightScreen extends BaseScreen {
             minusButton[iterator].addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println("MINUS");
+                    Menu.getSoundClick().play();
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
                     if (actualPoint > 0 && freePointFight >= 0) {
                         actualPoint--;

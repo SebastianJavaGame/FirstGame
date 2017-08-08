@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import Screen.Menu;
+
 /**
  * Created by Sebastian on 2017-08-01.
  */
@@ -61,6 +63,7 @@ public class Task {
             cancel.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Menu.getSoundClick().play();
                     deleteTask(indexTask, idTask);
                     BaseTask.setTaskComplete(idTask, false);
                     return false;
