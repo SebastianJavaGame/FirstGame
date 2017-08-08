@@ -30,7 +30,8 @@ public class FieldDialogue {
     private static final BitmapFont FONT = new BitmapFont();
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
-    private final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
+    public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
+    public final int POSITION_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
     private static final int LINE_LENGTH = 33;
     private static final float FONT_SIZE = 1f;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
@@ -214,15 +215,16 @@ public class FieldDialogue {
                 Hero3D.setRenderHero3d(true);
                 //TODO add animation red migajace circle around icon bag
                 for(int i = 0;; i++){
-                    if(PREF.getInteger("TASK" +i) == idTask) {
+                    /*if(PREF.getInteger("TASK" +i) == idTask) {
                        //TODO show communicate at map as new class
+                        System.out.println("inside");
                         break;
-                    }
+                    }*/
 
                     if(PREF.getInteger("TASK" + i, -1) == -1) {
-                        PREF.putInteger("TASK" + i, idTask);
+                        PREF.putInteger("TASK" + i, idTask).flush();
                         //PREF.putInteger("TASK" + i + "_PROGRESS", 1);
-                        PREF.flush();
+                        System.out.println("put task");
                         break;
                     }
                 }
@@ -309,7 +311,7 @@ public class FieldDialogue {
                 iMoney = new Image(asset.manager.get("uiMoney.png", Texture.class));
                 iExp = new Image(asset.manager.get("uiExp.png", Texture.class));
 
-                lExp.setPosition(POSITION_X +4, DialogNpc.POS_TEXT_FIELD_NPC -lExp.getHeight());
+                lExp.setPosition(POSITION_X +4, (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2 +360 -lExp.getHeight());
                 lMoney.setPosition(POSITION_X +4, lExp.getY() -25);
                 lClose.setPosition(POSITION_X +4, lMoney.getY() -45);
 

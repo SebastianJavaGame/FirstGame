@@ -134,7 +134,7 @@ public class FightScreen extends BaseScreen {
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
         //hpHero = 0;
-        //hpEnemy = 0;
+        hpEnemy = 10;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -265,7 +265,7 @@ public class FightScreen extends BaseScreen {
 
                         final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
                         textStyleAbort.font = font;
-                        textStyleAbort.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbort.png", Texture.class)));
+                        textStyleAbort.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbord.png", Texture.class)));
                         buttonAbort = new TextButton("Abort!", textStyleAbort);
                         buttonAbort.setSize(150, 50);
                         buttonAbort.setPosition(BaseScreen.VIEW_WIDTH / 2 - startFight.getWidth() / 2, 180);
@@ -551,8 +551,8 @@ public class FightScreen extends BaseScreen {
                     avergeDmgFight.add(dmg);
                     hpEnemy -= dmg;
                     energyHero -= 20;
-                    checkKill();
                     checkEnergy();
+                    checkKill();
                     animateBlood(false);
                 }
                 lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
@@ -580,8 +580,8 @@ public class FightScreen extends BaseScreen {
                 }else {
                     hpHero -= dmg;
                     energyEnemy -= 20;
-                    checkKill();
                     checkEnergy();
+                    checkKill();
                     animateBlood(true);
                 }
                 lHpHero.setText(hpHero + " / " + hpMaxHero);
@@ -613,8 +613,8 @@ public class FightScreen extends BaseScreen {
                     avergeDmgFight.add(dmg);
                     hpEnemy -= dmg;
                     energyHero -= 15;
-                    checkKill();
                     checkEnergy();
+                    checkKill();
                     animateBlood(false);
                 }
                 lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
@@ -645,8 +645,8 @@ public class FightScreen extends BaseScreen {
                     avergeDmgFight.add(dmg);
                     hpEnemy -= dmg;
                     energyHero -= 15;
-                    checkKill();
                     checkEnergy();
+                    checkKill();
                     animateBlood(false);
                 }
                 lHpEnemy.setText(hpEnemy + " / " + hpMaxEnemy);
@@ -674,8 +674,8 @@ public class FightScreen extends BaseScreen {
                 }else {
                     hpHero -= dmg;
                     energyEnemy -= 15;
-                    checkKill();
                     checkEnergy();
+                    checkKill();
                     animateBlood(true);
                 }
                 lHpHero.setText(hpHero + " / " + hpMaxHero);
@@ -704,8 +704,8 @@ public class FightScreen extends BaseScreen {
                 }else {
                     hpHero -= dmg;
                     energyEnemy -= 15;
-                    checkKill();
                     checkEnergy();
+                    checkKill();
                     animateBlood(true);
                 }
                 lHpHero.setText(hpHero + " / " + hpMaxHero);
@@ -920,9 +920,16 @@ public class FightScreen extends BaseScreen {
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
             waponHero.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(-18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(-36, 0.3f)), Actions.rotateBy(-18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(-9, 0.15f)), Actions.rotateBy(61)));
         }else{
-            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
-            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            waponEnemy.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(-20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(36, 0.3f)), Actions.rotateBy(18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(9, 0.15f)), Actions.rotateBy(-61)));
+            if(enemy.getAttackType()){
+                dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
+                procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
+                waponEnemy.addAction(Actions.sequence(Actions.delay(delay - 0.2f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() +20, enemyImage.getY() + enemyImage.getHeight() /2 -40), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() /2, heroImage.getY() +heroImage.getHeight() /2, 0.7f)), Actions.parallel(Actions.sequence(Actions.delay(0.5f), Actions.fadeOut(0.4f)), Actions.moveBy(70, 0, 0.7f))));
+
+            }else {
+                dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
+                procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
+                waponEnemy.addAction(Actions.sequence(Actions.delay(delay - 0.2f), Actions.rotateBy(-20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(36, 0.3f)), Actions.rotateBy(18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(9, 0.15f)), Actions.rotateBy(-61)));
+            }
         }
     }
 

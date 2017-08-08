@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Map_02 extends BaseMap {
     public static final int STARTING_POS_X = 200;
     public static final int STARTING_POS_Y = 200;
-    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("background.png")));
+    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("MAP_01-up.png")));
     public final static int MAP_WIDTH = (int)MAP_IMAGE.getWidth();
     public final static int MAP_HEIGHT = (int)MAP_IMAGE.getHeight();
     private Preferences pref;
@@ -117,7 +117,7 @@ public class Map_02 extends BaseMap {
 
     private void addEnemy(String path, String head, String wapon, int x){
         Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))),
-                new Image(new Texture(Gdx.files.internal(wapon))),  "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 40, 70);
+                new Image(new Texture(Gdx.files.internal(wapon))), true, "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 40, 70);
         enemy.setRectangle(0, 0, 0, 0);
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();

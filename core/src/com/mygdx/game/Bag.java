@@ -54,6 +54,7 @@ public class Bag {
 
     private void create() {
         asset.loadBag();
+
         asset.manager.finishLoading();
         if(asset.manager.update()) {
             background = new Image(asset.manager.get("statsBackground.png", Texture.class));
@@ -103,6 +104,11 @@ public class Bag {
                 }
             });
             buttonExit.setPosition(background.getX() + 250, 385);
+
+            buttonExit.setDebug(true);
+            buttonEq.setDebug(true);
+            buttonQuest.setDebug(true);
+            buttonStats.setDebug(true);
 
             stage.addActor(background);
             stage.addActor(buttonEq);

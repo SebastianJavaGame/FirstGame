@@ -284,15 +284,11 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     private void uiUpdate() {
         hpRefresh += Gdx.graphics.getDeltaTime();
         if(hpRefresh > 2){
-            System.out.println(hero.getHp());
             hero.setHp((int)(hero.getHp() +(hero.getFullHp() *0.02f)));
-
-            System.out.println(hero.getHp());
 
             if(hero.getHp() > hero.getFullHp())
                 hero.setHp(hero.getFullHp());
 
-            System.out.println("add hp for two second");
             hpRefresh = 0;
         }
 
@@ -318,6 +314,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println("x: " + screenX);
+        System.out.println("y: " + screenX);
     if(!stopGame && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;

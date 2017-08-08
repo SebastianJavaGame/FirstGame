@@ -47,11 +47,14 @@ public class Enemy extends Character {
     private float defaultScreenZeroX;
     private float defaultScreenZeroY;
 
-    public Enemy(Texture texture, Image head, Image wapon, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
+    private boolean attackType;
+
+    public Enemy(Texture texture, Image head, Image wapon, boolean attackType, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
                  float randomDrop, int expDrop ,int moneyDrop) {
         super(texture);
         this.head = head;
         this.wapon = wapon;
+        this.attackType = attackType;
         this.name = name;
         this.level = level;
         this.hp = hp;
@@ -265,6 +268,10 @@ public class Enemy extends Character {
 
     public int getMoneyDrop(){
         return moneyDrop;
+    }
+
+    public boolean getAttackType(){
+        return attackType;
     }
 
     public Image getHead() {

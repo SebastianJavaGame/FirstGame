@@ -338,6 +338,7 @@ public class FightWin extends BaseScreen {
                 else
                     upperTwo = false;
 
+                System.out.println(percent);
                 if (percent >= circleComplete && nextLevelPrecent && !upperTwo) {
                     Label.LabelStyle styleGreen = new Label.LabelStyle();
                     styleGreen.font = font;

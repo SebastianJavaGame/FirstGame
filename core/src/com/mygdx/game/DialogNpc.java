@@ -25,9 +25,9 @@ public class DialogNpc {
     private static final Image UP_LABEL = new Image(new Texture(Gdx.files.internal("dialogueUpLabel.png")));
     private static final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
 
-    public static int POS_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2;
-    public static int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
-    public static int POS_TEXT_FIELD_NPC = POS_Y +360;
+    public final int POS_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2;
+    public final int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
+    public final int POS_TEXT_FIELD_NPC = POS_Y +360;
 
     private static final int START_NPC_TEXT = 8;
     private static final int START_ANSWER_ONE = 0;
@@ -55,7 +55,7 @@ public class DialogNpc {
         fieldTextList = new FieldDialogue[4];
 
         BACKGROUND.setSize(BACKGROUND.getWidth(), 400);
-        BACKGROUND.setPosition(POS_X +(BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, POS_Y +15);
+        BACKGROUND.setPosition(POS_X +(BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, POS_TEXT_FIELD_NPC -345);
         UP_LABEL.setSize(BACKGROUND.getWidth() +20, UP_LABEL.getHeight());//TODO upLabel add background convert to one object
         UP_LABEL.setPosition(BACKGROUND.getX() -15, POS_Y +370);
         CLOSE_BUTTON.setSize(60, 60);
@@ -112,7 +112,7 @@ public class DialogNpc {
 
     public static void updatePosition(){
         if(fieldTextList[0] != null) {
-            fieldTextList[0].setPosition(POS_TEXT_FIELD_NPC);
+            fieldTextList[0].setPosition((int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2 +360);
             fieldTextList[0].getLabel().clearListeners();
         }
         for(int i = 1; i < 4; i++){

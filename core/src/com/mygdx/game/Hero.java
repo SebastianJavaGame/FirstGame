@@ -129,14 +129,14 @@ public class Hero extends Character {
         setMaxHp(preferences.getInteger("MAX_HP", 200));
         setHpNonEq(getMaxHp());
 
-        actualIndexCharacter = preferences.getInteger("COLLISION", 0);
+        actualIndexCharacter = 0;//preferences.getInteger("COLLISION", 0);
         strong = preferences.getInteger("STRONG", 10);
         wiedza = preferences.getInteger("WIEDZA", 10);
         armor = preferences.getInteger("ARMOR", 10);
         defenseFiz = preferences.getInteger("DEFENSE_FIZ", 10);
         defenseMag = preferences.getInteger("DEFENSE_MAG", 10);
 
-        int experience = preferences.getInteger("EXP", 0);
+        int experience = preferences.getInteger("EXP", 1);
         if(experience <= getMaxExp())
             setExp(experience);
         else {
