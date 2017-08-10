@@ -3,6 +3,8 @@ package Screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -24,7 +26,6 @@ import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.Hero;
 import com.mygdx.game.MyException;
-import com.mygdx.game.Task;
 
 import java.util.ArrayList;
 
@@ -106,6 +107,11 @@ public class FightScreen extends BaseScreen {
     Label.LabelStyle style = new Label.LabelStyle();
     Label.LabelStyle styleBlood = new Label.LabelStyle();
 
+    private Music musicBattle;
+    private Sound hitBlock;
+    private Sound hitPositive;
+    private Sound die;
+
     public FightScreen(Game g, Hero hero, Enemy enemy, boolean flip) {
         super(g);
         this.hero = hero;
@@ -152,6 +158,10 @@ public class FightScreen extends BaseScreen {
         asset.loadFightScreen();
         asset.manager.finishLoading();
         if(asset.manager.update()) {
+            musicBattle = asset.manager.get("sound/battle.ogg", Music.class);
+            hitBlock = asset.manager.get("sound/blockAttack.ogg", Sound.class);
+            hitPositive = asset.manager.get("sound/hitPositive.ogg", Sound.class);
+            die = asset.manager.get("sound/herodie.ogg", Sound.class);
             backgroundFight = new Image(asset.manager.get("fight.png", Texture.class));
             barHpHero = new Image(asset.manager.get("barHpFight.png", Texture.class));
             barHpEnemy = new Image(asset.manager.get("barHpFight.png", Texture.class));
@@ -386,6 +396,9 @@ public class FightScreen extends BaseScreen {
             addActors(labelFreePoint, labelRoundNumber, labelName, labelLvl, abortActive, abortNonActive, barHpHero, barHpEnemy, heroImage, barEnergyHero,
                     barEnergyEnemy, enemyImage, enemy.getHead(), lHpHero, lHpEnemy, lEnergyHero, lEnergyEnemy, startFight);
         }
+        musicBattle.setLooping(true);
+        musicBattle.setVolume(0.6f);
+        musicBattle.play();
     }
 
     @Override
@@ -724,7 +737,12 @@ public class FightScreen extends BaseScreen {
         else
             block.setPosition(enemyImage.getX() +enemyImage.getWidth()/2 +30, enemyImage.getY() + enemyImage.getHeight() -20);
 
-        block.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
+        block.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                hitBlock.play();
+            }
+        }), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
     }
 
     private void animateBlood(boolean isHero) {
@@ -733,7 +751,12 @@ public class FightScreen extends BaseScreen {
         else
             blood.setPosition(enemyImage.getX() +enemyImage.getWidth()/2 +30, enemyImage.getY() + enemyImage.getHeight() -20);
 
-        blood.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
+        blood.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                hitPositive.play();
+            }
+        }) ,Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
     }
 
     private static Image flipY() throws CloneNotSupportedException {
@@ -760,6 +783,7 @@ public class FightScreen extends BaseScreen {
                 @Override
                 public void run() {
                     endFightRemoveEffect();
+                    die.play();
                 }
             }),Actions.delay(3), Actions.run(new Runnable() {
                 @Override
@@ -775,6 +799,7 @@ public class FightScreen extends BaseScreen {
 
                     expMinus *= (temporary /100);
 
+                    musicBattle.stop();
                     game.setScreen(new FightLose(game, hero, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), -1000, -(int)expMinus));//TODO set minus gold
                 }
             })));
@@ -786,6 +811,7 @@ public class FightScreen extends BaseScreen {
                 @Override
                 public void run() {
                     endFightRemoveEffect();
+                    die.play();
                 }
             }),Actions.delay(3), Actions.run(new Runnable() {
                 @Override
@@ -814,6 +840,7 @@ public class FightScreen extends BaseScreen {
                         }
                     }
 
+                    musicBattle.stop();
                     game.setScreen(new FightWin(game, hero, enemy, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), (int)moneyDrop, (int)expDrop, dropItemName));
                 }
             })));

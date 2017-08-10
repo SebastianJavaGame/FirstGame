@@ -69,6 +69,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     private Image uiBarEmptyHp, uiBarEmptyExp;
     private Image uiBarHp;
     private Image uiBarExp;
+    private Image backgtoundLvl;
     private ImageButton uiStats;
 
     private Label.LabelStyle labelStyle;
@@ -227,6 +228,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         addImageToStageUi("uiHp.png", 60, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
         addImageToStageUi("uiExp.png", 60, 430, ICON_ITEM_SIZE, ICON_ITEM_SIZE);
         addImageToStageUi("uiMoney.png", 194, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
+        backgtoundLvl = addImageToStageUi("slotLvl.png", 7, 430, 53, 50);
 
         uiBarEmptyHp = addImageToStageUi("barEmpty.png", 85, 462, 102, 14);
         uiBarEmptyExp = addImageToStageUi("barEmpty.png", 85, 438, 102, 14);
@@ -235,9 +237,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         moneyLabel = addLabelToStageUi(220, 470, 0.9f);
         hpLabel = addLabelToStageUi(5, 0, 0.85f);
         expLabel = addLabelToStageUi(5, 0 , 0.85f);
-        Label levelNameLabel = addLabelToStageUi(11, 463, 1);
-        levelNameLabel.setText("LEVEL");
-        levelLabel = addLabelToStageUi(23, 446, 1.25f);
+        Label levelNameLabel = addLabelToStageUi(10, 463, 1);
+        levelNameLabel.setText("Poziom");
+        levelLabel = addLabelToStageUi(0, 446, 1.25f);
 
         uiStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("uiStats.png")))));
         uiStats.addListener(new InputListener(){
@@ -300,6 +302,10 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         }
 
         levelLabel.setText(String.valueOf(hero.getLevel()));
+        if(hero.getLevel() < 10)
+            levelLabel.setPosition(backgtoundLvl.getX() +backgtoundLvl.getWidth() /2 -5, levelLabel.getY());
+        else
+            levelLabel.setPosition(backgtoundLvl.getX() +backgtoundLvl.getWidth() /2 -10, levelLabel.getY());
         hpLabel.setText(hero.getHp() + " / " + hero.getFullHp());
         expLabel.setText(hero.getExp() + " / " + hero.getMaxExp());
         moneyLabel.setText(hero.getMoneyString());

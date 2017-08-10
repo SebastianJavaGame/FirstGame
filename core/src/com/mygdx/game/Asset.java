@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Disposable;
@@ -128,6 +129,7 @@ public class Asset implements Disposable {
         manager.load("barEmpty.png", Texture.class);
         manager.load("barHp.png", Texture.class);
         manager.load("barExp.png", Texture.class);
+        manager.load("slotLvl.png", Texture.class);
 
         manager.load("sound/card.ogg", Sound.class);
     }
@@ -146,6 +148,11 @@ public class Asset implements Disposable {
         manager.load("itemButton.png", Texture.class);
         manager.load("plus.png", Texture.class);
         manager.load("minus.png", Texture.class);
+
+        manager.load("sound/battle.ogg", Music.class);
+        manager.load("sound/blockAttack.ogg", Sound.class);
+        manager.load("sound/hitPositive.ogg", Sound.class);
+        manager.load("sound/herodie.ogg", Sound.class);
     }
 
     public void loadQuest(){

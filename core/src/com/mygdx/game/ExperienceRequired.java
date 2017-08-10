@@ -5,7 +5,7 @@ package com.mygdx.game;
  */
 
 public class ExperienceRequired {
-    private static final int[] EXPERIENCE = new int[10]; //new int[99]; = 100 levels, becouse first level is not recommend
+    private static final int[] EXPERIENCE = new int[13]; //new int[99]; = 100 levels, becouse first level is not recommend
 
     public static final void loadExperienceList(){
         EXPERIENCE[0] = 100;
@@ -18,6 +18,9 @@ public class ExperienceRequired {
         EXPERIENCE[7] = 3400;
         EXPERIENCE[8] = 5700;
         EXPERIENCE[9] = 7000;
+        EXPERIENCE[10] = 7000;
+        EXPERIENCE[11] = 7000;
+        EXPERIENCE[12] = 7000;
     }
 
     //return max experience to (index) level

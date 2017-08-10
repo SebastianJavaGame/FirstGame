@@ -33,7 +33,6 @@ public class FieldDialogue {
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
     public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
     private static final int LINE_LENGTH = 33;
-    private static final float FONT_SIZE = 1f;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
     private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);
     private final Preferences PREFERENCE = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
@@ -120,7 +119,7 @@ public class FieldDialogue {
                 label = new Label(text, STYLE_GREEN);
             else
                 label = new Label(text, STYLE_WHITE);
-            label.setFontScale(FONT_SIZE);
+            label.setFontScale(1);
 
             try {
                 if (indexText < 3) {
@@ -142,8 +141,8 @@ public class FieldDialogue {
     public FieldDialogue setPosition(int downY){
         int y = downY -(int)label.getHeight();
         label.setPosition(POSITION_X +2, y);
-        barHorizontalUp.setPosition(POSITION_X +2, y +label.getHeight() -5);
-        barHorizontalDown.setPosition(POSITION_X +2, y -5);
+        barHorizontalUp.setPosition(POSITION_X + 2, y + label.getHeight() - 5);
+        barHorizontalDown.setPosition(POSITION_X + 2, y - 5);
 
         barVerticalLeft.setSize(barVerticalLeft.getWidth(), label.getHeight() +10);
         barVerticalLeft.setPosition(POSITION_X -5, barHorizontalDown.getY());

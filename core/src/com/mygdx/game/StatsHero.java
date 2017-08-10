@@ -103,6 +103,7 @@ public class StatsHero {
             }
 
             buttonAdd[0] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("add.png", Texture.class))));
+            buttonAdd[0].setSize(37, 30);
             buttonAdd[0].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
@@ -128,6 +129,7 @@ public class StatsHero {
             });
 
             buttonAdd[1] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("add.png", Texture.class))));
+            buttonAdd[1].setSize(37, 30);
             buttonAdd[1].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
@@ -147,6 +149,7 @@ public class StatsHero {
             });
 
             buttonAdd[2] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("add.png", Texture.class))));
+            buttonAdd[2].setSize(37, 30);
             buttonAdd[2].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
@@ -160,6 +163,7 @@ public class StatsHero {
             });
 
             buttonAdd[3] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("add.png", Texture.class))));
+            buttonAdd[3].setSize(37, 30);
             buttonAdd[3].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
@@ -172,6 +176,7 @@ public class StatsHero {
             });
 
             buttonAdd[4] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("add.png", Texture.class))));
+            buttonAdd[4].setSize(37, 30);
             buttonAdd[4].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
@@ -185,6 +190,7 @@ public class StatsHero {
             });
 
             buttonAdd[5] = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("add.png", Texture.class))));
+            buttonAdd[5].setSize(37, 30);
             buttonAdd[5].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {

@@ -21,6 +21,7 @@ import com.mygdx.game.BaseTask;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.ExperienceRequired;
 import com.mygdx.game.LoadAllItemToGame;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Quest;
 import com.mygdx.game.StatsHero;
 
@@ -30,7 +31,8 @@ import com.mygdx.game.StatsHero;
 
 public class Menu extends BaseScreen {
     private Asset asset;
-    private final BitmapFont FONT = new BitmapFont();
+    private final BitmapFont FONT = MyGdxGame.getFont();
+    private static final float FONT_SCALE = 1;
     private final Label.LabelStyle STYLE = new Label.LabelStyle();
     private TextButton.TextButtonStyle textStyle;
     private TextButton.TextButtonStyle textStyleDisapear;
@@ -71,12 +73,15 @@ public class Menu extends BaseScreen {
         lMore = new TextButton("Jak grac?", textStyleDisapear);
         lExit = new TextButton("Wyjscie", textStyleDisapear);
 
-        lNewGame.setPosition(BaseScreen.VIEW_WIDTH /2 -lNewGame.getWidth() /2, 300);
-        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH /2 -lLoadGame.getWidth() /2, 228);
-        lMore.setPosition(BaseScreen.VIEW_WIDTH /2 -lMore.getWidth() /2, 156);
-        lExit.setPosition(BaseScreen.VIEW_WIDTH /2 -lExit.getWidth() /2, 85);
+        lNewGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 300);
+        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 228);
+        lMore.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 156);
+        lExit.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 85);
 
-        lNewGame.getLabel().setFontScale(2);
+        lNewGame.getLabel().setFontScale(FONT_SCALE);
+        lLoadGame.getLabel().setFontScale(FONT_SCALE);
+        lMore.getLabel().setFontScale(FONT_SCALE);
+        lExit.getLabel().setFontScale(FONT_SCALE);
 
         lNewGame.addListener(new InputListener(){
             @Override
@@ -122,7 +127,8 @@ public class Menu extends BaseScreen {
             }
         });
 
-        addActors(texture, lNewGame, lLoadGame, lMore, lExit);
+        stage.addActor(texture);
+        addActors(lNewGame, lLoadGame, lMore, lExit);
     }
 
     @Override
@@ -172,7 +178,7 @@ public class Menu extends BaseScreen {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     getSoundClick().play();
-                    stage.clear();
+                    fontStage.clear();
                     create();
                     return false;
                 }

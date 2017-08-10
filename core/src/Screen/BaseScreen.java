@@ -34,6 +34,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     protected static Game game;
     public static OrthographicCamera camera;
     protected static Stage stage;
+    protected static Stage fontStage;
 
     private static boolean exception = false;
 
@@ -45,8 +46,9 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             camera.setToOrtho(false, VIEW_WIDTH, VIEW_HEIGHT);
 
             stage = new Stage(new StretchViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
+            fontStage = new Stage(new StretchViewport(Gdx.app.getGraphics().getWidth(), Gdx.app.getGraphics().getHeight()));
 
-            InputMultiplexer im = new InputMultiplexer(this, stage);
+            InputMultiplexer im = new InputMultiplexer(this, stage, fontStage);
             Gdx.input.setInputProcessor(im);
         } catch (Exception e) {
             showException(e);
@@ -143,6 +145,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
     public void resize(int width, int height) {
        stage.getViewport().update(width, height);
+       fontStage.getViewport().update(width, height);
     }
 
     public void pause()   {
@@ -151,7 +154,8 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     public void resume()  {  }
     public void dispose() {
         game.dispose();
-       stage.dispose();
+        stage.dispose();
+        fontStage.dispose();
     }
     public void show()    {  }
     public void hide()    {  }
@@ -167,7 +171,9 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     {return false;  }
     public boolean scrolled(int amount)
     {  return false;  }
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {return false;}
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println(screenY + "y");
+        return false;}
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {  return false;  }
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
@@ -179,6 +185,10 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
     public static Stage getStage(){
         return stage;
+    }
+
+    public static Stage getFontStage(){
+        return fontStage;
     }
 
     public static Game getGame(){

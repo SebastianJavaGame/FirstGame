@@ -35,7 +35,7 @@ public class DialogNpc {
     private static final int START_ANSWER_TWO = 1;
     private static final int START_ANSWER_THREE = 3;
 
-    private static final BitmapFont font = new BitmapFont();
+    private static final BitmapFont font = MyGdxGame.getFont();
     private static final Label.LabelStyle style = new Label.LabelStyle();
     static {
         style.font = font;
@@ -43,6 +43,7 @@ public class DialogNpc {
 
     private static Npc npc;
     private Stage stage;
+    private Stage fontStage;
 
     private static FieldDialogue[] fieldTextList;
 
@@ -53,6 +54,7 @@ public class DialogNpc {
     public DialogNpc(Npc npc) {
         this.npc = npc;
         this.stage = BaseScreen.getStage();
+        this.fontStage = BaseScreen.getFontStage();
         fieldTextList = new FieldDialogue[4];
 
         BACKGROUND.setSize(BACKGROUND.getWidth(), 400);
@@ -79,8 +81,6 @@ public class DialogNpc {
         imageHead = npc.getHead();
 
         int lengthX = POS_X +122;
-        lName.setPosition(lengthX -lName.getWidth() /2, UP_LABEL.getY() +27);
-        lLevel.setPosition(lengthX -lLevel.getWidth() /2, UP_LABEL.getY() +9);
 
         imageHead.setSize(60, 60);
         imageHead.setPosition(UP_LABEL.getX() -9, UP_LABEL.getY() -6);
@@ -88,7 +88,10 @@ public class DialogNpc {
         Hero3D.setRenderHero3d(false);
         Hero.setActiveMove(true);
 
+        lName.setPosition(lengthX - lName.getWidth() / 2, UP_LABEL.getY() + 27);
+        lLevel.setPosition(lengthX - lLevel.getWidth() / 2, UP_LABEL.getY() + 9);
         addActors(BACKGROUND, UP_LABEL, CLOSE_BUTTON, lName, lLevel, imageHead);
+
         create();
     }
 
@@ -181,6 +184,11 @@ public class DialogNpc {
     private void addActors(Actor ... actor){
         for(Actor object: actor)
             stage.addActor(object);
+    }
+
+    private void addFonts(Actor ... actor){
+        for(Actor object: actor)
+            fontStage.addActor(object);
     }
 
     public static FieldDialogue[] getFieldTextList(){

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Screen.BaseMap;
 import Screen.BaseScreen;
+import Screen.Menu;
 
 /**
  * Created by Sebastian on 2017-06-10.
@@ -109,6 +110,8 @@ public class Equipment{
 
     private static boolean blockClick = false;
 
+    private Sound soundEquipment;
+
     public Equipment(Stage card, Hero hero) throws CloneNotSupportedException {
         this.hero = hero;
         this.card = card;
@@ -126,11 +129,13 @@ public class Equipment{
         asset.loadEquipment();
         asset.manager.finishLoading();
         if(asset.manager.update()) {
+            soundEquipment = asset.manager.get("sound/soundEquipment.ogg", Sound.class);
             ImageButton userPref = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonUserPref.png", Texture.class))));
             userPref.setPosition(250, 180);
             userPref.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Menu.getSoundClick().play();
                     setBlockClick(true);
                     final Image background = new Image(asset.manager.get("userPrefBackground.png", Texture.class));
                     labelPointFight = new Label[4];
@@ -158,6 +163,7 @@ public class Equipment{
                     buttonSave.addListener(new InputListener() {
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            Menu.getSoundClick().play();
                             PREF_FIGHT.putInteger("ATTACK_PHYSICS", Integer.parseInt(labelPointFight[0].getText().toString()));
                             PREF_FIGHT.putInteger("DEFENSE_PHYSICS", Integer.parseInt(labelPointFight[1].getText().toString()));
                             PREF_FIGHT.putInteger("ATTACK_MAGIC", Integer.parseInt(labelPointFight[2].getText().toString()));
@@ -183,6 +189,7 @@ public class Equipment{
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                             setBlockClick(false);
+                            Menu.getSoundClick().play();
                             background.remove();
                             buttonSave.remove();
                             buttonCancel.remove();
@@ -413,7 +420,7 @@ public class Equipment{
                     styleGreen.font = font;
                     styleGreen.fontColor = new Color(Color.LIGHT_GRAY);
 
-                    itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));//TODO asset manager
+                    itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
                     itemName = new Label("" + item.getItemName(), style);
                     itemLevelRequire = new Label("Wymagany poziom: " + item.getLevelRequire(), style);
                     itemHp = new Label("Hp: +" + item.getHp(), style);
@@ -520,10 +527,11 @@ public class Equipment{
 
                                                 removeAllDown();
                                                 removeAll();
+                                                soundEquipment.play(0.5f);
                                             }else{
                                                 removeAll();
                                                 removeAllDown();
-                                                animationItemLevelTooUpper();
+                                                new Screen.InfoScreen("Masz zbyt maly poziom\naby zalozyc ten przedmiot", 2.5f, card);
                                             }
                                             return false;
                                         }
@@ -547,6 +555,7 @@ public class Equipment{
 
                                             removeAllDown();
                                             removeAll();
+                                            soundEquipment.play(0.5f);
                                             return false;
                                         }
                                     });
@@ -554,6 +563,7 @@ public class Equipment{
                                     cancel.setBounds((BaseMap.VIEW_WIDTH / 3) * 2, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     cancel.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                                            Menu.getSoundClick().play();
                                             removeAllDown();
                                             removeAll();
                                             return false;
@@ -592,9 +602,10 @@ public class Equipment{
                                                 System.out.println(blockEmpty[4]);
 
                                                 removeAll();
+                                                soundEquipment.play(0.5f);
                                             }else{
                                                 removeAll();
-                                                animationItemLevelTooUpper();
+                                                new Screen.InfoScreen("Masz zbyt maly poziom\naby zalozyc ten przedmiot", 2.5f, card);
                                             }
                                             return false;
                                         }
@@ -616,8 +627,8 @@ public class Equipment{
                                             PREF_ITEMS.putString("SLOT" + slotNr, "");
                                             PREF_ITEMS.flush();
                                             updateStats();
-
                                             removeAll();
+                                            soundEquipment.play(0.5f);
                                             return false;
                                         }
                                     });
@@ -625,6 +636,7 @@ public class Equipment{
                                     cancel.setBounds((BaseMap.VIEW_WIDTH / 3) * 2, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     cancel.addListener(new InputListener() {
                                         public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                                            Menu.getSoundClick().play();
                                             removeAll();
                                             return false;
                                         }
@@ -651,16 +663,7 @@ public class Equipment{
                                         Label.LabelStyle style = new Label.LabelStyle();
                                         style.font = font;
                                         style.fontColor = new Color(Color.RED);
-                                        Label label = new Label("Bag is full. Please drop item", style);
-                                        label.setFontScale(FONT_SIZE_NOT_AVILABLE_SLOT);
-
-                                        label.setPosition(BaseMap.VIEW_WIDTH / 2 - label.getWidth() / 2, BaseMap.VIEW_HEIGHT / 2);
-                                        label.addAction(Actions.sequence(
-                                                Actions.delay(2),
-                                                Actions.fadeOut(1),
-                                                Actions.removeActor()
-                                        ));
-                                        card.addActor(label);
+                                        new Screen.InfoScreen("Plecak jest pelny", 1.6f, card);
 
                                         removeAll();
                                         return false;
@@ -670,8 +673,8 @@ public class Equipment{
                                         PREF_ITEMS.putString(item.getItemType().toString(), "");
                                         PREF_ITEMS.flush();
                                         updateStats();
-
                                         removeAll();
+                                        soundEquipment.play(0.5f);
                                         return false;
                                     }
                                 }
@@ -680,6 +683,7 @@ public class Equipment{
                             cancel.setBounds(BaseMap.VIEW_WIDTH / 2, 190, BaseMap.VIEW_WIDTH / 2, 50);
                             cancel.addListener(new InputListener() {
                                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                                    Menu.getSoundClick().play();
                                     removeAll();
                                     return false;
                                 }
@@ -696,17 +700,6 @@ public class Equipment{
                 return false;
             }
         });
-    }
-
-    private void animationItemLevelTooUpper(){
-        Label.LabelStyle styleRed = new Label.LabelStyle();
-        styleRed.font = font;
-        styleRed.fontColor = new Color(Color.RED);
-
-        Label label = new Label("Twoj poziom postaci jest zbyt\nmaly aby zalozyc ten przedmiot", styleRed);
-        label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() /2, BaseScreen.VIEW_HEIGHT /2);
-        label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.3f), Actions.delay(2), Actions.fadeOut(0.2f)));
-        addAllActorToStage(label);
     }
 
     private void removeAll(){
@@ -757,6 +750,7 @@ public class Equipment{
             plusButton[iterator].addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Menu.getSoundClick().play();
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
                     if(actualPoint < 5 && freePointFight > 0) {
                         actualPoint++;
@@ -772,6 +766,7 @@ public class Equipment{
             minusButton[iterator].addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Menu.getSoundClick().play();
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
                     if (actualPoint > 0 && freePointFight >= 0) {
                         actualPoint--;
