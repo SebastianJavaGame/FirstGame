@@ -3,6 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
@@ -10,7 +12,9 @@ import Screen.Menu;
 
 public class MyGdxGame extends Game{
     private static DialogInfo dialogInfo;
-    private static BitmapFont font;
+
+    private static FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private static FreeTypeFontGenerator generator;
 
     public MyGdxGame(DialogInfo dialogInfo){
         this.dialogInfo = dialogInfo;
@@ -20,8 +24,6 @@ public class MyGdxGame extends Game{
 
 	@Override
 	public void create() {
-        createFontResolutionScreen();
-
         Preferences firstLoad = Gdx.app.getPreferences("START");
         firstLoad.clear();
         firstLoad.flush();
@@ -47,17 +49,16 @@ public class MyGdxGame extends Game{
         dialogInfo.showDialog(message);
     }
 
-    public void createFontResolutionScreen(){
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/fonts.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 18;
-        BitmapFont font12 = generator.generateFont(parameter); // font size 12 pixels
-        generator.dispose(); // don't forget to dispose to avoid memory leaks!
+    public static BitmapFont createBitmapFont(float size, Color color){
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("font/fonts.ttf"));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = Math.round(size);
+        generator.scaleForPixelHeight((int)Math.ceil(size));
+        parameter.minFilter = Texture.TextureFilter.Nearest;
+        parameter.magFilter = Texture.TextureFilter.MipMapLinearNearest;
 
-        font = font12;
-    }
-
-    public static BitmapFont getFont(){
-        return font;
+        BitmapFont bitmapFont = generator.generateFont(parameter);
+        bitmapFont.setColor(color);
+        return bitmapFont;
     }
 }

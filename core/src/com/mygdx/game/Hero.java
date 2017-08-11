@@ -728,6 +728,7 @@ public class Hero extends Character {
             if(calculateCollisionTwoRectangle(heroBox, BaseMap.getEntriaceToMapRectangle().get(i))){
                 Hero3D.setStopAnimation();
                 soundNextMap.play(0.8f);
+                setStopStep();
                 /**
                  * i = indexToLoadMap
                  */
@@ -1088,6 +1089,7 @@ public class Hero extends Character {
     public Hero getHero(){
         return this;
     }
+
 
     public Stage getStage(){
         return stage;

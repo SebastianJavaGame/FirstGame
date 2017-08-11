@@ -380,7 +380,6 @@ public class FightScreen extends BaseScreen {
 
                 labelPointFight[i] = new Label("" + pointUserPref[i], style);
                 labelPointFight[i].setPosition(54 + i * 78, 69);
-                labelPointFight[i].setFontScale(1.2f);
 
                 addListener(i, true, labelFreePoint);
                 addListener(i, false, labelFreePoint);

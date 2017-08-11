@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -156,21 +157,19 @@ public class Bag {
     private void initCardExit() {
         card.clear();
 
-        font = new BitmapFont();
+        font = MyGdxGame.createBitmapFont(16, Color.WHITE);
         styleWhite = new Label.LabelStyle();
         styleWhite.font = font;
 
-        infoCloseCard = new Label("If you want close this card \nclick icon at right up corner", styleWhite);
+        infoCloseCard = new Label("Kliknij ikonę plecaka\naby zamknąć tę kartę", styleWhite);
         infoCloseCard.setPosition((background.getWidth() - infoCloseCard.getWidth()) /2, 300);
-        infoCloseCard.setFontScale(1.1f);
 
         separator = new Image(asset.manager.get("bar.png", Texture.class));
         separator.setPosition(5, 250);
         separator.setSize(310, 3);
 
-        infoCloseGame = new Label("Exit game", styleWhite);
+        infoCloseGame = new Label("Wyjście z gry", styleWhite);
         infoCloseGame.setPosition((background.getWidth() - infoCloseGame.getWidth()) /2, 180);
-        infoCloseGame.setFontScale(1.1f);
 
         closeGame = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("exitGame.png", Texture.class))));
         closeGame.addListener(new InputListener(){

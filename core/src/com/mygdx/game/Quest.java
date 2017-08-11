@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,7 +23,7 @@ import Screen.BaseScreen;
 public class Quest {
     public static final String PREF_TASK = "TASKS";
     private final Preferences PREF = Gdx.app.getPreferences(PREF_TASK);
-    private static final BitmapFont FONT = new BitmapFont();
+    private static final BitmapFont FONT = MyGdxGame.createBitmapFont(20, Color.WHITE);
     private static final Label.LabelStyle STYLE = new Label.LabelStyle();
     private Asset asset;
     private Stage stage;
@@ -45,8 +46,7 @@ public class Quest {
 
         STYLE.font = FONT;
         lTitle = new Label("Lista zadan", STYLE);
-        lTitle.setPosition(BaseScreen.VIEW_WIDTH /2 -lTitle.getWidth()*1.8f /2, 350);
-        lTitle.setFontScale(1.8f);
+        lTitle.setPosition(BaseScreen.VIEW_WIDTH /2 -lTitle.getWidth()/2, 350);
 
         for(int i = 0;; i++){
             if(PREF.getInteger("TASK" + i, -1) != -1){
@@ -68,7 +68,7 @@ public class Quest {
             scrollTable.row();
             scrollTable.add(task.getCancel()).padTop(-150).align(Align.right).padRight(15);
             scrollTable.row();
-            scrollTable.add(task.getNpcName()).padTop(-150);
+            scrollTable.add(task.getNpcName()).padTop(-150).align(Align.left);
             scrollTable.row();
             scrollTable.add(task.getTarget()).padTop(-90);
             scrollTable.row();

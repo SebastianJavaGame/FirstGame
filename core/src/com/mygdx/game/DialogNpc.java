@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -35,7 +36,7 @@ public class DialogNpc {
     private static final int START_ANSWER_TWO = 1;
     private static final int START_ANSWER_THREE = 3;
 
-    private static final BitmapFont font = MyGdxGame.getFont();
+    private static final BitmapFont font = MyGdxGame.createBitmapFont(12, Color.WHITE);
     private static final Label.LabelStyle style = new Label.LabelStyle();
     static {
         style.font = font;
@@ -88,8 +89,8 @@ public class DialogNpc {
         Hero3D.setRenderHero3d(false);
         Hero.setActiveMove(true);
 
-        lName.setPosition(lengthX - lName.getWidth() / 2, UP_LABEL.getY() + 27);
-        lLevel.setPosition(lengthX - lLevel.getWidth() / 2, UP_LABEL.getY() + 9);
+        lName.setPosition(lengthX - lName.getWidth() / 2, UP_LABEL.getY() + 29);
+        lLevel.setPosition(lengthX - lLevel.getWidth() / 2, UP_LABEL.getY() + 11);
         addActors(BACKGROUND, UP_LABEL, CLOSE_BUTTON, lName, lLevel, imageHead);
 
         create();
@@ -134,8 +135,6 @@ public class DialogNpc {
         }catch (ArrayIndexOutOfBoundsException e){
             return;
         }
-
-        System.out.println(chooseListener + "choose");
 
         switch (chooseListener){
             case 0:

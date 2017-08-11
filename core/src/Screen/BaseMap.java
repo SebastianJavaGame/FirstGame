@@ -128,7 +128,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         generateMap();
 
         new Bag(BaseScreen.getStage());
-
+System.out.println(preferences.getInteger("POS_X")+ "u");
         hero = new Hero(asset.manager.get("hero.png", Texture.class), objectPolygon, verticalPolygon, camera, hero3D, charactersList);
         hero.setPosition(preferences.getInteger("POS_X"), preferences.getInteger("POS_Y"));
         hero.setSize(8, 8);

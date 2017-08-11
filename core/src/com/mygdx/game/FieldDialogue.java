@@ -14,8 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-import Screen.BaseMap;
-import Screen.BaseScreen;
+import Screen.*;
 
 /**
  * Created by Sebastian on 2017-07-28.
@@ -28,11 +27,11 @@ public class FieldDialogue {
     private Image barHorizontalUp;
     private Image barHorizontalDown;
     private final Stage STAGE = BaseScreen.getStage();
-    private static final BitmapFont FONT = new BitmapFont();
+    private static final BitmapFont FONT = MyGdxGame.createBitmapFont(12, Color.WHITE);
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
     public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
-    private static final int LINE_LENGTH = 33;
+    private static final int LINE_LENGTH = 28;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
     private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);
     private final Preferences PREFERENCE = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
@@ -119,7 +118,6 @@ public class FieldDialogue {
                 label = new Label(text, STYLE_GREEN);
             else
                 label = new Label(text, STYLE_WHITE);
-            label.setFontScale(1);
 
             try {
                 if (indexText < 3) {
@@ -200,8 +198,7 @@ public class FieldDialogue {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 textDialog.play(0.5f);
                 DialogNpc.removeAll();
-                BaseScreen.getGame().setScreen(new Shop(BaseScreen.getGame(), image, name, level, idShop));
-                System.out.println("shop");
+                BaseScreen.getGame().setScreen(new Screen.Shop(BaseScreen.getGame(), image, name, level, idShop));
                 return false;
             }
         });

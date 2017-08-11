@@ -1,7 +1,11 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+import Screen.Menu;
 
 /**
  * Created by Sebastian on 2017-07-26.
@@ -32,6 +36,11 @@ public class Npc extends Character{
     @Override
     public void collisionDo() {
         Hero.setStopStep();
+        Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+        preferences.putInteger("POS_X", (int)hero.getX()).flush();
+        preferences.putInteger("POS_Y", (int)hero.getY()).flush();
+        Menu.setIsFirstSpawnHeroPosition(true);
+        System.out.println(preferences.getInteger("POS_X") + "posx");
         new DialogNpc(this);
     }
 

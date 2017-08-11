@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,8 +32,7 @@ import com.mygdx.game.StatsHero;
 
 public class Menu extends BaseScreen {
     private Asset asset;
-    private final BitmapFont FONT = MyGdxGame.getFont();
-    private static final float FONT_SCALE = 1;
+    private final BitmapFont FONT = MyGdxGame.createBitmapFont(20, Color.BLACK);
     private final Label.LabelStyle STYLE = new Label.LabelStyle();
     private TextButton.TextButtonStyle textStyle;
     private TextButton.TextButtonStyle textStyleDisapear;
@@ -77,11 +77,6 @@ public class Menu extends BaseScreen {
         lLoadGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 228);
         lMore.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 156);
         lExit.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 85);
-
-        lNewGame.getLabel().setFontScale(FONT_SCALE);
-        lLoadGame.getLabel().setFontScale(FONT_SCALE);
-        lMore.getLabel().setFontScale(FONT_SCALE);
-        lExit.getLabel().setFontScale(FONT_SCALE);
 
         lNewGame.addListener(new InputListener(){
             @Override
@@ -128,6 +123,7 @@ public class Menu extends BaseScreen {
         });
 
         stage.addActor(texture);
+
         addActors(lNewGame, lLoadGame, lMore, lExit);
     }
 
@@ -203,6 +199,9 @@ public class Menu extends BaseScreen {
         prefEq.flush();
         prefTask.flush();
         prefFight.flush();
+
+        prefStats.putInteger("POS_X", 100).flush();
+        prefStats.putInteger("POS_Y", 100).flush();
     }
 
     public static void setMap(){

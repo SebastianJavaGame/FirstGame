@@ -21,7 +21,7 @@ import Screen.Menu;
 
 public class Task {
     private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);
-    private static final BitmapFont FONT = new BitmapFont();
+    private static final BitmapFont FONT = MyGdxGame.createBitmapFont(14, Color.WHITE);
     private static final Label.LabelStyle STYLE = new Label.LabelStyle();
     private static final TextButton.TextButtonStyle BUTTON_STYLE = new TextButton.TextButtonStyle();
     private Asset asset = new Asset();
@@ -58,6 +58,9 @@ public class Task {
             lNpcName = new Label(BaseTask.getNpcName(idTask), STYLE);
             lTarget = new Label(BaseTask.getTarget(idTask), STYLE);
             lProgress = new Label("W toku   " + PREF.getInteger("TASK" + idTask + "_PROGRESS") + " / " + BaseTask.getProgressMax(idTask), STYLE);
+            lNpcName.setFontScale(0.9f);
+            lTarget.setFontScale(0.7f);
+            lProgress.setFontScale(0.8f);
 
             cancel = new TextButton("Anuluj", BUTTON_STYLE);
             cancel.addListener(new InputListener() {

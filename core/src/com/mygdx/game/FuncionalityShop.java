@@ -16,8 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import Screen.BaseMap;
-import Screen.BaseScreen;
+import Screen.*;
 
 /**
  * Created by Sebastian on 2017-07-31.
@@ -138,10 +137,10 @@ public class FuncionalityShop {
                 actualSlotNrBag = slotNr;
                 actualItemImageBag = item.getImage();
 
-                Transaction.setHeroMoneyVisibleLeft(true);
-                Transaction.updateSellTouchable(true);
-                Transaction.updateBuyButton(false);
-                Transaction.setBackEnabled(false);
+                Screen.Transaction.setHeroMoneyVisibleLeft(true);
+                Screen.Transaction.updateSellTouchable(true);
+                Screen.Transaction.updateBuyButton(false);
+                Screen.Transaction.setBackEnabled(false);
 
                 if (lAnimTransaction != null && imageAnimTransaction != null) {
                     getlAnimTransaction().remove();
@@ -197,8 +196,8 @@ public class FuncionalityShop {
                 bClose.addListener(new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                        Transaction.updateSellTouchable(false);
-                        Transaction.setBackEnabled(true);
+                        Screen.Transaction.updateSellTouchable(false);
+                        Screen.Transaction.setBackEnabled(true);
                         removeAllShop();
                         return false;
                     }
@@ -230,9 +229,9 @@ public class FuncionalityShop {
             firstClick = false;
             actualItemNameShop = item.getItemKey();
 
-            Transaction.setHeroMoneyVisibleRight(true);
-            Transaction.updateBuyTouchable(true);
-            Transaction.updateSellButton(false);
+            Screen.Transaction.setHeroMoneyVisibleRight(true);
+            Screen.Transaction.updateBuyTouchable(true);
+            Screen.Transaction.updateSellButton(false);
 
             if (lAnimTransaction != null && imageAnimTransaction != null) {
                 getlAnimTransaction().remove();
@@ -240,7 +239,7 @@ public class FuncionalityShop {
             }
 
             TextButton.TextButtonStyle styleButton = new TextButton.TextButtonStyle();
-            styleButton.font = Transaction.FONT;
+            styleButton.font = Screen.Transaction.FONT;
             styleButton.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonBack.png", Texture.class)));
             bClose = new TextButton("Zamknij", styleButton);
 
@@ -280,7 +279,7 @@ public class FuncionalityShop {
             itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
             barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
             bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY() - 5);
-            lPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - lPrice.getWidth() / 2, Shop.POS_Y_NEXT_BACKGROUND + 35);
+            lPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - lPrice.getWidth() / 2, Screen.Shop.POS_Y_NEXT_BACKGROUND + 35);
 
             if (Hero.getLevel() < item.getLevelRequire()) {
                 itemLevelRequire.setColor(Color.RED);
@@ -289,8 +288,8 @@ public class FuncionalityShop {
             bClose.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    Transaction.updateBuyTouchable(false);
-                    Transaction.setBackEnabled(true);
+                    Screen.Transaction.updateBuyTouchable(false);
+                    Screen.Transaction.setBackEnabled(true);
                     removeAllShop();
                     return false;
                 }
@@ -301,8 +300,8 @@ public class FuncionalityShop {
                 public void run() {
                     itemPrice.setText("" + item.getCashValue());
                     itemPrice.setColor(Color.GOLD);
-                    itemPrice.setPosition(itemPrice.getX(), Shop.POS_Y_NEXT_BACKGROUND - 15);
-                    money.setPosition(money.getX(), Shop.POS_Y_NEXT_BACKGROUND - 15);
+                    itemPrice.setPosition(itemPrice.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND - 15);
+                    money.setPosition(money.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND - 15);
                 }
             }), Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(0, 34, 0.8f)))));
             money.addAction(Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(0, 34, 0.8f))));
@@ -345,10 +344,10 @@ public class FuncionalityShop {
             barPrice.remove();
             itemBackground.remove();
             bClose.remove();
-            Transaction.setHeroMoneyVisibleRight(false);
-            Transaction.setHeroMoneyVisibleLeft(false);
-            Transaction.updateSellButton(true);
-            Transaction.updateBuyButton(true);
+            Screen.Transaction.setHeroMoneyVisibleRight(false);
+            Screen.Transaction.setHeroMoneyVisibleLeft(false);
+            Screen.Transaction.updateSellButton(true);
+            Screen.Transaction.updateBuyButton(true);
             lPrice.remove();
         }
     }

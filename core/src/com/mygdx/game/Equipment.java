@@ -53,7 +53,7 @@ public class Equipment{
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 271}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 271},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 218}};
 
-    private static final BitmapFont font = new BitmapFont();
+    private static final BitmapFont font = MyGdxGame.createBitmapFont(10, Color.WHITE);
     private Asset asset = new Asset();
 
     private TextButton takeOn;
@@ -135,6 +135,7 @@ public class Equipment{
             userPref.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    freePointFight = PREF_FIGHT.getInteger("FIGHT_POINT", 10);
                     Menu.getSoundClick().play();
                     setBlockClick(true);
                     final Image background = new Image(asset.manager.get("userPrefBackground.png", Texture.class));
@@ -142,13 +143,12 @@ public class Equipment{
                     plusButton = new ImageButton[4];
                     minusButton = new ImageButton[4];
 
-                    BitmapFont font = new BitmapFont();
+                    BitmapFont font = MyGdxGame.createBitmapFont(20, Color.WHITE);
                     Label.LabelStyle style = new Label.LabelStyle();
                     style.font = font;
 
                     labelFreePoint = new Label("Free points: " + PREF_FIGHT.getInteger("FIGHT_POINT", 10), style);
                     labelFreePoint.setPosition(5, 425);
-                    labelFreePoint.setFontScale(1.4f);
 
                     final TextButton.TextButtonStyle styleSave = new TextButton.TextButtonStyle();
                     styleSave.font = font;
@@ -164,12 +164,11 @@ public class Equipment{
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                             Menu.getSoundClick().play();
-                            PREF_FIGHT.putInteger("ATTACK_PHYSICS", Integer.parseInt(labelPointFight[0].getText().toString()));
-                            PREF_FIGHT.putInteger("DEFENSE_PHYSICS", Integer.parseInt(labelPointFight[1].getText().toString()));
-                            PREF_FIGHT.putInteger("ATTACK_MAGIC", Integer.parseInt(labelPointFight[2].getText().toString()));
-                            PREF_FIGHT.putInteger("DEFENSE_MAGIC", Integer.parseInt(labelPointFight[3].getText().toString()));
-                            PREF_FIGHT.putInteger("FIGHT_POINT", freePointFight);
-                            PREF_FIGHT.flush();
+                            PREF_FIGHT.putInteger("ATTACK_PHYSICS", Integer.parseInt(labelPointFight[0].getText().toString())).flush();
+                            PREF_FIGHT.putInteger("DEFENSE_PHYSICS", Integer.parseInt(labelPointFight[1].getText().toString())).flush();
+                            PREF_FIGHT.putInteger("ATTACK_MAGIC", Integer.parseInt(labelPointFight[2].getText().toString())).flush();
+                            PREF_FIGHT.putInteger("DEFENSE_MAGIC", Integer.parseInt(labelPointFight[3].getText().toString())).flush();
+                            PREF_FIGHT.putInteger("FIGHT_POINT", freePointFight).flush();
 
                             setBlockClick(false);
                             background.remove();
@@ -216,7 +215,7 @@ public class Equipment{
 
                         labelPointFight[i] = new Label(String.valueOf(PREF_FIGHT.getInteger(KEY_PREF_FIGHT[i])), style);
                         labelPointFight[i].setPosition(BaseMap.VIEW_WIDTH / 2 - labelPointFight[i].getWidth() / 2 - 3, 98 + i * 95);
-                        labelPointFight[i].setFontScale(2);
+                        labelPointFight[i].setFontScale(1.6f);
 
                         addListener(i, true, labelFreePoint);
                         addListener(i, false, labelFreePoint);
@@ -406,10 +405,10 @@ public class Equipment{
                     textStyle.font = font;
                     textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("itemButton.png", Texture.class)));
 
-                    takeOn = new TextButton("Take on", textStyle);
-                    takeOff = new TextButton("Take off", textStyle);
-                    drop = new TextButton("Drop", textStyle);
-                    cancel = new TextButton("Cancel", textStyle);
+                    takeOn = new TextButton("Załóż", textStyle);
+                    takeOff = new TextButton("Zdejmij", textStyle);
+                    drop = new TextButton("Wyrzuć", textStyle);
+                    cancel = new TextButton("Anuluj", textStyle);
                     backgroundUp = new Image(asset.manager.get("statsBackground.png", Texture.class));
                     backgroundUp.setBounds(0, 240, BaseMap.VIEW_WIDTH, 190);
 
@@ -423,37 +422,39 @@ public class Equipment{
                     itemImage = new Image(new Texture(Gdx.files.internal(pathImage)));
                     itemName = new Label("" + item.getItemName(), style);
                     itemLevelRequire = new Label("Wymagany poziom: " + item.getLevelRequire(), style);
-                    itemHp = new Label("Hp: +" + item.getHp(), style);
-                    itemStrong = new Label("Strong: +" + item.getStrong(), style);
-                    itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
-                    itemArmor = new Label("Armor: +" + item.getArmor() + "%", style);
-                    itemDefenseFiz = new Label("Defense physics: +" + item.getDefenseFiz(), style);
-                    itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
+                    itemHp = new Label("Punkty Życia +" + item.getHp(), style);
+                    itemStrong = new Label("Siła +" + item.getStrong(), style);
+                    itemWiedza = new Label("Wiedza +" + item.getWiedza(), style);
+                    itemArmor = new Label("Pancerz +" + item.getArmor() + "%", style);
+                    itemDefenseFiz = new Label("ObronaFizyczna +" + item.getDefenseFiz(), style);
+                    itemDefenseMag = new Label("ObronaMagicza +" + item.getDefenseMag(), style);
                     money = new Image(asset.manager.get("uiMoney.png", Texture.class));
                     itemPrice = new Label("Cena: " + item.getCashValue(), style);
-                    infoStorage = new Label("BAG", styleGreen);
+                    infoStorage = new Label("PLECAK", styleGreen);
                     itemBackground = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
                     barName = new Image(asset.manager.get("nameBar.png", Texture.class));
                     barPrice = new Image(asset.manager.get("barX.png", Texture.class));
+
+
 
                     if(item.getLevelRequire() > hero.getLevel())
                         itemLevelRequire.setColor(Color.RED);
 
                     itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
                     itemName.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
-                    itemLevelRequire.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 132);
                     itemHp.setPosition(20, backgroundUp.getY() + 100);
                     itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 100);
                     itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 70);
                     itemWiedza.setPosition(20, backgroundUp.getY() + 70);
-                    itemDefenseFiz.setPosition(20, backgroundUp.getY() + 40);
-                    itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 40);
-                    itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth()/2 -10, backgroundUp.getY() + 10);
-                    money.setBounds(itemPrice.getX() +itemPrice.getWidth() +7, itemPrice.getY(), 18, 17);
+                    itemDefenseFiz.setPosition(0, backgroundUp.getY() + 40);
+                    itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 +5, backgroundUp.getY() + 40);
+                    itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth() /2 +5, backgroundUp.getY() + 4);
+                    money.setBounds(itemPrice.getX() +itemPrice.getWidth() +10, itemPrice.getY() -3, 18, 17);
                     infoStorage.setPosition(5, itemPrice.getY());
-                    barName.setBounds(itemName.getX() -20, itemName.getY() -16, itemName.getWidth() +40, itemName.getHeight() +30);
+                    barName.setBounds(itemName.getX() -10, itemName.getY() -16, itemName.getWidth() +18, itemName.getHeight() +30);
+                    itemLevelRequire.setPosition(barName.getX() +(barName.getWidth()/2 -itemLevelRequire.getWidth() / 2), backgroundUp.getY() + 132);
                     itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
-                    barPrice.setBounds(0, itemPrice.getY() -4, BaseMap.VIEW_WIDTH +15, 25);
+                    barPrice.setBounds(0, itemPrice.getY() -7, BaseMap.VIEW_WIDTH +15, 25);
 
                     switch (item.getStan()) {
                         case BAG:
@@ -468,15 +469,15 @@ public class Equipment{
                                     itemImageDown = new Image(new Texture(Gdx.files.internal(itemUp.getPathImage())));
                                     itemNameDown = new Label("" + itemUp.getItemName(), style);
                                     itemLevelRequireDown = new Label("Wymagany poziom: " + itemUp.getLevelRequire(), style);
-                                    itemHpDown = new Label("Hp: +" + itemUp.getHp(), style);
-                                    itemStrongDown = new Label("Strong: +" + itemUp.getStrong(), style);
-                                    itemWiedzaDown = new Label("Wiedza: +" + itemUp.getWiedza(), style);
-                                    itemArmorDown = new Label("Armor: +" + itemUp.getArmor() + "%", style);
-                                    itemDefenseFizDown = new Label("Defense physics: +" + itemUp.getDefenseFiz(), style);
-                                    itemDefenseMagDown = new Label("Defense magic: +" + itemUp.getDefenseMag(), style);
+                                    itemHpDown = new Label("Punkty życia +" + itemUp.getHp(), style);
+                                    itemStrongDown = new Label("Siła +" + itemUp.getStrong(), style);
+                                    itemWiedzaDown = new Label("Wiedza +" + itemUp.getWiedza(), style);
+                                    itemArmorDown = new Label("Pancerz +" + itemUp.getArmor() + "%", style);
+                                    itemDefenseFizDown = new Label("ObronaFizyczna +" + itemUp.getDefenseFiz(), style);
+                                    itemDefenseMagDown = new Label("ObronaMagiczna +" + itemUp.getDefenseMag(), style);
                                     moneyDown = new Image(asset.manager.get("uiMoney.png", Texture.class));
                                     itemPriceDown = new Label("Cena: " + itemUp.getCashValue(), style);
-                                    infoStorageDown = new Label("HUMAN", styleGreen);
+                                    infoStorageDown = new Label("Założone", styleGreen);
                                     itemBackgroundDown = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
                                     barNameDown = new Image(asset.manager.get("nameBar.png", Texture.class));
                                     barPriceDown = new Image(asset.manager.get("barX.png", Texture.class));
@@ -486,20 +487,20 @@ public class Equipment{
 
                                     //Item INFO
                                     itemImageDown.setBounds(20, backgroundDown.getY() + 120, 60, 60);
-                                    itemNameDown.setPosition((BaseMap.VIEW_WIDTH + 70) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 160);
-                                    itemLevelRequireDown.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemName.getWidth() / 2, backgroundDown.getY() + 132);
+                                    itemNameDown.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemNameDown.getWidth() / 2, backgroundDown.getY() + 160);
                                     itemHpDown.setPosition(20, backgroundDown.getY() + 100);
                                     itemArmorDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 100);
                                     itemStrongDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 70);
                                     itemWiedzaDown.setPosition(20, backgroundDown.getY() + 70);
-                                    itemDefenseFizDown.setPosition(20, backgroundDown.getY() + 40);
-                                    itemDefenseMagDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 40);
-                                    itemPriceDown.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPriceDown.getWidth()/2 -10, backgroundDown.getY() + 10);
-                                    moneyDown.setBounds(itemPriceDown.getX() +itemPriceDown.getWidth() +7, itemPriceDown.getY(), 18, 17);
+                                    itemDefenseFizDown.setPosition(0, backgroundDown.getY() + 40);
+                                    itemDefenseMagDown.setPosition(BaseMap.VIEW_WIDTH / 2 +5, backgroundDown.getY() + 40);
+                                    itemPriceDown.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPriceDown.getWidth() /2 +5, backgroundDown.getY() + 4);
+                                    moneyDown.setBounds(itemPriceDown.getX() +itemPriceDown.getWidth() +10, itemPriceDown.getY() -3, 18, 17);
                                     infoStorageDown.setPosition(5, itemPriceDown.getY());
-                                    barNameDown.setBounds(itemNameDown.getX() -20, itemNameDown.getY() -16, itemNameDown.getWidth() +40, itemNameDown.getHeight() +30);
+                                    barNameDown.setBounds(itemNameDown.getX() -10, itemNameDown.getY() -16, itemNameDown.getWidth() +18, itemNameDown.getHeight() +30);
+                                    itemLevelRequireDown.setPosition(barNameDown.getX() +(barNameDown.getWidth()/2 -itemLevelRequireDown.getWidth() / 2), backgroundDown.getY() + 132);
                                     itemBackgroundDown.setBounds(15, backgroundDown.getY() + 115, 70, 70);
-                                    barPriceDown.setBounds(0, itemPriceDown.getY() -4, BaseMap.VIEW_WIDTH +15, 25);
+                                    barPriceDown.setBounds(0, itemPriceDown.getY() -7, BaseMap.VIEW_WIDTH +15, 25);
 
                                     takeOn.setBounds(0, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     takeOn.addListener(new InputListener() {
@@ -752,11 +753,11 @@ public class Equipment{
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Menu.getSoundClick().play();
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
-                    if(actualPoint < 5 && freePointFight > 0) {
+                    if(actualPoint < 5 && freePointFight >= 0) {
                         actualPoint++;
                         freePointFight--;
                         label.setText("Free points: " + freePointFight);
-                        label.setFontScale(1.4f);
+                        label.setFontScale(1);
                         labelPointFight[iterator].setText(String.valueOf(actualPoint));
                     }
                     return false;
@@ -768,11 +769,11 @@ public class Equipment{
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Menu.getSoundClick().play();
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
-                    if (actualPoint > 0 && freePointFight >= 0) {
+                    if (actualPoint > 0 && freePointFight < 10) {
                         actualPoint--;
                         freePointFight++;
                         label.setText("Free points: " + freePointFight);
-                        label.setFontScale(1.4f);
+                        label.setFontScale(1);
                         labelPointFight[iterator].setText(String.valueOf(actualPoint));
                     }
                     return false;
