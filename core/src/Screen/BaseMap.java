@@ -159,8 +159,8 @@ System.out.println(preferences.getInteger("POS_X")+ "u");
         }
 
         testRender.draw();
-        //for(Character c: charactersList)
-           // RenderCollisionLine_Test.drawPublic(c.getCollision());
+        for(Character c: charactersList)
+            RenderCollisionLine_Test.drawPublic(c.getCollision());
         for(Rectangle r: entriaceToMapRectangle)
             RenderCollisionLine_Test.drawPublic(r);
 

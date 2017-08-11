@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -39,6 +40,12 @@ public abstract class Character extends Actor{
         if ( isVisible() )
             batch.draw( texture, getX(), getY(), getOriginX(), getOriginY(),
                     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation() );
+    }
+
+    public Polygon convertRectangleToPolygon(Rectangle rectangle){
+        return new Polygon(new float[]{rectangle.getX(), rectangle.getY(), rectangle.getX(),
+                rectangle.getY() + rectangle.getHeight(), rectangle.getX() + rectangle.getHeight(),
+                rectangle.getY() + rectangle.getWidth(), rectangle.getX() + rectangle.getWidth(), rectangle.getY()});
     }
 
     public void setTexture(Texture t)

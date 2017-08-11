@@ -30,7 +30,6 @@ import Screen.Map_02;
 public class Hero extends Character {
     public final static int SPEED_MOVE = 25;
     public Texture arm;
-    public static ArrayList<Vector2> temporaryListVector = new ArrayList<Vector2>(8);
 
     private final Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
     private Asset asset = new Asset();
@@ -61,6 +60,7 @@ public class Hero extends Character {
     private Vector2 cornerEnemy;
     private  Vector2 o2;
     private Vector2 o4;
+    private Vector2 nonCollision;
 
     private boolean moveStop;
     private boolean aroundMove;
@@ -115,6 +115,7 @@ public class Hero extends Character {
         this.game = BaseScreen.getGame();
         heroBox = new Rectangle();
         cornersHero = new Vector2[2];
+        nonCollision = new Vector2(getX(), getY());
 
         for(Character character: characters)
             character.setHero(this);
@@ -197,6 +198,10 @@ public class Hero extends Character {
         setFinishWalkPosition(new Rectangle(end.x - 1, end.y - 1, 2, 2));
 
         if(calculateCollisionTwoRectangle(heroBox, characters.get(actualIndexCharacter).getCollision())) {
+            if(Intersector.overlapConvexPolygons(track, convertRectangleToPolygon(characters.get(actualIndexCharacter).getCollision()))){
+                System.out.println("collision");
+            }
+
             if(cornersHero[0] != null && cornersHero[1] == null){
                 int x = (int)cornersHero[0].x - (int)cornerEnemy.x;
                 int y = (int)cornersHero[0].y - (int)cornerEnemy.y;
@@ -618,6 +623,10 @@ public class Hero extends Character {
                 preferences.putInteger("COLLISION", actualIndexCharacter);
                 preferences.flush();
                 soundStep.stop();
+                setPosition(nonCollision.x, nonCollision.y);
+            }else {
+                if(i == characters.size() -1)
+                    nonCollision.set(getX(), getY());
             }
         }
     }
