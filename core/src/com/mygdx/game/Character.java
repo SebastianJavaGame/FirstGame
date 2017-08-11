@@ -17,6 +17,7 @@ public abstract class Character extends Actor{
     protected TextureRegion texture;
     protected Hero hero;
     private float x, y, w, h;
+    private boolean collisionOn = true;
 
     public Character(Texture texture){
         this.texture = new TextureRegion();
@@ -30,7 +31,10 @@ public abstract class Character extends Actor{
     public abstract void collisionDo();
 
     public void collisionUpdate(){
-        getCollision().set(getX() +x, getY() +y, getWidth() +w, getHeight() +h);
+        if (collisionOn)
+            getCollision().set(getX() +x, getY() +y, getWidth() +w, getHeight() +h);
+        else
+            getCollision().set(-50, -50, 5, 5);
     }
 
     public void draw(Batch batch, float parentAlpha)
@@ -79,4 +83,8 @@ public abstract class Character extends Actor{
     public void setHero(Hero hero) {
         this.hero = hero;
     }
+
+   public void setCollisionOn(boolean on){
+       this.collisionOn = on;
+   }
 }

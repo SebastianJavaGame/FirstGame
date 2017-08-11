@@ -28,7 +28,7 @@ import Screen.Menu;
  * Created by Sebastian on 2017-05-31.
  */
 
-public class Enemy extends Character {
+public class Enemy extends Character implements Cloneable{
     private Asset asset = new Asset();
     private Image head;
     private Image wapon;
@@ -43,6 +43,9 @@ public class Enemy extends Character {
     private ArrayList<String> dropItemName;
     private float randomDrop;
 
+    private String headPath;
+    private String waponPath;
+
     private int expDrop;
     private int moneyDrop;
 
@@ -51,14 +54,18 @@ public class Enemy extends Character {
 
     private boolean attackType;
 
+    private int spawnSecond;
+
     private Sound soundCollision;
     private Sound soundView;
 
-    public Enemy(Texture texture, Image head, Image wapon, boolean attackType, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
-                 float randomDrop, int expDrop ,int moneyDrop) {
+    public Enemy(Texture texture, String headPath, String waponPath, boolean attackType, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
+                 float randomDrop, int expDrop ,int moneyDrop, int spawnSecond) {
         super(texture);
-        this.head = head;
-        this.wapon = wapon;
+        this.headPath = headPath;
+        this.waponPath = waponPath;
+        this.head = new Image(new Texture(Gdx.files.internal(headPath)));
+        this.wapon = new Image(new Texture(Gdx.files.internal(waponPath)));
         this.attackType = attackType;
         this.name = name;
         this.level = level;
@@ -71,6 +78,7 @@ public class Enemy extends Character {
         this.randomDrop = randomDrop;
         this.moneyDrop = moneyDrop;
         this.expDrop = expDrop;
+        this.spawnSecond = spawnSecond;
         dropItemName = new ArrayList();
 
         setSize(this.getWidth() *0.45f, this.getHeight() *0.45f);
@@ -294,5 +302,9 @@ public class Enemy extends Character {
 
     public ArrayList<String> getDropItem(){
         return dropItemName;
+    }
+
+    public int getSpawnSecond(){
+        return spawnSecond;
     }
 }

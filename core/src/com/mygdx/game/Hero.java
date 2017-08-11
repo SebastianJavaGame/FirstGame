@@ -197,11 +197,10 @@ public class Hero extends Character {
         Polygon point = new Polygon(new float[]{end.x - 1, end.y - 1, end.x - 1, end.y + 1, end.x + 1, end.y + 1, end.x + 1, end.y - 1});
         setFinishWalkPosition(new Rectangle(end.x - 1, end.y - 1, 2, 2));
 
-        if(calculateCollisionTwoRectangle(heroBox, characters.get(actualIndexCharacter).getCollision())) {
-            if(Intersector.overlapConvexPolygons(track, convertRectangleToPolygon(characters.get(actualIndexCharacter).getCollision()))){
-                System.out.println("collision");
-            }
+        actualIndexCharacter = preferences.getInteger("COLLISION", 0);
+        System.out.println(preferences.getInteger("COLLISION", 0));
 
+        if(calculateCollisionTwoRectangle(heroBox, characters.get(actualIndexCharacter).getCollision())) {
             if(cornersHero[0] != null && cornersHero[1] == null){
                 int x = (int)cornersHero[0].x - (int)cornerEnemy.x;
                 int y = (int)cornersHero[0].y - (int)cornerEnemy.y;
@@ -246,7 +245,7 @@ public class Hero extends Character {
                     }
                 }else {
                     int heroBoxCenterY = (int) (heroBox.getY() + heroBox.getHeight() / 2);
-                    if(heroBoxCenterY < cornerEnemy.y) {
+                    if(heroBoxCenterY < cornerEnemy.y) {//TODO Refactor
                         if(posY < cornerEnemy.y)
                             setCharacterCollision(true);
                     }
@@ -273,7 +272,6 @@ public class Hero extends Character {
         //temporaryListVector.add(new Vector2(heroBox.getX() +heroBox.getWidth(), heroBox.getY()));
         //temporaryListVector.add(new Vector2(heroBox.getX() +heroBox.getWidth(), heroBox.getY() +heroBox.getHeight()));
         //temporaryListVector.add(new Vector2(heroBox.getX(), heroBox.getY() +heroBox.getHeight()));
-
 
         int countCollision = 0;
         boolean pointCollision = false;
@@ -620,8 +618,8 @@ public class Hero extends Character {
                 setCharacterCollision(false);
                 hero3D.setStopAnimation();
                 actualIndexCharacter = i;
-                preferences.putInteger("COLLISION", actualIndexCharacter);
-                preferences.flush();
+                preferences.putInteger("COLLISION", actualIndexCharacter).flush();
+                System.out.println(actualIndexCharacter + "actual index character");
                 soundStep.stop();
                 setPosition(nonCollision.x, nonCollision.y);
             }else {

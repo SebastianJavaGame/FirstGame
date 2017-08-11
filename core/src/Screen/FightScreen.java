@@ -46,7 +46,7 @@ public class FightScreen extends BaseScreen {
     private static Enemy enemy;
 
     private static Image heroImage;
-    private static Image enemyImage;
+    public static Image enemyImage;
     private static Image waponHero;
     private static Image waponEnemy;
     private static Image magicHero;
@@ -94,7 +94,7 @@ public class FightScreen extends BaseScreen {
 
     private static int enemyAiStats[];
 
-    private static boolean flip;
+    public static boolean flip;
     private static boolean abort;
     private static boolean abortFirstTap;
     private static boolean animationPlay;
@@ -240,6 +240,7 @@ public class FightScreen extends BaseScreen {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Menu.setIsFirstSpawnHeroPosition(true);
                     Menu.getSoundClick().play();
+                    musicBattle.stop();
 
                     if (abort && !animationPlay) {
                         Label label = new Label("ABORT!", style);
@@ -271,6 +272,7 @@ public class FightScreen extends BaseScreen {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Menu.getSoundClick().play();
+                    musicBattle.stop();
                     if (abortFirstTap && !animationPlay) {
                         if (hpHero > hpMaxHero * 0.2f)
                             abortFirstTap = false;

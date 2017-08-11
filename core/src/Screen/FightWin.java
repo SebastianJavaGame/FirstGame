@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.ExperienceRequired;
@@ -197,10 +198,39 @@ public class FightWin extends BaseScreen {
         confirm.setPosition(BaseScreen.VIEW_WIDTH / 2 - confirm.getWidth() / 2, 0);
         confirm.addListener(new InputListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, final int pointer, int button) {
                 Quest.checkKillTargetWithTask(enemy.getName().toLowerCase());
                 Menu.setIsFirstSpawnHeroPosition(true);
                 Menu.getSoundClick().play();
+
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        //TODO add spawn enemy
+                        /*
+                        Enemy newEnemy = new Enemy(enemy.getTexturePath(), enemy.getHeadPath(), enemy.getWaponPath(), enemy.getAttackType(),
+                                enemy.getName(), enemy.getLevel(), enemy.getHp(), enemy.getStrong(), enemy.getWiedza(), enemy.getArmor(), enemy.getDefensePhysics(),
+                                enemy.getDefenseMagic(), enemy.getRandomDrop(), enemy.getExpDrop(), enemy.getMoneyDrop(), enemy.getSpawnSecond());
+                        newEnemy.setRectangle(enemy.getRectangleX(), enemy.getRectangleY(), enemy.getRectangleW(), enemy.getRectangleH());
+                        newEnemy.setPosition(enemy.getX(), enemy.getY());
+                        //TODO if not equals null add item drop;     enemy.setDropItemName();
+                        BaseMap.getActualMap().getCharacter().add(newEnemy);
+                        newEnemy.collisionUpdate();
+                        */
+                        if (FightScreen.flip) {
+                            enemy.getTexture().flip(true, false);
+                            FightScreen.enemyImage = new Image(enemy.getTexture());
+                        } else
+                            FightScreen.enemyImage = new Image(enemy.getTexture());
+
+                        enemy.setVisible(true);
+                        enemy.setCollisionOn(true);
+                        enemy.collisionUpdate();
+
+                        Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+                        System.out.println(preferences.getInteger("COLLISION"));
+                    }
+                }, enemy.getSpawnSecond(), 1, 0);
 
                 expMax = ExperienceRequired.getMaxExperience(twoBase);
                 float resultPrecent;
@@ -252,8 +282,11 @@ public class FightWin extends BaseScreen {
     }
 
     @Override
-    public void create() {
-        BaseMap.getActualMap().getCharacter().remove(enemy);
+    public void create(){
+        enemy.setVisible(false);
+        enemy.setCollisionOn(false);
+        enemy.collisionUpdate();
+        //BaseMap.getActualMap().getCharacter().remove(enemy);
 
         Image emptyCircleProgressBar = new Image(new Texture(Gdx.files.internal("circleExp/circleProgresBarExp.png")));
 
@@ -337,7 +370,6 @@ public class FightWin extends BaseScreen {
                 else
                     upperTwo = false;
 
-                System.out.println(percent);
                 if (percent >= circleComplete && nextLevelPrecent && !upperTwo) {
                     Label.LabelStyle styleGreen = new Label.LabelStyle();
                     styleGreen.font = font;

@@ -55,7 +55,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
         }
     }
 
-    public abstract void create();
+    public abstract void create() throws CloneNotSupportedException;
     public abstract void update(float dt);
 
     public void render(float dt)

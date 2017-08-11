@@ -116,8 +116,7 @@ public class Map_02 extends BaseMap {
     }
 
     private void addEnemy(String path, String head, String wapon, int x){
-        Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))),
-                new Image(new Texture(Gdx.files.internal(wapon))), true, "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 40, 70);
+        Enemy enemy = new Enemy(new Texture(Gdx.files.internal(path)), head, wapon, true, "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 40, 70, 30);
         enemy.setRectangle(0, 0, 0, 0);
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
