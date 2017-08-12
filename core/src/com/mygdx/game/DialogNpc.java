@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -36,7 +35,7 @@ public class DialogNpc {
     private static final int START_ANSWER_TWO = 1;
     private static final int START_ANSWER_THREE = 3;
 
-    private static final BitmapFont font = MyGdxGame.createBitmapFont(12, Color.WHITE);
+    private static final BitmapFont font = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle style = new Label.LabelStyle();
     static {
         style.font = font;

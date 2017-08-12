@@ -147,7 +147,7 @@ public class Enemy extends Character implements Cloneable{
                     infoBackground.setSize(BaseMap.VIEW_WIDTH, BaseMap.VIEW_HEIGHT - 50);
                     hero.getHero3D().setRenderHero3d(false);
 
-                    BitmapFont font = new BitmapFont();
+                    BitmapFont font = MyGdxGame.createDistanceFont();
                     Label.LabelStyle style = new Label.LabelStyle();
                     style.font = font;
 

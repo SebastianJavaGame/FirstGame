@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,7 +22,7 @@ import Screen.BaseScreen;
 public class Quest {
     public static final String PREF_TASK = "TASKS";
     private final Preferences PREF = Gdx.app.getPreferences(PREF_TASK);
-    private static final BitmapFont FONT = MyGdxGame.createBitmapFont(20, Color.WHITE);
+    private static final BitmapFont FONT = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle STYLE = new Label.LabelStyle();
     private Asset asset;
     private Stage stage;

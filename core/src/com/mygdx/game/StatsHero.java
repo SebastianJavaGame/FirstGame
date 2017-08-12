@@ -68,7 +68,7 @@ public class StatsHero {
 
     private void create() {
         table = new Table();
-        font = new BitmapFont();
+        font = MyGdxGame.createDistanceFont();
         styleWhite = new Label.LabelStyle();
         styleGreen = new Label.LabelStyle();
         styleWhite.font = font;

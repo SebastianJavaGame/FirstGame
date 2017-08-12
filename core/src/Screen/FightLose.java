@@ -22,6 +22,7 @@ import com.mygdx.game.ExperienceRequired;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Item;
 import com.mygdx.game.LoadAllItemToGame;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ProgressCircle;
 import com.mygdx.game.StatsHero;
 
@@ -30,7 +31,7 @@ import com.mygdx.game.StatsHero;
  */
 
 public class FightLose extends BaseScreen {
-    private static final BitmapFont font = new BitmapFont();
+    private static final BitmapFont font = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle style = new Label.LabelStyle();
     private static final Label.LabelStyle styleRed = new Label.LabelStyle();
     private static final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();

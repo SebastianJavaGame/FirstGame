@@ -27,6 +27,7 @@ import com.mygdx.game.Character;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
 import com.mygdx.game.ImplementObjectMap;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.RenderCollisionLine_Test;
 import com.mygdx.game.StatsHero;
 
@@ -221,7 +222,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         card = asset.manager.get("sound/card.ogg", Sound.class);
 
-        BitmapFont font = new BitmapFont();
+        BitmapFont font = MyGdxGame.createDistanceFont();
         labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
 

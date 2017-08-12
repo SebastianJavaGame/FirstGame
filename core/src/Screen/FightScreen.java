@@ -26,6 +26,7 @@ import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.Hero;
 import com.mygdx.game.MyException;
+import com.mygdx.game.MyGdxGame;
 
 import java.util.ArrayList;
 
@@ -104,7 +105,7 @@ public class FightScreen extends BaseScreen {
     private ArrayList<Integer> avergePercentsFight;
     private ArrayList<Integer> avergeDmgFight;
 
-    BitmapFont font = new BitmapFont();
+    BitmapFont font = MyGdxGame.createDistanceFont();
     Label.LabelStyle style = new Label.LabelStyle();
     Label.LabelStyle styleBlood = new Label.LabelStyle();
 

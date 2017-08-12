@@ -660,7 +660,7 @@ public class Equipment{
                                             i++;
 
                                     if (i == 18) {
-                                        BitmapFont font = new BitmapFont();
+                                        BitmapFont font = MyGdxGame.createDistanceFont();
                                         Label.LabelStyle style = new Label.LabelStyle();
                                         style.font = font;
                                         style.fontColor = new Color(Color.RED);

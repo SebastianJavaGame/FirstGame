@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -157,7 +156,7 @@ public class Bag {
     private void initCardExit() {
         card.clear();
 
-        font = MyGdxGame.createBitmapFont(16, Color.WHITE);
+        font = MyGdxGame.createDistanceFont();
         styleWhite = new Label.LabelStyle();
         styleWhite.font = font;
 

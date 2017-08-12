@@ -21,6 +21,7 @@ import com.mygdx.game.Equipment;
 import com.mygdx.game.FuncionalityShop;
 import com.mygdx.game.Hero;
 import com.mygdx.game.LoadAllItemToGame;
+import com.mygdx.game.MyGdxGame;
 
 /**
  * Created by Sebastian on 2017-07-30.
@@ -34,7 +35,7 @@ public class Shop extends BaseScreen{
     private ImageButton close;
     public static final int POS_Y_NEXT_BACKGROUND = 164;
 
-    private static final BitmapFont font = new BitmapFont();
+    private static final BitmapFont font = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle style = new Label.LabelStyle();
     static {
         style.font = font;

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import Screen.Menu;
@@ -60,5 +61,12 @@ public class MyGdxGame extends Game{
         BitmapFont bitmapFont = generator.generateFont(parameter);
         bitmapFont.setColor(color);
         return bitmapFont;
+    }
+
+    public static BitmapFont createDistanceFont(){
+        Texture texture = new Texture(Gdx.files.internal("font/font.png"));
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        BitmapFont font = new BitmapFont(Gdx.files.internal("font/font.fnt"), new TextureRegion(texture), false);
+        return font;
     }
 }

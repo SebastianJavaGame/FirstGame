@@ -23,6 +23,7 @@ import com.mygdx.game.Equipment;
 import com.mygdx.game.FuncionalityShop;
 import com.mygdx.game.Hero;
 import com.mygdx.game.LoadAllItemToGame;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.StatsHero;
 
 /**
@@ -32,7 +33,7 @@ import com.mygdx.game.StatsHero;
 public class Transaction {
     private Asset asset = new Asset();
     private Image backgroundTransaction;
-    public static final BitmapFont FONT = new BitmapFont();
+    public static final BitmapFont FONT = MyGdxGame.createDistanceFont();
     private static final TextButton.TextButtonStyle STYLE_TRANSACTION_BUY = new TextButton.TextButtonStyle();
     private static final TextButton.TextButtonStyle STYLE_TRANSACTION_SELL = new TextButton.TextButtonStyle();
     private static final TextButton.TextButtonStyle STYLE_BACK = new TextButton.TextButtonStyle();

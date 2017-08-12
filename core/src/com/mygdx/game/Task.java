@@ -21,7 +21,7 @@ import Screen.Menu;
 
 public class Task {
     private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);
-    private static final BitmapFont FONT = MyGdxGame.createBitmapFont(14, Color.WHITE);
+    private static final BitmapFont FONT = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle STYLE = new Label.LabelStyle();
     private static final TextButton.TextButtonStyle BUTTON_STYLE = new TextButton.TextButtonStyle();
     private Asset asset = new Asset();

@@ -8,13 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.mygdx.game.MyGdxGame;
 
 /**
  * Created by Sebastian on 2017-08-05.
  */
 
 public class InfoScreen {
-    private static final BitmapFont FONT = new BitmapFont();
+    private static final BitmapFont FONT = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle STYLE = new Label.LabelStyle();
     private final Image BACKGROUND = new Image(new Texture(Gdx.files.internal("backgroundInfoScreen.png")));
 

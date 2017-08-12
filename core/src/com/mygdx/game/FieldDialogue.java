@@ -27,7 +27,7 @@ public class FieldDialogue {
     private Image barHorizontalUp;
     private Image barHorizontalDown;
     private final Stage STAGE = BaseScreen.getStage();
-    private static final BitmapFont FONT = MyGdxGame.createBitmapFont(12, Color.WHITE);
+    private static final BitmapFont FONT = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
     public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
