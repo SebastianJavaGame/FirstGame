@@ -53,6 +53,7 @@ public class FightScreen extends BaseScreen {
     private Image magicEnemy;
     private Image block;
     private Image blood;
+    private Image skull;
 
     private float targetX;
 
@@ -140,7 +141,7 @@ public class FightScreen extends BaseScreen {
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
         //hpHero = 0;
-        hpEnemy = 10;
+        hpEnemy = 50;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -171,13 +172,8 @@ public class FightScreen extends BaseScreen {
             barEnergyHero = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
             barEnergyEnemy = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
             heroImage = new Image(asset.manager.get("heroImage.png", Texture.class));
+            skull = new Image(asset.manager.get("skull.png", Texture.class));
 
-            /*if (flip) {
-                enemy.getTexture().flip(true, false);
-                enemyImage = new Image(enemy.getTexture());
-            } else
-                enemyImage = new Image(enemy.getTexture());
-*/
             try {
                 waponHero = flipY();
                 waponHero.setPosition(130, 280);
@@ -193,6 +189,8 @@ public class FightScreen extends BaseScreen {
             waponEnemy.setPosition(95, 280);
             waponEnemy.setSize(80, 80);
             waponEnemy.setOrigin(waponEnemy.getWidth(), 0);
+            skull.setSize(160, 120);
+            skull.setPosition(BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
 
             magicHero = new Image(asset.manager.get("magicHero.png", Texture.class));
             magicHero.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() / 2, enemyImage.getWidth() - 30, enemyImage.getHeight() - 120);
@@ -253,12 +251,6 @@ public class FightScreen extends BaseScreen {
                         Action action = Actions.run(new Runnable() {
                             @Override
                             public void run() {
-                                /*if (flip) {
-                                    enemy.getTexture().flip(true, false);
-                                    enemyImage = new Image(enemy.getTexture());
-                                } else
-                                    enemyImage = new Image(enemy.getTexture());
-*/
                                 Menu.setMap();
                             }
                         });
@@ -281,7 +273,7 @@ public class FightScreen extends BaseScreen {
                         final TextButton.TextButtonStyle textStyleAbort = new TextButton.TextButtonStyle();
                         textStyleAbort.font = font;
                         textStyleAbort.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbord.png", Texture.class)));
-                        buttonAbort = new TextButton("Abort!", textStyleAbort);
+                        buttonAbort = new TextButton("Ucieczka!", textStyleAbort);
                         buttonAbort.setSize(150, 50);
                         buttonAbort.setPosition(BaseScreen.VIEW_WIDTH / 2 - startFight.getWidth() / 2, 180);
                         buttonAbort.addListener(new InputListener() {
@@ -326,13 +318,6 @@ public class FightScreen extends BaseScreen {
                                             Action action3 = Actions.run(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    /*if (flip) {
-                                                        enemy.getTexture().flip(true, false);
-                                                        enemyImage = new Image(enemy.getTexture());
-                                                    } else
-                                                        enemyImage = new Image(enemy.getTexture());
-                                                        */
-
                                                     hero.setHp(hpHero);
 
                                                     Menu.setMap();
@@ -785,6 +770,12 @@ public class FightScreen extends BaseScreen {
         if (hpHero < 1) {
             hpHero = 0;
 
+            skull.addAction(Actions.fadeOut(0));
+            skull.addAction(Actions.moveTo(heroImage.getX() +heroImage.getWidth()/2 -skull.getWidth() /2, heroImage.getY() +heroImage.getHeight() /2 -skull.getHeight() /2));
+            skull.addAction(Actions.fadeIn(1.5f));
+            heroImage.addAction(Actions.fadeOut(4));
+            stage.addActor(skull);
+
             stage.addAction(Actions.sequence(Actions.delay(2.5f),Actions.run(new Runnable() {
                 @Override
                 public void run() {
@@ -794,12 +785,12 @@ public class FightScreen extends BaseScreen {
             }),Actions.delay(3), Actions.run(new Runnable() {
                 @Override
                 public void run() {
-                    if (flip) {
+                    /*if (flip) {
                         enemy.getTexture().flip(true, false);
                         enemyImage = new Image(enemy.getTexture());
                     } else
                         enemyImage = new Image(enemy.getTexture());
-
+*/
                     float expMinus = Hero.getMaxExp();
                     float temporary = MathUtils.random(12, 17);
 
@@ -812,6 +803,12 @@ public class FightScreen extends BaseScreen {
         }
         else if(hpEnemy < 1){
             hpEnemy = 0;
+
+            skull.addAction(Actions.fadeOut(0));
+            skull.addAction(Actions.moveTo(enemyImage.getX() +enemyImage.getWidth()/2 -skull.getWidth() /2, enemyImage.getY() +enemyImage.getHeight() /2 -skull.getHeight() /2));
+            skull.addAction(Actions.fadeIn(1.5f));
+            enemyImage.addAction(Actions.fadeOut(4));
+            stage.addActor(skull);
 
             stage.addAction(Actions.sequence(Actions.delay(2.5f),Actions.run(new Runnable() {
                 @Override
@@ -916,6 +913,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private void endFightRemoveEffect(){
+        startFight.remove();
         waponHero.remove();
         waponEnemy.remove();
         magicHero.remove();
@@ -959,8 +957,7 @@ public class FightScreen extends BaseScreen {
             if(enemy.getAttackType()){
                 dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
                 procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-                waponEnemy.addAction(Actions.sequence(Actions.delay(delay - 0.2f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() +20, enemyImage.getY() + enemyImage.getHeight() /2 -40), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() /2, heroImage.getY() +heroImage.getHeight() /2, 0.7f)), Actions.parallel(Actions.sequence(Actions.delay(0.5f), Actions.fadeOut(0.4f)), Actions.moveBy(70, 0, 0.7f))));
-
+                waponEnemy.addAction(Actions.sequence(Actions.delay(delay - 0.2f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() +20, enemyImage.getY() + enemyImage.getHeight() /2 -waponEnemy.getHeight() /2), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() /2, enemyImage.getY() + enemyImage.getHeight() /2 -waponEnemy.getHeight() /2, 0.7f)), Actions.parallel(Actions.sequence(Actions.delay(0.5f), Actions.fadeOut(0.4f)), Actions.moveBy(70, 0, 0.7f))));
             }else {
                 dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
                 procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));

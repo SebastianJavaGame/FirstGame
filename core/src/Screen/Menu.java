@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -38,6 +39,8 @@ public class Menu extends BaseScreen {
     private TextButton.TextButtonStyle textStyle;
     private TextButton.TextButtonStyle textStyleDisapear;
     private Image texture;
+    private Image iLoad;
+
     private static boolean isFirstSpawnHeroPosition = true;
 
     private TextButton lNewGame;
@@ -66,6 +69,9 @@ public class Menu extends BaseScreen {
             texture = new Image(asset.manager.get("menu.png", Texture.class));
             textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("confirmButtonNewGame.png", Texture.class)));
             textStyleDisapear.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("menuButton.png", Texture.class)));
+            iLoad = new Image(new Texture(Gdx.files.internal("loadingFull.png")));
+            iLoad.setSize(280, 50);
+            iLoad.setPosition(BaseScreen.VIEW_WIDTH /2 -iLoad.getWidth() /2, 30);
         }
 
         STYLE.font = FONT;
@@ -92,8 +98,8 @@ public class Menu extends BaseScreen {
         lLoadGame.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                iLoad.setVisible(true);
                 getSoundClick().play();
-                new Quest(stage);
                 new LoadAllItemToGame().loadItems();
                 ExperienceRequired.loadExperienceList();
                 BaseDialogs.loadNpcTextList();
@@ -101,7 +107,18 @@ public class Menu extends BaseScreen {
                 BaseDialogs.loadIndexListener();
                 BaseTask.loadAllTasks();
                 BaseEnemyAI.loadAI();
-                setMap();
+                stage.addAction(Actions.sequence(Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        stage.addActor(iLoad);
+                    }
+                }), Actions.delay(0.5f), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Quest(stage);
+                        setMap();
+                    }
+                })));
                 return false;
             }
         });
@@ -133,12 +150,6 @@ public class Menu extends BaseScreen {
     public void update(float v) {
     }
 
-    /*public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        new Quest(stage);
-        setMap();
-        return false;
-    }*/
-
     private void confirmDialog() {
         asset.loadMenu();
         asset.manager.finishLoading();
@@ -146,11 +157,12 @@ public class Menu extends BaseScreen {
             Image background = new Image(asset.manager.get("confirmNewGame.png", Texture.class));
             TextButton bYes = new TextButton("Tak", textStyle);
             TextButton bNo = new TextButton("Nie", textStyle);
-            Label label = new Label("Czy napewno chcesz rozapoczac nowa gre?", STYLE);
+            Label label = new Label("Czy napewno chcesz\nrozapoczac nowa gre?", STYLE);
+            label.setFontScale(0.7f);
 
-            background.setSize(background.getWidth() + 24, 50);
-            background.setPosition(BaseScreen.VIEW_WIDTH /2 -background.getWidth() /2, 300);
-            label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() /2, background.getY() +background.getHeight() /2 -label.getHeight() /2);
+            background.setSize(background.getWidth() + 24, 80);
+            background.setPosition(BaseScreen.VIEW_WIDTH /2 -background.getWidth() /2, 280);
+            label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*0.7f /2, background.getY() +background.getHeight() /2 -5);
             bYes.setPosition(BaseScreen.VIEW_WIDTH /4 -bYes.getWidth() /2, 285);
             bNo.setPosition(BaseScreen.VIEW_WIDTH /4 *3 -bYes.getWidth() /2, 285);
 
@@ -158,7 +170,6 @@ public class Menu extends BaseScreen {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     getSoundClick().play();
-                    new Quest(stage);
                     clearAllPreference();
                     new LoadAllItemToGame().loadItems();
                     ExperienceRequired.loadExperienceList();
@@ -167,7 +178,18 @@ public class Menu extends BaseScreen {
                     BaseDialogs.loadIndexListener();
                     BaseTask.loadAllTasks();
                     BaseEnemyAI.loadAI();
-                    setMap();
+                    stage.addAction(Actions.sequence(Actions.run(new Runnable() {
+                        @Override
+                        public void run() {
+                            stage.addActor(iLoad);
+                        }
+                    }), Actions.delay(0.5f), Actions.run(new Runnable() {
+                        @Override
+                        public void run() {
+                            new Quest(stage);
+                            setMap();
+                        }
+                    })));
                     return false;
                 }
             });

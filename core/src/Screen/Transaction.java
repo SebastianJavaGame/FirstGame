@@ -119,6 +119,7 @@ public class Transaction {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     updateBuyTouchable(false);
+                    Transaction.setBackEnabled(true);
                     for (int i = 0; i < 18; i++) {
                         String value = preferences.getString("SLOT" + i, "");
 
@@ -166,6 +167,7 @@ public class Transaction {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     soundShop.play();
                     updateSellTouchable(false);
+                    Transaction.setBackEnabled(true);
                     FuncionalityShop.animationEndTransaction("+" + FuncionalityShop.getPrice(), Color.GREEN);
                     FuncionalityShop.removeAllShop();
 
@@ -196,7 +198,6 @@ public class Transaction {
     private void showEq(String[] itemList) {
         for (int i = 0; i < itemList.length; i++) {
             String value = itemList[i];
-            System.out.println(value);
             if (!value.equals(""))
                 try {
                     FuncionalityShop.addItemToShop(LoadAllItemToGame.getItem(value), i);

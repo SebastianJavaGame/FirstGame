@@ -18,6 +18,7 @@ public class Asset implements Disposable {
         manager.load("confirmButtonNewGame.png", Texture.class);
         manager.load("menuButton.png", Texture.class);
         manager.load("confirmNewGame.png", Texture.class);
+        manager.load("loadingFull.png", Texture.class);
 
         manager.load("sound/click.ogg", Sound.class);
     }
@@ -148,6 +149,7 @@ public class Asset implements Disposable {
         manager.load("itemButton.png", Texture.class);
         manager.load("plus.png", Texture.class);
         manager.load("minus.png", Texture.class);
+        manager.load("skull.png", Texture.class);
 
         manager.load("sound/battle.ogg", Music.class);
         manager.load("sound/blockAttack.ogg", Sound.class);
