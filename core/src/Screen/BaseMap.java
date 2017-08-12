@@ -186,6 +186,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         if(hero.isCharacterCollisionLook())
             hero.collisionCharacter();
+
+        setPosX((int)hero.getX());
+        setPosY((int)hero.getY());
     }
 
     @Override

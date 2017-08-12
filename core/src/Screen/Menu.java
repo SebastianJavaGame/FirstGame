@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -82,6 +83,7 @@ public class Menu extends BaseScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 getSoundClick().play();
+                setToutch(Touchable.disabled);
                 confirmDialog();
                 return false;
             }
@@ -175,6 +177,7 @@ public class Menu extends BaseScreen {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     getSoundClick().play();
                     fontStage.clear();
+                    setToutch(Touchable.enabled);
                     create();
                     return false;
                 }
@@ -237,5 +240,12 @@ public class Menu extends BaseScreen {
 
     public static Sound getSoundClick(){
         return soundClick;
+    }
+
+    private void setToutch(Touchable toutch){
+        lNewGame.setTouchable(toutch);
+        lLoadGame.setTouchable(toutch);
+        lMore.setTouchable(toutch);
+        lExit.setTouchable(toutch);
     }
 }

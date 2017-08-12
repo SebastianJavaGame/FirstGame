@@ -77,9 +77,8 @@ public class Task {
 
     public static void deleteTask(int indexTask, int idTask){
         Preferences pref = Gdx.app.getPreferences(Quest.PREF_TASK);
-        pref.putInteger("TASK" +pref.getInteger("TASK" + indexTask) + "_PROGRESS", 0);
-        pref.putInteger("TASK" + indexTask, -1);
-        pref.flush();
+        pref.putInteger("TASK" +pref.getInteger("TASK" + indexTask) + "_PROGRESS", 0).flush();
+        pref.putInteger("TASK" + indexTask, -1).flush();
         sortPrefTask(pref);
         //showPref();
         Bag.initCardQuest();
@@ -98,7 +97,6 @@ public class Task {
                     pref.putInteger("TASK" + pref.getInteger("TASK" +i) + "_PROGRESS", temporaryProgress).flush();
                     pref.putInteger("TASK" +(i+1), -1).flush();
                     pref.putInteger("TASK" + pref.getInteger("TASK" +(i+1)) + "_PROGRESS", 0).flush();
-                    pref.flush();
                 }
             }
         }

@@ -149,6 +149,8 @@ public class FightScreen extends BaseScreen {
         energyMaxHero = 100;
         energyHero = energyMaxHero;
         energyEnemy = energyMaxEnemy;
+        animationPlay = false;
+        abort = true;
 
         pointUserPref[3] = preferences.getInteger("ATTACK_PHYSICS", 0);
         pointUserPref[2] = preferences.getInteger("DEFENSE_PHYSICS", 0);
@@ -272,7 +274,6 @@ public class FightScreen extends BaseScreen {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Menu.getSoundClick().play();
-                    musicBattle.stop();
                     if (abortFirstTap && !animationPlay) {
                         if (hpHero > hpMaxHero * 0.2f)
                             abortFirstTap = false;
@@ -288,6 +289,7 @@ public class FightScreen extends BaseScreen {
                             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                                 Menu.getSoundClick().play();
                                 Menu.setIsFirstSpawnHeroPosition(true);
+                                musicBattle.stop();
 
                                 if (hpHero > hpMaxHero * 0.2f) {
                                     Action action = Actions.run(new Runnable() {
@@ -329,6 +331,8 @@ public class FightScreen extends BaseScreen {
                                                         enemyImage = new Image(enemy.getTexture());
                                                     } else
                                                         enemyImage = new Image(enemy.getTexture());
+
+                                                    hero.setHp(hpHero);
 
                                                     Menu.setMap();
                                                 }

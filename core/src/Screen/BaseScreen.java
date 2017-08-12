@@ -36,6 +36,9 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     protected static Stage stage;
     protected static Stage fontStage;
 
+    private static int posX;
+    private static int posY;
+
     private static boolean exception = false;
 
     public BaseScreen(Game g)
@@ -50,6 +53,9 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
             InputMultiplexer im = new InputMultiplexer(this, stage, fontStage);
             Gdx.input.setInputProcessor(im);
+
+            posX = 0;
+            posY = 0;
         } catch (Exception e) {
             showException(e);
         }
@@ -193,5 +199,21 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
     public static Game getGame(){
         return game;
+    }
+
+    public static void setPosX(int pos){
+        posX = pos;
+    }
+
+    public static void setPosY(int pos){
+        posY = pos;
+    }
+
+    public static int getPosX(){
+        return posX;
+    }
+
+    public static int getPosY(){
+        return posY;
     }
 }

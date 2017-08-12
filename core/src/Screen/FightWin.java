@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -103,6 +104,8 @@ public class FightWin extends BaseScreen {
         allExp = expAdd;
         dropProcent = enemy.getRandomDrop();
         this.enemy = enemy;
+
+        final Rectangle temporaryRectangleCollision = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
 
         Image background = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
         Image barGold = new Image(new Texture(Gdx.files.internal("barX.png")));
@@ -207,34 +210,31 @@ public class FightWin extends BaseScreen {
                     @Override
                     public void run() {
                         //TODO add spawn enemy
-                        /*
-                        Enemy newEnemy = new Enemy(enemy.getTexturePath(), enemy.getHeadPath(), enemy.getWaponPath(), enemy.getAttackType(),
-                                enemy.getName(), enemy.getLevel(), enemy.getHp(), enemy.getStrong(), enemy.getWiedza(), enemy.getArmor(), enemy.getDefensePhysics(),
-                                enemy.getDefenseMagic(), enemy.getRandomDrop(), enemy.getExpDrop(), enemy.getMoneyDrop(), enemy.getSpawnSecond());
-                        newEnemy.setRectangle(enemy.getRectangleX(), enemy.getRectangleY(), enemy.getRectangleW(), enemy.getRectangleH());
-                        newEnemy.setPosition(enemy.getX(), enemy.getY());
-                        //TODO if not equals null add item drop;     enemy.setDropItemName();
-                        BaseMap.getActualMap().getCharacter().add(newEnemy);
-                        newEnemy.collisionUpdate();
-                        */
-                        if (FightScreen.flip) {
-                            enemy.getTexture().flip(true, false);
-                            FightScreen.enemyImage = new Image(enemy.getTexture());
-                        } else
-                            FightScreen.enemyImage = new Image(enemy.getTexture());
+                        if(!hero.calculateCollisionTwoRectangle(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()), temporaryRectangleCollision)) {
+                            if (FightScreen.flip) {
+                                enemy.getTexture().flip(true, false);
+                                FightScreen.enemyImage = new Image(enemy.getTexture());
+                            } else
+                                FightScreen.enemyImage = new Image(enemy.getTexture());
 
-                        enemy.setVisible(true);
-                        enemy.setCollisionOn(true);
-                        enemy.collisionUpdate();
+                            enemy.setVisible(true);
+                            enemy.setCollisionOn(true);
+                            enemy.collisionUpdate();
+                            this.cancel();
+                        }
+                        System.out.println("LOOP");
+                        System.out.println(hero.getHeroBox());
+                        System.out.println(temporaryRectangleCollision);
+                        System.out.println(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()));
 
-                        Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
-                        System.out.println(preferences.getInteger("COLLISION"));
+                        System.out.println(getPosX());
+                        System.out.println(getPosY());
                     }
-                }, enemy.getSpawnSecond(), 1, 0);
+                }, enemy.getSpawnSecond(), 2, 9999);
 
                 expMax = ExperienceRequired.getMaxExperience(twoBase);
                 float resultPrecent;
-                float resultActualExp = (float) allExp / expMax * 100;
+                float resultActualExp = (float) (Hero.getExp() +allExp) / expMax * 100;
                 precentStart = (float) expActual / expMax * 100;
                 int heroLevel = hero.getLevel();
 
@@ -271,7 +271,8 @@ public class FightWin extends BaseScreen {
                         expMax = ExperienceRequired.getMaxExperience(twoBase);
                         resultActualExp = (float) allExp / expMax * 100;
                         precentStart = 0;
-                        hero.levelUp();
+                        Hero.levelUp();
+                        System.out.println("LEVEL UP");
                     }
                 }
                 return false;

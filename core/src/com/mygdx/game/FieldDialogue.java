@@ -34,7 +34,6 @@ public class FieldDialogue {
     private static final int LINE_LENGTH = 28;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
     private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);
-    private final Preferences PREFERENCE = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
     static {
         STYLE_WHITE.font = FONT;
@@ -294,7 +293,7 @@ public class FieldDialogue {
                     Hero.setExp(Hero.getExp() + exp);
                     if(Hero.getExp() >= Hero.getMaxExp()){
                         Hero.setExp(Hero.getExp() -Hero.getMaxExp());
-                       levelUp();
+                       Hero.levelUp();
                     }
                 }
                 while(Hero.getExp() +exp >= Hero.getMaxExp());
@@ -355,15 +354,6 @@ public class FieldDialogue {
             }
         });
         return this;
-    }
-
-    private void levelUp(){
-        Hero.playSoundLvlUp();
-        PREFERENCE.putInteger("LEVEL", PREFERENCE.getInteger("LEVEL") +1).flush();
-        PREFERENCE.putInteger("FREE_POINT", PREFERENCE.getInteger("FREE_POINT") +5).flush();
-        Hero.setLevel(Hero.getLevel() +1);
-        Hero.setMaxExp(ExperienceRequired.getMaxExperience(Hero.getLevel()));
-        Hero.setPoint(Hero.getPoint() +5);
     }
 
     private void clearFieldDialogue(){

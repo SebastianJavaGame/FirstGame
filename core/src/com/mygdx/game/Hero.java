@@ -68,6 +68,7 @@ public class Hero extends Character {
     private boolean changeTrack;
     private boolean characterCollision;
     private boolean characterCollisionLook;
+    private boolean respawn;
     private static boolean activeMove;
 
     private static int level;
@@ -98,6 +99,10 @@ public class Hero extends Character {
     private Sound soundNextMap;
     private static Sound soundStep;
     private static Sound soundLvlUp;
+
+    public Hero(Texture texture){
+        super(texture);
+    }
 
     public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D,
                 ArrayList<Character> characters) {
@@ -168,6 +173,8 @@ public class Hero extends Character {
         } catch (CloneNotSupportedException e) {}
 
         setHp(preferences.getInteger("HP", getFullHp()));
+
+        nonCollision.set(preferences.getInteger("POS_X"), preferences.getInteger("POS_Y"));
     }
 
     @Override
@@ -198,7 +205,6 @@ public class Hero extends Character {
         setFinishWalkPosition(new Rectangle(end.x - 1, end.y - 1, 2, 2));
 
         actualIndexCharacter = preferences.getInteger("COLLISION", 0);
-        System.out.println(preferences.getInteger("COLLISION", 0));
 
         if(calculateCollisionTwoRectangle(heroBox, characters.get(actualIndexCharacter).getCollision())) {
             if(cornersHero[0] != null && cornersHero[1] == null){
@@ -560,13 +566,15 @@ public class Hero extends Character {
         }
     }
 
-    public void levelUp(){
+    public static void levelUp(){
+        Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
         soundLvlUp.play();
         preferences.putInteger("LEVEL", preferences.getInteger("LEVEL") +1).flush();
         preferences.putInteger("FREE_POINT", preferences.getInteger("FREE_POINT") +5).flush();
         setLevel(getLevel() + 1);
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
         setPoint(getPoint() +5);
+        System.out.println(getPoint() + "point");
     }
 
     private float calculateAction(int index, boolean xOrY){
@@ -729,6 +737,7 @@ public class Hero extends Character {
             animationPlay = false;
             setCharacterCollisionLook(false);
             soundStep.stop();
+            nonCollision.set(getX(), getY());
         }
 
         for(int i = 0; i < BaseMap.getEntriaceToMapRectangle().size(); i++){
@@ -766,7 +775,7 @@ public class Hero extends Character {
                 getX() + getWidth(), getY() + getHeight(), getX() + getWidth(), getY()});
     }
 
-    private void heroUpdateCollisionBox(){
+    public void heroUpdateCollisionBox(){
         heroBox.set(this.getX() -7,this.getY() -24, 22, 30);
     }
 
@@ -845,6 +854,10 @@ public class Hero extends Character {
         return finishWalkPosition;
     }
 
+    public Rectangle getHeroBox(){
+        return heroBox;
+    }
+
     public Polygon getActualPointObject() {
         return actualPointObject;
     }
@@ -902,6 +915,10 @@ public class Hero extends Character {
 
     public boolean isChangeTrack() {
         return changeTrack;
+    }
+
+    public boolean isRespawn(){
+        return respawn;
     }
 
     public boolean isAroundMove() {
