@@ -42,66 +42,66 @@ public class FightScreen extends BaseScreen {
     private static final int[] DURATION_ANIMATION = new int[]{1, 4, 7, 10, 13, 16};
     private static final int[] SUPER_ATTACK = new int[]{5, 0, 5, 0};
 
-    private static Hero hero;
-    private static Enemy enemy;
+    private Hero hero;
+    private Enemy enemy;
 
-    private static Image heroImage;
-    public static Image enemyImage;
-    private static Image waponHero;
-    private static Image waponEnemy;
-    private static Image magicHero;
-    private static Image magicEnemy;
-    private static Image block;
-    private static Image blood;
+    private Image heroImage;
+    private Image enemyImage;
+    private Image waponHero;
+    private Image waponEnemy;
+    private Image magicHero;
+    private Image magicEnemy;
+    private Image block;
+    private Image blood;
 
-    private static float targetX;
+    private float targetX;
 
-    private static Image backgroundFight;
-    private static ImageButton[] plusButton;
-    private static ImageButton[] minusButton;
-    private static ImageButton abortNonActive;
-    private static ImageButton abortActive;
-    private static TextButton startFight;
-    private static TextButton buttonAbort;
+    private Image backgroundFight;
+    private ImageButton[] plusButton;
+    private ImageButton[] minusButton;
+    private ImageButton abortNonActive;
+    private ImageButton abortActive;
+    private TextButton startFight;
+    private TextButton buttonAbort;
 
-    private static Image barHpHero;
-    private static Image barHpEnemy;
-    private static Image barEnergyHero;
-    private static Image barEnergyEnemy;
+    private Image barHpHero;
+    private Image barHpEnemy;
+    private Image barEnergyHero;
+    private Image barEnergyEnemy;
 
-    private static Label[] labelPointFight;
-    private static int[] pointUserPref;
-    private static int freePointFight;
-    private static int pointFightEnemy;
+    private Label[] labelPointFight;
+    private int[] pointUserPref;
+    private int freePointFight;
+    private int pointFightEnemy;
 
-    private static int energyMaxHero;
-    private static int energyMaxEnemy;
-    private static int hpMaxHero;
-    private static int hpMaxEnemy;
-    private static int energyHero;
-    private static int energyEnemy;
-    private static int hpHero;
-    private static int hpEnemy;
+    private int energyMaxHero;
+    private int energyMaxEnemy;
+    private int hpMaxHero;
+    private int hpMaxEnemy;
+    private int energyHero;
+    private int energyEnemy;
+    private int hpHero;
+    private int hpEnemy;
 
-    private static Label lHpHero;
-    private static Label lHpEnemy;
-    private static Label lEnergyHero;
-    private static Label lEnergyEnemy;
-    private static Label labelRoundNumber;
-    private static Label[] labelCalculateHp;
-    private static Label[] labelCalculateProcent;
-    private static Label labelFreePoint;
+    private Label lHpHero;
+    private Label lHpEnemy;
+    private Label lEnergyHero;
+    private Label lEnergyEnemy;
+    private Label labelRoundNumber;
+    private Label[] labelCalculateHp;
+    private Label[] labelCalculateProcent;
+    private Label labelFreePoint;
 
-    private static int enemyAiStats[];
+    private int enemyAiStats[];
 
-    public static boolean flip;
-    private static boolean abort;
-    private static boolean abortFirstTap;
-    private static boolean animationPlay;
-    private static boolean stopAnimationRoundAttack = false;
+    public boolean flip;
+    private boolean abort;
+    private boolean abortFirstTap;
+    private boolean animationPlay;
+    private boolean stopAnimationRoundAttack = false;
 
-    private static ArrayList<Integer> avergePercentsFight;
-    private static ArrayList<Integer> avergeDmgFight;
+    private ArrayList<Integer> avergePercentsFight;
+    private ArrayList<Integer> avergeDmgFight;
 
     BitmapFont font = new BitmapFont();
     Label.LabelStyle style = new Label.LabelStyle();
@@ -149,6 +149,7 @@ public class FightScreen extends BaseScreen {
         energyMaxHero = 100;
         energyHero = energyMaxHero;
         energyEnemy = energyMaxEnemy;
+        enemyImage = enemy.getFlip();
         animationPlay = false;
         abort = true;
 
@@ -171,12 +172,12 @@ public class FightScreen extends BaseScreen {
             barEnergyEnemy = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
             heroImage = new Image(asset.manager.get("heroImage.png", Texture.class));
 
-            if (flip) {
+            /*if (flip) {
                 enemy.getTexture().flip(true, false);
                 enemyImage = new Image(enemy.getTexture());
             } else
                 enemyImage = new Image(enemy.getTexture());
-
+*/
             try {
                 waponHero = flipY();
                 waponHero.setPosition(130, 280);
@@ -188,7 +189,6 @@ public class FightScreen extends BaseScreen {
             enemyImage.setSize(enemyImage.getWidth(), enemyImage.getHeight());
             targetX = (BaseScreen.VIEW_WIDTH / 2 - enemyImage.getWidth()) / 2 + BaseScreen.VIEW_WIDTH / 2;
             enemyImage.setPosition(targetX, 175);
-            System.out.println(targetX + "target");
             waponEnemy = enemy.getWapon();
             waponEnemy.setPosition(95, 280);
             waponEnemy.setSize(80, 80);
@@ -245,7 +245,7 @@ public class FightScreen extends BaseScreen {
                     musicBattle.stop();
 
                     if (abort && !animationPlay) {
-                        Label label = new Label("ABORT!", style);
+                        Label label = new Label("Ucieczka!", style);
                         label.setFontScale(3);
                         label.setPosition(85, 250);
                         stage.addActor(label);
@@ -253,12 +253,12 @@ public class FightScreen extends BaseScreen {
                         Action action = Actions.run(new Runnable() {
                             @Override
                             public void run() {
-                                if (flip) {
+                                /*if (flip) {
                                     enemy.getTexture().flip(true, false);
                                     enemyImage = new Image(enemy.getTexture());
                                 } else
                                     enemyImage = new Image(enemy.getTexture());
-
+*/
                                 Menu.setMap();
                             }
                         });
@@ -316,7 +316,7 @@ public class FightScreen extends BaseScreen {
                                             Action action2 = Actions.run(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    Label label = new Label("ABORT!", style);
+                                                    Label label = new Label("Ucieczka!", style);
                                                     label.setFontScale(3);
                                                     label.setPosition(85, 250);
                                                     stage.addActor(label);
@@ -326,11 +326,12 @@ public class FightScreen extends BaseScreen {
                                             Action action3 = Actions.run(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    if (flip) {
+                                                    /*if (flip) {
                                                         enemy.getTexture().flip(true, false);
                                                         enemyImage = new Image(enemy.getTexture());
                                                     } else
                                                         enemyImage = new Image(enemy.getTexture());
+                                                        */
 
                                                     hero.setHp(hpHero);
 
@@ -359,7 +360,7 @@ public class FightScreen extends BaseScreen {
             textStyle.font = font;
             textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("itemButton.png", Texture.class)));
 
-            startFight = new TextButton("Fight!", textStyle);
+            startFight = new TextButton("Walka!", textStyle);
             startFight.setSize(150, 50);
             startFight.setPosition(BaseScreen.VIEW_WIDTH / 2 - startFight.getWidth() / 2, 135);
             startFight.addListener(new InputListener() {
@@ -764,7 +765,7 @@ public class FightScreen extends BaseScreen {
         }) ,Actions.moveBy(0, 15, 1), Actions.parallel(Actions.moveBy(0, 15, 0.5f), Actions.fadeOut(0.5f))));
     }
 
-    private static Image flipY() throws CloneNotSupportedException {
+    private Image flipY() throws CloneNotSupportedException {
         if(Equipment.getTextureWapon() != null) {
             final TextureRegion texture = new TextureRegion(Equipment.getTextureWapon());
             texture.flip(true, false);

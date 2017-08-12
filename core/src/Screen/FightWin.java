@@ -211,24 +211,11 @@ public class FightWin extends BaseScreen {
                     public void run() {
                         //TODO add spawn enemy
                         if(!hero.calculateCollisionTwoRectangle(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()), temporaryRectangleCollision)) {
-                            if (FightScreen.flip) {
-                                enemy.getTexture().flip(true, false);
-                                FightScreen.enemyImage = new Image(enemy.getTexture());
-                            } else
-                                FightScreen.enemyImage = new Image(enemy.getTexture());
-
                             enemy.setVisible(true);
                             enemy.setCollisionOn(true);
                             enemy.collisionUpdate();
                             this.cancel();
                         }
-                        System.out.println("LOOP");
-                        System.out.println(hero.getHeroBox());
-                        System.out.println(temporaryRectangleCollision);
-                        System.out.println(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()));
-
-                        System.out.println(getPosX());
-                        System.out.println(getPosY());
                     }
                 }, enemy.getSpawnSecond(), 2, 9999);
 
@@ -376,8 +363,8 @@ public class FightWin extends BaseScreen {
                     styleGreen.font = font;
                     styleGreen.fontColor = new Color(Color.GREEN);
 
-                    final Label label = new Label("LEVEL UP!", styleGreen);
-                    //label.setFontScale(1.5f);
+                    final Label label = new Label("AWANSUJESZ!", styleGreen);
+                    Hero.playSoundLvlUp();
                     label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.80f);
 
                     Action action = Actions.run(new Runnable() {

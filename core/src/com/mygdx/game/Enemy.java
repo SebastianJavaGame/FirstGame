@@ -32,6 +32,7 @@ public class Enemy extends Character implements Cloneable{
     private Asset asset = new Asset();
     private Image head;
     private Image wapon;
+    private Image flip;
     private String name;
     private int level;
     private int hp;
@@ -43,6 +44,7 @@ public class Enemy extends Character implements Cloneable{
     private ArrayList<String> dropItemName;
     private float randomDrop;
 
+    private String texturePath;
     private String headPath;
     private String waponPath;
 
@@ -59,9 +61,10 @@ public class Enemy extends Character implements Cloneable{
     private Sound soundCollision;
     private Sound soundView;
 
-    public Enemy(Texture texture, String headPath, String waponPath, boolean attackType, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
+    public Enemy(String texturePath, String headPath, String waponPath, boolean attackType, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
                  float randomDrop, int expDrop ,int moneyDrop, int spawnSecond) {
-        super(texture);
+        super(new Texture(Gdx.files.internal(texturePath)));
+        this.texturePath = texturePath;
         this.headPath = headPath;
         this.waponPath = waponPath;
         this.head = new Image(new Texture(Gdx.files.internal(headPath)));
@@ -80,6 +83,10 @@ public class Enemy extends Character implements Cloneable{
         this.expDrop = expDrop;
         this.spawnSecond = spawnSecond;
         dropItemName = new ArrayList();
+
+        TextureRegion texture = new TextureRegion(new Texture(Gdx.files.internal(texturePath)));
+        texture.flip(true, false);
+        flip = new Image(texture);
 
         setSize(this.getWidth() *0.45f, this.getHeight() *0.45f);
     }
@@ -306,5 +313,9 @@ public class Enemy extends Character implements Cloneable{
 
     public int getSpawnSecond(){
         return spawnSecond;
+    }
+
+    public Image getFlip(){
+        return flip;
     }
 }
