@@ -245,7 +245,7 @@ public class FightScreen extends BaseScreen {
                     if (abort && !animationPlay) {
                         Label label = new Label("Ucieczka!", style);
                         label.setFontScale(1.4f);
-                        label.setPosition(85, 250);
+                        label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*1.4f /2, 250);
                         stage.addActor(label);
 
                         Action action = Actions.run(new Runnable() {
@@ -290,7 +290,7 @@ public class FightScreen extends BaseScreen {
                                             startFight.setPosition(0, -50);
 
                                             Label label = new Label("-20% HP", styleBlood);
-                                            label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
+                                            label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2, buttonAbort.getY() + 50);
                                             stage.addActor(label);
                                             label.setFontScale(1);
 
@@ -310,7 +310,7 @@ public class FightScreen extends BaseScreen {
                                                 public void run() {
                                                     Label label = new Label("Ucieczka!", style);
                                                     label.setFontScale(1.4f);
-                                                    label.setPosition(85, 250);
+                                                    label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*1.4f /2, 250);
                                                     stage.addActor(label);
                                                 }
                                             });
@@ -902,7 +902,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private void endFightRemoveEffect(){
-        startFight.remove();
+        startFight.addAction(Actions.fadeOut(0));
         waponHero.remove();
         waponEnemy.remove();
         magicHero.remove();

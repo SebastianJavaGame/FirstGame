@@ -152,17 +152,27 @@ public class Enemy extends Character implements Cloneable{
                     style.font = font;
 
                     final Label lName = new Label(getName().toUpperCase(), style);
-                    final Label lLevel = new Label("Level " + level, style);
-                    final Label lHp = new Label("Hp: " + hp, style);
-                    final Label lArmor = new Label("Armor: " + armor + "%", style);
-                    final Label lStrong = new Label("Strong: " + strong, style);
-                    final Label lWiedza = new Label("Wiedza: " + wiedza, style);
-                    final Label lDefensePhysics = new Label("Defense Physics: " + getDefensePhysics(), style);
-                    final Label lDefenseMagic = new Label("Defense Magic: " + getDefenseMagic(), style);
-                    final Label lRandomDrop = new Label("Chance to drop: " + getRandomDrop() + "%", style);
+                    final Label lLevel = new Label("Poziom " + level, style);
+                    final Label lHp = new Label("Punkty Życia " + hp, style);
+                    final Label lArmor = new Label("Pancerz " + armor + "%", style);
+                    final Label lStrong = new Label("Siła " + strong, style);
+                    final Label lWiedza = new Label("Wiedza " + wiedza, style);
+                    final Label lDefensePhysics = new Label("ObronaFizyczna " + getDefensePhysics(), style);
+                    final Label lDefenseMagic = new Label("ObronaMagiczna " + getDefenseMagic(), style);
+                    final Label lRandomDrop = new Label("Szansa na zdobycie przedmiotu " + getRandomDrop() + "%", style);
                     final Image imageEnemy = new Image(getTexture());
                     Vector2 sizeEnemyInfo = scaleUp(getTexture());
                     imageEnemy.setSize(sizeEnemyInfo.x, sizeEnemyInfo.y);
+
+                    lName.setFontScale(0.5f);
+                    lLevel.setFontScale(0.5f);
+                    lHp.setFontScale(0.5f);
+                    lArmor.setFontScale(0.5f);
+                    lStrong.setFontScale(0.5f);
+                    lWiedza.setFontScale(0.5f);
+                    lDefensePhysics.setFontScale(0.45f);
+                    lDefenseMagic.setFontScale(0.45f);
+                    lRandomDrop.setFontScale(0.4f);
 
                     imageEnemy.setTouchable(Touchable.disabled);
                     lName.setTouchable(Touchable.disabled);
@@ -175,15 +185,15 @@ public class Enemy extends Character implements Cloneable{
                     lDefenseMagic.setTouchable(Touchable.disabled);
                     lRandomDrop.setTouchable(Touchable.disabled);
 
-                    lName.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 - lName.getWidth() - 20, defaultScreenZeroY + 339);
-                    lLevel.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 + lName.getWidth() / 2, defaultScreenZeroY + 339);
-                    lHp.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 120);
-                    lArmor.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 + 10, defaultScreenZeroY + 120);
+                    lName.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 - lName.getWidth()*0.5f -25, defaultScreenZeroY + 330);
+                    lLevel.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 + lName.getWidth()*0.5f /2, defaultScreenZeroY + 330);
+                    lHp.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 110);
+                    lArmor.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 + 10, defaultScreenZeroY + 110);
                     lStrong.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 80);
                     lWiedza.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 + 10, defaultScreenZeroY + 80);
                     lDefensePhysics.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 50);
                     lDefenseMagic.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 + 10, defaultScreenZeroY + 50);
-                    lRandomDrop.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 - lRandomDrop.getWidth() / 2, defaultScreenZeroY + 20);
+                    lRandomDrop.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 - lRandomDrop.getWidth()*0.4f / 2, defaultScreenZeroY + 20);
                     imageEnemy.setPosition(defaultScreenZeroX + (BaseMap.VIEW_WIDTH / 2 - imageEnemy.getWidth() / 2), defaultScreenZeroY + (BaseMap.VIEW_HEIGHT / 2 - imageEnemy.getHeight() / 2));
 
                     addActor(infoBackground, lName, lLevel, imageEnemy, lHp, lArmor, lStrong, lWiedza, lDefensePhysics, lDefenseMagic, lRandomDrop);

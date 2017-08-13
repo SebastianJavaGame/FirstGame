@@ -344,12 +344,12 @@ public class FightLose extends BaseScreen {
                 label.setText("Dodatkowe złoto: -" + (int)(hero.getMoney() + cash));
                 if(hero.getMoney() + moneyDropMinus > 0) {
                     animationEq(true);
-                    label.setPosition(BaseScreen.VIEW_WIDTH / 2 - label.getWidth() * 0.6f / 2 - image.getWidth() * 0.75f, lMoney.getY() - lMoney.getHeight() /5 +5);
+                    label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() *0.6f /2, lMoney.getY() - lMoney.getHeight() /4 +5);
                 }
             }
 
-            image.setSize(image.getWidth() /2, image.getHeight() /2);
-            image.setPosition(label.getX() + label.getWidth(), label.getY());
+            image.setSize(image.getWidth() *0.6f, image.getHeight() *0.6f);
+            image.setPosition(label.getX() + label.getWidth()*0.6f, label.getY());
 
             addActors(label, image);
 

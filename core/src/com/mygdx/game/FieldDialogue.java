@@ -138,9 +138,10 @@ public class FieldDialogue {
 
     public FieldDialogue setPosition(int downY){
         int y = downY -(int)(label.getHeight()*0.6f);
-        label.setPosition(POSITION_X +2, y);
         barHorizontalUp.setPosition(POSITION_X + 2, y + label.getHeight()*0.6f - 5);
         barHorizontalDown.setPosition(POSITION_X + 2, y - 5);
+        label.setHeight((barHorizontalUp.getY() -barHorizontalDown.getY()) +8);
+        label.setPosition(POSITION_X + 2, barHorizontalDown.getY() +2);
 
         barVerticalLeft.setSize(barVerticalLeft.getWidth(), label.getHeight()*0.6f +10);
         barVerticalLeft.setPosition(POSITION_X -5, barHorizontalDown.getY());
