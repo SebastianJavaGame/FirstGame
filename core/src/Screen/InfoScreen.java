@@ -26,7 +26,8 @@ public class InfoScreen {
 
     public InfoScreen(String description, float duration, Stage stage) {
         Label label = new Label(description, STYLE);
-        label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() /2, BaseScreen.VIEW_HEIGHT /2 -label.getHeight() /2);
+        label.setFontScale(0.6f);
+        label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*0.6f /2, BaseScreen.VIEW_HEIGHT /2 -label.getHeight() /2);
         BACKGROUND.setPosition(BaseScreen.VIEW_WIDTH /2 -BACKGROUND.getWidth() /2, BaseScreen.VIEW_HEIGHT /2 -BACKGROUND.getHeight() /2);
 
         label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.5f), Actions.delay(duration), Actions.fadeOut(0.5f)));

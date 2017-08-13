@@ -90,38 +90,41 @@ public class FightLose extends BaseScreen {
         iconMoney = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
         Image iconDead = new Image(new Texture(Gdx.files.internal("iconDead.png")));
 
-        confirm = new TextButton("Pomin", textStyle);
+        confirm = new TextButton("Pomiń", textStyle);
 
-        Label lExpText = new Label("Zdobyte doswiadczenie", style);
+        Label lExpText = new Label("Zdobyte doświadczenie", style);
         lExp = new Label(String.valueOf(expAdd), style);
         lWordExp = new Label("exp", style);
-        lMoney = new Label("Zloto: " + moneyDrop, style);
-        Label lStatsDmgAverrage = new Label("Srednie zadane obrazenia: " + dmgAverrage, style);
-        Label lStatsCelnosc = new Label("Srednia target atakow: " + target + "%", style);
+        Label lStatsDmgAverrage = new Label("Średnie zadane obrażenia: " + dmgAverrage, style);
+        Label lStatsCelnosc = new Label("Srednia celnosc atakow: " + String.format("%, .1f", target) + "%", style);
         Label lDead = new Label("Zgony: " + prefStats.getInteger("DEAD", 1), style);
+        lMoney = new Label("Złoto: " +moneyDrop, style);
+
 
         float lenghtText = 90 / lExp.getWidth() * 0.75f;
+        lMoney.setColor(Color.GOLD);
 
-        lExpText.setFontScale(1.8f);
+        lExpText.setFontScale(0.9f);
         lExp.setFontScale(lenghtText);
-        lWordExp.setFontScale(2f);
-        lMoney.setFontScale(1.5f);
-        lDead.setFontScale(1.5f);
+        lWordExp.setFontScale(1);
+        lMoney.setFontScale(0.8f);
+        lStatsCelnosc.setFontScale(0.5f);
+        lStatsDmgAverrage.setFontScale(0.5f);
 
-        lExpText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExpText.getWidth() / 1.14f, 450);
-        lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() * (lenghtText / 2), BaseScreen.VIEW_HEIGHT * 0.75f);
-        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth(), BaseScreen.VIEW_HEIGHT * 0.69f);
-        lMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lMoney.getWidth() / 2 - iconMoney.getWidth() / 1.5f - 5, 245);
-        lDead.setPosition(BaseScreen.VIEW_WIDTH /2 -(lDead.getWidth() /2 *1.5f) -25, 146);
-        lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsDmgAverrage.getWidth() / 2, 84);
-        lStatsCelnosc.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsCelnosc.getWidth() / 2, 63);
+        lExpText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExpText.getWidth()*0.9f /2, 440);
+        lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() *lenghtText / 2, BaseScreen.VIEW_HEIGHT *0.74f);
+        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.67f);
+        lMoney.setPosition(BaseScreen.VIEW_WIDTH /2 -lMoney.getWidth() /2, 245);
+        lDead.setPosition(BaseScreen.VIEW_WIDTH /2 -lDead.getWidth() /2 -25, 146);
+        lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH /2 - lStatsDmgAverrage.getWidth()*0.5f /2, 76);
+        lStatsCelnosc.setPosition(BaseScreen.VIEW_WIDTH /2 - lStatsCelnosc.getWidth()*0.5f /2, 55);
 
         background.setPosition(0, 0);
-        barGold.setBounds(lMoney.getX() - 6, lMoney.getY() - 10, lMoney.getWidth() * 1.5f + 15, iconMoney.getHeight());
-        barStats.setBounds(lStatsCelnosc.getX() - 15, 48, lStatsCelnosc.getWidth() + 30, 68);
-        iconMoney.setPosition(lMoney.getX() + lMoney.getWidth() * 1.5f + 6, 238);
+        barGold.setBounds(lMoney.getX() -5, lMoney.getY(), lMoney.getWidth()*0.8f +10, iconMoney.getHeight());
+        barStats.setBounds(lStatsCelnosc.getX() - 15, 48, lStatsCelnosc.getWidth()*0.5f + 30, 70);
+        iconMoney.setPosition(lMoney.getX() + lMoney.getWidth()*0.8f +10, 240);
         iconDead.setSize(40, 40);
-        iconDead.setPosition(lDead.getX() + lDead.getWidth() *1.5f +10, lDead.getY() + lDead.getHeight() /2 - iconDead.getHeight() /2 -1);
+        iconDead.setPosition(lDead.getX() + lDead.getWidth() +10, lDead.getY() + lDead.getHeight() /2 - iconDead.getHeight() /2 -1);
 
         addActors(background, barGold, barStats, iconMoney, lExpText, lMoney, lDead, iconDead, lStatsDmgAverrage, lStatsCelnosc, confirm);
 
@@ -167,7 +170,7 @@ public class FightLose extends BaseScreen {
 
                 prefStats.putInteger("MONEY", hero.getMoney()).flush();
                 prefStats.putInteger("EXP", hero.getExp()).flush();
-                prefStats.putInteger("DEAD", prefStats.getInteger("DEAD", 0) +1).flush();
+                prefStats.putInteger("DEAD", prefStats.getInteger("DEAD", 1) +1).flush();
 
                 Menu.setMap();
                 return false;
@@ -176,7 +179,7 @@ public class FightLose extends BaseScreen {
 
         int temporaryHeroMoney = hero.getMoney() +moneyDrop;
         if(temporaryHeroMoney < 0) {
-            lMoney.setText("Zloto: -" + hero.getMoney());
+            lMoney.setText("Złoto: -" + hero.getMoney());
             animationEq(false);
         }
 
@@ -330,18 +333,22 @@ public class FightLose extends BaseScreen {
 
         //Animation remove more money
         if(cash < 0) {
-            Label label = new Label("Dodatkowe zloto: " + (int)cash, style);
+            Label label = new Label("Dodatkowe złoto: " + (int)cash, style);
             Image image = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
+
+            label.setFontScale(0.6f);
+            label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*0.6f /2 -image.getWidth() *0.75f, lMoney.getY() -lMoney.getHeight() /5);
 
             int temporaryHeroMoney = hero.getMoney() +moneyDropMinus +(int)cash;
             if(temporaryHeroMoney < 0) {
-                label.setText("Dodatkowe zloto: -" + (int)(hero.getMoney() + cash));
-                if(hero.getMoney() + moneyDropMinus > 0)
+                label.setText("Dodatkowe złoto: -" + (int)(hero.getMoney() + cash));
+                if(hero.getMoney() + moneyDropMinus > 0) {
                     animationEq(true);
+                    label.setPosition(BaseScreen.VIEW_WIDTH / 2 - label.getWidth() * 0.6f / 2 - image.getWidth() * 0.75f, lMoney.getY() - lMoney.getHeight() /5 +5);
+                }
             }
 
             image.setSize(image.getWidth() /2, image.getHeight() /2);
-            label.setPosition(BaseScreen.VIEW_WIDTH /2 - label.getWidth() /2 - image.getWidth() *0.75f, lMoney.getY() - lMoney.getHeight() /5);
             image.setPosition(label.getX() + label.getWidth(), label.getY());
 
             addActors(label, image);
@@ -357,24 +364,27 @@ public class FightLose extends BaseScreen {
     }
 
     private void animationEq(boolean secondAnimation){
-        Label lEmptyMoney = new Label("Brak zlota!", styleRed);
-        Label lText = new Label("Tracisz losowy przedmiot z eq", styleRed);
+        Label lEmptyMoney = new Label("Brak złota!", styleRed);
+        Label lText = new Label("Tracisz losowy przedmiot z ekwipunku", styleRed);
         Image image = new Image(new Texture(Gdx.files.internal("eq.png")));
         Image gold = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
 
-        gold.setSize(image.getWidth() /2, image.getHeight() /2);
+        lEmptyMoney.setFontScale(0.6f);
+        lText.setFontScale(0.5f);
+
+        gold.setSize(image.getWidth() /1.5f, image.getHeight() /1.5f);
         image.setSize(image.getWidth() *0.65f, image.getHeight() *0.65f);
 
         if(!secondAnimation) {
-            lEmptyMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lEmptyMoney.getWidth() / 2 - gold.getWidth() * 0.75f, lMoney.getY() - lMoney.getHeight() / 5);
-            lText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lText.getWidth() / 2 - image.getWidth() * 0.75f, lEmptyMoney.getY() - lEmptyMoney.getHeight() * 0.75f);
+            lEmptyMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lEmptyMoney.getWidth()*0.6f / 2 -10, lMoney.getY() - lMoney.getHeight() / 5);
+            lText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lText.getWidth()*0.5f / 2 -10, lEmptyMoney.getY() - lEmptyMoney.getHeight() * 0.75f);
         }else{
-            lEmptyMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lEmptyMoney.getWidth() / 2 - gold.getWidth() * 0.75f, lMoney.getY() - lMoney.getHeight() / 5 - lEmptyMoney.getHeight());
-            lText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lText.getWidth() / 2 - image.getWidth() * 0.75f, lEmptyMoney.getY() - lEmptyMoney.getHeight());
+            lEmptyMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lEmptyMoney.getWidth()*0.6f / 2 -10, lMoney.getY() - lMoney.getHeight() / 5 - lEmptyMoney.getHeight() /2);
+            lText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lText.getWidth()*0.5f / 2 -10, lEmptyMoney.getY() - lEmptyMoney.getHeight() /2);
         }
 
-        gold.setPosition(lEmptyMoney.getX() + lEmptyMoney.getWidth() + 5, lEmptyMoney.getY() - 2);
-        image.setPosition(lText.getX() + lText.getWidth() + 5, lText.getY() - 2);
+        gold.setPosition(lEmptyMoney.getX() + lEmptyMoney.getWidth()*0.6f + 5, lEmptyMoney.getY() +3);
+        image.setPosition(lText.getX() + lText.getWidth()*0.5f + 5, lText.getY() +3);
 
         addActors(lEmptyMoney, lText, gold, image);
 

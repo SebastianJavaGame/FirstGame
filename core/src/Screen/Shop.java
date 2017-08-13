@@ -78,10 +78,13 @@ public class Shop extends BaseScreen{
             lName = new Label(name, style);
             lLevel = new Label("Poziom " + level, style);
 
+            lName.setFontScale(0.6f);
+            lLevel.setFontScale(0.6f);
+
             image.setPosition(20, BaseScreen.VIEW_HEIGHT - image.getHeight() + 5);
             int lengthX = 135;
-            lName.setPosition(lengthX - lName.getWidth() / 2, BaseScreen.VIEW_HEIGHT - 20);
-            lLevel.setPosition(lengthX - lLevel.getWidth() / 2, BaseScreen.VIEW_HEIGHT - 38);
+            lName.setPosition(lengthX - lName.getWidth()*0.6f / 2, BaseScreen.VIEW_HEIGHT - 28);
+            lLevel.setPosition(lengthX - lLevel.getWidth()*0.6f / 2, BaseScreen.VIEW_HEIGHT - 46);
 
             close.setSize(55, 55);
             close.setPosition(BaseScreen.VIEW_WIDTH - close.getWidth() - 25, BaseScreen.VIEW_HEIGHT - close.getHeight() + 6);

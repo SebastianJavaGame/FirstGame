@@ -159,11 +159,11 @@ public class Menu extends BaseScreen {
             Label label = new Label("Czy napewno chcesz\nrozapoczac nowa gre?", STYLE);
             label.setFontScale(0.7f);
 
-            background.setSize(background.getWidth() + 24, 80);
-            background.setPosition(BaseScreen.VIEW_WIDTH /2 -background.getWidth() /2, 280);
-            label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*0.7f /2, background.getY() +background.getHeight() /2 -5);
-            bYes.setPosition(BaseScreen.VIEW_WIDTH /4 -bYes.getWidth() /2, 285);
-            bNo.setPosition(BaseScreen.VIEW_WIDTH /4 *3 -bYes.getWidth() /2, 285);
+            background.setSize(background.getWidth() + 24, 90);
+            background.setPosition(BaseScreen.VIEW_WIDTH /2 -background.getWidth() /2, 290);
+            label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*0.7f /2, background.getY() +background.getHeight() /2 -30);
+            bYes.setPosition(BaseScreen.VIEW_WIDTH /4 -bYes.getWidth() /2, 275);
+            bNo.setPosition(BaseScreen.VIEW_WIDTH /4 *3 -bYes.getWidth() /2, 275);
 
             bYes.addListener(new InputListener(){
                 @Override

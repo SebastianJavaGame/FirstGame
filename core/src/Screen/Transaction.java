@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -87,7 +86,7 @@ public class Transaction {
 
             backgroundTransaction.setPosition(0, Screen.Shop.POS_Y_NEXT_BACKGROUND);
 
-            bBack = new TextButton("Wroc do menu", STYLE_BACK);
+            bBack = new TextButton("Menu", STYLE_BACK);
             bBuy = new TextButton("Kup", STYLE_TRANSACTION_BUY);
             bSell = new TextButton("Sprzedaj", STYLE_TRANSACTION_BUY);
 
@@ -99,6 +98,7 @@ public class Transaction {
 
             String[] itemList = BaseShopDepartaments.getItemsFromDepartament(idShop, itemGroup);
             showEq(itemList);
+            showHeroMoney();
 
             bBack.addListener(new InputListener() {
                 @Override
@@ -141,8 +141,10 @@ public class Transaction {
                                     lMoneyLeft.setText("" + Hero.getMoney());
                                     lMoneyRight.setText("" + Hero.getMoney());
                                 } else {
-                                    FuncionalityShop.getlAnimTransaction().remove();
-                                    FuncionalityShop.getImageAnimTransaction().remove();
+                                    if(FuncionalityShop.getlAnimTransaction() != null)
+                                        FuncionalityShop.getlAnimTransaction().remove();
+                                    if(FuncionalityShop.getImageAnimTransaction() != null)
+                                        FuncionalityShop.getImageAnimTransaction().remove();
                                     FuncionalityShop.animationEndTransaction("Brak zlota!", Color.RED);
                                 }
                                 FuncionalityShop.removeAllShop();
@@ -152,11 +154,13 @@ public class Transaction {
                             break;
                         }
                         if (i == 17) {//TODO TEST!
-                            Label label = new Label("Brak pustego miejsca w ekwipunku", style);
-                            label.setFontScale(2);
+                            new InfoScreen("Brak pustego miejsca w ekwipunku", 2, stage);
+                            /*Label label = new Label("Brak pustego miejsca w ekwipunku", style);
+                            label.setFontScale(1);
                             label.setPosition(BaseScreen.VIEW_WIDTH / 2 - label.getWidth() / 2, BaseScreen.VIEW_HEIGHT / 2);
                             label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.6f), Actions.delay(1), Actions.fadeOut(0.4f)));
                             stage.addActor(label);
+                            */
                         }
                     }
                     return false;
@@ -188,7 +192,6 @@ public class Transaction {
                 }
             });
 
-            showHeroMoney();
             setHeroMoneyVisibleLeft(false);
             setHeroMoneyVisibleRight(false);
             updateSellTouchable(false);
@@ -217,19 +220,24 @@ public class Transaction {
         lMoneyRight = new Label("" + Hero.getMoney(), style);
         iMoneyRight = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
 
+        lTextLeft.setFontScale(0.5f);
+        lTextRight.setFontScale(0.5f);
+        lMoneyLeft.setFontScale(0.5f);
+        lMoneyRight.setFontScale(0.5f);
+
         lMoneyLeft.setColor(Color.GOLD);
         iMoneyLeft.setSize(20, 20);
 
         lMoneyRight.setColor(Color.GOLD);
         iMoneyRight.setSize(20, 20);
 
-        lTextLeft.setPosition(bBuy.getX() + bBuy.getWidth() / 2 - lTextLeft.getWidth() / 2, bBuy.getY() + 25);
-        lMoneyLeft.setPosition(bBuy.getX() + bBuy.getWidth() / 2 - lMoneyLeft.getWidth() / 2 - iMoneyLeft.getWidth() / 2, bBuy.getY() +8);
-        iMoneyLeft.setPosition(lMoneyLeft.getX() + lMoneyLeft.getWidth() + 5, lMoneyLeft.getY() -3);
+        lTextLeft.setPosition(bBuy.getX() + bBuy.getWidth() / 2 - lTextLeft.getWidth()*0.5f / 2, bBuy.getY() + 20);
+        lMoneyLeft.setPosition(bBuy.getX() + bBuy.getWidth() / 2 - lMoneyLeft.getWidth()*0.5f / 2 - iMoneyLeft.getWidth() / 2, bBuy.getY());
+        iMoneyLeft.setPosition(lMoneyLeft.getX() + lMoneyLeft.getWidth()*0.5f + 5, lMoneyLeft.getY() +10);
 
-        lTextRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lTextRight.getWidth() / 2, bSell.getY() + 25);
-        lMoneyRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lMoneyRight.getWidth() / 2 - iMoneyRight.getWidth() / 2, bSell.getY() +8);
-        iMoneyRight.setPosition(lMoneyRight.getX() + lMoneyRight.getWidth() + 5, lMoneyRight.getY() -3);
+        lTextRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lTextRight.getWidth()*0.5f /2 -16, bSell.getY() + 20);
+        lMoneyRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lMoneyRight.getWidth()*0.5f -iMoneyRight.getWidth() /2, bSell.getY());
+        iMoneyRight.setPosition(lMoneyRight.getX() + lMoneyRight.getWidth()*0.5f + 5, lMoneyRight.getY() +10);
 
         addActors(lTextLeft, lMoneyLeft, iMoneyLeft, lTextRight, lMoneyRight, iMoneyRight);
     }

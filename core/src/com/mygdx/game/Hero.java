@@ -745,6 +745,7 @@ public class Hero extends Character {
                 Hero3D.setStopAnimation();
                 soundNextMap.play(0.8f);
                 setStopStep();
+                preferences.putInteger("COLLISION", 0).flush();
                 /**
                  * i = indexToLoadMap
                  */

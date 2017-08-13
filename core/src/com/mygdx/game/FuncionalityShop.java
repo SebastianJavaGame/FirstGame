@@ -151,12 +151,12 @@ public class FuncionalityShop {
 
                 itemName = new Label("" + item.getItemName(), style);
                 itemLevelRequire = new Label("Wymagany poziom: " + item.getLevelRequire(), style);
-                itemHp = new Label("Hp: +" + item.getHp(), style);
-                itemStrong = new Label("Strong: +" + item.getStrong(), style);
-                itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
-                itemArmor = new Label("Armor: +" + item.getArmor() + "%", style);
-                itemDefenseFiz = new Label("Defense physics: +" + item.getDefenseFiz(), style);
-                itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
+                itemHp = new Label("Punkty życia +" + item.getHp(), style);
+                itemStrong = new Label("Siła +" + item.getStrong(), style);
+                itemWiedza = new Label("Wiedza +" + item.getWiedza(), style);
+                itemArmor = new Label("Pancerz +" + item.getArmor() + "%", style);
+                itemDefenseFiz = new Label("ObronaFizyczna +" + item.getDefenseFiz(), style);
+                itemDefenseMag = new Label("ObronaMagiczna +" + item.getDefenseMag(), style);
                 itemPrice = new Label("" + item.getCashValue(), style);
                 lPrice = new Label("Cena", style);
                 price = item.getCashValue();
@@ -176,15 +176,15 @@ public class FuncionalityShop {
                 itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 90);
                 itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 60);
                 itemWiedza.setPosition(20, backgroundUp.getY() + 60);
-                itemDefenseFiz.setPosition(20, backgroundUp.getY() + 30);
-                itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 30);
-                itemPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - itemPrice.getWidth()*scale / 2 - 10, backgroundUp.getY() -itemPrice.getHeight()*scale/2 +2);
+                itemDefenseFiz.setPosition(10, backgroundUp.getY() + 30);
+                itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 10, backgroundUp.getY() + 30);
+                itemPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - itemPrice.getWidth()*scale / 2 - 10, backgroundUp.getY() -itemPrice.getHeight()*scale/2 +6);
                 money.setBounds(itemPrice.getX() + itemPrice.getWidth() *scale + 7, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
                 barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +18, itemName.getHeight()*scale + 15);
                 itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
                 barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
                 bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY());
-                lPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - lPrice.getWidth() / 2, Screen.Shop.POS_Y_NEXT_BACKGROUND + 35);
+                lPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - lPrice.getWidth()*0.5f / 2, Screen.Shop.POS_Y_NEXT_BACKGROUND + 25);
 
                 itemPrice.setColor(Color.GOLD);
 
@@ -198,6 +198,7 @@ public class FuncionalityShop {
                 itemDefenseMag.setFontScale(scale);
                 itemPrice.setFontScale(scale);
                 itemLevelRequire.setFontScale(scale);
+                lPrice.setFontScale(0.5f);
 
                 if (Hero.getLevel() < item.getLevelRequire())
                     itemLevelRequire.setColor(Color.RED);
@@ -257,12 +258,12 @@ public class FuncionalityShop {
 
             itemName = new Label("" + item.getItemName(), style);
             itemLevelRequire = new Label("Wymagany poziom: " +item.getLevelRequire(), style);
-            itemHp = new Label("Hp: +" + item.getHp(), style);
-            itemStrong = new Label("Strong: +" + item.getStrong(), style);
-            itemWiedza = new Label("Wiedza: +" + item.getWiedza(), style);
-            itemArmor = new Label("Armor: +" + item.getArmor() + "%", style);
-            itemDefenseFiz = new Label("Defense physics: +" + item.getDefenseFiz(), style);
-            itemDefenseMag = new Label("Defense magic: +" + item.getDefenseMag(), style);
+            itemHp = new Label("Punkty życia +" + item.getHp(), style);
+            itemStrong = new Label("Siła +" + item.getStrong(), style);
+            itemWiedza = new Label("Wiedza +" + item.getWiedza(), style);
+            itemArmor = new Label("Pancerz +" + item.getArmor() + "%", style);
+            itemDefenseFiz = new Label("ObronaFizyczna +" + item.getDefenseFiz(), style);
+            itemDefenseMag = new Label("ObronaMagiczna +" + item.getDefenseMag(), style);
             itemPrice = new Label("" + item.getCashValue(), style);
             lPrice = new Label("Cena", style);
             price = item.getCashValue();
@@ -277,20 +278,20 @@ public class FuncionalityShop {
             backgroundUp.setBounds(0, -16, BaseMap.VIEW_WIDTH, 190);
             itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
             itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 152);
-            itemLevelRequire.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 130);
+            itemLevelRequire.setPosition(itemName.getX() +itemName.getWidth()*scale /2 -itemName.getWidth()*scale /3, backgroundUp.getY() + 122);
             itemHp.setPosition(20, backgroundUp.getY() + 90);
             itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 90);
-            itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 60);
-            itemWiedza.setPosition(20, backgroundUp.getY() + 60);
-            itemDefenseFiz.setPosition(20, backgroundUp.getY() + 30);
-            itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 30);
+            itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 64);
+            itemWiedza.setPosition(20, backgroundUp.getY() + 64);
+            itemDefenseFiz.setPosition(10, backgroundUp.getY() + 38);
+            itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 10, backgroundUp.getY() + 38);
             itemPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - itemPrice.getWidth()*scale / 2 - 10, backgroundUp.getY() -itemPrice.getHeight()*scale/2 +2);
             money.setBounds(itemPrice.getX() + itemPrice.getWidth() *scale + 7, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
-            barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +18, itemName.getHeight()*scale + 15);
+            barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +20, itemName.getHeight()*scale + 15);
             itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
             barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
-            bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY() +15);
-            lPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - lPrice.getWidth() / 2, Screen.Shop.POS_Y_NEXT_BACKGROUND + 35);
+            bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY() +18);
+            lPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - lPrice.getWidth()*0.5f / 2, Screen.Shop.POS_Y_NEXT_BACKGROUND + 26);
 
             itemPrice.setColor(Color.GOLD);
 
@@ -304,6 +305,7 @@ public class FuncionalityShop {
             itemDefenseMag.setFontScale(scale);
             itemPrice.setFontScale(scale);
             itemLevelRequire.setFontScale(scale);
+            lPrice.setFontScale(0.5f);
 
             if (Hero.getLevel() < item.getLevelRequire()) {
                 itemLevelRequire.setColor(Color.RED);
@@ -324,8 +326,8 @@ public class FuncionalityShop {
                 public void run() {
                     itemPrice.setText("" + item.getCashValue());
                     itemPrice.setColor(Color.GOLD);
-                    itemPrice.setPosition(itemPrice.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND - 15);
-                    money.setPosition(money.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND - 15);
+                    itemPrice.setPosition(itemPrice.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND - 25);
+                    money.setPosition(money.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND -15);
                 }
             }), Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(0, 34, 0.8f)))));
             money.addAction(Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(0, 34, 0.8f))));

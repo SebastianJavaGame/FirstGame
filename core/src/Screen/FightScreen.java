@@ -139,7 +139,7 @@ public class FightScreen extends BaseScreen {
         Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
-        //hpHero = 0;
+        hpHero = 0;
         hpEnemy = 50;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
