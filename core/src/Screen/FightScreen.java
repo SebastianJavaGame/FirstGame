@@ -37,8 +37,6 @@ import java.util.ArrayList;
 public class FightScreen extends BaseScreen {
     private Asset asset = new Asset();
     private static final int ENERGY_MAX = 100;
-    private static final float FONT_SCALE_HP = 2;
-    private static final float FONT_SCALE_PROCENT = 1.7f;
 
     private static final int[] DURATION_ANIMATION = new int[]{1, 4, 7, 10, 13, 16};
     private static final int[] SUPER_ATTACK = new int[]{5, 0, 5, 0};
@@ -208,31 +206,32 @@ public class FightScreen extends BaseScreen {
             barEnergyHero.setBounds(53, 4, 120, 10);
             barEnergyEnemy.setBounds(267, 451, -120, 10);
 
-            final float fontSize = 0.85f;
-
             lHpHero = new Label(hpHero + " / " + hpMaxHero, style);
             lHpEnemy = new Label(hpMaxEnemy + " / " + hpMaxEnemy, style);
             lEnergyHero = new Label(energyMaxHero + " / " + ENERGY_MAX, style);
             lEnergyEnemy = new Label(energyMaxEnemy + " / " + ENERGY_MAX, style);
             labelFreePoint = new Label("" + freePointFight, style);
             labelRoundNumber = new Label("1", style);
-            Label labelName = new Label("Gondor", style);
-            Label labelLvl = new Label("Level 35", style);
+            Label labelName = new Label("" + enemy.getName(), style);
+            Label labelLvl = new Label("Level " + enemy.getLevel(), style);
 
-            lHpHero.setPosition(53 + barHpHero.getWidth() / 2 - (lHpHero.getWidth() * fontSize) / 2, 15);
-            lHpEnemy.setPosition(267 + barHpEnemy.getWidth() / 2 - (lHpEnemy.getWidth() * fontSize) / 2, 461);
-            lEnergyHero.setPosition(53 + barEnergyHero.getWidth() / 2 - (lEnergyHero.getWidth() * fontSize) / 2, 0);
-            lEnergyEnemy.setPosition(267 + barEnergyEnemy.getWidth() / 2 - (lEnergyEnemy.getWidth() * fontSize) / 2, 446);
-            labelName.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelName.getWidth() / 2, 460);
-            labelLvl.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelLvl.getWidth() / 2 + 10, 445);
-            labelFreePoint.setPosition(131, 105);
-            labelRoundNumber.setPosition(287, 105);
+            lHpHero.setFontScale(0.4f);
+            lHpEnemy.setFontScale(0.4f);
+            lEnergyHero.setFontScale(0.4f);
+            lEnergyEnemy.setFontScale(0.4f);
+            labelFreePoint.setFontScale(0.6f);
+            labelRoundNumber.setFontScale(0.6f);
+            labelName.setFontScale(0.6f);
+            labelLvl.setFontScale(0.5f);
 
-            labelName.setFontScale(1.2f);
-            lHpHero.setFontScale(fontSize);
-            lHpEnemy.setFontScale(fontSize);
-            lEnergyHero.setFontScale(fontSize);
-            lEnergyEnemy.setFontScale(fontSize);
+            lHpHero.setPosition(53 + barHpHero.getWidth() / 2 - (lHpHero.getWidth() *0.4f) / 2, 5);
+            lHpEnemy.setPosition(267 + barHpEnemy.getWidth() / 2 - (lHpEnemy.getWidth() *0.4f) / 2, 452);
+            lEnergyHero.setPosition(53 + barEnergyHero.getWidth() / 2 - (lEnergyHero.getWidth() *0.4f) / 2, -10);
+            lEnergyEnemy.setPosition(267 + barEnergyEnemy.getWidth() / 2 - (lEnergyEnemy.getWidth() *0.4f) / 2, 436);
+            labelName.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelName.getWidth()*0.6f / 2, 450);
+            labelLvl.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelLvl.getWidth()*0.5f / 2 + 10, 435);
+            labelFreePoint.setPosition(131, 97);
+            labelRoundNumber.setPosition(287, 97);
 
             abortNonActive = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbord.png", Texture.class))));
             abortNonActive.setBounds(255, 0, 45, 45);
@@ -245,7 +244,7 @@ public class FightScreen extends BaseScreen {
 
                     if (abort && !animationPlay) {
                         Label label = new Label("Ucieczka!", style);
-                        label.setFontScale(3);
+                        label.setFontScale(1.4f);
                         label.setPosition(85, 250);
                         stage.addActor(label);
 
@@ -293,7 +292,7 @@ public class FightScreen extends BaseScreen {
                                             Label label = new Label("-20% HP", styleBlood);
                                             label.setPosition(buttonAbort.getX() + buttonAbort.getWidth() / 2 - label.getWidth() / 2 - 25, buttonAbort.getY() + 50);
                                             stage.addActor(label);
-                                            label.setFontScale(2);
+                                            label.setFontScale(1);
 
                                             Action action0 = Actions.run(new Runnable() {
                                                 @Override
@@ -310,7 +309,7 @@ public class FightScreen extends BaseScreen {
                                                 @Override
                                                 public void run() {
                                                     Label label = new Label("Ucieczka!", style);
-                                                    label.setFontScale(3);
+                                                    label.setFontScale(1.4f);
                                                     label.setPosition(85, 250);
                                                     stage.addActor(label);
                                                 }
@@ -372,7 +371,8 @@ public class FightScreen extends BaseScreen {
                 minusButton[i].setPosition(i * 78, 35);
 
                 labelPointFight[i] = new Label("" + pointUserPref[i], style);
-                labelPointFight[i].setPosition(54 + i * 78, 69);
+                labelPointFight[i].setFontScale(0.7f);
+                labelPointFight[i].setPosition(52 + i * 78, 60);
 
                 addListener(i, true, labelFreePoint);
                 addListener(i, false, labelFreePoint);
@@ -541,10 +541,8 @@ public class FightScreen extends BaseScreen {
     private void sixAttack(final int dmg, final int procent, int duration) {
         labelCalculateHp[5] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[5] = new Label(procent + "%", style);
-        labelCalculateHp[5].setFontScale(FONT_SCALE_HP);
-        labelCalculateProcent[5].setFontScale(FONT_SCALE_PROCENT);
-        labelCalculateHp[5].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[5].getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
-        labelCalculateProcent[5].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[5].getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
+        labelCalculateHp[5].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[5].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateProcent[5].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[5].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() +10);
         addActors(labelCalculateHp[5],labelCalculateProcent[5]);
         Action action = Actions.run(new Runnable() {
             @Override
@@ -573,10 +571,8 @@ public class FightScreen extends BaseScreen {
     private void fiveAttack(final int dmg, final int procent, int duration) {
         labelCalculateHp[4] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[4] = new Label(procent + "%", style);
-        labelCalculateHp[4].setFontScale(FONT_SCALE_HP);
-        labelCalculateProcent[4].setFontScale(FONT_SCALE_PROCENT);
-        labelCalculateHp[4].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[4].getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() -15);
-        labelCalculateProcent[4].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[4].getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() +10);
+        labelCalculateHp[4].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[4].getWidth() /2, heroImage.getY() + heroImage.getHeight() -15);
+        labelCalculateProcent[4].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[4].getWidth() /2 +10, heroImage.getY() + heroImage.getHeight() +10);
         addActors(labelCalculateHp[4], labelCalculateProcent[4]);
         Action action = Actions.run(new Runnable() {
             @Override
@@ -603,10 +599,8 @@ public class FightScreen extends BaseScreen {
     private void fourthAttack(final int dmg, final int procent, int duration) {
         labelCalculateHp[3] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[3] = new Label(procent + "%", style);
-        labelCalculateHp[3].setFontScale(FONT_SCALE_HP);
-        labelCalculateProcent[3].setFontScale(FONT_SCALE_PROCENT);
-        labelCalculateHp[3].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[3].getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
-        labelCalculateProcent[3].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[3].getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
+        labelCalculateHp[3].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[3].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateProcent[3].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[3].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() +10);
         addActors(labelCalculateHp[3], labelCalculateProcent[3]);
         Action action = Actions.run(new Runnable() {
             @Override
@@ -635,10 +629,8 @@ public class FightScreen extends BaseScreen {
     private void thirdAttack(final int dmg, final int procent, int duration) throws CloneNotSupportedException {
         labelCalculateHp[2] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[2] = new Label(procent + "%", style);
-        labelCalculateHp[2].setFontScale(FONT_SCALE_HP);
-        labelCalculateProcent[2].setFontScale(FONT_SCALE_PROCENT);
-        labelCalculateHp[2].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[2].getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() -15);
-        labelCalculateProcent[2].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[2].getWidth() /2 -10, enemyImage.getY() + enemyImage.getHeight() +10);
+        labelCalculateHp[2].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[2].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateProcent[2].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[2].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() +10);
         addActors(labelCalculateHp[2], labelCalculateProcent[2]);
         Action action = Actions.run(new Runnable() {
             @Override
@@ -667,10 +659,8 @@ public class FightScreen extends BaseScreen {
     private void secondAttack(final int dmg, final int procent, int duration) {
         labelCalculateHp[1] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[1] = new Label(procent + "%", style);
-        labelCalculateHp[1].setFontScale(FONT_SCALE_HP);
-        labelCalculateProcent[1].setFontScale(FONT_SCALE_PROCENT);
-        labelCalculateHp[1].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[1].getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() -15);
-        labelCalculateProcent[1].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[1].getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() +10);
+        labelCalculateHp[1].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[1].getWidth() /2, heroImage.getY() + heroImage.getHeight() -15);
+        labelCalculateProcent[1].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[1].getWidth() /2 +10, heroImage.getY() + heroImage.getHeight() +10);
         addActors(labelCalculateHp[1], labelCalculateProcent[1]);
         Action action = Actions.run(new Runnable() {
             @Override
@@ -697,10 +687,8 @@ public class FightScreen extends BaseScreen {
     private void firstAttack(final int dmg, final int procent, int duration) {
         labelCalculateHp[0] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[0] = new Label(procent + "%", style);
-        labelCalculateHp[0].setFontScale(FONT_SCALE_HP);
-        labelCalculateProcent[0].setFontScale(FONT_SCALE_PROCENT);
-        labelCalculateHp[0].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[0].getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() -15);
-        labelCalculateProcent[0].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[0].getWidth() /2 -10, heroImage.getY() + heroImage.getHeight() +10);
+        labelCalculateHp[0].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[0].getWidth() /2, heroImage.getY() + heroImage.getHeight() -15);
+        labelCalculateProcent[0].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[0].getWidth() /2 +10, heroImage.getY() + heroImage.getHeight() +10);
         addActors(labelCalculateHp[0],  labelCalculateProcent[0]);
         Action action = Actions.run(new Runnable() {
             @Override
@@ -773,8 +761,8 @@ public class FightScreen extends BaseScreen {
 
             skull.addAction(Actions.fadeOut(0));
             skull.addAction(Actions.moveTo(heroImage.getX() +heroImage.getWidth()/2 -skull.getWidth() /2, heroImage.getY() +heroImage.getHeight() /2 -skull.getHeight() /2));
-            skull.addAction(Actions.fadeIn(1.5f));
-            heroImage.addAction(Actions.fadeOut(4));
+            skull.addAction(Actions.fadeIn(2));
+            heroImage.addAction(Actions.fadeOut(2));
             stage.addActor(skull);
 
             stage.addAction(Actions.sequence(Actions.delay(2.5f),Actions.run(new Runnable() {
@@ -807,8 +795,8 @@ public class FightScreen extends BaseScreen {
 
             skull.addAction(Actions.fadeOut(0));
             skull.addAction(Actions.moveTo(enemyImage.getX() +enemyImage.getWidth()/2 -skull.getWidth() /2, enemyImage.getY() +enemyImage.getHeight() /2 -skull.getHeight() /2));
-            skull.addAction(Actions.fadeIn(1.5f));
-            enemyImage.addAction(Actions.fadeOut(4));
+            skull.addAction(Actions.fadeIn(2));
+            enemyImage.addAction(Actions.fadeOut(2));
             stage.addActor(skull);
 
             stage.addAction(Actions.sequence(Actions.delay(2.5f),Actions.run(new Runnable() {
@@ -933,16 +921,15 @@ public class FightScreen extends BaseScreen {
         Label label = new Label("-1 punkt akcji", style);
         label.setColor(Color.ROYAL);
         label.addAction(Actions.fadeOut(0));
-        label.setFontScale(2);
 
         if(isHero){
-            label.setPosition(50, 115);
-            label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, 20, 2), Actions.fadeIn(0.6f)),
-                    Actions.parallel(Actions.moveBy(0, 20, 2), Actions.sequence(Actions.delay(1), Actions.fadeOut(1)))));
+            label.setPosition(5, 110);
+            label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, 20, 2), Actions.fadeIn(0.5f)),
+                    Actions.parallel(Actions.moveBy(0, 20, 2), Actions.sequence(Actions.delay(1), Actions.fadeOut(0.5f)))));
         }else{
-            label.setPosition(BaseScreen.VIEW_WIDTH -label.getWidth()*2 -60, 430);
-            label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -20, 2), Actions.fadeIn(0.6f)),
-                    Actions.parallel(Actions.moveBy(0, -20, 2), Actions.sequence(Actions.delay(1), Actions.fadeOut(1)))));
+            label.setPosition(BaseScreen.VIEW_WIDTH -label.getWidth() -5, 435);
+            label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -20, 2), Actions.fadeIn(0.5f)),
+                    Actions.parallel(Actions.moveBy(0, -20, 2), Actions.sequence(Actions.delay(1), Actions.fadeOut(0.5f)))));
         }
 
         stage.addActor(label);
@@ -972,12 +959,12 @@ public class FightScreen extends BaseScreen {
         if(isHero) {
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(targetX, enemyImage.getY() + enemyImage.getHeight() /2, SPEED_MAGIC -0.4f),Actions.fadeOut(0.4f))));
+            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(targetX, enemyImage.getY() + enemyImage.getHeight() /2, SPEED_MAGIC), Actions.delay(0.4f), Actions.fadeOut(0.4f))));
             magicHero.setBounds(heroImage.getX() + 50, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }else{
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH /4 -magicEnemy.getWidth() /2, heroImage.getY() + heroImage.getHeight() /2, SPEED_MAGIC -0.4f), Actions.fadeOut(0.4f))));
+            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH /4 -magicEnemy.getWidth() /2, heroImage.getY() + heroImage.getHeight() /2, SPEED_MAGIC), Actions.delay(0.4f), Actions.fadeOut(0.4f))));
             magicEnemy.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() /2, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }
     }

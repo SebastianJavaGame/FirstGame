@@ -161,14 +161,16 @@ public class Bag {
         styleWhite.font = font;
 
         infoCloseCard = new Label("Kliknij ikonę plecaka\naby zamknąć tę kartę", styleWhite);
-        infoCloseCard.setPosition((background.getWidth() - infoCloseCard.getWidth()) /2, 300);
+        infoCloseCard.setFontScale(0.7f);
+        infoCloseCard.setPosition((background.getWidth() - infoCloseCard.getWidth() *0.7f) /2, 300);
 
         separator = new Image(asset.manager.get("bar.png", Texture.class));
         separator.setPosition(5, 250);
         separator.setSize(310, 3);
 
         infoCloseGame = new Label("Wyjście z gry", styleWhite);
-        infoCloseGame.setPosition((background.getWidth() - infoCloseGame.getWidth()) /2, 180);
+        infoCloseGame.setPosition((background.getWidth() - infoCloseGame.getWidth() *0.9f) /2, 180);
+        infoCloseGame.setFontScale(0.9f);
 
         closeGame = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("exitGame.png", Texture.class))));
         closeGame.addListener(new InputListener(){

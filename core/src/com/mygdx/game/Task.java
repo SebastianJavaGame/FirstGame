@@ -58,9 +58,9 @@ public class Task {
             lNpcName = new Label(BaseTask.getNpcName(idTask), STYLE);
             lTarget = new Label(BaseTask.getTarget(idTask), STYLE);
             lProgress = new Label("W toku   " + PREF.getInteger("TASK" + idTask + "_PROGRESS") + " / " + BaseTask.getProgressMax(idTask), STYLE);
-            lNpcName.setFontScale(0.9f);
-            lTarget.setFontScale(0.7f);
-            lProgress.setFontScale(0.8f);
+            lNpcName.setFontScale(0.6f);
+            lTarget.setFontScale(0.5f);
+            lProgress.setFontScale(0.5f);
 
             cancel = new TextButton("Anuluj", BUTTON_STYLE);
             cancel.addListener(new InputListener() {

@@ -78,6 +78,9 @@ public class DialogNpc {
         lName = new Label("" + npc.getName(), style);
         lLevel = new Label("Poziom " + npc.getLevel(), style);
 
+        lName.setFontScale(0.5f);
+        lLevel.setFontScale(0.5f);
+
         imageHead = npc.getHead();
 
         int lengthX = POS_X +122;
@@ -88,8 +91,8 @@ public class DialogNpc {
         Hero3D.setRenderHero3d(false);
         Hero.setActiveMove(true);
 
-        lName.setPosition(lengthX - lName.getWidth() / 2, UP_LABEL.getY() + 29);
-        lLevel.setPosition(lengthX - lLevel.getWidth() / 2, UP_LABEL.getY() + 11);
+        lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, UP_LABEL.getY() + 35*0.5f);
+        lLevel.setPosition(lengthX - lLevel.getWidth()*0.5f / 2, UP_LABEL.getY() -1);
         addActors(BACKGROUND, UP_LABEL, CLOSE_BUTTON, lName, lLevel, imageHead);
 
         create();

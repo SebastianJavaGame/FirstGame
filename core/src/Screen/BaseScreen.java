@@ -107,7 +107,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             exceptionMessage += "\n" + describe.substring(0, describeLength);
 
         try{
-            BitmapFont font = MyGdxGame.createDistanceFont();
+            BitmapFont font = new BitmapFont();
             Label.LabelStyle style = new Label.LabelStyle();
             style.font = font;
             style.fontColor = new Color(Color.RED);

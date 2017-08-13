@@ -53,7 +53,7 @@ public class Equipment{
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 271}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 271},
             {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 + Item.BLOCK_SIZE + 3, 218}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2 - Item.BLOCK_SIZE - 3, 218}};
 
-    private static final BitmapFont font = MyGdxGame.createBitmapFont(10, Color.WHITE);
+    private static final BitmapFont font = MyGdxGame.createDistanceFont();
     private Asset asset = new Asset();
 
     private TextButton takeOn;
@@ -154,8 +154,8 @@ public class Equipment{
                     styleSave.font = font;
                     styleSave.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbort.png", Texture.class)));
 
-                    final TextButton buttonSave = new TextButton("Save", styleSave);
-                    final TextButton buttonCancel = new TextButton("Cancel", styleSave);
+                    final TextButton buttonSave = new TextButton("Zapisz", styleSave);
+                    final TextButton buttonCancel = new TextButton("Anuluj", styleSave);
 
                     buttonSave.setBounds(30, 5, 110, 40);
                     buttonCancel.setBounds(buttonSave.getWidth() + 70, 5, 110, 40);
@@ -435,26 +435,40 @@ public class Equipment{
                     barName = new Image(asset.manager.get("nameBar.png", Texture.class));
                     barPrice = new Image(asset.manager.get("barX.png", Texture.class));
 
-
+                    float scale = 0.5f;
 
                     if(item.getLevelRequire() > hero.getLevel())
                         itemLevelRequire.setColor(Color.RED);
 
                     itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
-                    itemName.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemName.getWidth() / 2, backgroundUp.getY() + 160);
-                    itemHp.setPosition(20, backgroundUp.getY() + 100);
-                    itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 100);
-                    itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 70);
-                    itemWiedza.setPosition(20, backgroundUp.getY() + 70);
-                    itemDefenseFiz.setPosition(0, backgroundUp.getY() + 40);
-                    itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 +5, backgroundUp.getY() + 40);
-                    itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth() /2 +5, backgroundUp.getY() + 4);
-                    money.setBounds(itemPrice.getX() +itemPrice.getWidth() +10, itemPrice.getY() -3, 18, 17);
+                    itemName.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemName.getWidth()*scale/ 2, backgroundUp.getY() + 150);
+                    itemHp.setPosition(20, backgroundUp.getY() + 85);
+                    itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 85);
+                    itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 55);
+                    itemWiedza.setPosition(20, backgroundUp.getY() + 55);
+                    itemDefenseFiz.setPosition(10, backgroundUp.getY() + 25);
+                    itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 +5, backgroundUp.getY() + 25);
+                    itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth()*scale /2 +15, backgroundUp.getY() -itemPrice.getHeight()*scale /2 +2);
+                    money.setBounds(itemPrice.getX() +itemPrice.getWidth()*scale +10, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
                     infoStorage.setPosition(5, itemPrice.getY());
-                    barName.setBounds(itemName.getX() -10, itemName.getY() -16, itemName.getWidth() +18, itemName.getHeight() +30);
-                    itemLevelRequire.setPosition(barName.getX() +(barName.getWidth()/2 -itemLevelRequire.getWidth() / 2), backgroundUp.getY() + 132);
+                    barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +18, itemName.getHeight()*scale +15);
+                    itemLevelRequire.setPosition(barName.getX() +(itemName.getWidth()*scale/2 -itemLevelRequire.getWidth()*scale / 2), backgroundUp.getY() + 120);
                     itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
-                    barPrice.setBounds(0, itemPrice.getY() -7, BaseMap.VIEW_WIDTH +15, 25);
+                    barPrice.setBounds(0, backgroundUp.getY(), BaseMap.VIEW_WIDTH +15, 25);
+
+                    itemPrice.setColor(Color.GOLD);
+
+                    itemName.setFontScale(scale);
+                    itemHp.setFontScale(scale);
+                    itemArmor.setFontScale(scale);
+                    itemName.setFontScale(scale);
+                    itemStrong.setFontScale(scale);
+                    itemWiedza.setFontScale(scale);
+                    itemDefenseFiz.setFontScale(scale);
+                    itemDefenseMag.setFontScale(scale);
+                    itemPrice.setFontScale(scale);
+                    infoStorage.setFontScale(scale);
+                    itemLevelRequire.setFontScale(scale);
 
                     switch (item.getStan()) {
                         case BAG:
@@ -487,20 +501,34 @@ public class Equipment{
 
                                     //Item INFO
                                     itemImageDown.setBounds(20, backgroundDown.getY() + 120, 60, 60);
-                                    itemNameDown.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemNameDown.getWidth() / 2, backgroundDown.getY() + 160);
-                                    itemHpDown.setPosition(20, backgroundDown.getY() + 100);
-                                    itemArmorDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 100);
-                                    itemStrongDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 70);
-                                    itemWiedzaDown.setPosition(20, backgroundDown.getY() + 70);
-                                    itemDefenseFizDown.setPosition(0, backgroundDown.getY() + 40);
-                                    itemDefenseMagDown.setPosition(BaseMap.VIEW_WIDTH / 2 +5, backgroundDown.getY() + 40);
-                                    itemPriceDown.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPriceDown.getWidth() /2 +5, backgroundDown.getY() + 4);
-                                    moneyDown.setBounds(itemPriceDown.getX() +itemPriceDown.getWidth() +10, itemPriceDown.getY() -3, 18, 17);
+                                    itemNameDown.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemNameDown.getWidth()*(scale)/ 2, backgroundDown.getY() + 150);
+                                    itemHpDown.setPosition(20, backgroundDown.getY() + 85);
+                                    itemArmorDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 85);
+                                    itemStrongDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 55);
+                                    itemWiedzaDown.setPosition(20, backgroundDown.getY() + 55);
+                                    itemDefenseFizDown.setPosition(10, backgroundDown.getY() + 25);
+                                    itemDefenseMagDown.setPosition(BaseMap.VIEW_WIDTH / 2 +5, backgroundDown.getY() + 25);
+                                    itemPriceDown.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPriceDown.getWidth()*scale /2 +15, backgroundDown.getY() -itemPriceDown.getHeight()*scale /2 +2);
+                                    moneyDown.setBounds(itemPriceDown.getX() +itemPriceDown.getWidth()*scale +10, itemPriceDown.getY() +itemPriceDown.getHeight()*scale /2, 20, 20);
                                     infoStorageDown.setPosition(5, itemPriceDown.getY());
-                                    barNameDown.setBounds(itemNameDown.getX() -10, itemNameDown.getY() -16, itemNameDown.getWidth() +18, itemNameDown.getHeight() +30);
-                                    itemLevelRequireDown.setPosition(barNameDown.getX() +(barNameDown.getWidth()/2 -itemLevelRequireDown.getWidth() / 2), backgroundDown.getY() + 132);
+                                    barNameDown.setBounds(itemNameDown.getX() -10, itemNameDown.getY() -2, itemNameDown.getWidth()*scale +18, itemNameDown.getHeight()*scale +15);
+                                    itemLevelRequireDown.setPosition(barNameDown.getX() +(itemNameDown.getWidth()*scale/2 -itemLevelRequireDown.getWidth()*scale / 2), backgroundDown.getY() + 120);
                                     itemBackgroundDown.setBounds(15, backgroundDown.getY() + 115, 70, 70);
-                                    barPriceDown.setBounds(0, itemPriceDown.getY() -7, BaseMap.VIEW_WIDTH +15, 25);
+                                    barPriceDown.setBounds(0, backgroundDown.getY(), BaseMap.VIEW_WIDTH +15, 25);
+
+                                    itemPriceDown.setColor(Color.GOLD);
+
+                                    itemNameDown.setFontScale(scale);
+                                    itemHpDown.setFontScale(scale);
+                                    itemArmorDown.setFontScale(scale);
+                                    itemNameDown.setFontScale(scale);
+                                    itemStrongDown.setFontScale(scale);
+                                    itemWiedzaDown.setFontScale(scale);
+                                    itemDefenseFizDown.setFontScale(scale);
+                                    itemDefenseMagDown.setFontScale(scale);
+                                    itemPriceDown.setFontScale(scale);
+                                    infoStorageDown.setFontScale(scale);
+                                    itemLevelRequireDown.setFontScale(scale);
 
                                     takeOn.setBounds(0, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     takeOn.addListener(new InputListener() {

@@ -39,7 +39,6 @@ public class FightWin extends BaseScreen {
     private static final Label.LabelStyle style = new Label.LabelStyle();
     private static final TextButton.TextButtonStyle textStyle = new TextButton.TextButtonStyle();
 
-    private Hero hero;
     private Enemy enemy;
     final private Preferences prefItem;
     final private Preferences prefStats;
@@ -91,7 +90,6 @@ public class FightWin extends BaseScreen {
 
     public FightWin(final Game game, final Hero hero, final Enemy enemy, int dmgAverrage, float target, final int moneyDrop, final int expAdd, final String dropItem) {
         super(game);
-        this.hero = hero;
         pbatch = new PolygonSpriteBatch();
         this.expAdd = expAdd;
         prefItem = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
@@ -140,26 +138,32 @@ public class FightWin extends BaseScreen {
         lFull = new Label(" Plecak\njest pelny", styleRed);
 
         float lenghtText = 90 / lExp.getWidth() * 0.75f;
+        lMoney.setColor(Color.GOLD);
 
-        lExpText.setFontScale(1.8f);
+        lExpText.setFontScale(0.9f);
         lExp.setFontScale(lenghtText);
-        lWordExp.setFontScale(2f);
-        lMoney.setFontScale(1.5f);
+        lWordExp.setFontScale(1);
+        lMoney.setFontScale(0.8f);
+        lDrop.setFontScale(0.6f);
+        lDropChar.setFontScale(1);
+        lStatsCelnosc.setFontScale(0.5f);
+        lStatsDmgAverrage.setFontScale(0.5f);
+        lFull.setFontScale(0.4f);
 
-        lExpText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExpText.getWidth() / 1.14f, 450);
-        lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() * (lenghtText / 2), BaseScreen.VIEW_HEIGHT * 0.75f);
-        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth(), BaseScreen.VIEW_HEIGHT * 0.69f);
-        lMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lMoney.getWidth() / 2 - iconMoney.getWidth() / 1.5f - 5, 245);
-        lDrop.setPosition(BaseScreen.VIEW_WIDTH / 2 - lDrop.getWidth() / 2, 215);
-        lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsDmgAverrage.getWidth() / 2, 84);
-        lStatsCelnosc.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsCelnosc.getWidth() / 2, 63);
+        lExpText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExpText.getWidth()*0.9f /2, 440);
+        lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() *lenghtText / 2, BaseScreen.VIEW_HEIGHT *0.74f);
+        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.67f);
+        lMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lMoney.getWidth() /2, 241);
+        lDrop.setPosition(BaseScreen.VIEW_WIDTH / 2 - lDrop.getWidth()*0.6f /2, 207);
+        lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsDmgAverrage.getWidth()*0.5f /2, 76);
+        lStatsCelnosc.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsCelnosc.getWidth()*0.5f /2, 55);
 
         background.setPosition(0, 0);
-        barGold.setBounds(lMoney.getX() - 6, lMoney.getY() - 10, lMoney.getWidth() * 1.5f + 15, iconMoney.getHeight());
-        barStats.setBounds(lStatsCelnosc.getX() - 15, 48, lStatsCelnosc.getWidth() + 30, 68);
-        iconMoney.setPosition(lMoney.getX() + lMoney.getWidth() * 1.5f + 6, 238);
+        barGold.setBounds(lMoney.getX() -5, lMoney.getY(), lMoney.getWidth()*0.8f +10, iconMoney.getHeight());
+        barStats.setBounds(lStatsCelnosc.getX() - 15, 48, lStatsCelnosc.getWidth()*0.5f + 30, 70);
+        iconMoney.setPosition(lMoney.getX() + lMoney.getWidth()*0.8f +10, 240);
         emptySlotItem.setSize(iconHideItemDrop.getWidth() + 10, iconHideItemDrop.getHeight() + 10);
-        emptySlotItem.setPosition(BaseScreen.VIEW_WIDTH / 2 - emptySlotItem.getWidth() / 2, 110);
+        emptySlotItem.setPosition(BaseScreen.VIEW_WIDTH /2 - emptySlotItem.getWidth() /2, 110);
         iconHideItemDrop.setSize(85, 85);
         iconHideItemDrop.setPosition(BaseScreen.VIEW_WIDTH / 2 - iconHideItemDrop.getWidth() / 2, 123);
         iconHideItemDrop.setOrigin(iconHideItemDrop.getWidth() / 2, iconHideItemDrop.getHeight() / 2);
@@ -210,7 +214,6 @@ public class FightWin extends BaseScreen {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        //TODO add spawn enemy
                         if(!hero.calculateCollisionTwoRectangle(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()), temporaryRectangleCollision)) {
                             enemy.setVisible(true);
                             enemy.setCollisionOn(true);

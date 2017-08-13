@@ -237,12 +237,12 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         uiBarEmptyExp = addImageToStageUi("barEmpty.png", 85, 438, 102, 14);
         uiBarHp = addImageToStageUi("barHp.png", 86, 464, 100, 10);
         uiBarExp = addImageToStageUi("barExp.png", 86, 440, 100, 10);
-        moneyLabel = addLabelToStageUi(220, 470, 0.9f);
-        hpLabel = addLabelToStageUi(5, 0, 0.85f);
-        expLabel = addLabelToStageUi(5, 0 , 0.85f);
-        Label levelNameLabel = addLabelToStageUi(10, 463, 1);
+        moneyLabel = addLabelToStageUi(220, 470, 0.4f);
+        hpLabel = addLabelToStageUi(5, 0, 0.4f);
+        expLabel = addLabelToStageUi(5, 0 , 0.4f);
+        Label levelNameLabel = addLabelToStageUi(9, 463, 0.5f);
         levelNameLabel.setText("Poziom");
-        levelLabel = addLabelToStageUi(0, 446, 1.25f);
+        levelLabel = addLabelToStageUi(0, 446, 0.6f);
 
         uiStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("uiStats.png")))));
         uiStats.addListener(new InputListener(){

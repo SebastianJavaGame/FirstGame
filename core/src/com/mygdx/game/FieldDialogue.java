@@ -117,6 +117,7 @@ public class FieldDialogue {
                 label = new Label(text, STYLE_GREEN);
             else
                 label = new Label(text, STYLE_WHITE);
+            label.setFontScale(0.6f);
 
             try {
                 if (indexText < 3) {
@@ -136,14 +137,14 @@ public class FieldDialogue {
     }
 
     public FieldDialogue setPosition(int downY){
-        int y = downY -(int)label.getHeight();
+        int y = downY -(int)(label.getHeight()*0.6f);
         label.setPosition(POSITION_X +2, y);
-        barHorizontalUp.setPosition(POSITION_X + 2, y + label.getHeight() - 5);
+        barHorizontalUp.setPosition(POSITION_X + 2, y + label.getHeight()*0.6f - 5);
         barHorizontalDown.setPosition(POSITION_X + 2, y - 5);
 
-        barVerticalLeft.setSize(barVerticalLeft.getWidth(), label.getHeight() +10);
+        barVerticalLeft.setSize(barVerticalLeft.getWidth(), label.getHeight()*0.6f +10);
         barVerticalLeft.setPosition(POSITION_X -5, barHorizontalDown.getY());
-        barVerticalRight.setSize(barVerticalRight.getWidth(), label.getHeight() +10);
+        barVerticalRight.setSize(barVerticalRight.getWidth(), label.getHeight()*0.6f +10);
         barVerticalRight.setPosition(POSITION_X + barHorizontalDown.getWidth() +1, barHorizontalDown.getY());
 
         addActors(barHorizontalDown, barHorizontalUp, barVerticalLeft, barVerticalRight, label);

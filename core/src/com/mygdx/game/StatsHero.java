@@ -81,21 +81,36 @@ public class StatsHero {
         if(asset.manager.update()) {
             barUp = new Image(asset.manager.get("barX.png", Texture.class));
             uiBarExp = new Image(asset.manager.get("barExp.png", Texture.class));
-            expirience = new Label("Expirience", styleWhite);
+            expirience = new Label("Doświadczenie", styleWhite);
             expLabel = new Label(hero.getExp() + " / " + hero.getMaxExp(), styleWhite);
             uiBarEmptyExp = new Image(asset.manager.get("barEmpty.png", Texture.class));
             money = new Image(asset.manager.get("uiMoney.png", Texture.class));
             moneyValue = new Label(" " + hero.getMoney(), styleWhite);
             freePoint = new Label("Wolne punkty:", styleWhite);
             pointToAdd = new Label(" " + hero.getPoint(), styleGreen);
-            infoOne = new Label("Non EQ", styleWhite);
-            infoTwo = new Label("With Eq", styleGreen);
-            attribute[0] = new Label("Hp", styleWhite);
-            attribute[1] = new Label("Armor", styleWhite);
-            attribute[2] = new Label("Strong", styleWhite);
+            infoOne = new Label("Bez Eq", styleWhite);
+            infoTwo = new Label("Razem z Eq", styleGreen);
+            attribute[0] = new Label("Punkty\nżycia", styleWhite);
+            attribute[1] = new Label("Pancerz", styleWhite);
+            attribute[2] = new Label("Siła", styleWhite);
             attribute[3] = new Label("Wiedza", styleWhite);
-            attribute[4] = new Label("Defense\nphysic", styleWhite);
-            attribute[5] = new Label("Defense\nmagic", styleWhite);
+            attribute[4] = new Label("Obrona\nwręcz", styleWhite);
+            attribute[5] = new Label("Obrona\nmagiczna", styleWhite);
+
+            final float scale = 0.5f;
+            expirience.setFontScale(scale);
+            expLabel.setFontScale(scale);
+            moneyValue.setFontScale(scale);
+            freePoint.setFontScale(scale);
+            pointToAdd.setFontScale(scale);
+            infoOne.setFontScale(scale);
+            infoTwo.setFontScale(scale);
+            attribute[0].setFontScale(scale);
+            attribute[1].setFontScale(scale);
+            attribute[2].setFontScale(scale);
+            attribute[3].setFontScale(scale);
+            attribute[4].setFontScale(scale);
+            attribute[5].setFontScale(scale);
 
             for (int i = 0; i < barEmptyStats.length; i++) {
                 barEmptyStats[i] = new Image(asset.manager.get("barStats.png", Texture.class));
@@ -114,6 +129,8 @@ public class StatsHero {
                         pointToAdd.setText("" + hero.getPoint());
                         attributeStats[0].setText("" + hero.getMaxHp());
                         attributeStats[1].setText("" + hero.getHpEq());
+                        attributeStats[0].setFontScale(scale);
+                        attributeStats[1].setFontScale(scale);
                         preferences.putInteger("FREE_POINT", hero.getPoint());
                         preferences.putInteger("MAX_HP", hero.getMaxHp());
                         preferences.flush();
@@ -140,6 +157,8 @@ public class StatsHero {
                         pointToAdd.setText("" + hero.getPoint());
                         attributeStats[2].setText("" + hero.getArmor() + "%");
                         attributeStats[3].setText("" + hero.getArmorEq() + "%");
+                        attributeStats[2].setFontScale(scale);
+                        attributeStats[3].setFontScale(scale);
                         preferences.putInteger("FREE_POINT", hero.getPoint());
                         preferences.putInteger("ARMOR", hero.getArmorEq());
                         preferences.flush();
@@ -205,44 +224,8 @@ public class StatsHero {
             for (ImageButton imageSize : buttonAdd)
                 imageSize.setSize(15, 10);
 
-            attributeStats[0] = new Label(String.valueOf(hero.getHpNonEq()), styleWhite);
-            attributeStats[0].setPosition(115 - attributeStats[0].getWidth() / 2, 290);
-
-            attributeStats[1] = new Label(String.valueOf(hero.getHpEq()), styleGreen);
-            attributeStats[1].setPosition(215 - attributeStats[1].getWidth() / 2, 290);
-
-            attributeStats[2] = new Label(hero.getArmor() + "%", styleWhite);
-            attributeStats[2].setPosition(115 - attributeStats[2].getWidth() / 2, 249);
-
-            attributeStats[3] = new Label(hero.getArmorEq() + "%", styleGreen);
-            attributeStats[3].setPosition(215 - attributeStats[3].getWidth() / 2, 249);
-
-            attributeStats[4] = new Label(String.valueOf(hero.getStrong()), styleWhite);
-            attributeStats[4].setPosition(115 - attributeStats[4].getWidth() / 2, 210);
-
-            attributeStats[5] = new Label(String.valueOf(hero.getStrongEq()), styleGreen);
-            attributeStats[5].setPosition(215 - attributeStats[5].getWidth() / 2, 210);
-
-            attributeStats[6] = new Label(String.valueOf(hero.getWiedza()), styleWhite);
-            attributeStats[6].setPosition(115 - attributeStats[6].getWidth() / 2, 170);
-
-            attributeStats[7] = new Label(String.valueOf(hero.getWiedzaEq()), styleGreen);
-            attributeStats[7].setPosition(215 - attributeStats[7].getWidth() / 2, 170);
-
-            attributeStats[8] = new Label(String.valueOf(hero.getDefenseFiz()), styleWhite);
-            attributeStats[8].setPosition(115 - attributeStats[6].getWidth() / 2, 127);
-
-            attributeStats[9] = new Label(String.valueOf(hero.getDefenseFizEq()), styleGreen);
-            attributeStats[9].setPosition(215 - attributeStats[7].getWidth() / 2, 127);
-
-            attributeStats[10] = new Label(String.valueOf(hero.getDefenseMag()), styleWhite);
-            attributeStats[10].setPosition(115 - attributeStats[6].getWidth() / 2, 80);
-
-            attributeStats[11] = new Label(String.valueOf(hero.getDefenseMagEq()), styleGreen);
-            attributeStats[11].setPosition(215 - attributeStats[7].getWidth() / 2, 80);
-
-            expLabel.setPosition(BaseMap.VIEW_WIDTH / 2 - expLabel.getWidth() / 2, 14);
-            expirience.setPosition(BaseMap.VIEW_WIDTH / 2 - expirience.getWidth() / 2, expLabel.getY() + 20);
+            expLabel.setPosition(BaseMap.VIEW_WIDTH / 2 - expLabel.getWidth()*scale / 2, 5);
+            expirience.setPosition(BaseMap.VIEW_WIDTH / 2 - expirience.getWidth()*scale / 2, expLabel.getY() + 20);
             uiBarEmptyExp.setPosition(10, 10);
             uiBarEmptyExp.setSize(BaseMap.VIEW_WIDTH - 20, 24);
             uiBarExp.setPosition(uiBarEmptyExp.getX() + 5, uiBarEmptyExp.getY() + 3);
@@ -252,51 +235,99 @@ public class StatsHero {
                 procent = 3;
             uiBarExp.setSize(procent / 100 * uiBarEmptyExp.getWidth() - 9, uiBarEmptyExp.getHeight() - 6);
 
-            barUp.setBounds(0, 340, BaseMap.VIEW_WIDTH + 15, 35);
-            money.setBounds(40 + moneyValue.getWidth(), barUp.getY() + 2, 32, 31);
+            barUp.setBounds(0, 345, BaseMap.VIEW_WIDTH + 15, 35);
+            money.setBounds(40 + moneyValue.getWidth()*scale +5, barUp.getY() +2, 32, 31);
 
             table.row().padTop(40);
             table.add();
-            table.add(moneyValue).align(Align.left).padLeft(-35);
-            table.add(freePoint);
-            table.add(pointToAdd).align(Align.left);
+            table.add(moneyValue).align(Align.left).padLeft(-35).fill();
+            table.add(freePoint).fill();
+            table.add(pointToAdd).align(Align.left).fill();
             table.row().padTop(15);
             table.add();
-            table.add(infoOne);
-            table.add(infoTwo);
+            table.add(infoOne).fill();
+            table.add(infoTwo).fill();
             table.row();
-            table.add(attribute[0]);
-            table.add(barEmptyStats[0]);
-            table.add(barEmptyStats[1]);
-            table.add(buttonAdd[0]);
+            table.add(attribute[0]).fill();
+            table.add(barEmptyStats[0]).fill();
+            table.add(barEmptyStats[1]).fill();
+            table.add(buttonAdd[0]).fill();
             table.row().padTop(10);
-            table.add(attribute[1]);
-            table.add(barEmptyStats[2]);
-            table.add(barEmptyStats[3]);
-            table.add(buttonAdd[1]);
+            table.add(attribute[1]).fill();
+            table.add(barEmptyStats[2]).fill();
+            table.add(barEmptyStats[3]).fill();
+            table.add(buttonAdd[1]).fill();
             table.row().padTop(10);
-            table.add(attribute[2]);
-            table.add(barEmptyStats[4]);
-            table.add(barEmptyStats[5]);
-            table.add(buttonAdd[2]);
+            table.add(attribute[2]).fill();
+            table.add(barEmptyStats[4]).fill();
+            table.add(barEmptyStats[5]).fill();
+            table.add(buttonAdd[2]).fill();
             table.row().padTop(10);
-            table.add(attribute[3]);
-            table.add(barEmptyStats[6]);
-            table.add(barEmptyStats[7]);
-            table.add(buttonAdd[3]);
+            table.add(attribute[3]).fill();
+            table.add(barEmptyStats[6]).fill();
+            table.add(barEmptyStats[7]).fill();
+            table.add(buttonAdd[3]).fill();
             table.row().padTop(10);
-            table.add(attribute[4]);
-            table.add(barEmptyStats[8]);
-            table.add(barEmptyStats[9]);
-            table.add(buttonAdd[4]);
+            table.add(attribute[4]).fill();
+            table.add(barEmptyStats[8]).fill();
+            table.add(barEmptyStats[9]).fill();
+            table.add(buttonAdd[4]).fill();
             table.row().padTop(10);
-            table.add(attribute[5]);
-            table.add(barEmptyStats[10]);
-            table.add(barEmptyStats[11]);
-            table.add(buttonAdd[5]);
+            table.add(attribute[5]).fill();
+            table.add(barEmptyStats[10]).fill();
+            table.add(barEmptyStats[11]).fill();
+            table.add(buttonAdd[5]).fill();
 
             table.setFillParent(true);
             table.pack();
+
+            attributeStats[0] = new Label(String.valueOf(hero.getHpNonEq()), styleWhite);
+            attributeStats[0].setPosition(119 - attributeStats[0].getWidth()*scale / 2, 280);
+            attributeStats[0].setFontScale(scale);
+
+            attributeStats[1] = new Label(String.valueOf(hero.getHpEq()), styleGreen);
+            attributeStats[1].setPosition(219 - attributeStats[1].getWidth()*scale / 2, 280);
+            attributeStats[1].setFontScale(scale);
+
+            attributeStats[2] = new Label(hero.getArmor() + "%", styleWhite);
+            attributeStats[2].setPosition(119 - attributeStats[2].getWidth()*scale / 2, 238);
+            attributeStats[2].setFontScale(scale);
+
+            attributeStats[3] = new Label(hero.getArmorEq() + "%", styleGreen);
+            attributeStats[3].setPosition(219 - attributeStats[3].getWidth()*scale / 2, 238);
+            attributeStats[3].setFontScale(scale);
+
+            attributeStats[4] = new Label(String.valueOf(hero.getStrong()), styleWhite);
+            attributeStats[4].setPosition(119 - attributeStats[4].getWidth()*scale / 2, 198);
+            attributeStats[4].setFontScale(scale);
+
+            attributeStats[5] = new Label(String.valueOf(hero.getStrongEq()), styleGreen);
+            attributeStats[5].setPosition(219 - attributeStats[5].getWidth()*scale / 2, 198);
+            attributeStats[5].setFontScale(scale);
+
+            attributeStats[6] = new Label(String.valueOf(hero.getWiedza()), styleWhite);
+            attributeStats[6].setPosition(119 - attributeStats[6].getWidth()*scale / 2, 157);
+            attributeStats[6].setFontScale(scale);
+
+            attributeStats[7] = new Label(String.valueOf(hero.getWiedzaEq()), styleGreen);
+            attributeStats[7].setPosition(219 - attributeStats[7].getWidth()*scale / 2, 157);
+            attributeStats[7].setFontScale(scale);
+
+            attributeStats[8] = new Label(String.valueOf(hero.getDefenseFiz()), styleWhite);
+            attributeStats[8].setPosition(119 - attributeStats[6].getWidth()*scale / 2, 113);
+            attributeStats[8].setFontScale(scale);
+
+            attributeStats[9] = new Label(String.valueOf(hero.getDefenseFizEq()), styleGreen);
+            attributeStats[9].setPosition(219 - attributeStats[7].getWidth()*scale / 2, 113);
+            attributeStats[9].setFontScale(scale);
+
+            attributeStats[10] = new Label(String.valueOf(hero.getDefenseMag()), styleWhite);
+            attributeStats[10].setPosition(119 - attributeStats[6].getWidth()*scale / 2, 65);
+            attributeStats[10].setFontScale(scale);
+
+            attributeStats[11] = new Label(String.valueOf(hero.getDefenseMagEq()), styleGreen);
+            attributeStats[11].setPosition(219 -attributeStats[7].getWidth()*scale /2, 65);
+            attributeStats[11].setFontScale(scale);
 
             stage.addActor(barUp);
             stage.addActor(money);

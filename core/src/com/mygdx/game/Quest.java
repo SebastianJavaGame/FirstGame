@@ -65,9 +65,9 @@ public class Quest {
             Task task = new Task(idTaskList.get(i), indexArray[i]);
             scrollTable.add(task.getTaskBackground());
             scrollTable.row();
-            scrollTable.add(task.getCancel()).padTop(-150).align(Align.right).padRight(15);
+            scrollTable.add(task.getCancel()).padTop(-150).align(Align.right);
             scrollTable.row();
-            scrollTable.add(task.getNpcName()).padTop(-150).align(Align.left);
+            scrollTable.add(task.getNpcName()).padTop(-150).padLeft((task.getProgress().getWidth() -task.getCancel().getWidth()) /2 -task.getNpcName().getWidth() -5);
             scrollTable.row();
             scrollTable.add(task.getTarget()).padTop(-90);
             scrollTable.row();
