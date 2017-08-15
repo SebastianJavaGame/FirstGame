@@ -31,11 +31,11 @@ public class MyGdxGame extends Game{
         if(firstLoad.getString("FIRST").equals("")) {
             Preferences prefEq = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
             prefEq.clear();
-            prefEq.putString("ARMOR", "gold_armor");
-            prefEq.putString("WAPON", "silver_sword");
-            prefEq.putString("SLOT0", "gold_armor");
-            prefEq.putString("SLOT1", "fire_sword");
-            prefEq.flush();
+            //prefEq.putString("ARMOR", "gold_armor");
+            //prefEq.putString("WAPON", "silver_sword");
+            //prefEq.putString("SLOT0", "gold_armor");
+            //prefEq.putString("SLOT1", "fire_sword");
+           // prefEq.flush();
 
             firstLoad.putString("FIRST", "IS LOAD");
             firstLoad.flush();

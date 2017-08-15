@@ -32,7 +32,7 @@ public class Item implements Cloneable{
     private int hp = 0;
     private int strong = 0;
     private int wiedza = 0;
-    private int armor = 0;
+    private float armor = 0;
     private int defenseFiz = 0;
     private int defenseMag = 0;
     private int cashValue = 0;
@@ -51,7 +51,7 @@ public class Item implements Cloneable{
         image.setSize(BLOCK_SIZE, BLOCK_SIZE);
     }
 
-    public Item(String itemKey, String pathImage, String itemName, ItemType itemType, int levelRequire, int hp, int strong, int wiedza, int armor, int defenseFiz, int defenseMag, int cashValue) {
+    public Item(String itemKey, String pathImage, String itemName, ItemType itemType, int levelRequire, int hp, int strong, int wiedza, float armor, int defenseFiz, int defenseMag, int cashValue) {
         this.itemKey = itemKey;
         this.pathImage = pathImage;
 
@@ -114,7 +114,7 @@ public class Item implements Cloneable{
         return defenseMag;
     }
 
-    public int getArmor(){
+    public float getArmor(){
         return armor;
     }
 
