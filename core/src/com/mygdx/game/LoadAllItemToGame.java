@@ -122,31 +122,31 @@ public class LoadAllItemToGame {
          * Pants
          */
         ITEMS.put("pants1", new Item("pants1", "Items/pants/1.png", "lyskmery", Item.ItemType.PANTS, 1,             0, 1, 1, 0.0f, 1, 2, 100));
-        ITEMS.put("pants1", new Item("pants2", "Items/pants/2.png", "lystry", Item.ItemType.PANTS, 7,             50, 4, 6, 0.3f, 5, 7, 1500));       //30
-        ITEMS.put("pants1", new Item("pants3", "Items/pants/3.png", "vengsy", Item.ItemType.PANTS, 15,             100, 9, 11, 0.9f, 12, 14, 7000));  //65
-        ITEMS.put("pants1", new Item("pants4", "Items/pants/4.png", "biltebendary", Item.ItemType.PANTS, 22,             150, 12, 15, 1.6f, 15, 20, 25000));   //95
-        ITEMS.put("pants1", new Item("pants5", "Items/pants/5.png", "hadrasy", Item.ItemType.PANTS, 30,             250, 25, 27, 2.0f, 22, 26, 62000));  //145
-        ITEMS.put("pants1", new Item("pants6", "Items/pants/6.png", "vaekeny", Item.ItemType.PANTS, 38,             310, 30, 35, 2.8f, 29, 40, 100000));      //185
-        ITEMS.put("pants1", new Item("pants7", "Items/pants/7.png", "tengvery", Item.ItemType.PANTS, 45,             380, 34, 39, 3.4f, 34, 44, 160000));  //215
-        ITEMS.put("pants1", new Item("pants8", "Items/pants/8.png", "beressery", Item.ItemType.PANTS, 55,             460, 42, 45, 4.0f, 40, 50, 350000));  //255
-        ITEMS.put("pants1", new Item("pants9", "Items/pants/9.png", "tharimmy", Item.ItemType.PANTS, 65,             500, 50, 52, 4.5f, 47, 53, 600000)); //290
-        ITEMS.put("pants1", new Item("pants10", "Items/pants/10.png", "frexy", Item.ItemType.PANTS, 75,             550, 55, 56, 5.0f, 56, 58, 850000));  //325
+        ITEMS.put("pants2", new Item("pants2", "Items/pants/2.png", "lystry", Item.ItemType.PANTS, 7,             50, 4, 6, 0.3f, 5, 7, 1500));       //30
+        ITEMS.put("pants3", new Item("pants3", "Items/pants/3.png", "vengsy", Item.ItemType.PANTS, 15,             100, 9, 11, 0.9f, 12, 14, 7000));  //65
+        ITEMS.put("pants4", new Item("pants4", "Items/pants/4.png", "biltebendary", Item.ItemType.PANTS, 22,             150, 12, 15, 1.6f, 15, 20, 25000));   //95
+        ITEMS.put("pants5", new Item("pants5", "Items/pants/5.png", "hadrasy", Item.ItemType.PANTS, 30,             250, 25, 27, 2.0f, 22, 26, 62000));  //145
+        ITEMS.put("pants6", new Item("pants6", "Items/pants/6.png", "vaekeny", Item.ItemType.PANTS, 38,             310, 30, 35, 2.8f, 29, 40, 100000));      //185
+        ITEMS.put("pants7", new Item("pants7", "Items/pants/7.png", "tengvery", Item.ItemType.PANTS, 45,             380, 34, 39, 3.4f, 34, 44, 160000));  //215
+        ITEMS.put("pants8", new Item("pants8", "Items/pants/8.png", "beressery", Item.ItemType.PANTS, 55,             460, 42, 45, 4.0f, 40, 50, 350000));  //255
+        ITEMS.put("pants9", new Item("pants9", "Items/pants/9.png", "tharimmy", Item.ItemType.PANTS, 65,             500, 50, 52, 4.5f, 47, 53, 600000)); //290
+        ITEMS.put("pants10", new Item("pants10", "Items/pants/10.png", "frexy", Item.ItemType.PANTS, 75,             550, 55, 56, 5.0f, 56, 58, 850000));  //325
 
         /**
          * Rekawice
          */
-        ITEMS.put("rekawice1", new Item("armor1", "Items/rekawice/1.png", "alandry", Item.ItemType.HAND_ITEM, 1,              10, 0, 1, 0.0f, 1, 2, 100));
-        ITEMS.put("rekawice2", new Item("armor2", "Items/rekawice/2.png", "pezary", Item.ItemType.HAND_ITEM, 6,              50, 3, 5, 0.0f, 5, 7, 1000));       //25
-        ITEMS.put("rekawice3", new Item("armor3", "Items/rekawice/3.png", "szpony", Item.ItemType.HAND_ITEM, 10,             90, 5, 9, 0.1f, 9, 12, 3100));      //45
-        ITEMS.put("rekawice4", new Item("armor4", "Items/rekawice/4.png", "zedry", Item.ItemType.HAND_ITEM, 16,             110, 9, 16, 0.2f, 15, 17, 8500));   //70
-        ITEMS.put("rekawice5", new Item("armor5", "Items/rekawice/5.png", "biasegi", Item.ItemType.HAND_ITEM, 22,             190, 17, 20, 0.3f, 17, 19, 24000));  //95
-        ITEMS.put("rekawice6", new Item("armor6", "Items/rekawice/6.png", "baerieny", Item.ItemType.HAND_ITEM, 28,             280, 24, 26, 0.5f, 24, 27, 50000));  //135
-        ITEMS.put("rekawice7", new Item("armor7", "Items/rekawice/7.png", "faldry", Item.ItemType.HAND_ITEM, 34,             360, 28, 30, 0.7f, 28, 30, 82000));  //160
-        ITEMS.put("rekawice8", new Item("armor8", "Items/rekawice/8.png", "aquerisy", Item.ItemType.HAND_ITEM, 40,             440, 33, 36, 1.0f, 33, 33, 105000));  //190
-        ITEMS.put("rekawice9", new Item("armor9", "Items/rekawice/9.png", "udreki", Item.ItemType.HAND_ITEM, 45,             500, 38, 39, 1.4f, 35, 37, 160000));  //215
-        ITEMS.put("rekawice10", new Item("armor10", "Items/rekawice/10.png", "veldreny", Item.ItemType.HAND_ITEM, 54,          560, 43, 47, 1.8f, 40, 44, 360000));  //250
-        ITEMS.put("rekawice11", new Item("armor11", "Items/rekawice/11.png", "tharimy", Item.ItemType.HAND_ITEM, 65,          640, 49, 56, 2.4f, 46, 49, 600000));  //290
-        ITEMS.put("rekawice12", new Item("armor12", "Items/rekawice/12.png", "verrvy", Item.ItemType.HAND_ITEM, 75,          700, 55, 60, 3.2f, 50, 55, 890000));  //325
+        ITEMS.put("rekawice1", new Item("rekawice1", "Items/rekawice/1.png", "alandry", Item.ItemType.HAND_ITEM, 1,              10, 0, 1, 0.0f, 1, 2, 100));
+        ITEMS.put("rekawice2", new Item("rekawice2", "Items/rekawice/2.png", "pezary", Item.ItemType.HAND_ITEM, 6,              50, 3, 5, 0.0f, 5, 7, 1000));       //25
+        ITEMS.put("rekawice3", new Item("rekawice3", "Items/rekawice/3.png", "szpony", Item.ItemType.HAND_ITEM, 10,             90, 5, 9, 0.1f, 9, 12, 3100));      //45
+        ITEMS.put("rekawice4", new Item("rekawice4", "Items/rekawice/4.png", "zedry", Item.ItemType.HAND_ITEM, 16,             110, 9, 16, 0.2f, 15, 17, 8500));   //70
+        ITEMS.put("rekawice5", new Item("rekawice5", "Items/rekawice/5.png", "biasegi", Item.ItemType.HAND_ITEM, 22,             190, 17, 20, 0.3f, 17, 19, 24000));  //95
+        ITEMS.put("rekawice6", new Item("rekawice6", "Items/rekawice/6.png", "baerieny", Item.ItemType.HAND_ITEM, 28,             280, 24, 26, 0.5f, 24, 27, 50000));  //135
+        ITEMS.put("rekawice7", new Item("rekawice7", "Items/rekawice/7.png", "faldry", Item.ItemType.HAND_ITEM, 34,             360, 28, 30, 0.7f, 28, 30, 82000));  //160
+        ITEMS.put("rekawice8", new Item("rekawice8", "Items/rekawice/8.png", "aquerisy", Item.ItemType.HAND_ITEM, 40,             440, 33, 36, 1.0f, 33, 33, 105000));  //190
+        ITEMS.put("rekawice9", new Item("rekawice9", "Items/rekawice/9.png", "udreki", Item.ItemType.HAND_ITEM, 45,             500, 38, 39, 1.4f, 35, 37, 160000));  //215
+        ITEMS.put("rekawice10", new Item("rekawice10", "Items/rekawice/10.png", "veldreny", Item.ItemType.HAND_ITEM, 54,          560, 43, 47, 1.8f, 40, 44, 360000));  //250
+        ITEMS.put("rekawice11", new Item("rekawice11", "Items/rekawice/11.png", "tharimy", Item.ItemType.HAND_ITEM, 65,          640, 49, 56, 2.4f, 46, 49, 600000));  //290
+        ITEMS.put("rekawice12", new Item("rekawice12", "Items/rekawice/12.png", "verrvy", Item.ItemType.HAND_ITEM, 75,          700, 55, 60, 3.2f, 50, 55, 890000));  //325
 
         /**
          * Ring

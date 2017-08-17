@@ -22,9 +22,9 @@ import java.util.ArrayList;
 public class Map_01 extends BaseMap {
     public static final int STARTING_POS_X = 750;
     public static final int STARTING_POS_Y = 450;
-    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("Map_01.png")));
-    public final static int MAP_WIDTH = (int)MAP_IMAGE.getWidth();
-    public final static int MAP_HEIGHT = (int)MAP_IMAGE.getHeight();
+    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("MAP_01.png")));
+    public final static int MAP_WIDTH = 1320; //(int)MAP_IMAGE.getWidth();
+    public final static int MAP_HEIGHT = 1480; //(int)MAP_IMAGE.getHeight();
     private Preferences pref;
 
     private static boolean firstRun;
