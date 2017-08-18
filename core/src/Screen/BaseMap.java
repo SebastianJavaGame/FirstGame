@@ -28,6 +28,7 @@ import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
 import com.mygdx.game.ImplementObjectMap;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Npc;
 import com.mygdx.game.RenderCollisionLine_Test;
 import com.mygdx.game.StatsHero;
 
@@ -126,6 +127,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     public void create() {
         entriaceToMapRectangle.clear();
         indexToLoadNextMap.clear();
+        Npc.resetIteration();
         generateMap();
 
         new Bag(BaseScreen.getStage());

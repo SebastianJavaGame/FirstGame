@@ -19,12 +19,12 @@ import java.util.ArrayList;
  * Created by Sebastian on 2017-05-31.
  */
 
-public class Map_02 extends BaseMap {
-    public static final int STARTING_POS_X = 200;
-    public static final int STARTING_POS_Y = 200;
-    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("MAP_02.jpg")));
-    public final static int MAP_WIDTH = (int)(MAP_IMAGE.getWidth() *0.8f);
-    public final static int MAP_HEIGHT = (int)(MAP_IMAGE.getHeight() *0.8f);
+public class Map_04 extends BaseMap {
+    public static final int STARTING_POS_X = 750;
+    public static final int STARTING_POS_Y = 450;
+    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("MAP_04.jpg")));
+    public final static int MAP_WIDTH = (int)(MAP_IMAGE.getWidth() *0.8);
+    public final static int MAP_HEIGHT = (int)(MAP_IMAGE.getHeight() *0.8);
     private Preferences pref;
 
     private static boolean firstRun;
@@ -33,26 +33,29 @@ public class Map_02 extends BaseMap {
     private static ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Character> characters;
 
-    public Map_02(Game g) {
+    public Map_04(Game g) {
         super(g, MAP_WIDTH, MAP_HEIGHT, MAP_IMAGE);
     }
 
     @Override
     public void addEnemyToMap() {
-        addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380);
-        addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300);
+        addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380).setDropItemName("gold_armor");
+        addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300).setDropItemName("silver_sword");
     }
 
     @Override
     public void addNpcToMap() {
-        //addNpc("mag.png", "glominHead.png", "Witherman", 20, 0, 1);
+        addNpc("mag.png", "glominHead.png", "Witherman", 20, 0, 0);
     }
 
+    /**
+     * indexToLoadMap.get(x); x = Hero finishWalk switch(i)
+     */
     @Override
     public void addEntranceToMap() {
         //first entriance
-        entriaceToMapRectangle.add(new Rectangle(500, 100, 100, 100));
-        indexToLoadNextMap.add(2);
+        entriaceToMapRectangle.add(new Rectangle(500, 300, 100, 100));
+        indexToLoadNextMap.add(4);
         //
     }
 
@@ -98,12 +101,12 @@ public class Map_02 extends BaseMap {
         if(Menu.getIsFirstSpawnHeroPosition()) {
             pref.putInteger("POS_X", pref.getInteger("POS_X", STARTING_POS_X)).flush();
             pref.putInteger("POS_Y", pref.getInteger("POS_Y", STARTING_POS_Y)).flush();
-            pref.putInteger("MAP", 1).flush();
+            pref.putInteger("MAP", 3).flush();
             Menu.setIsFirstSpawnHeroPosition(false);
         }else{
             pref.putInteger("POS_X", STARTING_POS_X).flush();
             pref.putInteger("POS_Y", STARTING_POS_Y).flush();
-            pref.putInteger("MAP", 1).flush();
+            pref.putInteger("MAP", 3).flush();
         }
     }
 
@@ -115,13 +118,14 @@ public class Map_02 extends BaseMap {
         verticalCollision.add(point);
     }
 
-    private void addEnemy(String path, String head, String wapon, int x){
-        Enemy enemy = new Enemy(path, head, wapon, true, "Goltral", 5, 180, 8, 8, 16, 10, 8, 10, 40, 70, 30);
+    private Enemy addEnemy(String path, String head, String wapon, int x){
+        Enemy enemy = new Enemy(path, head, wapon, true, "Glomin", 5, 180, 8, 8, 16, 10, 8, 24.5f, 60, 70, 10);
         enemy.setRectangle(0, 0, 0, 0);
         enemy.setPosition(x, x);
         //TODO if not equals null add item drop;     enemy.setDropItemName();
         characters.add(enemy);
         enemy.collisionUpdate();
+        return enemy;
     }
 
     private void addNpc(String path, String head, String name, int level, int idShop, int idTask){
@@ -132,7 +136,6 @@ public class Map_02 extends BaseMap {
         npc.setRectangle(0, 0, 0, 0);
         npc.collisionUpdate();
     }
-
 
     public ArrayList<Character> getCharacter(){
         return characters;

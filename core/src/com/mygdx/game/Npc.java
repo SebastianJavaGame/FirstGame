@@ -44,6 +44,10 @@ public class Npc extends Character{
         new DialogNpc(this);
     }
 
+    public static void resetIteration(){
+        idIteration = -1;
+    }
+
     public Image getHead() {
         return head;
     }
@@ -68,4 +72,5 @@ public class Npc extends Character{
     public int getIdTask(){
         return idTask;
     }
+
 }

@@ -22,6 +22,10 @@ import Screen.BaseMap;
 import Screen.BaseScreen;
 import Screen.Map_01;
 import Screen.Map_02;
+import Screen.Map_03;
+import Screen.Map_04;
+import Screen.Map_05;
+import Screen.Map_06;
 
 /**
  * Created by Sebastian on 2017-05-31.
@@ -757,6 +761,22 @@ public class Hero extends Character {
                     case 1:
                         System.out.println("map2");
                         game.setScreen(new Map_02(game));
+                        break;
+                    case 2:
+                        System.out.println("map3");
+                        game.setScreen(new Map_03(game));
+                        break;
+                    case 3:
+                        System.out.println("map4");
+                        game.setScreen(new Map_04(game));
+                        break;
+                    case 4:
+                        System.out.println("map5");
+                        game.setScreen(new Map_05(game));
+                        break;
+                    case 5:
+                        System.out.println("map6");
+                        game.setScreen(new Map_06(game));
                         break;
                     default:
                         try {
