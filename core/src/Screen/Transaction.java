@@ -127,6 +127,8 @@ public class Transaction {
                         if (value.equals("")) {
                             try {
                                 int money = preferencesStats.getInteger("MONEY");
+                                System.out.println("hero money= " + money);
+                                System.out.println("Item price= " + FuncionalityShop.getPrice());
                                 if (money >= FuncionalityShop.getPrice()) {
                                     soundShop.play();
                                     FuncionalityShop.animationEndTransaction("-" + FuncionalityShop.getPrice(), Color.RED);

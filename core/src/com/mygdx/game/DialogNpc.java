@@ -54,7 +54,6 @@ public class DialogNpc {
     public DialogNpc(Npc npc) {
         this.npc = npc;
         this.stage = BaseScreen.getStage();
-        this.fontStage = BaseScreen.getFontStage();
         fieldTextList = new FieldDialogue[4];
 
         BACKGROUND.setSize(BACKGROUND.getWidth(), 400);

@@ -40,16 +40,14 @@ import java.util.ArrayList;
 
 public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     public final static int ICON_ITEM_SIZE = 25;
-    private Asset asset = new Asset();
+    protected Asset asset = new Asset();
 
-    protected int mapWidth;
-    protected int mapHeight;
     private float realWidth;
     private float realHeight;
 
     protected static Hero hero;
     protected static Hero3D hero3D;
-    protected static Image bgTexture;
+    protected Image bgTexture;
     protected static BaseMap actualMap;
     private Preferences preferences;
 
@@ -96,10 +94,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         indexToLoadNextMap = new ArrayList<Integer>();
     }
 
-    public BaseMap(Game game, int mapWidth, int mapHeight, Image imageBg) {
+    public BaseMap(Game game, Image imageBg) {
             super(game);
-            this.mapWidth = mapWidth;
-            this.mapHeight = mapHeight;
             this.bgTexture = imageBg;
 
             preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
@@ -139,14 +135,14 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         testRender = new RenderCollisionLine_Test(camera, hero);
 
-        System.out.println(hero.getFullHp());
+        setPosX((int)hero.getX());
+        setPosY((int)hero.getY());
     }
 
     @Override
     public void update(float dt) {
         cameraUpdate();
         hero.act(dt);
-
         uiUpdate();
         stageUi.act(dt);
         stageUi.draw();
@@ -189,9 +185,6 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         if(hero.isCharacterCollisionLook())
             hero.collisionCharacter();
-
-        setPosX((int)hero.getX());
-        setPosY((int)hero.getY());
     }
 
     @Override
@@ -362,6 +355,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         stageCard.dispose();
         hero3D.dispose();
         card.dispose();
+        asset.dispose();
     }
 
     public static BaseMap getActualMap(){

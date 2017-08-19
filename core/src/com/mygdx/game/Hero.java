@@ -736,7 +736,7 @@ public class Hero extends Character {
 
     public void finishWalk() {
         heroUpdateCollisionBox();
-        if(calculateCollisionTwoRectangle(getFinishWalkPosition(), heroBox)) {
+        if (calculateCollisionTwoRectangle(getFinishWalkPosition(), heroBox)) {
             hero3D.setStopAnimation();
             animationPlay = false;
             setCharacterCollisionLook(false);
@@ -744,8 +744,8 @@ public class Hero extends Character {
             nonCollision.set(getX(), getY());
         }
 
-        for(int i = 0; i < BaseMap.getEntriaceToMapRectangle().size(); i++){
-            if(calculateCollisionTwoRectangle(heroBox, BaseMap.getEntriaceToMapRectangle().get(i))){
+        for (int i = 0; i < BaseMap.getEntriaceToMapRectangle().size(); i++) {
+            if (calculateCollisionTwoRectangle(heroBox, BaseMap.getEntriaceToMapRectangle().get(i))) {
                 Hero3D.setStopAnimation();
                 soundNextMap.play(0.8f);
                 setStopStep();
@@ -753,7 +753,7 @@ public class Hero extends Character {
                 /**
                  * i = indexToLoadMap
                  */
-                switch (BaseMap.getIndexToLoadNextMap().get(i)){
+                switch (BaseMap.getIndexToLoadNextMap().get(i)) {
                     case 0:
                         System.out.println("map1");
                         game.setScreen(new Map_01(game));

@@ -32,8 +32,8 @@ public class BaseShopDepartaments {
 
     private void loadFirstShopArmor(){
         pref[0][1] = Gdx.app.getPreferences("SHOP_0_ARMOR");
-        pref[0][1].putString("SLOT0", "gold_armor");
-        pref[0][1].putString("SLOT1", "gold_armor");
+        pref[0][1].putString("SLOT0", "armor1");
+        pref[0][1].putString("SLOT1", "armor2");
         pref[0][1].flush();
     }
 
@@ -47,8 +47,8 @@ public class BaseShopDepartaments {
 
     private void loadFirstShopWapon(){
         pref[0][4] = Gdx.app.getPreferences("SHOP_0_WAPON");
-        pref[0][4].putString("SLOT0", "silver_sword");
-        pref[0][4].putString("SLOT1", "fire_sword");
+        pref[0][4].putString("SLOT0", "wapons1");
+        pref[0][4].putString("SLOT1", "wapons2");
         pref[0][4].flush();
     }
 

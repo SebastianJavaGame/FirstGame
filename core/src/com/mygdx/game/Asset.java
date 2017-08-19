@@ -161,10 +161,6 @@ public class Asset implements Disposable {
         manager.load("sound/taskComplite.ogg", Sound.class);
     }
 
-    public void loadMap_01(){
-        //TODO load all map with enemy image
-    }
-
     @Override
     public void dispose() {
         manager.dispose();

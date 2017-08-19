@@ -197,7 +197,6 @@ public class Menu extends BaseScreen {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     getSoundClick().play();
-                    fontStage.clear();
                     setToutch(Touchable.enabled);
                     create();
                     return false;
@@ -224,8 +223,8 @@ public class Menu extends BaseScreen {
         prefTask.flush();
         prefFight.flush();
 
-        prefStats.putInteger("POS_X", 100).flush();
-        prefStats.putInteger("POS_Y", 100).flush();
+        prefStats.putInteger("POS_X", 300).flush();
+        prefStats.putInteger("POS_Y", 200).flush();
     }
 
     public static void setMap(){
@@ -235,10 +234,22 @@ public class Menu extends BaseScreen {
         System.out.println(pref.getInteger("POS_X"));
         switch (idMap){
             case 0:
-                game.setScreen( new Map_01(game) );
+                game.setScreen( new Map_01(game));
                 break;
             case 1:
                 game.setScreen( new Map_02(game) );
+                break;
+            case 2:
+                game.setScreen( new Map_03(game) );
+                break;
+            case 3:
+                game.setScreen( new Map_04(game) );
+                break;
+            case 4:
+                game.setScreen( new Map_05(game) );
+                break;
+            case 5:
+                game.setScreen( new Map_06(game) );
                 break;
             default:
                 game.setScreen( new Map_01(game) );
@@ -268,5 +279,11 @@ public class Menu extends BaseScreen {
         lLoadGame.setTouchable(toutch);
         lMore.setTouchable(toutch);
         lExit.setTouchable(toutch);
+    }
+
+    @Override
+    public void dispose(){
+        game.dispose();
+        stage.dispose();
     }
 }

@@ -34,12 +34,13 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     protected static Game game;
     public static OrthographicCamera camera;
     protected static Stage stage;
-    protected static Stage fontStage;
 
     private static int posX;
     private static int posY;
 
     private static boolean exception = false;
+    private int fps = 0;
+    private float ms = 0;
 
     public BaseScreen(Game g)
     {
@@ -49,9 +50,8 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             camera.setToOrtho(false, VIEW_WIDTH, VIEW_HEIGHT);
 
             stage = new Stage(new StretchViewport(VIEW_WIDTH, VIEW_HEIGHT, camera));
-            fontStage = new Stage(new StretchViewport(Gdx.app.getGraphics().getWidth(), Gdx.app.getGraphics().getHeight()));
 
-            InputMultiplexer im = new InputMultiplexer(this, stage, fontStage);
+            InputMultiplexer im = new InputMultiplexer(this, stage);
             Gdx.input.setInputProcessor(im);
 
             posX = 0;
@@ -77,6 +77,16 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             showException(e1);
         } catch (Exception e){
            showException(e);
+        }
+
+        fps++;
+        ms += Gdx.graphics.getDeltaTime();
+        if(ms >= 1){
+            System.out.println("------------");
+            System.out.println("FPS: " + fps);
+            System.out.println("------------");
+            fps = 0;
+            ms = 0;
         }
     }
 
@@ -151,7 +161,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
     public void resize(int width, int height) {
        stage.getViewport().update(width, height);
-       fontStage.getViewport().update(width, height);
     }
 
     public void pause()   {
@@ -161,7 +170,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     public void dispose() {
         game.dispose();
         stage.dispose();
-        fontStage.dispose();
     }
     public void show()    {  }
     public void hide()    {  }
@@ -191,10 +199,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
     public static Stage getStage(){
         return stage;
-    }
-
-    public static Stage getFontStage(){
-        return fontStage;
     }
 
     public static Game getGame(){

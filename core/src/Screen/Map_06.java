@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.game.Asset;
 import com.mygdx.game.Character;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Npc;
@@ -21,9 +22,9 @@ import java.util.ArrayList;
 public class Map_06 extends BaseMap {
     public static final int STARTING_POS_X = 750;
     public static final int STARTING_POS_Y = 450;
-    public static final Image MAP_IMAGE = new Image(new Texture(Gdx.files.internal("MAP_06.jpg")));
-    public final static int MAP_WIDTH = (int)(MAP_IMAGE.getWidth() *0.8f);
-    public final static int MAP_HEIGHT = (int)(MAP_IMAGE.getHeight() *0.8f);
+    private static Image mapImage;
+    private static int mapWidth;
+    private static int mapHeight;
     private Preferences pref;
 
     private static boolean firstRun;
@@ -32,8 +33,19 @@ public class Map_06 extends BaseMap {
     private static ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Character> characters;
 
+    static {
+        Asset asset = new Asset();
+        asset.manager.load("MAP_06.jpg", Texture.class);
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            mapImage = new Image(asset.manager.get("MAP_06.jpg", Texture.class));
+        }
+        mapWidth = (int)(mapImage.getWidth() *0.8f);
+        mapHeight = (int)(mapImage.getHeight() *0.8f);
+    }
+
     public Map_06(Game g) {
-        super(g, MAP_WIDTH, MAP_HEIGHT, MAP_IMAGE);
+        super(g, mapImage);
     }
 
     @Override
@@ -77,7 +89,7 @@ public class Map_06 extends BaseMap {
             actualMap = this;
             firstRun = true;
 
-            bgTexture.setSize(MAP_WIDTH, MAP_HEIGHT);
+            bgTexture.setSize(mapWidth, mapHeight);
 
             addEnemyToMap();
             addNpcToMap();
@@ -138,5 +150,10 @@ public class Map_06 extends BaseMap {
 
     public ArrayList<Character> getCharacter(){
         return characters;
+    }
+
+    @Override
+    public void dispose(){
+        super.dispose();
     }
 }
