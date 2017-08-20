@@ -161,7 +161,6 @@ public class Asset implements Disposable {
         manager.load("sound/taskComplite.ogg", Sound.class);
     }
 
-    @Override
     public void dispose() {
         manager.dispose();
     }

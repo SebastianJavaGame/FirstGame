@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.game.Asset;
 import com.mygdx.game.Character;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Npc;
@@ -34,12 +33,12 @@ public class Map_06 extends BaseMap {
     private static ArrayList<Character> characters;
 
     static {
-        Asset asset = new Asset();
-        asset.manager.load("MAP_06.jpg", Texture.class);
-        asset.manager.finishLoading();
-        if(asset.manager.update()) {
-            mapImage = new Image(asset.manager.get("MAP_06.jpg", Texture.class));
-        }
+        //Asset asset = new Asset();
+        //asset.manager.load("MAP_01.jpg", Texture.class);
+        //asset.manager.finishLoading();
+        //if(asset.manager.update()) {
+        mapImage = new Image(new Texture("MAP_06.jpg"));
+        //}
         mapWidth = (int)(mapImage.getWidth() *0.8f);
         mapHeight = (int)(mapImage.getHeight() *0.8f);
     }

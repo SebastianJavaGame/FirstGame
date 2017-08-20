@@ -2,12 +2,13 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Created by Sebastian on 2017-06-11.
  */
 
-public class Item implements Cloneable{
+public class Item implements Cloneable, Disposable{
     public static final int BLOCK_SIZE = 50;
 
     public enum ItemType{
@@ -73,6 +74,12 @@ public class Item implements Cloneable{
         this.defenseFiz = defenseFiz;
         this.defenseMag = defenseMag;
         this.cashValue = cashValue;
+    }
+
+    @Override
+    public void dispose() {
+        texture.dispose();
+        asset.dispose();
     }
 
     @Override

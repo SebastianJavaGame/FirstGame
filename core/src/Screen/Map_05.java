@@ -3,12 +3,12 @@ package Screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.game.Asset;
 import com.mygdx.game.Character;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Npc;
@@ -35,12 +35,12 @@ public class Map_05 extends BaseMap {
     private static ArrayList<Character> characters;
 
     static {
-        Asset asset = new Asset();
-        asset.manager.load("MAP_05.jpg", Texture.class);
-        asset.manager.finishLoading();
-        if(asset.manager.update()) {
-            mapImage = new Image(asset.manager.get("MAP_05.jpg", Texture.class));
-        }
+        //Asset asset = new Asset();
+        //asset.manager.load("MAP_01.jpg", Texture.class);
+        //asset.manager.finishLoading();
+        //if(asset.manager.update()) {
+        mapImage = new Image(new Texture("MAP_05.jpg"));
+        //}
         mapWidth = (int)(mapImage.getWidth() *0.8f);
         mapHeight = (int)(mapImage.getHeight() *0.8f);
     }
@@ -155,6 +155,11 @@ public class Map_05 extends BaseMap {
 
     @Override
     public void dispose(){
-        super.dispose();
+        try {
+            super.dispose();
+        }catch (IllegalArgumentException e){
+            FileHandle file = Gdx.files.external("MyFileaLog.txt");
+            file.writeString(e.toString(), true);
+        }
     }
 }

@@ -168,8 +168,8 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     }
     public void resume()  {  }
     public void dispose() {
-        game.dispose();
         stage.dispose();
+        //game.dispose();
     }
     public void show()    {  }
     public void hide()    {  }

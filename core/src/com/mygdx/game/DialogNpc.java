@@ -69,7 +69,7 @@ public class DialogNpc {
                 removeAll();
                 FieldDialogue.clearDialogueReward();
                 Hero.setActiveMove(false);
-                Hero3D.setRenderHero3d(true);
+                //Hero3D.setRenderHero3d(true);
                 return false;
             }
         });
@@ -87,7 +87,7 @@ public class DialogNpc {
         imageHead.setSize(60, 60);
         imageHead.setPosition(UP_LABEL.getX() -9, UP_LABEL.getY() -6);
 
-        Hero3D.setRenderHero3d(false);
+        //Hero3D.setRenderHero3d(false);
         Hero.setActiveMove(true);
 
         lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, UP_LABEL.getY() + 35*0.5f);

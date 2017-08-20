@@ -779,12 +779,6 @@ public class Hero extends Character {
                         game.setScreen(new Map_06(game));
                         break;
                     default:
-                        try {
-                            throw new MyException();
-                        } catch (MyException e) {
-                            BaseScreen.showException(e);
-                            e.printStackTrace();
-                        }
                         break;
                 }
             }

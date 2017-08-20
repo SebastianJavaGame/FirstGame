@@ -156,14 +156,14 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             stageCard.draw();
         }
 
-        testRender.draw();
-        for(Character c: charactersList)
-            RenderCollisionLine_Test.drawPublic(c.getCollision());
-        for(Rectangle r: entriaceToMapRectangle)
-            RenderCollisionLine_Test.drawPublic(r);
+        //testRender.draw();
+        //for(Character c: charactersList)
+         //   RenderCollisionLine_Test.drawPublic(c.getCollision());
+        //for(Rectangle r: entriaceToMapRectangle)
+           // RenderCollisionLine_Test.drawPublic(r);
 
         //for(Vector2 v: Hero.temporaryListVector)
-           // RenderCollisionLine_Test.drawPointSquare(v);
+            //RenderCollisionLine_Test.drawPointSquare(v);
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
             System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
@@ -200,6 +200,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         preferences.putInteger("DEFENSE_MAG", hero.getDefenseMag()).flush();
         preferences.putInteger("POS_X", (int)hero.getX()).flush();
         preferences.putInteger("POS_Y", (int)hero.getY()).flush();
+
     }
 
     public void clearCharacterList(){
@@ -353,9 +354,11 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         stageUi.dispose();
         stageStats.dispose();
         stageCard.dispose();
-        hero3D.dispose();
         card.dispose();
         asset.dispose();
+        asset.manager.dispose();
+        super.dispose();
+        //game.dispose();
     }
 
     public static BaseMap getActualMap(){

@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.game.Asset;
 import com.mygdx.game.Character;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Npc;
@@ -35,18 +34,19 @@ public class Map_02 extends BaseMap {
     private static ArrayList<Character> characters;
 
     static {
-        Asset asset = new Asset();
-        asset.manager.load("MAP_02.jpg", Texture.class);
-        asset.manager.finishLoading();
-        if(asset.manager.update()) {
-            mapImage = new Image(asset.manager.get("MAP_02.jpg", Texture.class));
-        }
+        //Asset asset = new Asset();
+        //asset.manager.load("MAP_01.jpg", Texture.class);
+        //asset.manager.finishLoading();
+        //if(asset.manager.update()) {
+        mapImage = new Image(new Texture("MAP_02.jpg"));
+        //}
         mapWidth = (int)(mapImage.getWidth() *0.8f);
         mapHeight = (int)(mapImage.getHeight() *0.8f);
     }
 
     public Map_02(Game g) {
         super(g, mapImage);
+        System.out.println("MAP2");
     }
 
     @Override

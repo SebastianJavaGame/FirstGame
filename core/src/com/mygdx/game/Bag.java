@@ -190,6 +190,9 @@ public class Bag {
                 preferences.putInteger("POS_X", (int)hero.getX()).flush();
                 preferences.putInteger("POS_Y", (int)hero.getY()).flush();
                 Menu.getSoundClick().play();
+                Hero3D.dispose();
+                stage.dispose();
+                BaseScreen.getGame().dispose();
                 Gdx.app.exit();
                 return false;
             }

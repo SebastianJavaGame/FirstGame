@@ -231,7 +231,6 @@ public class Menu extends BaseScreen {
         Preferences pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
         int idMap = pref.getInteger("MAP", 0);
-        System.out.println(pref.getInteger("POS_X"));
         switch (idMap){
             case 0:
                 game.setScreen( new Map_01(game));
@@ -283,7 +282,7 @@ public class Menu extends BaseScreen {
 
     @Override
     public void dispose(){
-        game.dispose();
-        stage.dispose();
+        asset.dispose();
+        super.dispose();
     }
 }
