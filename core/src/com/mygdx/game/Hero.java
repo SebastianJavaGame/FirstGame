@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
+import net.dermetfan.utils.libgdx.math.GeometryUtils;
+
 import java.util.ArrayList;
 
 import Screen.BaseMap;
@@ -286,11 +288,11 @@ public class Hero extends Character {
         int countCollision = 0;
         boolean pointCollision = false;
         for(Polygon object : objectMap){
-            if(Intersector.overlapConvexPolygons(heroPolygon, object) && Intersector.overlapConvexPolygons(point, object))
+            if(calculateConcavePoligonCollision(heroPolygon, object) && calculateConcavePoligonCollision(point, object))
                 return;
-            if(Intersector.overlapConvexPolygons(track, object))
+            if(calculateConcavePoligonCollision(track, object))
                 countCollision++;
-            if(Intersector.overlapConvexPolygons(object, point)){
+            if(calculateConcavePoligonCollision(point, object)){
                 pointCollision = true;
             }
         }
@@ -307,7 +309,7 @@ public class Hero extends Character {
             Vector2[] verticalObject = vertical.get(i);
             if (!moveStop && countCollision < 2) {
                 setActualCollision(object);
-                if (Intersector.overlapConvexPolygons(point, object)) {
+                if (calculateConcavePoligonCollision(point, object)) {
                     setAnimationPlayTrue();
                     addAction(Actions.sequence(
                             calculateRotate(posX, posY),
@@ -321,7 +323,7 @@ public class Hero extends Character {
             if (moveStop) {
                 if(countCollision == 1) {
                     for (Polygon object1 : objectMap) {
-                        if (Intersector.overlapConvexPolygons(point, object1)) {
+                        if (calculateConcavePoligonCollision(point, object1)) {
                             setActualCollision(object1);
                             setAnimationPlayTrue();
                             addAction(Actions.sequence(
@@ -334,7 +336,7 @@ public class Hero extends Character {
             }
 
             //if track don't collision with other object
-            if (!Intersector.overlapConvexPolygons(track, object)) {
+            if (!calculateConcavePoligonCollision(track, object)) {
                 numberObject++;
                 if (numberObject == allObject) {
                     setChangeTrack(false);
@@ -349,7 +351,7 @@ public class Hero extends Character {
             }
 
             //if track at collision object
-            if (Intersector.overlapConvexPolygons(track, object) && !Intersector.overlapConvexPolygons(point, object)) {
+            if (calculateConcavePoligonCollision(track, object) && !calculateConcavePoligonCollision(point, object)) {
                 actualPointObject = null;
                 setActualCollision(object);
                 queueWay = new ArrayList<Vector2>();
@@ -358,11 +360,11 @@ public class Hero extends Character {
                 heroPolygonUpdate();
                 for(Polygon objectPoint: objectMap){
                     if(object != objectPoint) {
-                        if (Intersector.overlapConvexPolygons(point, objectPoint))
+                        if (calculateConcavePoligonCollision(point, objectPoint))
                             setActualPointObject(objectPoint);
                     }
 
-                    if(Intersector.overlapConvexPolygons(heroPolygon, object))
+                    if(calculateConcavePoligonCollision(heroPolygon, object))
                         setActualCollision(object);
                 }
 
@@ -374,7 +376,7 @@ public class Hero extends Character {
                 for (int j = 0; j < amountVertical; j++) {
                     Polygon lineEndVertical = new Polygon(new float[]{end.x - 1, end.y, end.x + 1, end.y,
                             verticalObject[j].x + 1, verticalObject[j].y, verticalObject[j].x - 1, verticalObject[j].y});
-                    if (!Intersector.overlapConvexPolygons(object, lineEndVertical)) {
+                    if (!calculateConcavePoligonCollision(lineEndVertical, object)) {
                         float duration = timeSpeed(end.x, end.y, verticalObject[j].x, verticalObject[j].y);
                         if (duration < shorterWay) {
                             shorterWay = duration;
@@ -394,7 +396,7 @@ public class Hero extends Character {
                 int index = indexShorterWay;
 
                 float durationUpIncrement = 0;
-                while (Intersector.overlapConvexPolygons(lineStartVertical, object)) {
+                while (calculateConcavePoligonCollision(lineStartVertical, object)) {
                     if (index + 1 < amountVertical)
                         index++;
                     else
@@ -408,7 +410,7 @@ public class Hero extends Character {
                     lineStartVertical = new Polygon(new float[]{start.x - 1, start.y, start.x + 1, start.y,
                             verticalObject[index].x + 1, verticalObject[index].y, verticalObject[index].x - 1, verticalObject[index].y});
 
-                    if (!Intersector.overlapConvexPolygons(lineStartVertical, object))
+                    if (!calculateConcavePoligonCollision(lineStartVertical, object))
                         durationUpIncrement += timeSpeed(start.x, start.y, verticalObject[index].x, verticalObject[index].y);
                 }
                 index = indexShorterWay;
@@ -417,8 +419,8 @@ public class Hero extends Character {
                 else
                     index--;
 
-                if (!Intersector.overlapConvexPolygons(object, new Polygon(new float[]{end.x - 1, end.y, end.x + 1, end.y,
-                        verticalObject[index].x + 1, verticalObject[index].y, verticalObject[index].x - 1, verticalObject[index].y})))
+                if (!calculateConcavePoligonCollision(new Polygon(new float[]{end.x - 1, end.y, end.x + 1, end.y,
+                        verticalObject[index].x + 1, verticalObject[index].y, verticalObject[index].x - 1, verticalObject[index].y}), object))
                     durationUpIncrement += timeSpeed(end.x, end.y, verticalObject[indexShorterWay].x, verticalObject[indexShorterWay].y);
                 else
                     durationUpIncrement -= timeSpeed(end.x, end.y, verticalObject[indexShorterWay].x, verticalObject[indexShorterWay].y);
@@ -429,7 +431,7 @@ public class Hero extends Character {
                 index = indexShorterWay;
 
                 float durationDownIncrement = 0;
-                while (Intersector.overlapConvexPolygons(lineStartVertical, object)) {
+                while (calculateConcavePoligonCollision(lineStartVertical, object)) {
                     if (index - 1 < 0)
                         index = amountVertical - 1;
                     else
@@ -443,7 +445,7 @@ public class Hero extends Character {
                     lineStartVertical = new Polygon(new float[]{start.x - 1, start.y, start.x + 1, start.y,
                             verticalObject[index].x + 1, verticalObject[index].y, verticalObject[index].x - 1, verticalObject[index].y});
 
-                    if (!Intersector.overlapConvexPolygons(lineStartVertical, object))
+                    if (!calculateConcavePoligonCollision(lineStartVertical, object))
                         durationDownIncrement += timeSpeed(start.x, start.y, verticalObject[index].x, verticalObject[index].y);
                 }
                 index = indexShorterWay;
@@ -452,8 +454,8 @@ public class Hero extends Character {
                 else
                     index++;
 
-                if (!Intersector.overlapConvexPolygons(object, new Polygon(new float[]{end.x - 1, end.y, end.x + 1, end.y,
-                        verticalObject[index].x + 1, verticalObject[index].y, verticalObject[index].x - 1, verticalObject[index].y})))
+                if (!calculateConcavePoligonCollision(new Polygon(new float[]{end.x - 1, end.y, end.x + 1, end.y,
+                        verticalObject[index].x + 1, verticalObject[index].y, verticalObject[index].x - 1, verticalObject[index].y}), object))
                     durationDownIncrement += timeSpeed(end.x, end.y, verticalObject[indexShorterWay].x, verticalObject[indexShorterWay].y);
                 else
                     durationDownIncrement -= timeSpeed(end.x, end.y, verticalObject[indexShorterWay].x, verticalObject[indexShorterWay].y);
@@ -461,7 +463,7 @@ public class Hero extends Character {
                 lineStartVertical = new Polygon(new float[]{start.x - 1, start.y, start.x + 1, start.y,
                         vertical.x + 1, vertical.y, vertical.x - 1, vertical.y});
                 index = indexShorterWay;
-                while (Intersector.overlapConvexPolygons(lineStartVertical, object)) {
+                while (calculateConcavePoligonCollision(lineStartVertical, object)) {
                     if (durationUpIncrement <= durationDownIncrement) {
                         if (index + 1 < amountVertical)
                             index++;
@@ -570,6 +572,15 @@ public class Hero extends Character {
         }
     }
 
+    private boolean calculateConcavePoligonCollision(Polygon convex, Polygon concave){
+        Polygon[] arrayPolygon = GeometryUtils.decomposeIntoConvex(concave);
+        for(Polygon polygon: arrayPolygon){
+            if(Intersector.overlapConvexPolygons(polygon, convex))
+                return true;
+        }
+        return false;
+    }
+
     public static void levelUp(){
         Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
         soundLvlUp.play();
@@ -601,7 +612,7 @@ public class Hero extends Character {
     public void objectCollision(){
         heroPolygonUpdate();
 
-        if(Intersector.overlapConvexPolygons(heroPolygon, getActualCollision())){
+        if(calculateConcavePoligonCollision(heroPolygon, getActualCollision())){
             hero3D.setStopAnimation();
             this.clearActions();
             soundStep.stop();
@@ -611,7 +622,7 @@ public class Hero extends Character {
     public void objectPointCollision(){
         heroPolygonUpdate();
         if(actualPointObject != null){
-            if(Intersector.overlapConvexPolygons(heroPolygon, getActualPointObject()))
+            if(calculateConcavePoligonCollision(heroPolygon, getActualPointObject()))
                 clearActions();
         }
     }
@@ -711,10 +722,10 @@ public class Hero extends Character {
         }
 
         //throw ExceptionCollision
-            //if(hero.getX() +hero.getWidth() <= o4.y && hero.getX() +hero.getWidth() >= o4.x && hero.getY() +hero.getHeight() /2 <= o2.x && hero.getY() +hero.getHeight() /2 >= o2.y)
-            //    return true;
-            //if(hero.getX() <= o3.x && hero.getY() +hero.getHeight() /2 <= o3.y && hero.getX() >= o1.x && hero.getY() +hero.getHeight() /2 >= o1.y)
-            //    return true;
+        //if(hero.getX() +hero.getWidth() <= o4.y && hero.getX() +hero.getWidth() >= o4.x && hero.getY() +hero.getHeight() /2 <= o2.x && hero.getY() +hero.getHeight() /2 >= o2.y)
+        //    return true;
+        //if(hero.getX() <= o3.x && hero.getY() +hero.getHeight() /2 <= o3.y && hero.getX() >= o1.x && hero.getY() +hero.getHeight() /2 >= o1.y)
+        //    return true;
 
         return temporaryValue;
     }
@@ -722,7 +733,7 @@ public class Hero extends Character {
     public void changeTrack(){
         Polygon lineHeroEnd = new Polygon(new float[]{getX() + getWidth() /2 -1, getY() + getHeight() /2,
                 getX() + getWidth() /2 +1, getY() + getHeight() /2, end.x +1, end.y, end.x -1, end.y});
-        if(!Intersector.overlapConvexPolygons(lineHeroEnd, getActualCollision())){
+        if(!calculateConcavePoligonCollision(lineHeroEnd, getActualCollision())){
             if(queueWay.size() < 2)
                 return;
 
@@ -1128,7 +1139,6 @@ public class Hero extends Character {
     public Hero getHero(){
         return this;
     }
-
 
     public Stage getStage(){
         return stage;

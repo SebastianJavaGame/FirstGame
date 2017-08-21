@@ -82,9 +82,9 @@ public abstract class BaseScreen implements Screen, InputProcessor{
         fps++;
         ms += Gdx.graphics.getDeltaTime();
         if(ms >= 1){
-            System.out.println("------------");
+            //System.out.println("------------");
             System.out.println("FPS: " + fps);
-            System.out.println("------------");
+            //System.out.println("------------");
             fps = 0;
             ms = 0;
         }

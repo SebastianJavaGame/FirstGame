@@ -156,7 +156,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             stageCard.draw();
         }
 
-        //testRender.draw();
+        testRender.draw();
         //for(Character c: charactersList)
          //   RenderCollisionLine_Test.drawPublic(c.getCollision());
         //for(Rectangle r: entriaceToMapRectangle)
@@ -358,7 +358,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         asset.dispose();
         asset.manager.dispose();
         super.dispose();
-        //game.dispose();
+        hero3D.dispose();
     }
 
     public static BaseMap getActualMap(){
