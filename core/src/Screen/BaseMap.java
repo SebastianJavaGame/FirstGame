@@ -351,6 +351,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     public void dispose(){
+        hero3D.dispose();
         stageUi.dispose();
         stageStats.dispose();
         stageCard.dispose();
@@ -358,7 +359,6 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         asset.dispose();
         asset.manager.dispose();
         super.dispose();
-        hero3D.dispose();
     }
 
     public static BaseMap getActualMap(){
