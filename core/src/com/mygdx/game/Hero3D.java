@@ -124,7 +124,7 @@ public class Hero3D {
     }
 
     public static void dispose () {
-        model.dispose();
         modelBatch.dispose();
+        model.dispose();
     }
 }

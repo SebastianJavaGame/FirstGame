@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Character;
@@ -51,12 +50,12 @@ public class Map_04 extends BaseMap {
     @Override
     public void addEnemyToMap() {
         addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380).setDropItemName("gold_armor");
-        addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300).setDropItemName("silver_sword");
+        //addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300).setDropItemName("silver_sword");
     }
 
     @Override
     public void addNpcToMap() {
-        addNpc("mag.png", "glominHead.png", "Witherman", 20, 0, 0);
+        //addNpc("mag.png", "glominHead.png", "Witherman", 20, 0, 0);
     }
 
     /**
@@ -65,8 +64,8 @@ public class Map_04 extends BaseMap {
     @Override
     public void addEntranceToMap() {
         //first entriance
-        entriaceToMapRectangle.add(new Rectangle(500, 300, 100, 100));
-        indexToLoadNextMap.add(4);
+        //entriaceToMapRectangle.add(new Rectangle(500, 300, 100, 100));
+        //indexToLoadNextMap.add(4);
         //
     }
 

@@ -351,13 +351,12 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     public void dispose(){
-        hero3D.dispose();
         stageUi.dispose();
         stageStats.dispose();
         stageCard.dispose();
         card.dispose();
         asset.dispose();
-        asset.manager.dispose();
+        Hero3D.dispose();
         super.dispose();
     }
 
