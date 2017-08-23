@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Character;
@@ -65,8 +66,8 @@ public class Map_05 extends BaseMap {
     @Override
     public void addEntranceToMap() {
         //first entriance
-        //entriaceToMapRectangle.add(new Rectangle(500, 300, 100, 100));
-        //indexToLoadNextMap.add(5);
+        entriaceToMapRectangle.add(new Rectangle(1500, 500, 100, 100));
+        indexToLoadNextMap.add(5);
         //
     }
 

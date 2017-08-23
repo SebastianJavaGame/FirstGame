@@ -546,7 +546,7 @@ public class Hero extends Character {
                                     calculateRotate(end.x - getWidth() / 2, end.y - getHeight() / 2),
                                     Actions.moveTo(end.x - getWidth() / 2, end.y - getHeight() / 2, timeSpeed(getX(), getY(), end.x - getWidth() / 2, end.y - getHeight() / 2))));
                             break;
-                        default:
+                        case 6:
                             setChangeTrack(true);
                             this.addAction(Actions.sequence(
                                     calculateRotate(calculateAction(1, true), calculateAction(1, false)),
@@ -563,6 +563,27 @@ public class Hero extends Character {
                                     Actions.moveTo(calculateAction(6, true), calculateAction(6, false), timeSpeed(calculateAction(5, true), calculateAction(5, false), calculateAction(6, true), calculateAction(6, false))),
                                     calculateRotate(end.x - getWidth() / 2, end.y - getHeight() / 2),
                                     Actions.moveTo(end.x - getWidth() / 2, end.y - getHeight() / 2, timeSpeed(getX(), getY(), end.x - getWidth() / 2, end.y - getHeight() / 2))));
+                            break;
+                        default:
+                            setChangeTrack(true);
+                            this.addAction(Actions.sequence(
+                                    calculateRotate(calculateAction(1, true), calculateAction(1, false)),
+                                    Actions.moveTo(calculateAction(1, true), calculateAction(1, false), timeSpeed(this.getX(), this.getY(), calculateAction(1, true), calculateAction(1, false))),
+                                    calculateRotate(calculateAction(2, true), calculateAction(2, false)),
+                                    Actions.moveTo(calculateAction(2, true), calculateAction(2, false), timeSpeed(calculateAction(1, true), calculateAction(1, false), calculateAction(2, true), calculateAction(2, false))),
+                                    calculateRotate(calculateAction(3, true), calculateAction(3, false)),
+                                    Actions.moveTo(calculateAction(3, true), calculateAction(3, false), timeSpeed(calculateAction(2, true), calculateAction(2, false), calculateAction(3, true), calculateAction(3, false))),
+                                    calculateRotate(calculateAction(4, true), calculateAction(4, false)),
+                                    Actions.moveTo(calculateAction(4, true), calculateAction(4, false), timeSpeed(calculateAction(3, true), calculateAction(3, false), calculateAction(4, true), calculateAction(4, false))),
+                                    calculateRotate(calculateAction(5, true), calculateAction(5, false)),
+                                    Actions.moveTo(calculateAction(5, true), calculateAction(5, false), timeSpeed(calculateAction(4, true), calculateAction(4, false), calculateAction(5, true), calculateAction(5, false))),
+                                    calculateRotate(calculateAction(6, true), calculateAction(6, false)),
+                                    Actions.moveTo(calculateAction(6, true), calculateAction(6, false), timeSpeed(calculateAction(5, true), calculateAction(5, false), calculateAction(6, true), calculateAction(6, false))),
+                                    calculateRotate(calculateAction(7, true), calculateAction(7, false)),
+                                    Actions.moveTo(calculateAction(7, true), calculateAction(7, false), timeSpeed(calculateAction(6, true), calculateAction(6, false), calculateAction(7, true), calculateAction(7, false))),
+                                    calculateRotate(end.x - getWidth() / 2, end.y - getHeight() / 2),
+                                    Actions.moveTo(end.x - getWidth() / 2, end.y - getHeight() / 2, timeSpeed(getX(), getY(), end.x - getWidth() / 2, end.y - getHeight() / 2))));
+
                             break;
                     }
                 }
