@@ -20,8 +20,9 @@ import java.util.ArrayList;
  */
 
 public class Map_02 extends BaseMap {
-    public static final int STARTING_POS_X = 800;
-    public static final int STARTING_POS_Y = 800;
+    public static final int STARTING_POS_X = 1251;
+    public static final int STARTING_POS_Y = 347;
+    public static final Vector2[] ENTRIENCES = new Vector2[]{new Vector2(2024, 1921), new Vector2(253, 1717)};
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -63,8 +64,12 @@ public class Map_02 extends BaseMap {
     @Override
     public void addEntranceToMap() {
         //first entriance
-        entriaceToMapRectangle.add(new Rectangle(900, 900, 100, 100));
+        entriaceToMapRectangle.add(new Rectangle(85, 1700, 100, 120));
         indexToLoadNextMap.add(2);
+        entriencesPosition.add(new Vector2(Map_03.STARTING_POS_X, Map_03.STARTING_POS_Y));
+        entriaceToMapRectangle.add(new Rectangle(1180, 185, 200, 100));
+        indexToLoadNextMap.add(0);
+        entriencesPosition.add(new Vector2(1231, 2190));
         //
     }
 
@@ -77,7 +82,7 @@ public class Map_02 extends BaseMap {
         addObjectCollision(new float[]{1312,251,1302,380,1388,374,1525,283,1485,342,1475,418,1546,527,1606,516,1694,403,1813,300,1893,476,1977,456,2030,507,1908,618,1910,675,1990,770,2094,775,2120,817,2081,849,2073,944,2199,933, 2176,642,1850,218});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(1293,389), new Vector2(1391,388), new Vector2(1463, 417), new Vector2(1542, 540), new Vector2(1611, 527), new Vector2(1889, 488), new Vector2(1890, 613), new Vector2(1900,679), new Vector2(1983, 780)});
         addObjectCollision(new float[]{1186,276,1039,403,1145,403,1151,510,1116,579,1012,628,949,620,873,530,865,460,971,352,860,355,756,461,645,490,560,472,458,545,354,326,260,630,277,760,284,956,307,1066,317,1700,161,1705,132,302,380,229});
-        addVerticalToObjectCollision(new Vector2[]{new Vector2(327, 1714), new Vector2(318, 1064), new Vector2(643, 545), new Vector2(853, 453), new Vector2(860, 535), new Vector2(940, 634), new Vector2(1015, 643), new Vector2(1124, 592), new Vector2(1159, 516), new Vector2(1153, 400)});
+        addVerticalToObjectCollision(new Vector2[]{new Vector2(327, 1714), new Vector2(318, 1064), new Vector2(455, 559), new Vector2(643, 545), new Vector2(853, 453), new Vector2(860, 535), new Vector2(940, 634), new Vector2(1015, 643), new Vector2(1124, 592), new Vector2(1159, 516), new Vector2(1153, 400)});
         addObjectCollision(new float[]{729,596,842,682,756,803,702,823,622,734,616,678,639,619});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(730, 589), new Vector2(856, 678), new Vector2(760, 815), new Vector2(700, 833), new Vector2(612, 737), new Vector2(607, 670), new Vector2(630, 610)});
         addObjectCollision(new float[]{542,1078,659,1179,555,1304,513,1311,437,1219,426,1091});
@@ -118,7 +123,10 @@ public class Map_02 extends BaseMap {
         for(Character character: characters) {
             stage.addActor(character);
         }
+    }
 
+    @Override
+    public void saveOrginalPosition(){
         pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
         if(Menu.getIsFirstSpawnHeroPosition()) {

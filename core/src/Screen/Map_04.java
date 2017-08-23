@@ -20,8 +20,9 @@ import java.util.ArrayList;
  */
 
 public class Map_04 extends BaseMap {
-    public static final int STARTING_POS_X = 750;
-    public static final int STARTING_POS_Y = 450;
+    public static final int STARTING_POS_X = 1352;
+    public static final int STARTING_POS_Y = 360;
+    public static final Vector2[] ENTRIENCES = new Vector2[]{new Vector2(286, 1862), new Vector2(2116, 1500)};
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -65,8 +66,17 @@ public class Map_04 extends BaseMap {
     @Override
     public void addEntranceToMap() {
         //first entriance
-        entriaceToMapRectangle.add(new Rectangle(500, 300, 100, 100));
+        entriaceToMapRectangle.add(new Rectangle(940, 200, 500, 100));
+        indexToLoadNextMap.add(2);
+        entriencesPosition.add(new Vector2(1104, 2290));
+        //second entrience
+        entriaceToMapRectangle.add(new Rectangle(215, 1863, 60, 100));
+        indexToLoadNextMap.add(8);
+        entriencesPosition.add(new Vector2(MapBoss_03.STARTING_POS_X, MapBoss_03.STARTING_POS_Y));
+        //third entrience
+        entriaceToMapRectangle.add(new Rectangle(2150, 1435, 100, 200));
         indexToLoadNextMap.add(4);
+        entriencesPosition.add(new Vector2(Map_05.STARTING_POS_X, Map_05.STARTING_POS_Y));
         //
     }
 
@@ -114,7 +124,10 @@ public class Map_04 extends BaseMap {
         for(Character character: characters) {
             stage.addActor(character);
         }
+    }
 
+    @Override
+    public void saveOrginalPosition(){
         pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
         if(Menu.getIsFirstSpawnHeroPosition()) {

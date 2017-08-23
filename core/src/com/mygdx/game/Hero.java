@@ -22,6 +22,11 @@ import java.util.ArrayList;
 
 import Screen.BaseMap;
 import Screen.BaseScreen;
+import Screen.MapBoss_01;
+import Screen.MapBoss_02;
+import Screen.MapBoss_03;
+import Screen.MapBoss_04;
+import Screen.MapBoss_05;
 import Screen.Map_01;
 import Screen.Map_02;
 import Screen.Map_03;
@@ -34,7 +39,7 @@ import Screen.Map_06;
  */
 
 public class Hero extends Character {
-    public final static int SPEED_MOVE = 25;
+    public final static int SPEED_MOVE = 100;//25
     public Texture arm;
 
     private final Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
@@ -257,7 +262,7 @@ public class Hero extends Character {
                     }
                 }else {
                     int heroBoxCenterY = (int) (heroBox.getY() + heroBox.getHeight() / 2);
-                    if(heroBoxCenterY < cornerEnemy.y) {//TODO Refactor
+                    if(heroBoxCenterY < cornerEnemy.y) {
                         if(posY < cornerEnemy.y)
                             setCharacterCollision(true);
                     }
@@ -279,11 +284,6 @@ public class Hero extends Character {
             setCharacterCollision(false);
         setCharacterCollisionLook(true);
 
-        //temporaryListVector.clear();
-        //temporaryListVector.add(new Vector2(heroBox.getX(), heroBox.getY()));
-        //temporaryListVector.add(new Vector2(heroBox.getX() +heroBox.getWidth(), heroBox.getY()));
-        //temporaryListVector.add(new Vector2(heroBox.getX() +heroBox.getWidth(), heroBox.getY() +heroBox.getHeight()));
-        //temporaryListVector.add(new Vector2(heroBox.getX(), heroBox.getY() +heroBox.getHeight()));
 
         int countCollision = 0;
         boolean pointCollision = false;
@@ -388,6 +388,8 @@ public class Hero extends Character {
                 }
                 if (vertical == null) {
                     System.out.println("ERROR NULL VERTICAL");
+                    Hero3D.setStopAnimation();
+                    setStopStep();
                     break;
                 }
                 Polygon lineStartVertical = new Polygon(new float[]{start.x - 1, start.y, start.x + 1, start.y,
@@ -779,12 +781,15 @@ public class Hero extends Character {
         for (int i = 0; i < BaseMap.getEntriaceToMapRectangle().size(); i++) {
             if (calculateCollisionTwoRectangle(heroBox, BaseMap.getEntriaceToMapRectangle().get(i))) {
                 Hero3D.setStopAnimation();
-                soundNextMap.play(0.8f);
+                soundNextMap.play(0.7f);
                 setStopStep();
                 preferences.putInteger("COLLISION", 0).flush();
                 /**
                  * i = indexToLoadMap
                  */
+                preferences.putInteger("POS_X", (int)BaseMap.getEntriencesPosition().get(i).x).flush();
+                preferences.putInteger("POS_Y", (int)BaseMap.getEntriencesPosition().get(i).y).flush();
+
                 switch (BaseMap.getIndexToLoadNextMap().get(i)) {
                     case 0:
                         System.out.println("map1");
@@ -810,7 +815,28 @@ public class Hero extends Character {
                         System.out.println("map6");
                         game.setScreen(new Map_06(game));
                         break;
+                    case 6:
+                        game.setScreen(new MapBoss_01(game));
+                        break;
+                    case 7:
+                        game.setScreen(new MapBoss_02(game));
+                        break;
+                    case 8:
+                        game.setScreen(new MapBoss_03(game));
+                        break;
+                    case 9:
+                        game.setScreen(new MapBoss_04(game));
+                        break;
+                    case 10:
+                        game.setScreen(new MapBoss_05(game));
+                        break;
                     default:
+                        try {
+                            throw new MyException();
+                        } catch (MyException e) {
+                            BaseScreen.showException(e);
+                            e.printStackTrace();
+                        }
                         break;
                 }
             }

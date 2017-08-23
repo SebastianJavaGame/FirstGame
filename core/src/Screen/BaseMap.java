@@ -55,6 +55,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     protected static ArrayList<Rectangle> entriaceToMapRectangle;
     protected static ArrayList<Integer> indexToLoadNextMap;
+    protected static ArrayList<Vector2> entriencesPosition;
 
     protected InputMultiplexer im;
 
@@ -92,6 +93,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         entriaceToMapRectangle = new ArrayList<Rectangle>();
         indexToLoadNextMap = new ArrayList<Integer>();
+        entriencesPosition = new ArrayList<Vector2>();
     }
 
     public BaseMap(Game game, Image imageBg) {
@@ -118,11 +120,13 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     protected abstract void generateMap();
     protected abstract ArrayList<Character> getCharacter();
+    protected abstract void saveOrginalPosition();
 
     @Override
     public void create() {
         entriaceToMapRectangle.clear();
         indexToLoadNextMap.clear();
+        entriencesPosition.clear();
         Npc.resetIteration();
         generateMap();
 
@@ -134,6 +138,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         stage.addActor(hero);
 
         testRender = new RenderCollisionLine_Test(camera, hero);
+
+        saveOrginalPosition();
 
         setPosX((int)hero.getX());
         setPosY((int)hero.getY());
@@ -370,5 +376,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public static ArrayList<Integer> getIndexToLoadNextMap(){
         return indexToLoadNextMap;
+    }
+
+    public static ArrayList<Vector2> getEntriencesPosition(){
+        return entriencesPosition;
     }
 }

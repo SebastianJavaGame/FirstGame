@@ -133,7 +133,7 @@ public class FightLose extends BaseScreen {
         confirm.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Menu.setIsFirstSpawnHeroPosition(true);
+                Menu.setIsFirstSpawnHeroPosition(false);
                 Menu.getSoundClick().play();
 
                 float percentexp = 0;

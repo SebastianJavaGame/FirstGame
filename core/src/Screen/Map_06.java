@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Character;
@@ -19,8 +20,9 @@ import java.util.ArrayList;
  */
 
 public class Map_06 extends BaseMap {
-    public static final int STARTING_POS_X = 750;
-    public static final int STARTING_POS_Y = 450;
+    public static final int STARTING_POS_X = 1201;
+    public static final int STARTING_POS_Y = 296;
+    public static final Vector2[] ENTRIENCES = new Vector2[]{new Vector2(1416,2030)};
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -64,8 +66,13 @@ public class Map_06 extends BaseMap {
     @Override
     public void addEntranceToMap() {
         //first entriance
-        //entriaceToMapRectangle.add(new Rectangle(500, 300, 100, 100));
-        //indexToLoadNextMap.add(1);
+        entriaceToMapRectangle.add(new Rectangle(1020, 143, 450, 100));
+        indexToLoadNextMap.add(4);
+        entriencesPosition.add(new Vector2(1199, 2280));
+        //second entrience
+        entriaceToMapRectangle.add(new Rectangle(1330, 2070, 120, 65));
+        indexToLoadNextMap.add(10);
+        entriencesPosition.add(new Vector2(MapBoss_05.STARTING_POS_X, MapBoss_05.STARTING_POS_Y));
         //
     }
 
@@ -80,7 +87,7 @@ public class Map_06 extends BaseMap {
         addObjectCollision(new float[]{2180,1648,1913,1792,1772,1721,1755,1739,1759,1780,1906,1859,1937,1859,1941,1922,2110,2008,2048,2048,2052,2118,2014,2115,1990,2160,1862,2167,1852,2151,1817,2158,1792,2172,1603,2172,1603,2161,1605,2088,1538,2037,1494,2050,1465,2072,1469,2122,1524,2172,1122,2168,1116,2145,1019,2111,1022,2099,895,2025,703,2141,588,2085,633,2069,618,2022,550,2045,536,2026,481,2029,363,1972,733,2302,2146,2305});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(1772,1715), new Vector2(1746,1736), new Vector2(1747,1784), new Vector2(1903,1870), new Vector2(1930,1926), new Vector2(2040,2044), new Vector2(2009,2110), new Vector2(1855,2143), new Vector2(1812,2152), new Vector2(1610,2084), new Vector2(1539,2030), new Vector2(1491,2045), new Vector2(1458,2068), new Vector2(1458,2125), new Vector2(1121,2139), new Vector2(1028,2097), new Vector2(894,2017), new Vector2(614,2074), new Vector2(622,2016), new Vector2(542,2020)});
         addObjectCollision(new float[]{1586,1705,1586,1651,1515,1614,1475,1621,1424,1641,1363,1612,1302,1640,1245,1618,1181,1650,1181,1734,713,1963,722,2010,1194,1797,1234,1822,1257,1821,1308,1795,1348,1821,1434,1797,1476,1824,1495,1823,1539,1795,1548,1700});
-        addVerticalToObjectCollision(new Vector2[]{new Vector2(705,1961), new Vector2(1172,1649), new Vector2(1246,1613), new Vector2(1362,1606), new Vector2(1514,1604), new Vector2(1592,1647), new Vector2(1591,1714), new Vector2(1545,1800), new Vector2(1497,1834), new Vector2(1471,1832), new Vector2(1347,1832), new Vector2(1256,1832), new Vector2(1228,1831), new Vector2(719,2022)});
+        addVerticalToObjectCollision(new Vector2[]{new Vector2(717,2030), new Vector2(701,1958), new Vector2(1166,1643), new Vector2(1244,1606), new Vector2(1361,1598), new Vector2(1472,1613), new Vector2(1514,1604), new Vector2(1595,1644), new Vector2(1594,1715), new Vector2(1547,1802), new Vector2(1496,1832), new Vector2(1471,1833), new Vector2(1347,1831), new Vector2(1257,1831), new Vector2(1231,1832)});
         addObjectCollision(new float[]{745,1494,730,1471,699,1456,669,1447,624,1418,575,1423,550,1449,543,1567,568,1609,597,1609,597,1621,621,1606,689,1573,706,1547,740,1538});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(596,1631), new Vector2(563,1617), new Vector2(534,1569), new Vector2(541,1447), new Vector2(624,1410), new Vector2(729,1455), new Vector2(754,1492), new Vector2(745,1546), new Vector2(692,1580)});
         addObjectCollision(new float[]{1076,979,1116,1008,1126,1058,1165,1073,1186,1092,1195,1114,1197,1162,1222,1194,1184,1393,1155,1401,1122,1316,1094,1226,1042,1388,1009,1382,989,1297,963,1292,906,1069,999,1053,1003,993});
@@ -117,7 +124,10 @@ public class Map_06 extends BaseMap {
         for(Character character: characters) {
             stage.addActor(character);
         }
+    }
 
+    @Override
+    public void saveOrginalPosition(){
         pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
         if(Menu.getIsFirstSpawnHeroPosition()) {

@@ -23,6 +23,7 @@ import com.mygdx.game.BaseTask;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.ExperienceRequired;
 import com.mygdx.game.LoadAllItemToGame;
+import com.mygdx.game.MyException;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Quest;
 import com.mygdx.game.StatsHero;
@@ -223,8 +224,8 @@ public class Menu extends BaseScreen {
         prefTask.flush();
         prefFight.flush();
 
-        prefStats.putInteger("POS_X", 650).flush();
-        prefStats.putInteger("POS_Y", 500).flush();
+        prefStats.putInteger("POS_X", Map_01.STARTING_POS_X).flush();
+        prefStats.putInteger("POS_Y", Map_01.STARTING_POS_Y).flush();
     }
 
     public static void setMap(){
@@ -250,8 +251,27 @@ public class Menu extends BaseScreen {
             case 5:
                 game.setScreen( new Map_06(game) );
                 break;
+            case 6:
+                game.setScreen(new MapBoss_01(game));
+                break;
+            case 7:
+                game.setScreen(new MapBoss_02(game));
+                break;
+            case 8:
+                game.setScreen(new MapBoss_03(game));
+                break;
+            case 9:
+                game.setScreen(new MapBoss_04(game));
+                break;
+            case 10:
+                game.setScreen(new MapBoss_05(game));
             default:
-                game.setScreen( new Map_01(game) );
+                try {
+                    throw new MyException();
+                } catch (MyException e) {
+                    BaseScreen.showException(e);
+                    e.printStackTrace();
+                }
                 break;
         }
     }
