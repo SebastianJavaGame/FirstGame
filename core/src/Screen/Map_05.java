@@ -53,8 +53,107 @@ public class Map_05 extends BaseMap {
 
     @Override
     public void addEnemyToMap() {
-        addEnemy("glomin.png", "glominHead.png", "glominWapon.png", 380).setDropItemName("gold_armor");
-        //addEnemy("ragon.png", "ragonHead.png", "ragonWapon.png", 300).setDropItemName("silver_sword");
+        Enemy[][] enemies = new Enemy[10][];
+
+        //Group 1
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 2
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 3
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 4
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 5
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 6
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 7
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 8
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 9
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
+
+        //Group 10
+        for (int i = 0; i < 7; i++) {
+            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[0][i]);
+            enemies[0][i].collisionUpdate();
+        }
+        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setDropItemName("");
     }
 
     @Override
@@ -148,16 +247,6 @@ public class Map_05 extends BaseMap {
 
     private void addVerticalToObjectCollision(Vector2[] point){
         verticalCollision.add(point);
-    }
-
-    private Enemy addEnemy(String path, String head, String wapon, int x){
-        Enemy enemy = new Enemy(path, head, wapon, true, "Glomin", 5, 180, 8, 8, 16, 10, 8, 24.5f, 60, 70, 10);
-        enemy.setRectangle(0, 0, 0, 0);
-        enemy.setPosition(x, x);
-        //TODO if not equals null add item drop;     enemy.setDropItemName();
-        characters.add(enemy);
-        enemy.collisionUpdate();
-        return enemy;
     }
 
     private void addNpc(String path, String head, String name, int level, int idShop, int idTask){
