@@ -224,8 +224,8 @@ public class Menu extends BaseScreen {
         prefTask.flush();
         prefFight.flush();
 
-        prefStats.putInteger("POS_X", Map_01.STARTING_POS_X).flush();
-        prefStats.putInteger("POS_Y", Map_01.STARTING_POS_Y).flush();
+        prefStats.putInteger("POS_X", prefStats.getInteger("POS_X", Map_01.STARTING_POS_X)).flush();
+        prefStats.putInteger("POS_Y", prefStats.getInteger("POS_Y", Map_01.STARTING_POS_Y)).flush();
     }
 
     public static void setMap(){

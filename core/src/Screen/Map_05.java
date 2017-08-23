@@ -48,6 +48,7 @@ public class Map_05 extends BaseMap {
 
     public Map_05(Game g) {
         super(g, mapImage);
+        bossInstance = false;
     }
 
     @Override

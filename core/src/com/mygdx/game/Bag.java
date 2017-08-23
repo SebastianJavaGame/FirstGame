@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import Screen.BaseMap;
 import Screen.BaseScreen;
 import Screen.Menu;
 
@@ -175,7 +176,6 @@ public class Bag {
         closeGame = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("exitGame.png", Texture.class))));
         closeGame.addListener(new InputListener(){
             public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
-                //TODO point saving game
                 Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
                 preferences.putInteger("FREE_POINT", preferences.getInteger("FREE_POINT")).flush();
@@ -187,8 +187,12 @@ public class Bag {
                 preferences.putInteger("WIEDZA", hero.getWiedza()).flush();
                 preferences.putInteger("DEFENSE_FIZ", hero.getDefenseFiz()).flush();
                 preferences.putInteger("DEFENSE_MAG", hero.getDefenseMag()).flush();
-                preferences.putInteger("POS_X", (int)hero.getX()).flush();
-                preferences.putInteger("POS_Y", (int)hero.getY()).flush();
+
+                if(!BaseMap.isBossInstance()) {
+                    preferences.putInteger("POS_X", (int) hero.getX()).flush();
+                    preferences.putInteger("POS_Y", (int) hero.getY()).flush();
+                }
+
                 Menu.getSoundClick().play();
                 Gdx.app.exit();
                 return false;

@@ -47,6 +47,7 @@ public class Map_03 extends BaseMap {
 
     public Map_03(Game g) {
         super(g, mapImage);
+        bossInstance = false;
         System.out.println("MAP3");
     }
 

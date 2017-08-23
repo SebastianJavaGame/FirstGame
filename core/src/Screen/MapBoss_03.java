@@ -46,6 +46,7 @@ public class MapBoss_03 extends BaseMap {
 
     public MapBoss_03(Game g) {
         super(g, mapImage);
+        bossInstance = true;
         System.out.println("MAP_BOSS_3");
     }
 
@@ -111,16 +112,9 @@ public class MapBoss_03 extends BaseMap {
     public void saveOrginalPosition(){
         pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
-        if(Menu.getIsFirstSpawnHeroPosition()) {
-            pref.putInteger("POS_X", pref.getInteger("POS_X", STARTING_POS_X)).flush();
-            pref.putInteger("POS_Y", pref.getInteger("POS_Y", STARTING_POS_Y)).flush();
-            pref.putInteger("MAP", 3).flush();
-            Menu.setIsFirstSpawnHeroPosition(false);
-        }else{
-            pref.putInteger("POS_X", STARTING_POS_X).flush();
-            pref.putInteger("POS_Y", STARTING_POS_Y).flush();
-            pref.putInteger("MAP", 3).flush();
-        }
+        pref.putInteger("POS_X", 292).flush();
+        pref.putInteger("POS_Y", 1864).flush();
+        pref.putInteger("MAP", 3).flush();
     }
 
     private void addObjectCollision(float[] position) {

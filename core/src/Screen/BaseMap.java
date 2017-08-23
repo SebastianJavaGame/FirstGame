@@ -87,6 +87,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     protected ArrayList<Vector2[]> verticalPolygon;
     protected ArrayList<Character> charactersList;
 
+    protected static boolean bossInstance;
+
     static {
         hero3D = new Hero3D();
         hero3D.create();
@@ -204,9 +206,11 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         preferences.putInteger("WIEDZA", hero.getWiedza()).flush();
         preferences.putInteger("DEFENSE_FIZ", hero.getDefenseFiz()).flush();
         preferences.putInteger("DEFENSE_MAG", hero.getDefenseMag()).flush();
-        preferences.putInteger("POS_X", (int)hero.getX()).flush();
-        preferences.putInteger("POS_Y", (int)hero.getY()).flush();
 
+        if(!bossInstance) {
+            preferences.putInteger("POS_X", (int) hero.getX()).flush();
+            preferences.putInteger("POS_Y", (int) hero.getY()).flush();
+        }
     }
 
     public void clearCharacterList(){
@@ -380,5 +384,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public static ArrayList<Vector2> getEntriencesPosition(){
         return entriencesPosition;
+    }
+
+    public static boolean isBossInstance(){
+        return bossInstance;
     }
 }

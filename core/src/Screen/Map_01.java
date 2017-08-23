@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class Map_01 extends BaseMap {
     public static final int STARTING_POS_X = 626;
     public static final int STARTING_POS_Y = 416;
-    public static final Vector2[] ENTRIENCES = new Vector2[]{new Vector2(1226, 2228)};
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -47,6 +46,7 @@ public class Map_01 extends BaseMap {
 
     public Map_01(Game g) {
         super(g, mapImage);
+        bossInstance = false;
         System.out.println("MAP1");
     }
 
