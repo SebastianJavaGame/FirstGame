@@ -52,11 +52,11 @@ public class Map_04 extends BaseMap {
 
     @Override
     public void addEnemyToMap() {
-        Enemy[][] enemies = new Enemy[10][];
+        Enemy[][] enemies = new Enemy[10][7];
 
         //Group 1
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p1.png", "enemy/map4/1.png", "enemy/map4/w1.png", true, "Zombie dzik" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -66,7 +66,7 @@ public class Map_04 extends BaseMap {
 
         //Group 2
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p2.png", "enemy/map4/2.png", "enemy/map4/w2.png", true, "Umarlak" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -76,7 +76,7 @@ public class Map_04 extends BaseMap {
 
         //Group 3
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p3.png", "enemy/map4/3.png", "enemy/map4/w3.png", true, "Dinotop" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -86,7 +86,7 @@ public class Map_04 extends BaseMap {
 
         //Group 4
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p4.png", "enemy/map4/4.png", "enemy/map4/w4.png", false, "Gonomet" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -96,7 +96,7 @@ public class Map_04 extends BaseMap {
 
         //Group 5
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p5.png", "enemy/map4/5.png", "enemy/map4/5.png", false, "Bevter" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -106,7 +106,7 @@ public class Map_04 extends BaseMap {
 
         //Group 6
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p6.png", "enemy/map4/6.png", "enemy/map4/w6.png", false, "Skvergan" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -116,7 +116,7 @@ public class Map_04 extends BaseMap {
 
         //Group 7
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p7.png", "enemy/map4/7.png", "enemy/map4/w7.png", false, "Muzovert" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -126,7 +126,7 @@ public class Map_04 extends BaseMap {
 
         //Group 8
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p8.png", "enemy/map4/8.png", "enemy/map4/w8.png", false, "Skarab" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -136,7 +136,7 @@ public class Map_04 extends BaseMap {
 
         //Group 9
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p9.png", "enemy/map4/9.png", "enemy/map4/w9.png", false, "Krather" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -146,7 +146,7 @@ public class Map_04 extends BaseMap {
 
         //Group 10
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map4/p10.png", "enemy/map4/10.png", "enemy/map4/w10.png", true, "Verdos" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();

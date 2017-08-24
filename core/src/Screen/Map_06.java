@@ -34,12 +34,7 @@ public class Map_06 extends BaseMap {
     private static ArrayList<Character> characters;
 
     static {
-        //Asset asset = new Asset();
-        //asset.manager.load("MAP_01.jpg", Texture.class);
-        //asset.manager.finishLoading();
-        //if(asset.manager.update()) {
         mapImage = new Image(new Texture("MAP_06.jpg"));
-        //}
         mapWidth = (int)(mapImage.getWidth() *0.8f);
         mapHeight = (int)(mapImage.getHeight() *0.8f);
     }
@@ -51,11 +46,11 @@ public class Map_06 extends BaseMap {
 
     @Override
     public void addEnemyToMap() {
-        Enemy[][] enemies = new Enemy[10][];
+        Enemy[][] enemies = new Enemy[10][7];
 
         //Group 1
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p1.png", "enemy/map6/1.png", "enemy/map6/w1.png", true, "Argona" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -65,7 +60,7 @@ public class Map_06 extends BaseMap {
 
         //Group 2
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p2.png", "enemy/map6/2.png", "enemy/map6/w2.png", true, "Santria" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -75,7 +70,7 @@ public class Map_06 extends BaseMap {
 
         //Group 3
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p3.png", "enemy/map6/3.png", "enemy/map6/w3.png", false, "Hydra" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -85,7 +80,7 @@ public class Map_06 extends BaseMap {
 
         //Group 4
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p4.png", "enemy/map6/4.png", "enemy/map6/w4.png", false, "Harpia" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -95,7 +90,7 @@ public class Map_06 extends BaseMap {
 
         //Group 5
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p5.png", "enemy/map6/5.png", "enemy/map6/w5.png", true, "Gorgona" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -105,7 +100,7 @@ public class Map_06 extends BaseMap {
 
         //Group 6
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p6.png", "enemy/map6/6.png", "enemy/map6/w6.png", true, "Vassa" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -115,7 +110,7 @@ public class Map_06 extends BaseMap {
 
         //Group 7
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p7.png", "enemy/map6/7.png", "enemy/map6/w7.png", true, "Tassan" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -125,7 +120,7 @@ public class Map_06 extends BaseMap {
 
         //Group 8
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p8.png", "enemy/map6/8.png", "enemy/map6/w8.png", false, "Xantes" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -135,7 +130,7 @@ public class Map_06 extends BaseMap {
 
         //Group 9
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p9.png", "enemy/map6/9.png", "enemy/map6/w9.png", true, "Selenus" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -145,7 +140,7 @@ public class Map_06 extends BaseMap {
 
         //Group 10
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy(".png", ".png", ".png", false, "name" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map6/p10.png", "enemy/map6/10.png", "enemy/map6/w10.png", true, "Raplieton" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();

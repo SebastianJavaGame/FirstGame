@@ -93,7 +93,7 @@ public class Hero extends Character {
     private int hp;
     private int strong;
     private int wiedza;
-    private int armor;
+    private float armor;
     private int defenseFiz;
     private int defenseMag;
 
@@ -101,7 +101,7 @@ public class Hero extends Character {
     private int hpEq;
     private int strongEq;
     private int wiedzaEq;
-    private int armorEq;
+    private float armorEq;
     private int defenseFizEq;
     private int defenseMagEq;
 
@@ -151,15 +151,15 @@ public class Hero extends Character {
         setLevel(preferences.getInteger("LEVEL", 1));
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
 
-        setMaxHp(preferences.getInteger("MAX_HP", 200));
+        setMaxHp(preferences.getInteger("MAX_HP", 50));
         setHpNonEq(getMaxHp());
 
         actualIndexCharacter = 0;//preferences.getInteger("COLLISION", 0);
-        strong = preferences.getInteger("STRONG", 10);
-        wiedza = preferences.getInteger("WIEDZA", 10);
-        armor = preferences.getInteger("ARMOR", 10);
-        defenseFiz = preferences.getInteger("DEFENSE_FIZ", 10);
-        defenseMag = preferences.getInteger("DEFENSE_MAG", 10);
+        strong = preferences.getInteger("STRONG", 1);
+        wiedza = preferences.getInteger("WIEDZA", 1);
+        armor = preferences.getInteger("ARMOR", 0);
+        defenseFiz = preferences.getInteger("DEFENSE_FIZ", 1);
+        defenseMag = preferences.getInteger("DEFENSE_MAG", 1);
 
         int experience = preferences.getInteger("EXP", 1);
         if(experience <= getMaxExp())
@@ -176,7 +176,7 @@ public class Hero extends Character {
             setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
         }
 
-        setMoney(preferences.getInteger("MONEY", 5000));
+        setMoney(preferences.getInteger("MONEY", 1000));
         point = preferences.getInteger("FREE_POINT", 5);
 
         try {
@@ -585,7 +585,7 @@ public class Hero extends Character {
                                     Actions.moveTo(calculateAction(7, true), calculateAction(7, false), timeSpeed(calculateAction(6, true), calculateAction(6, false), calculateAction(7, true), calculateAction(7, false))),
                                     calculateRotate(end.x - getWidth() / 2, end.y - getHeight() / 2),
                                     Actions.moveTo(end.x - getWidth() / 2, end.y - getHeight() / 2, timeSpeed(getX(), getY(), end.x - getWidth() / 2, end.y - getHeight() / 2))));
-
+                            //TODO add
                             break;
                     }
                 }
@@ -1022,11 +1022,11 @@ public class Hero extends Character {
         this.wiedza = wiedza;
     }
 
-    public int getArmor() {
+    public float getArmor() {
         return armor;
     }
 
-    public void setArmor(int armor) {
+    public void setArmor(float armor) {
         this.armor = armor;
     }
 
@@ -1070,11 +1070,11 @@ public class Hero extends Character {
         this.wiedzaEq = wiedzaEq;
     }
 
-    public int getArmorEq() {
+    public float getArmorEq() {
         return armorEq;
     }
 
-    public void setArmorEq(int armorEq) {
+    public void setArmorEq(float armorEq) {
         this.armorEq = armorEq;
     }
 

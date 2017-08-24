@@ -46,7 +46,7 @@ public class Map_01 extends BaseMap {
 
     @Override
     public void addEnemyToMap() {
-        Enemy[][] enemies = new Enemy[10][];
+        Enemy[][] enemies = new Enemy[10][7];
 
         //Group 1
         for (int i = 0; i < 7; i++) {

@@ -151,8 +151,8 @@ public class StatsHero {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (hero.getPoint() > 0) {
                         Menu.getSoundClick().play();
-                        hero.setArmor(hero.getArmor() + 1);
-                        hero.setArmorEq(hero.getArmorEq() + 1);
+                        hero.setArmor(hero.getArmor() + 0.1f);
+                        hero.setArmorEq(hero.getArmorEq() + 0.1f);
                         hero.setPoint(hero.getPoint() - 1);
                         pointToAdd.setText("" + hero.getPoint());
                         attributeStats[2].setText("" + hero.getArmor() + "%");
@@ -160,7 +160,7 @@ public class StatsHero {
                         attributeStats[2].setFontScale(scale);
                         attributeStats[3].setFontScale(scale);
                         preferences.putInteger("FREE_POINT", hero.getPoint());
-                        preferences.putInteger("ARMOR", hero.getArmorEq());
+                        preferences.putFloat("ARMOR", hero.getArmorEq());
                         preferences.flush();
                     }
                     return false;
@@ -290,11 +290,11 @@ public class StatsHero {
             attributeStats[1].setFontScale(scale);
 
             attributeStats[2] = new Label(hero.getArmor() + "%", styleWhite);
-            attributeStats[2].setPosition(119 - attributeStats[2].getWidth()*scale / 2, 238);
+            attributeStats[2].setPosition(120 - attributeStats[2].getWidth()*scale / 2, 238);
             attributeStats[2].setFontScale(scale);
 
             attributeStats[3] = new Label(hero.getArmorEq() + "%", styleGreen);
-            attributeStats[3].setPosition(219 - attributeStats[3].getWidth()*scale / 2, 238);
+            attributeStats[3].setPosition(220 - attributeStats[3].getWidth()*scale / 2, 238);
             attributeStats[3].setFontScale(scale);
 
             attributeStats[4] = new Label(String.valueOf(hero.getStrong()), styleWhite);

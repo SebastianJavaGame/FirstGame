@@ -182,7 +182,7 @@ public class Bag {
                 preferences.putInteger("EXP", hero.getExp()).flush();
                 preferences.putInteger("MONEY", hero.getMoneyNoStatic()).flush();
                 preferences.putInteger("HP", hero.getHp()).flush();
-                preferences.putInteger("ARMOR", hero.getArmor()).flush();
+                preferences.putFloat("ARMOR", hero.getArmor()).flush();
                 preferences.putInteger("STRONG", hero.getStrong()).flush();
                 preferences.putInteger("WIEDZA", hero.getWiedza()).flush();
                 preferences.putInteger("DEFENSE_FIZ", hero.getDefenseFiz()).flush();
