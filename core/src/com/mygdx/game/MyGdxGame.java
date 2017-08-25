@@ -25,23 +25,6 @@ public class MyGdxGame extends Game{
 
 	@Override
 	public void create() {
-        Preferences firstLoad = Gdx.app.getPreferences("START");
-        firstLoad.clear();
-        firstLoad.flush();
-        if(firstLoad.getString("FIRST").equals("")) {
-            Preferences prefEq = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
-            prefEq.clear();
-            //prefEq.putString("ARMOR", "gold_armor");
-            //prefEq.putString("WAPON", "silver_sword");
-            //prefEq.putString("SLOT0", "gold_armor");
-            //prefEq.putString("SLOT1", "fire_sword");
-           // prefEq.flush();
-
-            firstLoad.putString("FIRST", "IS LOAD");
-            firstLoad.flush();
-        }
-        //TODO delete all and load in hero... with default values
-
 		Menu lvl = new Menu(this);
 		setScreen(lvl);
 	}
@@ -68,5 +51,28 @@ public class MyGdxGame extends Game{
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         BitmapFont font = new BitmapFont(Gdx.files.internal("font/font.fnt"), new TextureRegion(texture), false);
         return font;
+    }
+
+    public static void loadDefaultEq(){
+        Preferences firstLoad = Gdx.app.getPreferences("START");
+        firstLoad.clear(); //TODO delete if first load must be starting during first play
+        firstLoad.flush();
+        if(firstLoad.getString("FIRST").equals("")) {
+            Preferences prefEq = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
+            prefEq.clear();
+            prefEq.putString("ARMOR", "armor1");
+            prefEq.putString("HELMET", "helmet1");
+            prefEq.putString("PANTS", "pants1");
+            prefEq.putString("SHOES", "shoes1");
+            prefEq.putString("WAPON", "wapons1");
+            prefEq.putString("ITEM_BLOCK", "tarcza1");
+            prefEq.putString("RING", "ring1");
+            prefEq.putString("ITEM_HAND", "rekawice1");
+            prefEq.flush();
+
+            firstLoad.putString("FIRST", "IS LOAD");
+            firstLoad.flush();
+        }
+        //TODO delete all and load in hero... with default values
     }
 }

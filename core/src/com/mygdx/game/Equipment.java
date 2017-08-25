@@ -45,7 +45,7 @@ public class Equipment{
     };
 
     public static final Item.ItemType[] ITEM_TYPES = new Item.ItemType[]{
-            Item.ItemType.HELMET, Item.ItemType.ARMOR, Item.ItemType.PANTS, Item.ItemType.SHOES, Item.ItemType.WAPON, Item.ItemType.ITEM_BLOCK, Item.ItemType.RING, Item.ItemType.HAND_ITEM
+            Item.ItemType.HELMET, Item.ItemType.ARMOR, Item.ItemType.PANTS, Item.ItemType.SHOES, Item.ItemType.WAPON, Item.ItemType.ITEM_BLOCK, Item.ItemType.RING, Item.ItemType.ITEM_HAND
     };
 
     public static final int BLOCK_POSITION[][] = new int[][]{{BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 324}, {BaseMap.VIEW_WIDTH / 2 - Item.BLOCK_SIZE / 2, 271},
@@ -326,7 +326,7 @@ public class Equipment{
                 item.getImage().setPosition(BLOCK_POSITION[6][0], BLOCK_POSITION[6][1]);
                 clearDefaultImage(item, 6);
                 break;
-            case HAND_ITEM:
+            case ITEM_HAND:
                 item.getImage().setPosition(BLOCK_POSITION[7][0], BLOCK_POSITION[7][1]);
                 clearDefaultImage(item, 7);
                 break;

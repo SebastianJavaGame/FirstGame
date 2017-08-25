@@ -48,7 +48,8 @@ public class Map_03 extends BaseMap {
     public Map_03(Game g) {
         super(g, mapImage);
         bossInstance = false;
-        System.out.println("MAP3");
+        deadPosX = STARTING_POS_X;
+        deadPosY = STARTING_POS_Y;
     }
 
     @Override
@@ -57,7 +58,7 @@ public class Map_03 extends BaseMap {
 
         //Group 1
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p1.png", "enemy/map3/1.png", "enemy/map3/w1.png", true, "Wojowniczy dzik" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p1.png", "enemy/map3/1.png", "enemy/map3/w1.png", true, "Wojowniczy dzik" ,34 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//470
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -67,7 +68,7 @@ public class Map_03 extends BaseMap {
 
         //Group 2
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p2.png", "enemy/map3/2.png", "enemy/map3/w2.png", true, "Biała tarantula" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p2.png", "enemy/map3/2.png", "enemy/map3/w2.png", true, "Biała tarantula" ,35 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//475
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -77,7 +78,7 @@ public class Map_03 extends BaseMap {
 
         //Group 3
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p3.png", "enemy/map3/3.png", "enemy/map3/w3.png", false, "Kamieniak" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p3.png", "enemy/map3/3.png", "enemy/map3/w3.png", false, "Kamieniak" ,37 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//510
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -87,7 +88,7 @@ public class Map_03 extends BaseMap {
 
         //Group 4
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p4.png", "enemy/map3/4.png", "enemy/map3/w4.png", false, "Wachlacz" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p4.png", "enemy/map3/4.png", "enemy/map3/w4.png", false, "Wachlacz" ,39 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//560
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -97,7 +98,7 @@ public class Map_03 extends BaseMap {
 
         //Group 5
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p5.png", "enemy/map3/5.png", "enemy/map3/w5.png", false, "Mendrec" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p5.png", "enemy/map3/5.png", "enemy/map3/w5.png", false, "Mendrec" ,40 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//590
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -107,7 +108,7 @@ public class Map_03 extends BaseMap {
 
         //Group 6
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p6.png", "enemy/map3/6.png", "enemy/map3/w6.png", true, "Stary skalniak" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p6.png", "enemy/map3/6.png", "enemy/map3/w6.png", true, "Stary skalniak" ,42 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//610
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -117,7 +118,7 @@ public class Map_03 extends BaseMap {
 
         //Group 7
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p7.png", "enemy/map3/7.png", "enemy/map3/w7.png", false, "Stoban" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p7.png", "enemy/map3/7.png", "enemy/map3/w7.png", false, "Stoban" ,44 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//680
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -127,7 +128,7 @@ public class Map_03 extends BaseMap {
 
         //Group 8
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p8.png", "enemy/map3/8.png", "enemy/map3/w8.png", false, "Skalniak" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p8.png", "enemy/map3/8.png", "enemy/map3/w8.png", false, "Skalniak" ,45 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//690
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -137,7 +138,7 @@ public class Map_03 extends BaseMap {
 
         //Group 9
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p9.png", "enemy/map3/9.png", "enemy/map3/w9.png", true, "Jaszczur" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p9.png", "enemy/map3/9.png", "enemy/map3/w9.png", true, "Jaszczur" ,47 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//710
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -147,7 +148,7 @@ public class Map_03 extends BaseMap {
 
         //Group 10
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p10.png", "enemy/map3/10.png", "enemy/map3/w10.png", false, "Jugger" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            enemies[0][i] = new Enemy("enemy/map3/p10.png", "enemy/map3/10.png", "enemy/map3/w10.png", false, "Jugger" ,48 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//720
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -209,7 +210,6 @@ public class Map_03 extends BaseMap {
     public void generateMap() {
         if(!firstRun) {
             characters = new ArrayList<Character>();
-            actualMap = this;
             firstRun = true;
 
             bgTexture.setSize(mapWidth, mapHeight);

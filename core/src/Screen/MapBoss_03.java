@@ -86,7 +86,6 @@ public class MapBoss_03 extends BaseMap {
     public void generateMap() {
         if(!firstRun) {
             characters = new ArrayList<Character>();
-            actualMap = this;
             firstRun = true;
 
             bgTexture.setSize(mapWidth, mapHeight);

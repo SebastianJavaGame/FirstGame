@@ -171,6 +171,9 @@ public class FightLose extends BaseScreen {
                 prefStats.putInteger("MONEY", hero.getMoney()).flush();
                 prefStats.putInteger("EXP", hero.getExp()).flush();
                 prefStats.putInteger("DEAD", prefStats.getInteger("DEAD", 1) +1).flush();
+                prefStats.putInteger("POS_X", (int) BaseMap.getDeadPosition().x).flush();
+                prefStats.putInteger("POS_Y", (int) BaseMap.getDeadPosition().y).flush();
+                prefStats.putInteger("HP", 1).flush();
 
                 Menu.setMap();
                 return false;

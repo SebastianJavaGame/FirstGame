@@ -12,7 +12,7 @@ public class Item implements Cloneable, Disposable{
     public static final int BLOCK_SIZE = 50;
 
     public enum ItemType{
-        HELMET, ARMOR, PANTS, SHOES, WAPON, ITEM_BLOCK, RING, HAND_ITEM
+        HELMET, ARMOR, PANTS, SHOES, WAPON, ITEM_BLOCK, RING, ITEM_HAND
     }
 
     public enum Stan{

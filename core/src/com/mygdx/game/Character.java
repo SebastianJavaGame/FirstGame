@@ -16,14 +16,17 @@ public abstract class Character extends Actor{
     public Rectangle rectangle;
     protected TextureRegion texture;
     protected Hero hero;
-    private float x, y, w, h;
-    private boolean collisionOn = true;
+    public float x, y, w, h;
+    private int oryginalWidth;
+    private int oryginalHeight;
 
     public Character(Texture texture){
         this.texture = new TextureRegion();
         setTexture(texture);
 
         rectangle = new Rectangle();
+        oryginalWidth = texture.getWidth();
+        oryginalHeight = texture.getHeight();
 
         setOrigin(texture.getWidth() /2, texture.getHeight() /2);
     }
@@ -31,10 +34,7 @@ public abstract class Character extends Actor{
     public abstract void collisionDo();
 
     public void collisionUpdate(){
-        if (collisionOn)
-            getCollision().set(getX() +x, getY() +y, getWidth() +w, getHeight() +h);
-        else
-            getCollision().set(-50, -50, 5, 5);
+        getCollision().set(getX() +x, getY() +y, getWidth() +w, getHeight() +h);
     }
 
     public void draw(Batch batch, float parentAlpha)
@@ -84,7 +84,11 @@ public abstract class Character extends Actor{
         this.hero = hero;
     }
 
-   public void setCollisionOn(boolean on){
-       this.collisionOn = on;
-   }
+    public int getOryginalWidth() {
+        return oryginalWidth;
+    }
+
+    public int getOryginalHeight() {
+        return oryginalHeight;
+    }
 }

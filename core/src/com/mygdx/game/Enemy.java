@@ -38,7 +38,7 @@ public class Enemy extends Character implements Cloneable{
     private int hp;
     private int strong;
     private int wiedza;
-    private int armor;
+    private float armor;
     private int defensePhysics;
     private int defenseMagic;
     private ArrayList<String> dropItemName;
@@ -55,13 +55,12 @@ public class Enemy extends Character implements Cloneable{
     private float defaultScreenZeroY;
 
     private boolean attackType;
-
     private int spawnSecond;
 
     private Sound soundCollision;
     private Sound soundView;
 
-    public Enemy(String texturePath, String headPath, String waponPath, boolean attackType, String name, int level, int hp, int strong, int wiedza, int armor, int defensePhysics, int defenseMagic,
+    public Enemy(String texturePath, String headPath, String waponPath, boolean attackType, String name, int level, int hp, int strong, int wiedza, float armor, int defensePhysics, int defenseMagic,
                  float randomDrop, int expDrop ,int moneyDrop, int spawnSecond) {
         super(new Texture(Gdx.files.internal(texturePath)));
         this.texturePath = texturePath;
@@ -87,8 +86,7 @@ public class Enemy extends Character implements Cloneable{
         TextureRegion texture = new TextureRegion(new Texture(Gdx.files.internal(texturePath)));
         texture.flip(true, false);
         flip = new Image(texture);
-
-        setSize(this.getWidth() *0.45f, this.getHeight() *0.45f);
+        setSize(getOryginalWidth() *0.35f, getOryginalHeight() *0.35f);
     }
 
     public void setDropItemName(String ... itemName){
@@ -143,8 +141,8 @@ public class Enemy extends Character implements Cloneable{
                     attackScreen.remove();
                     infoEnemy.remove();
                     cancel.remove();
-                    infoBackground.setPosition(defaultScreenZeroX, defaultScreenZeroY);
-                    infoBackground.setSize(BaseMap.VIEW_WIDTH, BaseMap.VIEW_HEIGHT - 50);
+                    infoBackground.setPosition(defaultScreenZeroX -2, defaultScreenZeroY -2);
+                    infoBackground.setSize(BaseMap.VIEW_WIDTH +4, BaseMap.VIEW_HEIGHT - 46);
                     hero.getHero3D().setRenderHero3d(false);
 
                     BitmapFont font = MyGdxGame.createDistanceFont();
@@ -161,7 +159,7 @@ public class Enemy extends Character implements Cloneable{
                     final Label lDefenseMagic = new Label("ObronaMagiczna " + getDefenseMagic(), style);
                     final Label lRandomDrop = new Label("Szansa na zdobycie przedmiotu " + getRandomDrop() + "%", style);
                     final Image imageEnemy = new Image(getTexture());
-                    Vector2 sizeEnemyInfo = scaleUp(getTexture());
+                    Vector2 sizeEnemyInfo = scale(getTexture());
                     imageEnemy.setSize(sizeEnemyInfo.x, sizeEnemyInfo.y);
 
                     lName.setFontScale(0.5f);
@@ -185,8 +183,14 @@ public class Enemy extends Character implements Cloneable{
                     lDefenseMagic.setTouchable(Touchable.disabled);
                     lRandomDrop.setTouchable(Touchable.disabled);
 
-                    lName.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 - lName.getWidth()*0.5f -25, defaultScreenZeroY + 330);
-                    lLevel.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 + lName.getWidth()*0.5f /2, defaultScreenZeroY + 330);
+                    if(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +35 > 200) {
+                        lName.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 -(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +5) /2, defaultScreenZeroY + 330);
+                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 5, defaultScreenZeroY + 330);
+                    }
+                    else {
+                        lName.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 - (lName.getWidth() * 0.5f + lLevel.getWidth() * 0.5f + 35) / 2, defaultScreenZeroY + 330);
+                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 35, defaultScreenZeroY + 330);
+                    }
                     lHp.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 110);
                     lArmor.setPosition(defaultScreenZeroX + BaseMap.VIEW_WIDTH / 2 + 10, defaultScreenZeroY + 110);
                     lStrong.setPosition(defaultScreenZeroX + 25, defaultScreenZeroY + 80);
@@ -240,15 +244,19 @@ public class Enemy extends Character implements Cloneable{
         }
     }
 
-    private Vector2 scaleUp(TextureRegion texture) {
+    private Vector2 scale(TextureRegion texture) {
         float x = texture.getRegionWidth();
         float y = texture.getRegionHeight();
 
-        do{
-            x++;
-            y++;
-        }while(x <= 300 && y <= 200);
+        float result = 300 / x;
+        float resultTwo = 200 /y;
 
+        if(result < 1 || resultTwo < 1) {
+            if (result <= resultTwo)
+                return new Vector2(x * result, y * result);
+            else
+                return new Vector2(x * resultTwo, y * resultTwo);
+        }
         return new Vector2(x, y);
     }
 
@@ -281,7 +289,7 @@ public class Enemy extends Character implements Cloneable{
         return wiedza;
     }
 
-    public int getArmor() {
+    public float getArmor() {
         return armor;
     }
 
@@ -327,5 +335,17 @@ public class Enemy extends Character implements Cloneable{
 
     public Image getFlip(){
         return flip;
+    }
+
+    public String getTexturePath(){
+        return texturePath;
+    }
+
+    public String getHeadPath(){
+        return headPath;
+    }
+
+    public String getWaponPath(){
+        return waponPath;
     }
 }

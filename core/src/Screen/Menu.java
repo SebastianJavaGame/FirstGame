@@ -107,6 +107,7 @@ public class Menu extends BaseScreen {
                 BaseDialogs.loadIndexListener();
                 BaseTask.loadAllTasks();
                 BaseEnemyAI.loadAI();
+                MyGdxGame.loadDefaultEq();
                 stage.addAction(Actions.sequence(Actions.run(new Runnable() {
                     @Override
                     public void run() {
@@ -178,6 +179,7 @@ public class Menu extends BaseScreen {
                     BaseDialogs.loadIndexListener();
                     BaseTask.loadAllTasks();
                     BaseEnemyAI.loadAI();
+                    MyGdxGame.loadDefaultEq();
                     stage.addAction(Actions.sequence(Actions.run(new Runnable() {
                         @Override
                         public void run() {

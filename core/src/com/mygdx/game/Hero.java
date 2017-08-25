@@ -157,7 +157,7 @@ public class Hero extends Character {
         actualIndexCharacter = 0;//preferences.getInteger("COLLISION", 0);
         strong = preferences.getInteger("STRONG", 1);
         wiedza = preferences.getInteger("WIEDZA", 1);
-        armor = preferences.getInteger("ARMOR", 0);
+        armor = preferences.getFloat("ARMOR", 0);
         defenseFiz = preferences.getInteger("DEFENSE_FIZ", 1);
         defenseMag = preferences.getInteger("DEFENSE_MAG", 1);
 
@@ -183,7 +183,7 @@ public class Hero extends Character {
             new UpdateHeroStats(this);
         } catch (CloneNotSupportedException e) {}
 
-        setHp(preferences.getInteger("HP", getFullHp()));
+        setHp(preferences.getInteger("HP", preferences.getInteger("HP", getFullHp())));
 
         nonCollision.set(preferences.getInteger("POS_X"), preferences.getInteger("POS_Y"));
     }

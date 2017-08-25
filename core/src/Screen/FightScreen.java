@@ -27,6 +27,7 @@ import com.mygdx.game.Equipment;
 import com.mygdx.game.Hero;
 import com.mygdx.game.MyException;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.StatsHero;
 
 import java.util.ArrayList;
 
@@ -136,11 +137,11 @@ public class FightScreen extends BaseScreen {
 
     @Override
     public void create() {
-        Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
+        final Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
-        hpHero = 0;
-        hpEnemy = 50;
+        //hpHero = 0;
+        //hpEnemy = 50;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -181,7 +182,7 @@ public class FightScreen extends BaseScreen {
             }
 
             heroImage.setBounds(25, 175, BaseScreen.VIEW_WIDTH / 2 - 50, 190);
-            enemyImage.setSize(enemyImage.getWidth(), enemyImage.getHeight());
+            enemyImage.setSize(enemy.getOryginalWidth()*0.7f, enemy.getOryginalHeight()*0.7f);
             targetX = (BaseScreen.VIEW_WIDTH / 2 - enemyImage.getWidth()) / 2 + BaseScreen.VIEW_WIDTH / 2;
             enemyImage.setPosition(targetX, 175);
             waponEnemy = enemy.getWapon();
@@ -200,6 +201,7 @@ public class FightScreen extends BaseScreen {
             block = new Image(asset.manager.get("blockAttack.png", Texture.class));
             blood = new Image(asset.manager.get("blood.png", Texture.class));
 
+            enemy.getHead().setSize(50, 50);
             enemy.getHead().setPosition(270, 435);
             barHpHero.setBounds(53, 19, 120, 10);
             barHpEnemy.setBounds(267, 466, -120, 10);
@@ -240,7 +242,6 @@ public class FightScreen extends BaseScreen {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Menu.setIsFirstSpawnHeroPosition(true);
                     Menu.getSoundClick().play();
-                    musicBattle.stop();
 
                     if (abort && !animationPlay) {
                         Label label = new Label("Ucieczka!", style);
@@ -251,6 +252,9 @@ public class FightScreen extends BaseScreen {
                         Action action = Actions.run(new Runnable() {
                             @Override
                             public void run() {
+                                Preferences pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+                                pref.putInteger("HP", hpHero).flush();
+                                musicBattle.stop();
                                 Menu.setMap();
                             }
                         });
@@ -281,7 +285,6 @@ public class FightScreen extends BaseScreen {
                             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                                 Menu.getSoundClick().play();
                                 Menu.setIsFirstSpawnHeroPosition(true);
-                                musicBattle.stop();
 
                                 if (hpHero > hpMaxHero * 0.2f) {
                                     Action action = Actions.run(new Runnable() {
@@ -318,8 +321,9 @@ public class FightScreen extends BaseScreen {
                                             Action action3 = Actions.run(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    hero.setHp(hpHero);
-
+                                                    Preferences pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+                                                    pref.putInteger("HP", hpHero).flush();
+                                                    musicBattle.stop();
                                                     Menu.setMap();
                                                 }
                                             });

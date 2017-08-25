@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -104,6 +105,10 @@ public class FightWin extends BaseScreen {
         dropProcent = enemy.getRandomDrop();
         this.enemy = enemy;
 
+        final Enemy oryginalEnemy = new Enemy(enemy.getTexturePath(), enemy.getHeadPath(), enemy.getWaponPath(), enemy.getAttackType(), enemy.getName(), enemy.getLevel(),
+                enemy.getHp(), enemy.getStrong(), enemy.getWiedza(), enemy.getArmor(), enemy.getDefensePhysics(), enemy.getDefenseMagic(), enemy.getRandomDrop(),
+                enemy.getExpDrop(), enemy.getMoneyDrop(), enemy.getSpawnSecond());
+        final Vector2 orginalPosition = new Vector2(enemy.getX(), enemy.getY());
         final Rectangle temporaryRectangleCollision = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
 
         Image background = new Image(new Texture(Gdx.files.internal("statsBackground.png")));
@@ -211,17 +216,21 @@ public class FightWin extends BaseScreen {
                 Menu.setIsFirstSpawnHeroPosition(true);
                 Menu.getSoundClick().play();
 
+                //final Enemy enemy = new Enemy("enemy/map1/p1.png", "enemy/map1/1.png", "enemy/map1/w1.png", true, "Grzybox" ,1 ,     0, 5, 4, 0.3f, 3, 2,       1, 1, 1, 2);
+                oryginalEnemy.setPosition(0, 0);
+                oryginalEnemy.setRectangle(0,0,0,0);
+                BaseMap.getActualMap().getCharacter().add(oryginalEnemy);
+
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
                         if(!hero.calculateCollisionTwoRectangle(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()), temporaryRectangleCollision)) {
-                            enemy.setVisible(true);
-                            enemy.setCollisionOn(true);
-                            enemy.collisionUpdate();
+                            oryginalEnemy.setPosition(orginalPosition.x, orginalPosition.y);
+                            oryginalEnemy.collisionUpdate();
                             this.cancel();
                         }
                     }
-                }, enemy.getSpawnSecond(), 2, 9999);
+                }, oryginalEnemy.getSpawnSecond(), 2, 9999);
 
                 expMax = ExperienceRequired.getMaxExperience(twoBase);
                 float resultPrecent;
@@ -275,10 +284,7 @@ public class FightWin extends BaseScreen {
 
     @Override
     public void create(){
-        enemy.setVisible(false);
-        enemy.setCollisionOn(false);
-        enemy.collisionUpdate();
-        //BaseMap.getActualMap().getCharacter().remove(enemy);
+        BaseMap.getActualMap().getCharacter().remove(enemy);
 
         Image emptyCircleProgressBar = new Image(new Texture(Gdx.files.internal("circleExp/circleProgresBarExp.png")));
 

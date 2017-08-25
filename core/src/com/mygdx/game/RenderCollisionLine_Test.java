@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import Screen.BaseMap;
 import Screen.BaseScreen;
+import Screen.Map_01;
 
 /**
  * Created by Sebastian on 2017-06-17.
@@ -155,12 +156,26 @@ public class RenderCollisionLine_Test implements Disposable{
         /**
          * Render END
          */
+        drawRect(Map_01.e1.getX() + Map_01.e1.x, Map_01.e1.getY() + Map_01.e1.y, Map_01.e1.getWidth() + Map_01.e1.w, Map_01.e1.getHeight() + Map_01.e1.h);
+        drawRect(Map_01.e2.getX() + Map_01.e2.x, Map_01.e2.getY() + Map_01.e2.y, Map_01.e2.getWidth() + Map_01.e2.w, Map_01.e2.getHeight() + Map_01.e2.h);
+        drawRect(Map_01.e3.getX() + Map_01.e3.x, Map_01.e3.getY() + Map_01.e3.y, Map_01.e3.getWidth() + Map_01.e3.w, Map_01.e3.getHeight() + Map_01.e3.h);
+        drawRect(Map_01.e4.getX() + Map_01.e4.x, Map_01.e4.getY() + Map_01.e4.y, Map_01.e4.getWidth() + Map_01.e4.w, Map_01.e4.getHeight() + Map_01.e4.h);
+        drawRect(Map_01.e5.getX() + Map_01.e5.x, Map_01.e5.getY() + Map_01.e5.y, Map_01.e5.getWidth() + Map_01.e5.w, Map_01.e5.getHeight() + Map_01.e5.h);
+        drawRect(Map_01.e6.getX() + Map_01.e6.x, Map_01.e6.getY() + Map_01.e6.y, Map_01.e6.getWidth() + Map_01.e6.w, Map_01.e6.getHeight() + Map_01.e6.h);
+        drawRect(Map_01.e7.getX() + Map_01.e7.x, Map_01.e7.getY() + Map_01.e7.y, Map_01.e7.getWidth() + Map_01.e7.w, Map_01.e7.getHeight() + Map_01.e7.h);
+        drawRect(Map_01.e8.getX() + Map_01.e8.x, Map_01.e8.getY() + Map_01.e8.y, Map_01.e8.getWidth() + Map_01.e8.w, Map_01.e8.getHeight() + Map_01.e8.h);
+        drawRect(Map_01.e9.getX() + Map_01.e9.x, Map_01.e9.getY() + Map_01.e9.y, Map_01.e9.getWidth() + Map_01.e9.w, Map_01.e9.getHeight() + Map_01.e9.h);
+        drawRect(Map_01.e10.getX() + Map_01.e10.x, Map_01.e10.getY() + Map_01.e10.y, Map_01.e10.getWidth() + Map_01.e10.w, Map_01.e10.getHeight() + Map_01.e10.h);
         shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +hero.getX() -7, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +hero.getY() -24, 22, 60);
         //shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +500, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +300, 100, 100);
         shapeRenderer.end();
     }
 
     public static void drawRect(int a, int b, int w, int h){
+        shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +a, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +b, w, h);
+    }
+
+    public static void drawRect(float a, float b, float w, float h){
         shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +a, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +b, w, h);
     }
 

@@ -57,6 +57,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     protected static ArrayList<Integer> indexToLoadNextMap;
     protected static ArrayList<Vector2> entriencesPosition;
 
+    protected static int deadPosX;
+    protected static int deadPosY;
+
     protected InputMultiplexer im;
 
     public static Stage stageUi;
@@ -85,7 +88,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     protected ArrayList<Polygon> objectPolygon;
     protected ArrayList<Vector2[]> verticalPolygon;
-    protected ArrayList<Character> charactersList;
+    protected static ArrayList<Character> charactersList;
 
     protected static boolean bossInstance;
 
@@ -142,9 +145,6 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         testRender = new RenderCollisionLine_Test(camera, hero);
 
         saveOrginalPosition();
-
-        setPosX((int)hero.getX());
-        setPosY((int)hero.getY());
     }
 
     @Override
@@ -193,6 +193,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         if(hero.isCharacterCollisionLook())
             hero.collisionCharacter();
+
+        setPosX((int)hero.getX());
+        setPosY((int)hero.getY());
     }
 
     @Override
@@ -310,6 +313,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             hpRefresh = 0;
         }
 
+        if(hero.getHp() > hero.getFullHp())
+            hero.setHp(hero.getFullHp());
+
         levelLabel.setText(String.valueOf(hero.getLevel()));
         if(hero.getLevel() < 10)
             levelLabel.setPosition(backgtoundLvl.getX() +backgtoundLvl.getWidth() /2 -5, levelLabel.getY());
@@ -374,6 +380,10 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         return actualMap;
     }
 
+    public static ArrayList<Character> setCharacterList(ArrayList<Character> characters){
+        return charactersList = characters;
+    }
+
     public static ArrayList<Rectangle> getEntriaceToMapRectangle(){
         return entriaceToMapRectangle;
     }
@@ -388,5 +398,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public static boolean isBossInstance(){
         return bossInstance;
+    }
+
+    public static Vector2 getDeadPosition(){
+        return new Vector2(deadPosX, deadPosY);
     }
 }

@@ -33,6 +33,17 @@ public class Map_01 extends BaseMap {
     private static ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Character> characters;
 
+    public static Enemy e1;
+    public static Enemy e2;
+    public static Enemy e3;
+    public static Enemy e4;
+    public static Enemy e5;
+    public static Enemy e6;
+    public static Enemy e7;
+    public static Enemy e8;
+    public static Enemy e9;
+    public static Enemy e10;
+
     static {
         mapImage = new Image(new Texture("MAP_01.jpg"));
         mapWidth = (int)(mapImage.getWidth() *0.8f);
@@ -42,113 +53,118 @@ public class Map_01 extends BaseMap {
     public Map_01(Game g) {
         super(g, mapImage);
         bossInstance = false;
+        deadPosX = 700;
+        deadPosY = 890;
     }
 
     @Override
     public void addEnemyToMap() {
-        Enemy[][] enemies = new Enemy[10][7];
+        int countEnemy = 1;
+        Enemy[][] enemies = new Enemy[10][countEnemy];
 
         //Group 1
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p1.png", "enemy/map1/1.png", "enemy/map1/w1.png", true, "Grzybox" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[0][i] = new Enemy("enemy/map1/p1.png", "enemy/map1/1.png", "enemy/map1/w1.png", true, "Grzybox" ,1 ,     30, 5, 4, 0.3f, 3, 2,       1, 1, 1, 1); //20
+            enemies[0][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setPosition(400, 680);
         enemies[0][0].setDropItemName("");
-        //...
+        enemies[0][0].collisionUpdate();
+
+        e1 = enemies[0][0];
         //TODO 0 ... 10
 
+
         //Group 2
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p2.png", "enemy/map1/2.png", "enemy/map1/w2.png", true, "Goblin" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[1][i] = new Enemy("enemy/map1/p2.png", "enemy/map1/2.png", "enemy/map1/w2.png", true, "Goblin" ,2 ,     1, 1, 1, 1, 1, 1,        1, 1, 1, 4); //35
+            enemies[1][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[1][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
-
+        enemies[1][0].setPosition(500, 680);
+        enemies[1][0].setDropItemName("");
+        e2 = enemies[1][0];
         //Group 3
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p3.png", "enemy/map1/3.png", "enemy/map1/w3.png", false, "Dzik" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[2][i] = new Enemy("enemy/map1/p3.png", "enemy/map1/3.png", "enemy/map1/w3.png", false, "Dzik" ,4 ,      1, 1, 1, 1, 1, 1,         1, 1, 1, 1); //46
+            enemies[2][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[2][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
-
+        enemies[2][0].setPosition(600, 680);
+        enemies[2][0].setDropItemName("");
+        e3 = enemies[2][0];
         //Group 4
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p4.png", "enemy/map1/4.png", "enemy/map1/w4.png", false, "Zombie" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[3][i] = new Enemy("enemy/map1/p4.png", "enemy/map1/4.png", "enemy/map1/w4.png", false, "Zombie" ,7 ,        1, 1, 1, 1, 1, 1,       1, 1, 1, 1);//75
+            enemies[3][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[3][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
-
+        enemies[3][0].setPosition(700, 680);
+        enemies[3][0].setDropItemName("");
+        e4 = enemies[3][0];
         //Group 5
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p5.png", "enemy/map1/5.png", "enemy/map1/w5.png", false, "Toksyk" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[4][i] = new Enemy("enemy/map1/p5.png", "enemy/map1/5.png", "enemy/map1/w5.png", false, "Toksyk" ,10 ,       1, 1, 1, 1, 1, 1,      1, 1, 1, 1);//140
+            enemies[4][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[4][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
-
+        enemies[4][0].setPosition(800, 680);
+        enemies[4][0].setDropItemName("");
+        e5 = enemies[4][0];
         //Group 6
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p6.png", "enemy/map1/6.png", "enemy/map1/w6.png", false, "Trol" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[5][i] = new Enemy("enemy/map1/p6.png", "enemy/map1/6.png", "enemy/map1/w6.png", false, "Trol" ,11 ,     1, 1, 1, 1, 1, 1,        1, 1, 1, 1);//150
+            enemies[5][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[5][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
-
+        enemies[5][0].setPosition(900, 680);
+        enemies[5][0].setDropItemName("");
+        e6 = enemies[5][0];
         //Group 7
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p7.png", "enemy/map1/7.png", "enemy/map1/w7.png", false, "Gadzina" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[6][i] = new Enemy("enemy/map1/p7.png", "enemy/map1/7.png", "enemy/map1/w7.png", false, "Gadzina" ,12 ,      1, 1, 1, 1, 1, 1,         1, 1, 1, 1);//154
+            enemies[6][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[6][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
-
+        enemies[6][0].setPosition(1000, 680);
+        enemies[6][0].setDropItemName("");
+        e7 = enemies[6][0];
         //Group 8
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p8.png", "enemy/map1/8.png", "enemy/map1/w8.png", true, "Czerwony pająk" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[7][i] = new Enemy("enemy/map1/p8.png", "enemy/map1/8.png", "enemy/map1/w8.png", true, "Czerwony pająk" ,13 ,        1, 1, 1, 1, 1, 1,       1, 1, 1, 1);//159
+            enemies[7][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[7][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
-
+        enemies[7][0].setPosition(1100, 680);
+        enemies[7][0].setDropItemName("");
+        e8 = enemies[7][0];
         //Group 9
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p9.png", "enemy/map1/9.png", "enemy/map1/w9.png", true, "Ropuchacz" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[8][i] = new Enemy("enemy/map1/p9.png", "enemy/map1/9.png", "enemy/map1/w9.png", true, "Ropuchacz" ,15 ,     1, 1, 1, 1, 1, 1,        1, 1, 1, 1);//215
+            enemies[8][i].setRectangle(0, 0, 0, 0);
+            enemies[8][i].setSize(60, 60);
+            characters.add(enemies[8][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
-
+        enemies[8][0].setPosition(1200, 680);
+        enemies[8][0].setDropItemName("");
+        e9 = enemies[8][0];
         //Group 10
-        for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p10.png", "enemy/map1/10.png", "enemy/map1/w10.png", true, "Zerd" ,1 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+        for (int i = 0; i < countEnemy; i++) {
+            enemies[9][i] = new Enemy("enemy/map1/p10.png", "enemy/map1/10.png", "enemy/map1/w10.png", true, "Zerd" ,17 ,       1, 1, 1, 1, 1, 1,      1, 1, 1, 1); //225
+            enemies[9][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[9][i]);
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[9][0].setPosition(1350, 680);
+        enemies[9][0].setDropItemName("");
+        e10 = enemies[9][0];
+
+        for(Enemy enemiesList[]: enemies){
+            for(Character enemy: enemiesList){
+                //if(enemy != null)//TODO implements all enemies and active code
+                    enemy.collisionUpdate();
+            }
+        }
     }
 
     @Override
