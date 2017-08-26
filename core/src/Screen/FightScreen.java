@@ -231,7 +231,7 @@ public class FightScreen extends BaseScreen {
             lEnergyHero.setPosition(53 + barEnergyHero.getWidth() / 2 - (lEnergyHero.getWidth() *0.4f) / 2, -10);
             lEnergyEnemy.setPosition(267 + barEnergyEnemy.getWidth() / 2 - (lEnergyEnemy.getWidth() *0.4f) / 2, 436);
             labelName.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelName.getWidth()*0.6f / 2, 450);
-            labelLvl.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelLvl.getWidth()*0.5f / 2 + 10, 435);
+            labelLvl.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelLvl.getWidth()*0.5f / 2 + 10, 432);
             labelFreePoint.setPosition(131, 97);
             labelRoundNumber.setPosition(287, 97);
 
@@ -328,7 +328,7 @@ public class FightScreen extends BaseScreen {
                                                 }
                                             });
                                             label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
-                                                    Actions.delay(3)), action2, Actions.delay(1.5f), action3));
+                                                    Actions.delay(3)), action2, Actions.delay(0.8f), action3));
                                         }
                                     });
                                     stage.addAction(Actions.sequence(action));
@@ -773,7 +773,7 @@ public class FightScreen extends BaseScreen {
                 @Override
                 public void run() {
                     endFightRemoveEffect();
-                    die.play();
+                    die.play(0.6f);
                 }
             }),Actions.delay(3), Actions.run(new Runnable() {
                 @Override
@@ -807,7 +807,7 @@ public class FightScreen extends BaseScreen {
                 @Override
                 public void run() {
                     endFightRemoveEffect();
-                    die.play();
+                    die.play(0.6f);
                 }
             }),Actions.delay(3), Actions.run(new Runnable() {
                 @Override
@@ -963,12 +963,12 @@ public class FightScreen extends BaseScreen {
         if(isHero) {
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(targetX, enemyImage.getY() + enemyImage.getHeight() /2, SPEED_MAGIC), Actions.delay(0.4f), Actions.fadeOut(0.4f))));
+            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(targetX +60, enemyImage.getY() + enemyImage.getHeight() /2, SPEED_MAGIC-0.2f), Actions.delay(0.2f), Actions.fadeOut(0.5f))));
             magicHero.setBounds(heroImage.getX() + 50, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }else{
             dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH /4 -magicEnemy.getWidth() /2, heroImage.getY() + heroImage.getHeight() /2, SPEED_MAGIC), Actions.delay(0.4f), Actions.fadeOut(0.4f))));
+            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH /4 -magicEnemy.getWidth() /2 -60, heroImage.getY() + heroImage.getHeight() /2, SPEED_MAGIC-0.2f), Actions.delay(0.2f), Actions.fadeOut(0.5f))));
             magicEnemy.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() /2, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }
     }
@@ -1165,15 +1165,15 @@ public class FightScreen extends BaseScreen {
             case 1:
                 return 0.7f;
             case 2:
-                return 1.2f;
+                return 1.3f;
             case 3:
-                return 1.6f;
+                return 1.8f;
             case 4:
-                return 2;
+                return 2.2f;
             case 5:
-                return 2.3f;
+                return 2.5f;
             default:
-                return 0.1f;
+                return 0.05f;
         }
     }
 
