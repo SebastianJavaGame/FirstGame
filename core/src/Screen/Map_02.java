@@ -59,7 +59,7 @@ public class Map_02 extends BaseMap {
 
         //Group 1
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p1.png", "enemy/map2/1.png", "enemy/map2/w1.png", false, "Emon" ,18 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//230
+            enemies[0][i] = new Enemy("enemy/map2/p1.png", "enemy/map2/1.png", "enemy/map2/w1.png", false, "Emon" ,18 ,     450, 50, 37, 5f, 42, 32,       1, 1, 1, 1);//230
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
@@ -69,93 +69,93 @@ public class Map_02 extends BaseMap {
 
         //Group 2
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p2.png", "enemy/map2/2.png", "enemy/map2/w2.png", true, "Zemund" ,20 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//240
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+            enemies[1][i] = new Enemy("enemy/map2/p2.png", "enemy/map2/2.png", "enemy/map2/w2.png", true, "Zemund" ,20 ,        460, 38, 50, 5f, 39, 43,       1, 1, 1, 1);//240
+            enemies[1][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[1][i]);
+            enemies[1][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[1][0].setPosition(0, 0);
+        enemies[1][0].setDropItemName("");
 
         //Group 3
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p3.png", "enemy/map2/3.png", "enemy/map2/w3.png", true, "Grykon" ,21 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//250
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+            enemies[2][i] = new Enemy("enemy/map2/p3.png", "enemy/map2/3.png", "enemy/map2/w3.png", true, "Grykon" ,21 ,        500, 52, 38, 5f, 42, 44,       1, 1, 1, 1);//250
+            enemies[2][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[2][i]);
+            enemies[2][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[2][0].setPosition(0, 0);
+        enemies[2][0].setDropItemName("");
 
         //Group 4
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p4.png", "enemy/map2/4.png", "enemy/map2/w4.png", true, "Tratogon" ,23 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//325
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+            enemies[3][i] = new Enemy("enemy/map2/p4.png", "enemy/map2/4.png", "enemy/map2/w4.png", true, "Tratogon" ,23 ,      700, 64, 45, 7f, 56, 50,        1, 1, 1, 1);//325
+            enemies[3][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[3][i]);
+            enemies[3][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[3][0].setPosition(0, 0);
+        enemies[3][0].setDropItemName("");
 
         //Group 5
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p5.png", "enemy/map2/5.png", "enemy/map2/w5.png", true, "Ognisty wilk" ,25 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//345
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
+            enemies[4][i] = new Enemy("enemy/map2/p5.png", "enemy/map2/5.png", "enemy/map2/w5.png", true, "Ognisty wilk" ,25 ,      750, 59, 60, 7.6f, 50, 60,       1, 1, 1, 1);//345
+            enemies[4][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[4][i]);
+            enemies[4][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[4][0].setPosition(0, 0);
+        enemies[4][0].setDropItemName("");
 
         //Group 6
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p6.png", "enemy/map2/6.png", "enemy/map2/w6.png", false, "Stwór ziemny" ,27 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//360
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
+            enemies[5][i] = new Enemy("enemy/map2/p6.png", "enemy/map2/6.png", "enemy/map2/w6.png", false, "Stwór ziemny" ,27 ,     770, 67, 50, 8.1f, 70, 50,       1, 1, 1, 1);//360
+            enemies[5][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[5][i]);
             enemies[0][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[5][0].setPosition(0, 0);
+        enemies[5][0].setDropItemName("");
 
         //Group 7
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p7.png", "enemy/map2/7.png", "enemy/map2/w7.png", false, "Czerwony trol" ,28 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//370
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
+            enemies[6][i] = new Enemy("enemy/map2/p7.png", "enemy/map2/7.png", "enemy/map2/w7.png", false, "Czerwony trol" ,28 ,        800, 60, 64, 8.6f, 60, 55,       1, 1, 1, 1);//370
+            enemies[6][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[6][i]);
             enemies[0][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[6][0].setPosition(0, 0);
+        enemies[6][0].setDropItemName("");
 
         //Group 8
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p8.png", "enemy/map2/8.png", "enemy/map2/w8.png", false, "Wilkołak" ,30 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//400
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
+            enemies[7][i] = new Enemy("enemy/map2/p8.png", "enemy/map2/8.png", "enemy/map2/w8.png", false, "Wilkołak" ,30 ,     880, 80, 64, 8.8f, 60, 55,       1, 1, 1, 1);//400
+            enemies[7][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[7][i]);
             enemies[0][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[7][0].setPosition(0, 0);
+        enemies[7][0].setDropItemName("");
 
         //Group 9
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p9.png", "enemy/map2/9.png", "enemy/map2/w9.png", true, "Tygrys biały" ,32 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//425
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
+            enemies[8][i] = new Enemy("enemy/map2/p9.png", "enemy/map2/9.png", "enemy/map2/w9.png", true, "Tygrys biały" ,32 ,      900, 85, 62, 9.3f, 70, 60,        1, 1, 1, 1);//425
+            enemies[8][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[8][i]);
             enemies[0][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[8][0].setPosition(0, 0);
+        enemies[8][0].setDropItemName("");
 
         //Group 10
         for (int i = 0; i < 7; i++) {
-            enemies[0][i] = new Enemy("enemy/map2/p10.png", "enemy/map2/10.png", "enemy/map2/w10.png", true, "Krabogon" ,33 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1);//460
-            enemies[0][i].setRectangle(0, 0, 0, 0);
-            characters.add(enemies[0][i]);
+            enemies[9][i] = new Enemy("enemy/map2/p10.png", "enemy/map2/10.png", "enemy/map2/w10.png", true, "Krabogon" ,33 ,       800, 80, 60, 10.3f, 90, 82,       1, 1, 1, 1);//460
+            enemies[9][i].setRectangle(0, 0, 0, 0);
+            characters.add(enemies[9][i]);
             enemies[0][i].collisionUpdate();
         }
-        enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
+        enemies[9][0].setPosition(0, 0);
+        enemies[9][0].setDropItemName("");
     }
 
     @Override

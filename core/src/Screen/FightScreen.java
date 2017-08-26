@@ -40,7 +40,6 @@ public class FightScreen extends BaseScreen {
     private static final int ENERGY_MAX = 100;
 
     private static final int[] DURATION_ANIMATION = new int[]{1, 4, 7, 10, 13, 16};
-    private static final int[] SUPER_ATTACK = new int[]{5, 0, 5, 0};
 
     private Hero hero;
     private Enemy enemy;
@@ -181,10 +180,11 @@ public class FightScreen extends BaseScreen {
             } catch (CloneNotSupportedException e) {
             }
 
-            heroImage.setBounds(25, 175, BaseScreen.VIEW_WIDTH / 2 - 50, 190);
-            enemyImage.setSize(enemy.getOryginalWidth()*0.7f, enemy.getOryginalHeight()*0.7f);
+            heroImage.setBounds(30, 175, BaseScreen.VIEW_WIDTH / 2 - 50, 190);
+            heroImage.setSize(heroImage.getWidth() *0.9f, heroImage.getHeight() *0.9f);
+            enemyImage.setSize(enemy.getOryginalWidth()*0.8f, enemy.getOryginalHeight()*0.8f);
             targetX = (BaseScreen.VIEW_WIDTH / 2 - enemyImage.getWidth()) / 2 + BaseScreen.VIEW_WIDTH / 2;
-            enemyImage.setPosition(targetX, 175);
+            enemyImage.setPosition(targetX, 180);
             waponEnemy = enemy.getWapon();
             waponEnemy.setPosition(95, 280);
             waponEnemy.setSize(80, 80);
@@ -328,7 +328,7 @@ public class FightScreen extends BaseScreen {
                                                 }
                                             });
                                             label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
-                                                    Actions.delay(3)), action2, Actions.delay(0.8f), action3));
+                                                    Actions.delay(3)), action2, action3));
                                         }
                                     });
                                     stage.addAction(Actions.sequence(action));
@@ -394,7 +394,7 @@ public class FightScreen extends BaseScreen {
         }
         musicBattle.setLooping(true);
         musicBattle.setVolume(0.6f);
-        musicBattle.play();
+        //musicBattle.play();//TODO play
     }
 
     @Override
@@ -1124,11 +1124,6 @@ public class FightScreen extends BaseScreen {
     private int[] updateEnemyAi(){
         float heroPercentHp = (float)hpHero /hpMaxHero *100;
         float enemyPercentHp = (float)hpEnemy / hpMaxEnemy *100;
-
-        if((enemyPercentHp -heroPercentHp) >= 50 && pointFightEnemy == 10) {
-            System.out.println("SUPER ATTACK");
-            return SUPER_ATTACK;
-        }
 
         int random;
         if(pointFightEnemy > 8) {

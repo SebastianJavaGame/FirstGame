@@ -64,7 +64,7 @@ public class Map_01 extends BaseMap {
 
         //Group 1
         for (int i = 0; i < countEnemy; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p1.png", "enemy/map1/1.png", "enemy/map1/w1.png", true, "Grzybox" ,1 ,     30, 4, 3, 0.3f, 3, 3,       1, 1, 1, 1); //20-
+            enemies[0][i] = new Enemy("enemy/map1/p1.png", "enemy/map1/1.png", "enemy/map1/w1.png", true, "Grzybox" ,1 ,     30, 4, 4, 0.3f, 2, 2,       1, 1, 1, 1); //20
             enemies[0][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[0][i]);
         }
@@ -78,7 +78,7 @@ public class Map_01 extends BaseMap {
 
         //Group 2
         for (int i = 0; i < countEnemy; i++) {
-            enemies[1][i] = new Enemy("enemy/map1/p2.png", "enemy/map1/2.png", "enemy/map1/w2.png", true, "Goblin" ,2 ,     30, 5, 4, 0.3f, 3, 2,        1, 1, 1, 4); //35-
+            enemies[1][i] = new Enemy("enemy/map1/p2.png", "enemy/map1/2.png", "enemy/map1/w2.png", true, "Goblin" ,2 ,     60, 6, 7, 0.6f, 4, 5,        1, 1, 1, 4); //35
             enemies[1][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[1][i]);
         }
@@ -87,7 +87,7 @@ public class Map_01 extends BaseMap {
         e2 = enemies[1][0];
         //Group 3
         for (int i = 0; i < countEnemy; i++) {
-            enemies[2][i] = new Enemy("enemy/map1/p3.png", "enemy/map1/3.png", "enemy/map1/w3.png", false, "Dzik" ,4 ,      60, 6, 7, 0.6f, 5, 5,         1, 1, 1, 1); //46-
+            enemies[2][i] = new Enemy("enemy/map1/p3.png", "enemy/map1/3.png", "enemy/map1/w3.png", false, "Dzik" ,4 ,      90, 10, 6, 1f, 8, 4,         1, 1, 1, 1); //46
             enemies[2][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[2][i]);
         }
@@ -96,7 +96,7 @@ public class Map_01 extends BaseMap {
         e3 = enemies[2][0];
         //Group 4
         for (int i = 0; i < countEnemy; i++) {
-            enemies[3][i] = new Enemy("enemy/map1/p4.png", "enemy/map1/4.png", "enemy/map1/w4.png", false, "Zombie" ,7 ,        90, 10, 6, 1f, 8, 4,       1, 1, 1, 1);//75-
+            enemies[3][i] = new Enemy("enemy/map1/p4.png", "enemy/map1/4.png", "enemy/map1/w4.png", false, "Zombie" ,7 ,        150, 9, 15, 1.6f, 8, 13,       1, 1, 1, 1);//75
             enemies[3][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[3][i]);
         }
@@ -143,7 +143,6 @@ public class Map_01 extends BaseMap {
         for (int i = 0; i < countEnemy; i++) {
             enemies[8][i] = new Enemy("enemy/map1/p9.png", "enemy/map1/9.png", "enemy/map1/w9.png", true, "Ropuchacz" ,15 ,     410, 34, 48, 4.6f, 31, 42,        1, 1, 1, 1);//215
             enemies[8][i].setRectangle(0, 0, 0, 0);
-            enemies[8][i].setSize(60, 60);
             characters.add(enemies[8][i]);
         }
         enemies[8][0].setPosition(1200, 680);

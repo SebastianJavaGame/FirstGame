@@ -151,7 +151,7 @@ public class Hero extends Character {
         setLevel(preferences.getInteger("LEVEL", 1));
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
 
-        setMaxHp(preferences.getInteger("MAX_HP", 50));
+        setMaxHp(preferences.getInteger("MAX_HP", 100));
         setHpNonEq(getMaxHp());
 
         actualIndexCharacter = 0;//preferences.getInteger("COLLISION", 0);
@@ -177,7 +177,7 @@ public class Hero extends Character {
         }
 
         setMoney(preferences.getInteger("MONEY", 1000));
-        point = preferences.getInteger("FREE_POINT", 5);
+        point = preferences.getInteger("FREE_POINT", 6);
 
         try {
             new UpdateHeroStats(this);
@@ -202,6 +202,7 @@ public class Hero extends Character {
         clearActions();
         heroPolygonUpdate();
         heroUpdateCollisionBox();
+        setMoveStop(false);
 
         soundStep.stop();
         soundStep.loop(0.2f, 0.5f, 0);
@@ -288,8 +289,10 @@ public class Hero extends Character {
         int countCollision = 0;
         boolean pointCollision = false;
         for(Polygon object : objectMap){
-            if(calculateConcavePoligonCollision(heroPolygon, object) && calculateConcavePoligonCollision(point, object))
+            if(calculateConcavePoligonCollision(heroPolygon, object) && calculateConcavePoligonCollision(point, object)) {
+                setStopStep();
                 return;
+            }
             if(calculateConcavePoligonCollision(track, object))
                 countCollision++;
             if(calculateConcavePoligonCollision(point, object)){
@@ -307,7 +310,7 @@ public class Hero extends Character {
         for (Polygon object : objectMap) {
             i++;
             Vector2[] verticalObject = vertical.get(i);
-            if (!moveStop && countCollision < 2) {
+            if (!moveStop) {
                 setActualCollision(object);
                 if (calculateConcavePoligonCollision(point, object)) {
                     setAnimationPlayTrue();
@@ -589,7 +592,6 @@ public class Hero extends Character {
                             break;
                     }
                 }
-                setMoveStop(false);
                 break;
             }
         }
@@ -608,10 +610,10 @@ public class Hero extends Character {
         Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
         soundLvlUp.play();
         preferences.putInteger("LEVEL", preferences.getInteger("LEVEL") +1).flush();
-        preferences.putInteger("FREE_POINT", preferences.getInteger("FREE_POINT") +5).flush();
+        preferences.putInteger("FREE_POINT", preferences.getInteger("FREE_POINT") +6).flush();
         setLevel(getLevel() + 1);
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
-        setPoint(getPoint() +5);
+        setPoint(getPoint() +6);
         System.out.println(getPoint() + "point");
     }
 
@@ -634,11 +636,12 @@ public class Hero extends Character {
 
     public void objectCollision(){
         heroPolygonUpdate();
-
+        System.out.println(getX());
         if(calculateConcavePoligonCollision(heroPolygon, getActualCollision())){
             hero3D.setStopAnimation();
             this.clearActions();
             soundStep.stop();
+            setMoveStop(false);
         }
     }
 

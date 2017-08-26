@@ -248,7 +248,7 @@ public class Enemy extends Character implements Cloneable{
         float x = texture.getRegionWidth();
         float y = texture.getRegionHeight();
 
-        float result = 300 / x;
+        float result = 290 / x;
         float resultTwo = 200 /y;
 
         if(result < 1 || resultTwo < 1) {
