@@ -245,7 +245,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         backgtoundLvl = addImageToStageUi("slotLvl.png", 7, 430, 53, 50);
 
         uiBarEmptyHp = addImageToStageUi("barEmpty.png", 85, 462, 102, 14);
-        uiBarEmptyExp = addImageToStageUi("barEmpty.png", 85, 438, 102, 14);
+        uiBarEmptyExp = addImageToStageUi("barEmpty.png", 85, 438, 180, 14);
         uiBarHp = addImageToStageUi("barHp.png", 86, 464, 100, 10);
         uiBarExp = addImageToStageUi("barExp.png", 86, 440, 100, 10);
         moneyLabel = addLabelToStageUi(220, 470, 0.4f);
@@ -330,7 +330,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         hpLabel.setPosition(uiBarEmptyHp.getX() + uiBarEmptyHp.getWidth() /2 - ((String.valueOf(hero.getHp()).length() + 3
                 + String.valueOf(hero.getMaxHp()).length()) *3 +1), 463 + uiBarEmptyHp.getHeight() /2);
         expLabel.setPosition(uiBarEmptyExp.getX() + uiBarEmptyExp.getWidth() /2 - ((String.valueOf(hero.getExp()).length() + 3
-                + String.valueOf(hero.getMaxExp()).length()) *3 +1), 438 + uiBarEmptyExp.getHeight() /2);
+                + String.valueOf(hero.getMaxExp()).length()) *3 +1) -1, 438 + uiBarEmptyExp.getHeight() /2);
 
         uiBarHp.setSize((float) hero.getHp() / hero.getFullHp() * 100, uiBarHp.getHeight());
         uiBarExp.setSize((float) hero.getExp() / hero.getMaxExp() * 100, uiBarExp.getHeight());
