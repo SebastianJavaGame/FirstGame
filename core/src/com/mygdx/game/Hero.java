@@ -53,6 +53,8 @@ public class Hero extends Character {
 
     private ArrayList<Polygon> objectMap;
     private ArrayList<Vector2[]> vertical;
+    private ArrayList<Vector2> optimisePosition;
+    private ArrayList<boolean[]> optimiseToward;
     private ArrayList<Vector2> queueWay = null;
 
     private ArrayList<Character> characters;
@@ -111,15 +113,20 @@ public class Hero extends Character {
     private static Sound soundStep;
     private static Sound soundLvlUp;
 
+    private int countLoop;
+    private int countLoopOptimalise;
+
     public Hero(Texture texture){
         super(texture);
     }
 
-    public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, Camera camera, Hero3D hero3D,
+    public Hero(Texture texture, ArrayList<Polygon> objectMap, ArrayList<Vector2[]> vertical, ArrayList<Vector2> optimisePosition, ArrayList<boolean[]> optimiseToward, Camera camera, Hero3D hero3D,
                 ArrayList<Character> characters) {
         super(texture);
         this.objectMap = objectMap;
         this.vertical = vertical;
+        this.optimisePosition = optimisePosition;
+        this.optimiseToward = optimiseToward;
         this.camera = camera;
         this.rectangle = new Rectangle();
         this.characters = characters;
@@ -199,6 +206,9 @@ public class Hero extends Character {
     }
 
     public void move(final float posX, final float posY) {
+        System.out.println("Liczba petli z obliczeniem wielokatow kolizji: " + countLoop);
+        countLoop = 0;
+        countLoopOptimalise = 0;
         clearActions();
         heroPolygonUpdate();
         heroUpdateCollisionBox();
@@ -288,14 +298,15 @@ public class Hero extends Character {
 
         int countCollision = 0;
         boolean pointCollision = false;
-        for(Polygon object : objectMap){
-            if(calculateConcavePoligonCollision(heroPolygon, object) && calculateConcavePoligonCollision(point, object)) {
+        //for(Polygon object : objectMap){
+        for (int i = 0; i < objectMap.size(); i++){
+            if(calculateConcavePoligonCollision(heroPolygon, objectMap.get(i)) && calculateConcavePoligonCollision(point, objectMap.get(i))) {
                 setStopStep();
                 return;
             }
-            if(calculateConcavePoligonCollision(track, object))
+            if(calculateConcavePoligonCollision(track, objectMap.get(i)))
                 countCollision++;
-            if(calculateConcavePoligonCollision(point, object)){
+            if(calculateConcavePoligonCollision(point, objectMap.get(i))){
                 pointCollision = true;
             }
         }
@@ -598,6 +609,7 @@ public class Hero extends Character {
     }
 
     private boolean calculateConcavePoligonCollision(Polygon convex, Polygon concave){
+        countLoop++;
         Polygon[] arrayPolygon = GeometryUtils.decomposeIntoConvex(concave);
         for(Polygon polygon: arrayPolygon){
             if(Intersector.overlapConvexPolygons(polygon, convex))
@@ -636,7 +648,6 @@ public class Hero extends Character {
 
     public void objectCollision(){
         heroPolygonUpdate();
-        System.out.println(getX());
         if(calculateConcavePoligonCollision(heroPolygon, getActualCollision())){
             hero3D.setStopAnimation();
             this.clearActions();

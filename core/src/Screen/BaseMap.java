@@ -88,6 +88,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     protected ArrayList<Polygon> objectPolygon;
     protected ArrayList<Vector2[]> verticalPolygon;
+    protected ArrayList<Vector2> optimiseMap;
+    protected ArrayList<boolean[]> optimiseToward;
     protected static ArrayList<Character> charactersList;
 
     protected static boolean bossInstance;
@@ -136,7 +138,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         generateMap();
 
         new Bag(BaseScreen.getStage());
-        hero = new Hero(asset.manager.get("hero.png", Texture.class), objectPolygon, verticalPolygon, camera, hero3D, charactersList);
+        hero = new Hero(asset.manager.get("hero.png", Texture.class), objectPolygon, verticalPolygon, optimiseMap, optimiseToward, camera, hero3D, charactersList);
         hero.setPosition(preferences.getInteger("POS_X"), preferences.getInteger("POS_Y"));
         hero.setSize(8, 8);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
@@ -342,8 +344,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("x: " + screenX);
-        System.out.println("y: " + screenY);
+        //System.out.println("x: " + screenX);
+       // System.out.println("y: " + screenY);
     if(!stopGame && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
