@@ -159,7 +159,7 @@ public class FuncionalityShop {
                 itemDefenseMag = new Label("ObronaMagiczna +" + item.getDefenseMag(), style);
                 itemPrice = new Label("" + item.getCashValue(), style);
                 lPrice = new Label("Cena", style);
-                price = item.getCashValue();
+                price = (int)(item.getCashValue()*0.35f);
 
                 money = new Image(asset.manager.get("uiMoney.png", Texture.class));
                 itemBackground = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
