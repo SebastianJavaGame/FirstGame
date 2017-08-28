@@ -80,11 +80,11 @@ public class LoadAllItemToGame {
         ITEMS.put("armor11", new Item("armor11", "Items/armor/11.png", "teahell", Item.ItemType.ARMOR, 43,      180, 6, 5, 2.2f, 18, 16, 125000)); //84     16
         ITEMS.put("armor12", new Item("armor12", "Items/armor/12.png", "arnsal", Item.ItemType.ARMOR, 46,       190, 6, 5, 2.3f, 20, 18, 160000));  //90        18
         ITEMS.put("armor13", new Item("armor13", "Items/armor/13.png", "ceretris", Item.ItemType.ARMOR, 50,     190, 6, 6, 2.4f, 23, 21, 230000));  //98    19
-        ITEMS.put("armor14", new Item("armor14", "Items/armor/14.png", "manpur", Item.ItemType.ARMOR, 54,       210, 6, 7, 2.7f, 24, 23, 350000));  //107   21
-        ITEMS.put("armor15", new Item("armor15", "Items/armor/15.png", "Orinal", Item.ItemType.ARMOR, 57,       210, 7, 7, 2.8f, 25, 23, 350000));  //110       22
+        ITEMS.put("armor14", new Item("armor14", "Items/armor/14.png", "manpur", Item.ItemType.ARMOR, 54,       210, 6, 7, 2.7f, 24, 23, 340000));  //107   21
+        ITEMS.put("armor15", new Item("armor15", "Items/armor/15.png", "Orinal", Item.ItemType.ARMOR, 57,       210, 7, 7, 2.8f, 25, 23, 390000));  //110       22
         ITEMS.put("armor16", new Item("armor16", "Items/armor/16.png", "maendra", Item.ItemType.ARMOR, 60,      220, 7, 7, 2.8f, 26, 23, 450000));  //112      24
-        ITEMS.put("armor17", new Item("armor17", "Items/armor/17.png", "Zagreb", Item.ItemType.ARMOR, 64,       230, 8, 7, 3f, 26, 24, 575000));  //117      26
-        ITEMS.put("armor18", new Item("armor18", "Items/armor/18.png", "varlin", Item.ItemType.ARMOR, 68,       240, 8, 7, 3.1f, 26, 25, 575000));  //120       27
+        ITEMS.put("armor17", new Item("armor17", "Items/armor/17.png", "Zagreb", Item.ItemType.ARMOR, 64,       230, 8, 7, 3f, 26, 24, 520000));  //117      26
+        ITEMS.put("armor18", new Item("armor18", "Items/armor/18.png", "varlin", Item.ItemType.ARMOR, 68,       240, 8, 7, 3.1f, 26, 25, 610000));  //120       27
         ITEMS.put("armor19", new Item("armor19", "Items/armor/19.png", "gheiterog", Item.ItemType.ARMOR, 71,    250, 8, 8, 3.2f, 28, 25, 700000));  //125     29
         ITEMS.put("armor20", new Item("armor20", "Items/armor/20.png", "kaliertare", Item.ItemType.ARMOR, 75,   270, 9, 8, 3.4f, 30, 27, 850000));  //134     31
         ITEMS.put("armor21", new Item("armor21", "Items/armor/21.png", "isgur", Item.ItemType.ARMOR, 80,        300, 9, 9, 3.5f, 33, 28, 1000000));  //143    32
@@ -137,7 +137,7 @@ public class LoadAllItemToGame {
         ITEMS.put("pants2", new Item("pants2", "Items/pants/2.png", "Bony", Item.ItemType.PANTS, 7,             30, 1, 2, 0.1f, 1, 2, 1600));  //10  3
         ITEMS.put("pants3", new Item("pants3", "Items/pants/3.png", "lyskmery", Item.ItemType.PANTS, 15,           60, 5, 5, 0.4f, 4, 5, 7300)); //29    5
         ITEMS.put("pants4", new Item("pants4", "Items/pants/4.png", "Olny", Item.ItemType.PANTS, 22,             80, 7, 7, 0.7f, 8, 9, 25000)); //46   8
-        ITEMS.put("pants5", new Item("pants5", "Items/pants/5.png", "lystry", Item.ItemType.PANTS, 27,             80, 8, 8, 0.9f, 9, 11, 46)); //53      10
+        ITEMS.put("pants5", new Item("pants5", "Items/pants/5.png", "lystry", Item.ItemType.PANTS, 27,             80, 8, 8, 0.9f, 9, 11, 46000)); //53      10
         ITEMS.put("pants6", new Item("pants6", "Items/pants/6.png", "vengsy", Item.ItemType.PANTS, 31,             100, 10, 8, 1.1f, 11, 13, 62000));//63  13
         ITEMS.put("pants7", new Item("pants7", "Items/pants/7.png", "biltebendary", Item.ItemType.PANTS, 38,         120, 12, 9, 1.4f, 13, 15, 100000));//75    16
         ITEMS.put("pants8", new Item("pants8", "Items/pants/8.png", "hadrasy", Item.ItemType.PANTS, 45,             150, 15, 12, 1.8f, 16, 18, 160000));//94    18
@@ -166,8 +166,8 @@ public class LoadAllItemToGame {
         ITEMS.put("rekawice8", new Item("rekawice8", "Items/rekawice/8.png", "aquerisy", Item.ItemType.ITEM_HAND, 40,             180, 17, 19, 0.5f, 15, 17, 105000));  //80  17
         ITEMS.put("rekawice9", new Item("rekawice9", "Items/rekawice/9.png", "Kemsy", Item.ItemType.ITEM_HAND, 45,             190, 20, 21, 0.6f, 17, 18, 160000));  //89   19
         ITEMS.put("rekawice10", new Item("rekawice10", "Items/rekawice/10.png", "szpony", Item.ItemType.ITEM_HAND, 49,             200, 22, 22, 0.6f, 18, 18, 190000));  //94   22
-        ITEMS.put("rekawice11", new Item("rekawice11", "Items/rekawice/11.png", "Mogny", Item.ItemType.ITEM_HAND, 54,          210, 23, 24, 0.7f, 19, 19, 360000));  //101  24
-        ITEMS.put("rekawice12", new Item("rekawice12", "Items/rekawice/12.png", "Grovy", Item.ItemType.ITEM_HAND, 61,           230, 24, 25, 1f, 20, 20, 360000));  //110    27
+        ITEMS.put("rekawice11", new Item("rekawice11", "Items/rekawice/11.png", "Mogny", Item.ItemType.ITEM_HAND, 54,          210, 23, 24, 0.7f, 19, 19, 300000));  //101  24
+        ITEMS.put("rekawice12", new Item("rekawice12", "Items/rekawice/12.png", "Grovy", Item.ItemType.ITEM_HAND, 61,           230, 24, 25, 1f, 20, 20, 370000));  //110    27
         ITEMS.put("rekawice13", new Item("rekawice13", "Items/rekawice/13.png", "udreki", Item.ItemType.ITEM_HAND, 65,          240, 25, 26, 1.1f, 21, 21, 600000));  //116 29
         ITEMS.put("rekawice14", new Item("rekawice14", "Items/rekawice/14.png", "veldreny", Item.ItemType.ITEM_HAND, 75,          270, 30, 30, 1.3f, 22, 22, 890000));  //130   31
 
@@ -192,7 +192,7 @@ public class LoadAllItemToGame {
         ITEMS.put("ring9", new Item("ring9", "Items/ring/9.png", "khelem", Item.ItemType.RING, 39,             190, 15, 15, 0.1f, 15, 15, 105000));  //80   14
         ITEMS.put("ring10", new Item("ring10", "Items/ring/10.png", "nirt", Item.ItemType.RING, 42,               200, 18, 16, 0.2f, 16, 17, 110000));  //89 16
         ITEMS.put("ring11", new Item("ring11", "Items/ring/11.png", "Blask", Item.ItemType.RING, 45,           220, 18, 18, 0.2f, 17, 18, 170000));  //95   18
-        ITEMS.put("ring12", new Item("ring12", "Items/ring/12.png", "allakaj", Item.ItemType.RING, 48,           220, 19, 19, 0.2f, 18, 20, 170000));  //100    20
+        ITEMS.put("ring12", new Item("ring12", "Items/ring/12.png", "allakaj", Item.ItemType.RING, 48,           220, 19, 19, 0.2f, 18, 20, 250000));  //100    20
         ITEMS.put("ring13", new Item("ring13", "Items/ring/13.png", "kerepeks", Item.ItemType.RING, 53,           230, 19, 20, 0.3f, 20, 22, 310000));  //107   21
         ITEMS.put("ring14", new Item("ring14", "Items/ring/14.png", "narthill", Item.ItemType.RING, 56,           250, 21, 21, 0.3f, 21, 22, 375000));  //113   23
         ITEMS.put("ring15", new Item("ring15", "Items/ring/15.png", "sphaera", Item.ItemType.RING, 60,           260, 21, 22, 0.4f, 23, 24, 475000));  //120    25

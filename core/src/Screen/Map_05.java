@@ -63,9 +63,9 @@ public class Map_05 extends BaseMap {
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
+            enemies[0][i].setDropItemName("armor12");
         }
         enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
 
         //Group 2
         for (int i = 0; i < 7; i++) {
@@ -73,9 +73,9 @@ public class Map_05 extends BaseMap {
             enemies[1][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[1][i]);
             enemies[1][i].collisionUpdate();
+            enemies[1][i].setDropItemName("wapons23", "ring12");
         }
         enemies[1][0].setPosition(0, 0);
-        enemies[1][0].setDropItemName("");
 
         //Group 3
         for (int i = 0; i < 7; i++) {
@@ -83,9 +83,9 @@ public class Map_05 extends BaseMap {
             enemies[2][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[2][i]);
             enemies[2][i].collisionUpdate();
+            enemies[2][i].setDropItemName("rekawice10", "ring12");
         }
         enemies[2][0].setPosition(0, 0);
-        enemies[2][0].setDropItemName("");
 
         //Group 4
         for (int i = 0; i < 7; i++) {
@@ -93,9 +93,9 @@ public class Map_05 extends BaseMap {
             enemies[3][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[3][i]);
             enemies[3][i].collisionUpdate();
+            enemies[3][i].setDropItemName("wapons24", "wapons23");
         }
         enemies[3][0].setPosition(0, 0);
-        enemies[3][0].setDropItemName("");
 
         //Group 5
         for (int i = 0; i < 7; i++) {
@@ -103,9 +103,9 @@ public class Map_05 extends BaseMap {
             enemies[4][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[4][i]);
             enemies[4][i].collisionUpdate();
+            enemies[4][i].setDropItemName("helmet13", "armor13");
         }
         enemies[4][0].setPosition(0, 0);
-        enemies[4][0].setDropItemName("");
 
         //Group 6
         for (int i = 0; i < 7; i++) {
@@ -113,9 +113,9 @@ public class Map_05 extends BaseMap {
             enemies[5][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[5][i]);
             enemies[5][i].collisionUpdate();
+            enemies[5][i].setDropItemName("wapons25", "helmet13");
         }
         enemies[5][0].setPosition(0, 0);
-        enemies[5][0].setDropItemName("");
 
         //Group 7
         for (int i = 0; i < 7; i++) {
@@ -123,9 +123,9 @@ public class Map_05 extends BaseMap {
             enemies[6][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[6][i]);
             enemies[6][i].collisionUpdate();
+            enemies[6][i].setDropItemName("rekawice11", "armor14");
         }
         enemies[6][0].setPosition(0, 0);
-        enemies[6][0].setDropItemName("");
 
         //Group 8
         for (int i = 0; i < 7; i++) {
@@ -133,9 +133,9 @@ public class Map_05 extends BaseMap {
             enemies[7][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[7][i]);
             enemies[7][i].collisionUpdate();
+            enemies[7][i].setDropItemName("wapons26", "pants9");
         }
         enemies[7][0].setPosition(0, 0);
-        enemies[7][0].setDropItemName("");
 
         //Group 9
         for (int i = 0; i < 7; i++) {
@@ -143,9 +143,9 @@ public class Map_05 extends BaseMap {
             enemies[8][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[8][i]);
             enemies[8][i].collisionUpdate();
+            enemies[8][i].setDropItemName("ring14", "armor15");
         }
         enemies[8][0].setPosition(0, 0);
-        enemies[8][0].setDropItemName("");
 
         //Group 10
         for (int i = 0; i < 7; i++) {
@@ -153,9 +153,9 @@ public class Map_05 extends BaseMap {
             enemies[9][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[9][i]);
             enemies[9][i].collisionUpdate();
+            enemies[9][i].setDropItemName("pants10", "wapons27", "armor15");
         }
         enemies[9][0].setPosition(0, 0);
-        enemies[9][0].setDropItemName("");
     }
 
     @Override

@@ -429,7 +429,7 @@ public class Equipment{
                     itemDefenseFiz = new Label("ObronaFizyczna +" + item.getDefenseFiz(), style);
                     itemDefenseMag = new Label("ObronaMagicza +" + item.getDefenseMag(), style);
                     money = new Image(asset.manager.get("uiMoney.png", Texture.class));
-                    itemPrice = new Label("Cena: " + item.getCashValue()*0.35f, style);
+                    itemPrice = new Label("Cena: " + (int)(item.getCashValue()*0.35f), style);
                     infoStorage = new Label("PLECAK", styleGreen);
                     itemBackground = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
                     barName = new Image(asset.manager.get("nameBar.png", Texture.class));
@@ -490,7 +490,7 @@ public class Equipment{
                                     itemDefenseFizDown = new Label("ObronaFizyczna +" + itemUp.getDefenseFiz(), style);
                                     itemDefenseMagDown = new Label("ObronaMagiczna +" + itemUp.getDefenseMag(), style);
                                     moneyDown = new Image(asset.manager.get("uiMoney.png", Texture.class));
-                                    itemPriceDown = new Label("Cena: " + itemUp.getCashValue()*0.35f, style);
+                                    itemPriceDown = new Label("Cena: " + (int)(itemUp.getCashValue()*0.35f), style);
                                     infoStorageDown = new Label("Założone", styleGreen);
                                     itemBackgroundDown = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
                                     barNameDown = new Image(asset.manager.get("nameBar.png", Texture.class));

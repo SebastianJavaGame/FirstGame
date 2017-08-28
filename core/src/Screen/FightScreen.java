@@ -328,7 +328,7 @@ public class FightScreen extends BaseScreen {
                                                 }
                                             });
                                             label.addAction(Actions.sequence(Actions.parallel(Actions.moveBy(0, -60, 3), action0), Actions.parallel(Actions.fadeOut(1),
-                                                    Actions.delay(3)), action2, action3));
+                                                    Actions.delay(1)), action2, action3));
                                         }
                                     });
                                     stage.addAction(Actions.sequence(action));
@@ -778,12 +778,6 @@ public class FightScreen extends BaseScreen {
             }),Actions.delay(3), Actions.run(new Runnable() {
                 @Override
                 public void run() {
-                    /*if (flip) {
-                        enemy.getTexture().flip(true, false);
-                        enemyImage = new Image(enemy.getTexture());
-                    } else
-                        enemyImage = new Image(enemy.getTexture());
-*/
                     float expMinus = Hero.getMaxExp();
                     float temporary = MathUtils.random(12, 17);
 
@@ -992,7 +986,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private int calculateMagicDmgEnemy() {
-        float dmg = enemy.getWiedza() *((100 +(float)enemy.getLevel()*2) /100);
+        float dmg = enemy.getWiedza() *((100 +(float)enemy.getLevel()*2) /100) *3;
 
         System.out.println("Dmg enemy to hero - Magic");
         System.out.println("enemy wiedza: " + enemy.getWiedza());
@@ -1027,7 +1021,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private int calculateMagicDmgHero() {
-        float dmg = hero.getWiedzaEq() *((100 +(float)hero.getLevel()*2) /100);
+        float dmg = hero.getWiedzaEq() *((100 +(float)hero.getLevel()*2) /100) *3;
 
         System.out.println("Dmg hero to enemy - Magic");
         System.out.println("hero wiedza: " + hero.getWiedzaEq());
@@ -1066,7 +1060,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private int calculatePhysicsDmgEnemy() {
-        float dmg = enemy.getStrong() *((100 +(float)enemy.getLevel()) /100);
+        float dmg = enemy.getStrong() *((100 +(float)enemy.getLevel()) /100) *2.5f;
 
         System.out.println("Dmg enemy to hero");
         System.out.println("enemy strong: " + enemy.getStrong());
@@ -1101,7 +1095,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private int calculatePhysicsDmgHero() {
-        float dmg = hero.getStrongEq() *((100 +(float)hero.getLevel()) /100);
+        float dmg = hero.getStrongEq() *((100 +(float)hero.getLevel()) /100) *2.5f;
 
         System.out.println("Dmg hero to enemy");
         System.out.println("hero strong: " + hero.getStrongEq());

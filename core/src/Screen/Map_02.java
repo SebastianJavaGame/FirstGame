@@ -35,12 +35,7 @@ public class Map_02 extends BaseMap {
     private static ArrayList<Character> characters;
 
     static {
-        //Asset asset = new Asset();
-        //asset.manager.load("MAP_01.jpg", Texture.class);
-        //asset.manager.finishLoading();
-        //if(asset.manager.update()) {
         mapImage = new Image(new Texture("MAP_02.jpg"));
-        //}
         mapWidth = (int)(mapImage.getWidth() *0.8f);
         mapHeight = (int)(mapImage.getHeight() *0.8f);
     }
@@ -63,9 +58,9 @@ public class Map_02 extends BaseMap {
             enemies[0][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
+            enemies[0][i].setDropItemName("helmet4", "wapons5");
         }
         enemies[0][0].setPosition(0, 0);
-        enemies[0][0].setDropItemName("");
 
         //Group 2
         for (int i = 0; i < 7; i++) {
@@ -73,9 +68,9 @@ public class Map_02 extends BaseMap {
             enemies[1][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[1][i]);
             enemies[1][i].collisionUpdate();
+            enemies[1][i].setDropItemName("wapons6", "ring4");
         }
         enemies[1][0].setPosition(0, 0);
-        enemies[1][0].setDropItemName("");
 
         //Group 3
         for (int i = 0; i < 7; i++) {
@@ -83,9 +78,9 @@ public class Map_02 extends BaseMap {
             enemies[2][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[2][i]);
             enemies[2][i].collisionUpdate();
+            enemies[2][i].setDropItemName("ring4", "wapons6");
         }
         enemies[2][0].setPosition(0, 0);
-        enemies[2][0].setDropItemName("");
 
         //Group 4
         for (int i = 0; i < 7; i++) {
@@ -93,9 +88,9 @@ public class Map_02 extends BaseMap {
             enemies[3][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[3][i]);
             enemies[3][i].collisionUpdate();
+            enemies[3][i].setDropItemName("wapons7", "armor4");
         }
         enemies[3][0].setPosition(0, 0);
-        enemies[3][0].setDropItemName("");
 
         //Group 5
         for (int i = 0; i < 7; i++) {
@@ -103,9 +98,10 @@ public class Map_02 extends BaseMap {
             enemies[4][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[4][i]);
             enemies[4][i].collisionUpdate();
+            enemies[4][i].setDropItemName("pants3", "rekawice4", "shoes3");
+
         }
         enemies[4][0].setPosition(0, 0);
-        enemies[4][0].setDropItemName("");
 
         //Group 6
         for (int i = 0; i < 7; i++) {
@@ -113,9 +109,9 @@ public class Map_02 extends BaseMap {
             enemies[5][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[5][i]);
             enemies[0][i].collisionUpdate();
+            enemies[5][i].setDropItemName("wapons8", "helmet5");
         }
         enemies[5][0].setPosition(0, 0);
-        enemies[5][0].setDropItemName("");
 
         //Group 7
         for (int i = 0; i < 7; i++) {
@@ -123,9 +119,9 @@ public class Map_02 extends BaseMap {
             enemies[6][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[6][i]);
             enemies[0][i].collisionUpdate();
+            enemies[6][i].setDropItemName("ring5", "wapons8");
         }
         enemies[6][0].setPosition(0, 0);
-        enemies[6][0].setDropItemName("");
 
         //Group 8
         for (int i = 0; i < 7; i++) {
@@ -133,9 +129,9 @@ public class Map_02 extends BaseMap {
             enemies[7][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[7][i]);
             enemies[0][i].collisionUpdate();
+            enemies[7][i].setDropItemName("armor5", "helmet6", "wapons9");
         }
         enemies[7][0].setPosition(0, 0);
-        enemies[7][0].setDropItemName("");
 
         //Group 9
         for (int i = 0; i < 7; i++) {
@@ -143,9 +139,9 @@ public class Map_02 extends BaseMap {
             enemies[8][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[8][i]);
             enemies[0][i].collisionUpdate();
+            enemies[8][i].setDropItemName("wapons10", "pants4");
         }
         enemies[8][0].setPosition(0, 0);
-        enemies[8][0].setDropItemName("");
 
         //Group 10
         for (int i = 0; i < 7; i++) {
@@ -153,9 +149,9 @@ public class Map_02 extends BaseMap {
             enemies[9][i].setRectangle(0, 0, 0, 0);
             characters.add(enemies[9][i]);
             enemies[0][i].collisionUpdate();
+            enemies[9][i].setDropItemName("rekawice5", "tarcza4", "shoes4", "helmet7");
         }
         enemies[9][0].setPosition(0, 0);
-        enemies[9][0].setDropItemName("");
     }
 
     @Override
