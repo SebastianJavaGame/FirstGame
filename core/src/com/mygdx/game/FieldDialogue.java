@@ -31,7 +31,7 @@ public class FieldDialogue {
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
     public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
-    private static final int LINE_LENGTH = 28;
+    private static final int LINE_LENGTH = 27;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
     private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);
 
@@ -65,6 +65,7 @@ public class FieldDialogue {
     private int answerThird = -1;
 
     private Sound textDialog;
+    private String text;
 
     public FieldDialogue(int idNpc, int indexText){
         asset.loadFieldDialogue();
@@ -78,6 +79,7 @@ public class FieldDialogue {
             this.idNpc = idNpc;
             this.idIndexText = indexText;
             String getText = BaseDialogs.getText(idNpc, indexText);
+            this.text = getText;
             String text = "";
             int i = -1;
             int textLength;
@@ -113,7 +115,7 @@ public class FieldDialogue {
                 e.printStackTrace();
             }
 
-            if (indexText < BaseDialogs.COUNT_HERO_TEXT_OPTION)
+            if (indexText < BaseDialogs.INDEX_LISTENER[idNpc].length)//TODO may be error
                 label = new Label(text, STYLE_GREEN);
             else
                 label = new Label(text, STYLE_WHITE);
@@ -407,5 +409,9 @@ public class FieldDialogue {
 
     public int getYlABEL(){
         return (int)label.getY();
+    }
+
+    public String getText(){
+        return text;
     }
 }

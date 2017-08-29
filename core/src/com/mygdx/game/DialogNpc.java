@@ -30,10 +30,10 @@ public class DialogNpc {
     public final int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
     public final int POS_TEXT_FIELD_NPC = POS_Y +360;
 
-    private static final int START_NPC_TEXT = 8;
-    private static final int START_ANSWER_ONE = 0;
-    private static final int START_ANSWER_TWO = 1;
-    private static final int START_ANSWER_THREE = 3;
+    private int textNpc;
+    private int textHero0;
+    private int textHero1;
+    private int textHero2;
 
     private static final BitmapFont font = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle style = new Label.LabelStyle();
@@ -43,7 +43,6 @@ public class DialogNpc {
 
     private static Npc npc;
     private Stage stage;
-    private Stage fontStage;
 
     private static FieldDialogue[] fieldTextList;
 
@@ -55,6 +54,11 @@ public class DialogNpc {
         this.npc = npc;
         this.stage = BaseScreen.getStage();
         fieldTextList = new FieldDialogue[4];
+
+        textNpc = BaseDialogs.STARTING_TEXT[npc.getId()][0];
+        textHero0 = BaseDialogs.STARTING_TEXT[npc.getId()][1];
+        textHero1 = BaseDialogs.STARTING_TEXT[npc.getId()][2];
+        textHero2 = BaseDialogs.STARTING_TEXT[npc.getId()][3];
 
         BACKGROUND.setSize(BACKGROUND.getWidth(), 400);
         BACKGROUND.setPosition(POS_X +(BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, POS_TEXT_FIELD_NPC -345);
@@ -69,7 +73,7 @@ public class DialogNpc {
                 removeAll();
                 FieldDialogue.clearDialogueReward();
                 Hero.setActiveMove(false);
-                //Hero3D.setRenderHero3d(true);
+                Hero3D.setRenderHero3d(true);
                 return false;
             }
         });
@@ -87,7 +91,7 @@ public class DialogNpc {
         imageHead.setSize(60, 60);
         imageHead.setPosition(UP_LABEL.getX() -9, UP_LABEL.getY() -6);
 
-        //Hero3D.setRenderHero3d(false);
+        Hero3D.setRenderHero3d(false);
         Hero.setActiveMove(true);
 
         lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, UP_LABEL.getY() + 35*0.5f);
@@ -98,12 +102,14 @@ public class DialogNpc {
     }
 
     private void create(){
-        fieldTextList[0] = new FieldDialogue(npc.getId(), START_NPC_TEXT).setPosition(POS_TEXT_FIELD_NPC);
-        fieldTextList[1] = new FieldDialogue(npc.getId(), START_ANSWER_ONE);
-        fieldTextList[2] = new FieldDialogue(npc.getId(), START_ANSWER_TWO);
+        fieldTextList[0] = new FieldDialogue(npc.getId(), textNpc).setPosition(POS_TEXT_FIELD_NPC);
+        fieldTextList[1] = new FieldDialogue(npc.getId(), textHero0);
+        setListener(1, textHero0);
 
-        setListener(1, START_ANSWER_ONE);
-        setListener(2, START_ANSWER_TWO);
+        if(textHero1 != -1) {
+            fieldTextList[2] = new FieldDialogue(npc.getId(), textHero1);
+            setListener(2, textHero1);
+        }
 
         if(BaseTask.isComplete(npc.getIdTask())) {
             //TODO change second parameter in base on task event
@@ -111,8 +117,10 @@ public class DialogNpc {
             setListener(3, 7);
         }
         else {
-            fieldTextList[3] = new FieldDialogue(npc.getId(), START_ANSWER_THREE);
-            setListener(3, START_ANSWER_THREE);
+            if(textHero2 != -1) {
+                fieldTextList[3] = new FieldDialogue(npc.getId(), textHero2);
+                setListener(3, textHero2);
+            }
         }
         updatePosition();
     }
@@ -184,11 +192,6 @@ public class DialogNpc {
     private void addActors(Actor ... actor){
         for(Actor object: actor)
             stage.addActor(object);
-    }
-
-    private void addFonts(Actor ... actor){
-        for(Actor object: actor)
-            fontStage.addActor(object);
     }
 
     public static FieldDialogue[] getFieldTextList(){

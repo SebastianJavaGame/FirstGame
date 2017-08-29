@@ -40,7 +40,6 @@ public class Npc extends Character{
         preferences.putInteger("POS_X", (int)hero.getX()).flush();
         preferences.putInteger("POS_Y", (int)hero.getY()).flush();
         Menu.setIsFirstSpawnHeroPosition(true);
-        System.out.println(preferences.getInteger("POS_X") + "posx");
         new DialogNpc(this);
     }
 
