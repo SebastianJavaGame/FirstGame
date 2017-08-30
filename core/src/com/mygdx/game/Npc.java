@@ -17,20 +17,19 @@ public class Npc extends Character{
     private int level;
 
     private int id;
-    private static int idIteration = -1;
     private int idTask;
 
     private int idShop;
 
-    public Npc(Texture texture, Image head, String name, int level, int idShop, int idTask) {
+    public Npc(Texture texture, Image head, String name, int level, int idShop, int idTask, int id) {
         super(texture);
         this.head = head;
         this.name = name;
         this.level = level;
         this.idShop = idShop;
         this.idTask = idTask;
-        idIteration++;
-        this.id = idIteration;
+        this.id = id;
+        setSize(getWidth() *0.65f, getHeight()*0.65f);
     }
 
     @Override
@@ -41,10 +40,6 @@ public class Npc extends Character{
         preferences.putInteger("POS_Y", (int)hero.getY()).flush();
         Menu.setIsFirstSpawnHeroPosition(true);
         new DialogNpc(this);
-    }
-
-    public static void resetIteration(){
-        idIteration = -1;
     }
 
     public Image getHead() {

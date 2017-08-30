@@ -131,9 +131,7 @@ public class FieldDialogue {
                     if (fieldsText.length > 3)
                         answerThird = fieldsText[3];
                 }
-            } catch (Exception e) {
-                BaseScreen.showException(e);
-                e.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException e) {
             }
         }
     }
@@ -248,6 +246,9 @@ public class FieldDialogue {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 textDialog.play(0.5f);
+                Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+                preferences.putInteger("POS_X", MapBoss_01.STARTING_POS_X).flush();
+                preferences.putInteger("POS_Y", MapBoss_01.STARTING_POS_Y).flush();
                 BaseScreen.getGame().setScreen(new MapBoss_01(BaseScreen.getGame()));
                 return false;
             }

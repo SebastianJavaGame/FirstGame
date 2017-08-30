@@ -104,6 +104,7 @@ public class DialogNpc {
     }
 
     private void create(){
+        //Hero.setActiveMove(false);
         fieldTextList[0] = new FieldDialogue(npc.getId(), textNpc).setPosition(POS_TEXT_FIELD_NPC);
         fieldTextList[1] = new FieldDialogue(npc.getId(), textHero0);
         setListener(1, textHero0);
@@ -148,7 +149,6 @@ public class DialogNpc {
         }catch (ArrayIndexOutOfBoundsException e){
             return;
         }
-
         switch (chooseListener){
             case 0:
                 fieldTextList[idFieldDialogue].info();

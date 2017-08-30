@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import Screen.BaseMap;
 import Screen.BaseScreen;
-import Screen.Map_01;
 
 /**
  * Created by Sebastian on 2017-06-17.
@@ -61,14 +60,14 @@ public class RenderCollisionLine_Test implements Disposable{
         /**
          * Render collision MAP_01
          */
-        renderPolygonTest(1368,840,1562,821,1490,701,1299,736);
-        renderPolygonTest(765,901,868,925,933,892,1167,1053,910,1189,1046,1261,975,1539,941,1539,893,1408,816,1422,751,1326,749,1215,828,1197,828,1156,756,1123,732,1144,695,1166,651,1143,652,1107,583,1073,546,1019,538,934,606,903);
-        renderPolygonTest(1177,1840,1260,1890,1240,1945,1188,1956,1119,1890,1147,1861);
-        renderPolygonTest(966,1909,891,2012,812,2044,747,1964,728,1844,591,1908,570,1856,814,1715,520,1548,527,1505,565,1506,653,1522,695,1525,693,1575,817,1640,853,1621,885,1631,884,1682,927,1721,847,1790,975,1876);
-        renderPolygonTest(172,809,422,669,340,582,584,455,562,430,631,395,804,490,1005,393,1155,405,1341,493,1410,491,1522,447,1754,540,1982,451,2300,456,2295,290,1000,200,79,462);
-        renderPolygonTest(2060,450,2070,652,2068,740,2061,795,2080,843,1957,929,1902,1044,1949,1242,1927,1326,2035,1688,2006,1728,2048,1930,1950,1878,1745,1979,1728,2030,1555,2141,1455,2085,1359,2124,1287,2216,1272,2279,2327,2461);
-        renderPolygonTest(221,784,313,843,292,1005,250,1037,254,1077,420,1169,372,1378,420,1169,372,1378,420,1388,457,1495,373,1675,416,1750,383,1853,352,1928,467,1993,471,2033,850,2233,919,2181,1006,2188,1103,2150,1214,2242,105,2434);
-        renderPolygonTest(1708,1567,1859,1634,1958,1714,1954,1763,1839,1878,1772,1825,1675,1829,1483,1743,1481,1696);
+        //renderPolygonTest(1368,840,1562,821,1490,701,1299,736);
+        //renderPolygonTest(765,901,868,925,933,892,1167,1053,910,1189,1046,1261,975,1539,941,1539,893,1408,816,1422,751,1326,749,1215,828,1197,828,1156,756,1123,732,1144,695,1166,651,1143,652,1107,583,1073,546,1019,538,934,606,903);
+        //renderPolygonTest(1177,1840,1260,1890,1240,1945,1188,1956,1119,1890,1147,1861);
+        //renderPolygonTest(966,1909,891,2012,812,2044,747,1964,728,1844,591,1908,570,1856,814,1715,520,1548,527,1505,565,1506,653,1522,695,1525,693,1575,817,1640,853,1621,885,1631,884,1682,927,1721,847,1790,975,1876);
+        //renderPolygonTest(172,809,422,669,340,582,584,455,562,430,631,395,804,490,1005,393,1155,405,1341,493,1410,491,1522,447,1754,540,1982,451,2300,456,2295,290,1000,200,79,462);
+        //renderPolygonTest(2060,450,2070,652,2068,740,2061,795,2080,843,1957,929,1902,1044,1949,1242,1927,1326,2035,1688,2006,1728,2048,1930,1950,1878,1745,1979,1728,2030,1555,2141,1455,2085,1359,2124,1287,2216,1272,2279,2327,2461);
+        //renderPolygonTest(221,784,313,843,292,1005,250,1037,254,1077,420,1169,372,1378,420,1169,372,1378,420,1388,457,1495,373,1675,416,1750,383,1853,352,1928,467,1993,471,2033,850,2233,919,2181,1006,2188,1103,2150,1214,2242,105,2434);
+        //renderPolygonTest(1708,1567,1859,1634,1958,1714,1954,1763,1839,1878,1772,1825,1675,1829,1483,1743,1481,1696);
         /**
          *Render collision MAP_02
          */
@@ -128,7 +127,7 @@ public class RenderCollisionLine_Test implements Disposable{
         /**
          * Render collision BOSS_MAP_01
          */
-        //renderPolygonTest(338,317,434,373,1022,380,1027,698,877,782,228,778,236,525,213,460,163,422,158,328,204,301,77,321,124,946,1200,950,1200,10);
+        renderPolygonTest(338,317,434,373,1022,380,1027,698,877,782,228,778,236,525,213,460,163,422,158,328,204,301,77,321,124,946,1200,950,1200,10);
         /**
          * Render collision BOSS_MAP_02
          */
@@ -156,16 +155,16 @@ public class RenderCollisionLine_Test implements Disposable{
         /**
          * Render END
          */
-        drawRect(Map_01.e1.getX() + Map_01.e1.x, Map_01.e1.getY() + Map_01.e1.y, Map_01.e1.getWidth() + Map_01.e1.w, Map_01.e1.getHeight() + Map_01.e1.h);
-        drawRect(Map_01.e2.getX() + Map_01.e2.x, Map_01.e2.getY() + Map_01.e2.y, Map_01.e2.getWidth() + Map_01.e2.w, Map_01.e2.getHeight() + Map_01.e2.h);
-        drawRect(Map_01.e3.getX() + Map_01.e3.x, Map_01.e3.getY() + Map_01.e3.y, Map_01.e3.getWidth() + Map_01.e3.w, Map_01.e3.getHeight() + Map_01.e3.h);
-        drawRect(Map_01.e4.getX() + Map_01.e4.x, Map_01.e4.getY() + Map_01.e4.y, Map_01.e4.getWidth() + Map_01.e4.w, Map_01.e4.getHeight() + Map_01.e4.h);
-        drawRect(Map_01.e5.getX() + Map_01.e5.x, Map_01.e5.getY() + Map_01.e5.y, Map_01.e5.getWidth() + Map_01.e5.w, Map_01.e5.getHeight() + Map_01.e5.h);
-        drawRect(Map_01.e6.getX() + Map_01.e6.x, Map_01.e6.getY() + Map_01.e6.y, Map_01.e6.getWidth() + Map_01.e6.w, Map_01.e6.getHeight() + Map_01.e6.h);
-        drawRect(Map_01.e7.getX() + Map_01.e7.x, Map_01.e7.getY() + Map_01.e7.y, Map_01.e7.getWidth() + Map_01.e7.w, Map_01.e7.getHeight() + Map_01.e7.h);
-        drawRect(Map_01.e8.getX() + Map_01.e8.x, Map_01.e8.getY() + Map_01.e8.y, Map_01.e8.getWidth() + Map_01.e8.w, Map_01.e8.getHeight() + Map_01.e8.h);
-        drawRect(Map_01.e9.getX() + Map_01.e9.x, Map_01.e9.getY() + Map_01.e9.y, Map_01.e9.getWidth() + Map_01.e9.w, Map_01.e9.getHeight() + Map_01.e9.h);
-        drawRect(Map_01.e10.getX() + Map_01.e10.x, Map_01.e10.getY() + Map_01.e10.y, Map_01.e10.getWidth() + Map_01.e10.w, Map_01.e10.getHeight() + Map_01.e10.h);
+        //drawRect(Map_01.e1.getX() + Map_01.e1.x, Map_01.e1.getY() + Map_01.e1.y, Map_01.e1.getWidth() + Map_01.e1.w, Map_01.e1.getHeight() + Map_01.e1.h);
+        //drawRect(Map_01.e2.getX() + Map_01.e2.x, Map_01.e2.getY() + Map_01.e2.y, Map_01.e2.getWidth() + Map_01.e2.w, Map_01.e2.getHeight() + Map_01.e2.h);
+        //drawRect(Map_01.e3.getX() + Map_01.e3.x, Map_01.e3.getY() + Map_01.e3.y, Map_01.e3.getWidth() + Map_01.e3.w, Map_01.e3.getHeight() + Map_01.e3.h);
+        //drawRect(Map_01.e4.getX() + Map_01.e4.x, Map_01.e4.getY() + Map_01.e4.y, Map_01.e4.getWidth() + Map_01.e4.w, Map_01.e4.getHeight() + Map_01.e4.h);
+        //drawRect(Map_01.e5.getX() + Map_01.e5.x, Map_01.e5.getY() + Map_01.e5.y, Map_01.e5.getWidth() + Map_01.e5.w, Map_01.e5.getHeight() + Map_01.e5.h);
+        //drawRect(Map_01.e6.getX() + Map_01.e6.x, Map_01.e6.getY() + Map_01.e6.y, Map_01.e6.getWidth() + Map_01.e6.w, Map_01.e6.getHeight() + Map_01.e6.h);
+        //drawRect(Map_01.e7.getX() + Map_01.e7.x, Map_01.e7.getY() + Map_01.e7.y, Map_01.e7.getWidth() + Map_01.e7.w, Map_01.e7.getHeight() + Map_01.e7.h);
+        //drawRect(Map_01.e8.getX() + Map_01.e8.x, Map_01.e8.getY() + Map_01.e8.y, Map_01.e8.getWidth() + Map_01.e8.w, Map_01.e8.getHeight() + Map_01.e8.h);
+        //drawRect(Map_01.e9.getX() + Map_01.e9.x, Map_01.e9.getY() + Map_01.e9.y, Map_01.e9.getWidth() + Map_01.e9.w, Map_01.e9.getHeight() + Map_01.e9.h);
+        //drawRect(Map_02.e10.getX() + Map_02.e10.x, Map_02.e10.getY() + Map_02.e10.y, Map_02.e10.getWidth() + Map_02.e10.w, Map_02.e10.getHeight() + Map_02.e10.h);
         shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +hero.getX() -7, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +hero.getY() -24, 22, 60);
         //shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +500, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +300, 100, 100);
         shapeRenderer.end();

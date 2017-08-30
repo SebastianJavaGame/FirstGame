@@ -87,7 +87,7 @@ public class StatsHero {
             money = new Image(asset.manager.get("uiMoney.png", Texture.class));
             moneyValue = new Label(" " + hero.getMoney(), styleWhite);
             freePoint = new Label("Wolne punkty:", styleWhite);
-            pointToAdd = new Label(" " + hero.getPoint(), styleGreen);
+            pointToAdd = new Label(" " + preferences.getInteger("FREE_POINT"), styleGreen);
             infoOne = new Label("Bez Eq", styleWhite);
             infoTwo = new Label("Razem z Eq", styleGreen);
             attribute[0] = new Label("Punkty\nżycia", styleWhite);

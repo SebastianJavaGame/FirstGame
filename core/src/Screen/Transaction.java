@@ -137,8 +137,7 @@ public class Transaction {
                                     preferences.putString("SLOT" + i, FuncionalityShop.getActualItemNameShop());
                                     preferences.flush();
                                     Hero.setMoney(Hero.getMoney() - FuncionalityShop.getPrice());
-                                    preferencesStats.putInteger("MONEY", Hero.getMoney());
-                                    preferencesStats.flush();
+                                    preferencesStats.putInteger("MONEY", Hero.getMoney()).flush();
 
                                     lMoneyLeft.setText("" + Hero.getMoney());
                                     lMoneyRight.setText("" + Hero.getMoney());
@@ -185,8 +184,7 @@ public class Transaction {
                     preferences.putString("SLOT" + slotNr, "");
                     preferences.flush();
                     Hero.setMoney(Hero.getMoney() + FuncionalityShop.getPrice());
-                    preferencesStats.putInteger("MONEY", Hero.getMoney());
-                    preferencesStats.flush();
+                    preferencesStats.putInteger("MONEY", Hero.getMoney()).flush();
 
                     lMoneyLeft.setText("" + Hero.getMoney());
                     lMoneyRight.setText("" + Hero.getMoney());

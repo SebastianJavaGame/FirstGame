@@ -21,12 +21,12 @@ public class BaseShopDepartaments {
     private void loadFirstShop() {
         //Helmet
         pref[0][0] = Gdx.app.getPreferences("SHOP_0_HELMET");
-        pref[0][1].putString("SLOT0", "helmet1").flush();
-        pref[0][1].putString("SLOT1", "helmet2").flush();
-        pref[0][1].putString("SLOT2", "helmet3").flush();
-        pref[0][1].putString("SLOT3", "helmet4").flush();
-        pref[0][1].putString("SLOT4", "helmet5").flush();
-        pref[0][1].putString("SLOT8", "helmet1pay").flush();
+        pref[0][0].putString("SLOT0", "helmet1").flush();
+        pref[0][0].putString("SLOT1", "helmet2").flush();
+        pref[0][0].putString("SLOT2", "helmet3").flush();
+        pref[0][0].putString("SLOT3", "helmet4").flush();
+        pref[0][0].putString("SLOT4", "helmet5").flush();
+        pref[0][0].putString("SLOT8", "helmet1pay").flush();
 
         //Armor
         pref[0][1] = Gdx.app.getPreferences("SHOP_0_ARMOR");
@@ -165,8 +165,8 @@ public class BaseShopDepartaments {
     private void loadThirdShop(){
         //Helmet
         pref[2][0] = Gdx.app.getPreferences("SHOP_2_HELMET");
-        pref[2][1].putString("SLOT0", "").flush();
-        pref[2][1].putString("SLOT1", "").flush();
+        pref[2][0].putString("SLOT0", "").flush();
+        pref[2][0].putString("SLOT1", "").flush();
 
         //Armor
         pref[2][1] = Gdx.app.getPreferences("SHOP_2_ARMOR");
@@ -235,11 +235,11 @@ public class BaseShopDepartaments {
     private void loadFourthShop(){
         //Helmet
         pref[3][0] = Gdx.app.getPreferences("SHOP_3_HELMET");
-        pref[3][1].putString("SLOT0", "helmet11").flush();
-        pref[3][1].putString("SLOT1", "helmet12").flush();
-        pref[3][1].putString("SLOT2", "helmet13").flush();
-        pref[3][1].putString("SLOT3", "helmet14").flush();
-        pref[3][1].putString("SLOT8", "helmet3pay").flush();
+        pref[3][0].putString("SLOT0", "helmet11").flush();
+        pref[3][0].putString("SLOT1", "helmet12").flush();
+        pref[3][0].putString("SLOT2", "helmet13").flush();
+        pref[3][0].putString("SLOT3", "helmet14").flush();
+        pref[3][0].putString("SLOT8", "helmet3pay").flush();
 
         //Armor
         pref[3][1] = Gdx.app.getPreferences("SHOP_3_ARMOR");
@@ -306,11 +306,11 @@ public class BaseShopDepartaments {
     private void loadFivthShop(){
         //Helmet
         pref[4][0] = Gdx.app.getPreferences("SHOP_4_HELMET");
-        pref[4][1].putString("SLOT0", "helmet13").flush();
-        pref[4][1].putString("SLOT1", "helmet14").flush();
-        pref[4][1].putString("SLOT2", "helmet15").flush();
-        pref[4][1].putString("SLOT3", "helmet16").flush();
-        pref[4][1].putString("SLOT8", "helmet4pay").flush();
+        pref[4][0].putString("SLOT0", "helmet13").flush();
+        pref[4][0].putString("SLOT1", "helmet14").flush();
+        pref[4][0].putString("SLOT2", "helmet15").flush();
+        pref[4][0].putString("SLOT3", "helmet16").flush();
+        pref[4][0].putString("SLOT8", "helmet4pay").flush();
 
         //Armor
         pref[4][1] = Gdx.app.getPreferences("SHOP_4_ARMOR");
@@ -373,10 +373,10 @@ public class BaseShopDepartaments {
     private void loadSixthShop(){
         //Helmet
         pref[5][0] = Gdx.app.getPreferences("SHOP_5_HELMET");
-        pref[5][1].putString("SLOT0", "helmet15").flush();
-        pref[5][1].putString("SLOT1", "helmet16").flush();
-        pref[5][1].putString("SLOT2", "helmet17").flush();
-        pref[5][1].putString("SLOT8", "helmet4pay").flush();
+        pref[5][0].putString("SLOT0", "helmet15").flush();
+        pref[5][0].putString("SLOT1", "helmet16").flush();
+        pref[5][0].putString("SLOT2", "helmet17").flush();
+        pref[5][0].putString("SLOT8", "helmet4pay").flush();
 
         //Armor
         pref[5][1] = Gdx.app.getPreferences("SHOP_5_ARMOR");

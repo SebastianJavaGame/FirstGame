@@ -44,7 +44,7 @@ public class Map_01 extends BaseMap {
     public static Enemy e7;
     public static Enemy e8;
     public static Enemy e9;
-    public static Enemy e10;
+    //public static Enemy e10;
 
     static {
         mapImage = new Image(new Texture("MAP_01.jpg"));
@@ -158,7 +158,7 @@ public class Map_01 extends BaseMap {
             enemies[9][i].setDropItemName("armor3", "ring3", "rekawice3");
         }
         enemies[9][0].setPosition(1350, 680);
-        e10 = enemies[9][0];
+        //e10 = enemies[9][0];
 
         for(Enemy enemiesList[]: enemies){
             for(Character enemy: enemiesList){
@@ -170,25 +170,22 @@ public class Map_01 extends BaseMap {
 
     @Override
     public void addNpcToMap() {
-        Npc npc = new Npc(new Texture(Gdx.files.internal("npc/1.png")), new Image(new Texture(Gdx.files.internal("npc/1h.png"))), "Aldern", 8, 0, 0);
+        Npc npc = new Npc(new Texture(Gdx.files.internal("npc/1.png")), new Image(new Texture(Gdx.files.internal("npc/1h.png"))), "Aldern", 8, 0, 0, 0);
         npc.setPosition(580, 480);
-        npc.setSize(60, 100);
         characters.add(npc);
-        npc.setRectangle(0, 0, 0, 0);
+        npc.setRectangle(2, 2, -12, -4);
         npc.collisionUpdate();
 
-        Npc npc1 = new Npc(new Texture(Gdx.files.internal("npc/2.png")), new Image(new Texture(Gdx.files.internal("npc/2h.png"))), "Laura", 14, 0, 0);
-        npc1.setPosition(1792, 1920);
-        npc1.setSize(60, 100);
+        Npc npc1 = new Npc(new Texture(Gdx.files.internal("npc/2.png")), new Image(new Texture(Gdx.files.internal("npc/2h.png"))), "Laura", 14, 0, 0, 1);
+        npc1.setPosition(1690, 1960);
         characters.add(npc1);
-        npc1.setRectangle(0, 0, 0, 0);
+        npc1.setRectangle(8, 2, -16, -8);
         npc1.collisionUpdate();
 
-        Npc npc2 = new Npc(new Texture(Gdx.files.internal("npc/3.png")), new Image(new Texture(Gdx.files.internal("npc/3h.png"))), "Achius", 17, 0, 0);
-        npc2.setPosition(552, 2068);
-        npc2.setSize(60, 100);
+        Npc npc2 = new Npc(new Texture(Gdx.files.internal("npc/3.png")), new Image(new Texture(Gdx.files.internal("npc/3h.png"))), "Achius", 17, 0, 0, 2);
+        npc2.setPosition(540, 2035);
         characters.add(npc2);
-        npc2.setRectangle(0, 0, 0, 0);
+        npc2.setRectangle(8, 2, -16, -8);
         npc2.collisionUpdate();
     }
 

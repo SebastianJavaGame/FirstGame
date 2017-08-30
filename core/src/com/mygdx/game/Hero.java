@@ -188,8 +188,10 @@ public class Hero extends Character {
             setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
         }
 
-        setMoney(preferences.getInteger("MONEY", 1000));
-        point = preferences.getInteger("FREE_POINT", 6);
+        preferences.putInteger("MONEY", 1000).flush();
+        setMoney(preferences.getInteger("MONEY"));
+        preferences.putInteger("FREE_POINT", 6).flush();
+        point = preferences.getInteger("FREE_POINT");
 
         try {
             new UpdateHeroStats(this);

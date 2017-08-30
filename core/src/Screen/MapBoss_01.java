@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Character;
 import com.mygdx.game.Enemy;
-import com.mygdx.game.Npc;
 import com.mygdx.game.StatsHero;
 
 import java.util.ArrayList;
@@ -20,8 +19,8 @@ import java.util.ArrayList;
  */
 
 public class MapBoss_01 extends BaseMap {
-    public static final int STARTING_POS_X = 300;
-    public static final int STARTING_POS_Y = 360;
+    public static final int STARTING_POS_X = 500;
+    public static final int STARTING_POS_Y = 500;
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -34,12 +33,7 @@ public class MapBoss_01 extends BaseMap {
     private static ArrayList<Character> characters;
 
     static {
-        //Asset asset = new Asset();
-        //asset.manager.load("MAP_01.jpg", Texture.class);
-        //asset.manager.finishLoading();
-        //if(asset.manager.update()) {
         mapImage = new Image(new Texture("MAP_BOSS_01.jpg"));
-        //}
         mapWidth = (int)(mapImage.getWidth() *0.8f);
         mapHeight = (int)(mapImage.getHeight() *0.8f);
     }
@@ -69,7 +63,7 @@ public class MapBoss_01 extends BaseMap {
         //first entriance
         entriaceToMapRectangle.add(new Rectangle(150, 217, 200, 100));
         indexToLoadNextMap.add(1);
-        entriencesPosition.add(new Vector2(Map_02.STARTING_POS_X, Map_02.STARTING_POS_Y));
+        entriencesPosition.add(new Vector2(2005, 1909));
         //TODO above npc
         //
     }
@@ -112,8 +106,8 @@ public class MapBoss_01 extends BaseMap {
     public void saveOrginalPosition(){
         pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
-        pref.putInteger("POS_X", STARTING_POS_X).flush();
-        pref.putInteger("POS_Y", STARTING_POS_Y).flush();
+        pref.putInteger("POS_X", 2005).flush();
+        pref.putInteger("POS_Y", 1909).flush();
         pref.putInteger("MAP", 1).flush();
     }
 
@@ -133,15 +127,6 @@ public class MapBoss_01 extends BaseMap {
         characters.add(enemy);
         enemy.collisionUpdate();
         return enemy;
-    }
-
-    private void addNpc(String path, String head, String name, int level, int idShop, int idTask){
-        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, idShop, idTask);
-        npc.setPosition(500, 400);
-        npc.setSize(60, 100);
-        characters.add(npc);
-        npc.setRectangle(0, 0, 0, 0);
-        npc.collisionUpdate();
     }
 
     public ArrayList<Character> getCharacter(){

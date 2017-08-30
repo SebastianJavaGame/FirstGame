@@ -6,13 +6,13 @@ package com.mygdx.game;
 
 public class BaseDialogs {
     //[npc][text][nextTex]//
-    private static final int COUNT_NPC = 3;
+    private static final int COUNT_NPC = 17;
 
     //[npc][text][nextTex]//
     public static final String[][] TEXT = new String[COUNT_NPC][];
     public static final int[][][] INDEX_OPTIONS = new int[COUNT_NPC][][];
     public static final int[][] INDEX_LISTENER = new int[COUNT_NPC][];
-    public static final int[][] STARTING_TEXT = new int[COUNT_NPC][4];
+    public static final int[][] STARTING_TEXT = new int[COUNT_NPC][5];
 
     public static final void loadNpcTextList(){
         //Npc #1
@@ -39,7 +39,7 @@ public class BaseDialogs {
         TEXT[0][17] = " Ruszam pościnam te ścierwa.";
 
         TEXT[0][18] = " Kim jesteś?";
-        TEXT[0][19] = " Nie wiem jak tu się znalazłeś i skąd wogóle wiesz o tym miejscu widziałem tylko jak samotnie tu płyniesz nieprzytomny na łódce.";
+        TEXT[0][19] = " Nie wiem jak tu się znalazłeś i skąd wogóle wiesz o tym miejscu widziałem tylko jak samotnie dryfujesz nieprzytomny na łódce.";
         TEXT[0][20] = " Rozsądniej będzię gdy wrócisz skąd przybyłeś i zapomnisz o tym miejscu.";
         TEXT[0][21] = " Sam tego chciałeś. Jest to wyspa zwana sześcioma żywiołami...";
         TEXT[0][22] = " Są tu krainy Toksyczna zieleń, Ogniste Piaski";//TODO  Dodać nazwy krain
@@ -50,6 +50,7 @@ public class BaseDialogs {
         //
         //NPC #2
         //hero
+        STARTING_TEXT[1] = new int[]{6, 0, 1, 2, -1};
         TEXT[1] = new String[9];
         TEXT[1][0] = " Nie pamiętam jak tu się znalazłem";
         TEXT[1][1] = " Rozmawiałem z Aldernem opowiedział mi o wyspie";
@@ -64,7 +65,7 @@ public class BaseDialogs {
         //
         //NPC #3
         //hero
-        STARTING_TEXT[0] = new int[]{15, 0, 1, -1, -1};
+        STARTING_TEXT[2] = new int[]{15, 0, 1, -1, -1};
         TEXT[2] = new String[25];
         TEXT[2][0] = " Co to za miejsce?";
         TEXT[2][1] = " Opowiedz mi o tym miejscu";
@@ -95,7 +96,7 @@ public class BaseDialogs {
         //
         //NPC #4
         //hero
-        STARTING_TEXT[0] = new int[]{2, 0, 1, -1, 2};
+        STARTING_TEXT[3] = new int[]{3, 0, 1, -1, 2};
         TEXT[3] = new String[4];
         TEXT[3][0] = " Tak, zrobię to.";
         TEXT[3][1] = " Nie, nie mam na to czasu.";
@@ -105,6 +106,7 @@ public class BaseDialogs {
         //
         //NPC #5
         //hero
+        STARTING_TEXT[4] = new int[]{5, 0, 1, -1, 4};
         TEXT[4] = new String[7];
         TEXT[4][0] = " A w czym rzecz?";
         TEXT[4][1] = " Nie, innym razem.";
@@ -117,10 +119,11 @@ public class BaseDialogs {
         //
         //NPC #6
         //hero
+        STARTING_TEXT[5] = new int[]{5, 0, 1, -1, 4};
         TEXT[5] = new String[7];
         TEXT[5][0] = " Chciałbym coś kupić";
         TEXT[5][1] = " Chcę się zmierzyć z 'Valmorgiem'";
-        TEXT[5][2] = " Zetnę mu głowę jestem tego pewien";
+        TEXT[5][2] = " Zetnę mu głowę jestem tego pewien. Ruszajmy.";
         TEXT[5][3] = " Jednak zrezygnuję";
         TEXT[5][4] = " Wykonałem zlecenie";
         //npc
@@ -129,6 +132,7 @@ public class BaseDialogs {
         //
         //NPC #7
         //hero
+        STARTING_TEXT[6] = new int[]{5, 0, 1, -1, 4};
         TEXT[6] = new String[8];
         TEXT[6][0] = " Przybyłem tu aby walczyć.";
         TEXT[6][1] = " Mogę coś dla ciebie zrobić?";
@@ -142,6 +146,7 @@ public class BaseDialogs {
         //
         //NPC #8
         //hero
+        STARTING_TEXT[7] = new int[]{5, 0, 1, -1, 4};
         TEXT[7] = new String[7];
         TEXT[7][0] = " Tak, pokaż swój asortyment.";
         TEXT[7][1] = " Masz dla mnie jakieś zadanie?";
@@ -154,6 +159,7 @@ public class BaseDialogs {
         //
         //NPC #9
         //hero
+        STARTING_TEXT[8] = new int[]{3, 0, 1, -1, 2};
         TEXT[8] = new String[4];
         TEXT[8][0] = " Upoluję go dla ciebie.";
         TEXT[8][1] = " To zbyt trudne dla mnie.";
@@ -163,6 +169,7 @@ public class BaseDialogs {
         //
         //NPC #10
         //hero
+        STARTING_TEXT[9] = new int[]{3, 0, 1, -1, 2};
         TEXT[9] = new String[4];
         TEXT[9][0] = " Pokaż sprzęt.";
         TEXT[9][1] = " Innym razem coś kupię.";
@@ -172,6 +179,7 @@ public class BaseDialogs {
         //
         //NPC #11
         //hero
+        STARTING_TEXT[10] = new int[]{4, 0, -1, -1, 3};
         TEXT[10] = new String[6];
         TEXT[10][0] = " Co dokładnie mam zrobić?";
         TEXT[10][1] = " Biorę to.";
@@ -183,6 +191,7 @@ public class BaseDialogs {
         //
         //NPC #12
         //hero
+        STARTING_TEXT[11] = new int[]{4, 0, -1, -1, 3};
         TEXT[11] = new String[6];
         TEXT[11][0] = " Powiedz najpierw co mam zrobić.";
         TEXT[11][1] = " Podejmę się tego zadania.";
@@ -194,6 +203,7 @@ public class BaseDialogs {
         //
         //NPC #13
         //hero
+        STARTING_TEXT[12] = new int[]{4, 0, -1, -1, 3};
         TEXT[12] = new String[6];
         TEXT[12][0] = " Moim celem jest zgładzenie wszystkich czempionów.";
         TEXT[12][1] = " Tak, idę ich wyciąć.";
@@ -205,6 +215,7 @@ public class BaseDialogs {
         //
         //NPC #14
         //hero
+        STARTING_TEXT[13] = new int[]{5, 0, 1, -1, 4};
         TEXT[13] = new String[7];
         TEXT[13][0] = " Chcę coś kupić, pokąz co masz.";
         TEXT[13][1] = " Oczywiścię że, chcę zarobić.";
@@ -217,6 +228,7 @@ public class BaseDialogs {
         //
         //NPC #15
         //hero
+        STARTING_TEXT[14] = new int[]{5, 0, 1, -1, 4};
         TEXT[14] = new String[7];
         TEXT[14][0] = " W czym mogę ci pomóc?";
         TEXT[14][1] = " Czego odemnie chcesz?";
@@ -229,6 +241,7 @@ public class BaseDialogs {
         //
         //NPC #16
         //hero
+        STARTING_TEXT[15] = new int[]{8, 0, 1, 2, 7};
         TEXT[15] = new String[12];
         TEXT[15][0] = " Kogo mam dla ciebie zabic?";
         TEXT[15][1] = " Niczego się nie boję.";
@@ -246,6 +259,7 @@ public class BaseDialogs {
         //
         //NPC #17
         //hero
+        STARTING_TEXT[16] = new int[]{8, 0, 1, -1, 7};
         TEXT[16] = new String[11];
         TEXT[16][0] = " Czy masz coś na sprzedarz?";
         TEXT[16][1] = " Chcę przyjąć to zadanie bez względu na wszystko.";
@@ -287,7 +301,7 @@ public class BaseDialogs {
         INDEX_OPTIONS[1] = new int[6][];
         INDEX_OPTIONS[1][0] = new int[]{7, 3, 4};
         INDEX_OPTIONS[1][1] = new int[]{7, 3, 4};
-        INDEX_OPTIONS[1][2] = new int[]{};
+        INDEX_OPTIONS[1][2] = new int[]{7, 3, 4};
         INDEX_OPTIONS[1][3] = new int[]{8, 5};
         INDEX_OPTIONS[1][4] = new int[]{};
         INDEX_OPTIONS[1][5] = new int[]{};
@@ -455,11 +469,11 @@ public class BaseDialogs {
         //NPC #2
         INDEX_LISTENER[1] = new int[6];
         INDEX_LISTENER[1][0] = 0;
-        INDEX_LISTENER[1][0] = 0;
-        INDEX_LISTENER[1][0] = 2;
-        INDEX_LISTENER[1][0] = 0;
-        INDEX_LISTENER[1][0] = 1;
-        INDEX_LISTENER[1][0] = 1;
+        INDEX_LISTENER[1][1] = 0;
+        INDEX_LISTENER[1][2] = 2;
+        INDEX_LISTENER[1][3] = 0;
+        INDEX_LISTENER[1][4] = 1;
+        INDEX_LISTENER[1][5] = 1;
         //
         //NPC #3
         INDEX_LISTENER[2] = new int[15];
@@ -497,8 +511,8 @@ public class BaseDialogs {
         INDEX_LISTENER[5] = new int[5];
         INDEX_LISTENER[5][0] = 2;
         INDEX_LISTENER[5][1] = 0;
-        INDEX_LISTENER[5][2] = 1;
-        INDEX_LISTENER[5][3] = 4;
+        INDEX_LISTENER[5][2] = 4;
+        INDEX_LISTENER[5][3] = 1;
         INDEX_LISTENER[5][4] = 5;
         //
         //NPC #7

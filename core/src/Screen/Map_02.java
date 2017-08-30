@@ -34,6 +34,8 @@ public class Map_02 extends BaseMap {
     private static ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Character> characters;
 
+    public static Npc e10;
+
     static {
         mapImage = new Image(new Texture("MAP_02.jpg"));
         mapWidth = (int)(mapImage.getWidth() *0.8f);
@@ -156,26 +158,24 @@ public class Map_02 extends BaseMap {
 
     @Override
     public void addNpcToMap() {
-        Npc npc3 = new Npc(new Texture(Gdx.files.internal("npc/4.png")), new Image(new Texture(Gdx.files.internal("npc.4h.png"))), "Herald", 23, 1, 0);
-        npc3.setPosition(500, 400);
-        npc3.setSize(60, 100);
+        Npc npc3 = new Npc(new Texture(Gdx.files.internal("npc/4.png")), new Image(new Texture(Gdx.files.internal("npc/4h.png"))), "Herald", 23, 1, 0, 3);
+        npc3.setPosition(1300, 1245);
         characters.add(npc3);
-        npc3.setRectangle(0, 0, 0, 0);
+        npc3.setRectangle(8, 2, -16, -8);
         npc3.collisionUpdate();
 
-        Npc npc4 = new Npc(new Texture(Gdx.files.internal("npc/5.png")), new Image(new Texture(Gdx.files.internal("npc.5h.png"))), "Lars", 27, 1, 1);
-        npc4.setPosition(500, 400);
-        npc4.setSize(60, 100);
+        Npc npc4 = new Npc(new Texture(Gdx.files.internal("npc/5.png")), new Image(new Texture(Gdx.files.internal("npc/5h.png"))), "Lars", 27, 1, 1, 4);
+        npc4.setPosition(1260, 1725);
         characters.add(npc4);
-        npc4.setRectangle(0, 0, 0, 0);
+        npc4.setRectangle(8, 2, -16, -8);
         npc4.collisionUpdate();
 
-        Npc npc5 = new Npc(new Texture(Gdx.files.internal("npc/6.png")), new Image(new Texture(Gdx.files.internal("npc.6h.png"))), "Marsel", 32, 1, 1);
-        npc5.setPosition(500, 400);
-        npc5.setSize(60, 100);
+        Npc npc5 = new Npc(new Texture(Gdx.files.internal("npc/6.png")), new Image(new Texture(Gdx.files.internal("npc/6h.png"))), "Marsel", 32, 1, 1, 5);
+        npc5.setPosition(2050, 1889);
         characters.add(npc5);
-        npc5.setRectangle(0, 0, 0, 0);
+        npc5.setRectangle(8, 2, -16, -8);
         npc5.collisionUpdate();
+        e10 = npc5;
     }
 
     @Override

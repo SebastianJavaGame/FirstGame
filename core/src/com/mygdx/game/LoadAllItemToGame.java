@@ -50,8 +50,8 @@ public class LoadAllItemToGame {
         /**
          * Wapons pay
          */
-        //ITEMS.put("wapons1pay", new Item("wapons1pay", "Items/wapons/1pay.png", "Grom", Item.ItemType.WAPON, 5,           20, 9, 5, 0.1f, 3, 3, 0.30));
-        //ITEMS.put("wapons2pay", new Item("wapons2pay", "Items/wapons/2pay.png", "Isgeraptor", Item.ItemType.WAPON, 12,    30, 13, 7, 0.1f, 4, 3, 0.45));
+        ITEMS.put("wapons1pay", new Item("wapons1pay", "Items/wapons/1pay.png", "Grom", Item.ItemType.WAPON, 5,           20, 9, 5, 0.1f, 3, 3, 30));
+        ITEMS.put("wapons2pay", new Item("wapons2pay", "Items/wapons/2pay.png", "Isgeraptor", Item.ItemType.WAPON, 12,    30, 13, 7, 0.1f, 4, 3, 45));
         //ITEMS.put("wapons3pay", new Item("wapons3pay", "Items/wapons/3pay.png", "Killamur", Item.ItemType.WAPON, 18,      50, 16, 10, 0.4f, 6, 4, 0.60));
         //ITEMS.put("wapons4pay", new Item("wapons4pay", "Items/wapons/4pay.png", "Panaris", Item.ItemType.WAPON, 25,       80, 24, 19, 0.8f, 8, 8, 0.80));
         //ITEMS.put("wapons5pay", new Item("wapons5pay", "Items/wapons/5pay.png", "Zgon", Item.ItemType.WAPON, 32,          90, 24, 14, 0.8f, 9,6, 1.00));

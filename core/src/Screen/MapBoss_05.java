@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.Character;
 import com.mygdx.game.Enemy;
-import com.mygdx.game.Npc;
 import com.mygdx.game.StatsHero;
 
 import java.util.ArrayList;
@@ -132,15 +131,6 @@ public class MapBoss_05 extends BaseMap {
         characters.add(enemy);
         enemy.collisionUpdate();
         return enemy;
-    }
-
-    private void addNpc(String path, String head, String name, int level, int idShop, int idTask){
-        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, idShop, idTask);
-        npc.setPosition(500, 400);
-        npc.setSize(60, 100);
-        characters.add(npc);
-        npc.setRectangle(0, 0, 0, 0);
-        npc.collisionUpdate();
     }
 
     public ArrayList<Character> getCharacter(){
