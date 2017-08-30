@@ -169,7 +169,26 @@ public class Shop extends BaseScreen{
         });
 
         buttonMenu[2] = createButton(20, 245);
+        buttonMenu[2].addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
+                removeMenu();
+                new Transaction(2, image, name, level, idShop);
+                return false;
+            }
+        });
+
         buttonMenu[3] = createButton(20, 185);
+        buttonMenu[3].addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
+                removeMenu();
+                new Transaction(3, image, name, level, idShop);
+                return false;
+            }
+        });
 
         buttonMenu[4] = createButton(160, 365);
         buttonMenu[4].addListener(new InputListener(){
@@ -183,8 +202,37 @@ public class Shop extends BaseScreen{
         });
 
         buttonMenu[5] = createButton(160, 305);
+        buttonMenu[5].addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
+                removeMenu();
+                new Transaction(5, image, name, level, idShop);
+                return false;
+            }
+        });
+
         buttonMenu[6] = createButton(160, 245);
+        buttonMenu[6].addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
+                removeMenu();
+                new Transaction(6, image, name, level, idShop);
+                return false;
+            }
+        });
+
         buttonMenu[7] = createButton(160, 185);
+        buttonMenu[7].addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Menu.getSoundClick().play();
+                removeMenu();
+                new Transaction(7, image, name, level, idShop);
+                return false;
+            }
+        });
     }
 
     @Override

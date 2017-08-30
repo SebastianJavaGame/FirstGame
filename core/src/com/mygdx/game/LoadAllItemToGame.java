@@ -47,7 +47,6 @@ public class LoadAllItemToGame {
         ITEMS.put("wapons32", new Item("wapons32", "Items/wapons/32.png", "Exaviam", Item.ItemType.WAPON, 72,   170, 38, 26, 1.8f, 17,14, 800000));//129   31
         ITEMS.put("wapons33", new Item("wapons33", "Items/wapons/33.png", "Promaris", Item.ItemType.WAPON, 75,  180, 39, 26, 1.9f, 18,14, 900000)); //133  32
         ITEMS.put("wapons34", new Item("wapons34", "Items/wapons/34.png", "Dertham", Item.ItemType.WAPON, 80,   200, 40, 26, 2f, 18,15, 1000000)); //137 33
-//TODO -50%
         /**
          * Wapons pay
          */
