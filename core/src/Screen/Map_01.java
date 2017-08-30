@@ -184,7 +184,7 @@ public class Map_01 extends BaseMap {
         npc1.setRectangle(0, 0, 0, 0);
         npc1.collisionUpdate();
 
-        Npc npc2 = new Npc(new Texture(Gdx.files.internal("npc/3.png")), new Image(new Texture(Gdx.files.internal("npc/3h.png"))), "Achius", 17, 0, 1);
+        Npc npc2 = new Npc(new Texture(Gdx.files.internal("npc/3.png")), new Image(new Texture(Gdx.files.internal("npc/3h.png"))), "Achius", 17, 0, 0);
         npc2.setPosition(552, 2068);
         npc2.setSize(60, 100);
         characters.add(npc2);

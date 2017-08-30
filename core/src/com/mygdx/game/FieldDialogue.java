@@ -248,8 +248,7 @@ public class FieldDialogue {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 textDialog.play(0.5f);
-                // int[] nextDialogueText = BaseDialogs.getIndexToNextText(idNpc, idIndexText);
-                //add new Field with text;
+                BaseScreen.getGame().setScreen(new MapBoss_01(BaseScreen.getGame()));
                 return false;
             }
         });

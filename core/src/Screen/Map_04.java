@@ -153,7 +153,26 @@ public class Map_04 extends BaseMap {
 
     @Override
     public void addNpcToMap() {
-        //addNpc("mag.png", "glominHead.png", "Witherman", 20, 0, 0);
+        Npc npc9 = new Npc(new Texture(Gdx.files.internal("npc/10.png")), new Image(new Texture(Gdx.files.internal("npc.10h.png"))), "Tumvill", 55, 3, 5);
+        npc9.setPosition(500, 400);
+        npc9.setSize(60, 100);
+        characters.add(npc9);
+        npc9.setRectangle(0, 0, 0, 0);
+        npc9.collisionUpdate();
+
+        Npc npc10 = new Npc(new Texture(Gdx.files.internal("npc/11.png")), new Image(new Texture(Gdx.files.internal("npc.11h.png"))), "Simza", 57, 3, 6);
+        npc10.setPosition(500, 400);
+        npc10.setSize(60, 100);
+        characters.add(npc10);
+        npc10.setRectangle(0, 0, 0, 0);
+        npc10.collisionUpdate();
+
+        Npc npc11 = new Npc(new Texture(Gdx.files.internal("npc/12.png")), new Image(new Texture(Gdx.files.internal("npc.12h.png"))), "Tahar", 64, 3, 7);
+        npc11.setPosition(500, 400);
+        npc11.setSize(60, 100);
+        characters.add(npc11);
+        npc11.setRectangle(0, 0, 0, 0);
+        npc11.collisionUpdate();
     }
 
     /**
@@ -243,15 +262,6 @@ public class Map_04 extends BaseMap {
 
     private void addVerticalToObjectCollision(Vector2[] point){
         verticalCollision.add(point);
-    }
-
-    private void addNpc(String path, String head, String name, int level, int idShop, int idTask){
-        Npc npc = new Npc(new Texture(Gdx.files.internal(path)), new Image(new Texture(Gdx.files.internal(head))), name, level, idShop, idTask);
-        npc.setPosition(500, 400);
-        npc.setSize(60, 100);
-        characters.add(npc);
-        npc.setRectangle(0, 0, 0, 0);
-        npc.collisionUpdate();
     }
 
     public ArrayList<Character> getCharacter(){

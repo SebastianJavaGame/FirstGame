@@ -17,7 +17,7 @@ public class BaseDialogs {
     public static final void loadNpcTextList(){
         //Npc #1
         //STARTING_TEXT = {TEXT_NPC, TEXT_ONE, TEXT_TWO, TEXT_THREE, COUNT_HERO_TEXT}
-        STARTING_TEXT[0] = new int[]{18, 0, 1, -1};
+        STARTING_TEXT[0] = new int[]{18, 0, 1, -1, -1};
         TEXT[0] = new String[27];
         TEXT[0][0] = " Nie wiem ja nic nie pamiętam.";
         TEXT[0][1] = " Co ja tu robie?";
@@ -64,6 +64,7 @@ public class BaseDialogs {
         //
         //NPC #3
         //hero
+        STARTING_TEXT[0] = new int[]{15, 0, 1, -1, -1};
         TEXT[2] = new String[25];
         TEXT[2][0] = " Co to za miejsce?";
         TEXT[2][1] = " Opowiedz mi o tym miejscu";
@@ -94,127 +95,170 @@ public class BaseDialogs {
         //
         //NPC #4
         //hero
-        TEXT[3] = new String[3];
+        STARTING_TEXT[0] = new int[]{2, 0, 1, -1, 2};
+        TEXT[3] = new String[4];
         TEXT[3][0] = " Tak, zrobię to.";
         TEXT[3][1] = " Nie, nie mam na to czasu.";
+        TEXT[3][2] = " Wykonałem zadanie.";
         //npc
-        TEXT[3][2] = " Zaczekaj, pomóż mi zabić x x-name a wynagrodzę cię. Podejmujesz sie tego wyzwania?";
+        TEXT[3][3] = " Zaczekaj, pomóż mi zabić x x-name a wynagrodzę cię. Podejmujesz sie tego wyzwania?";
         //
         //NPC #5
         //hero
-        TEXT[4] = new String[6];
+        TEXT[4] = new String[7];
         TEXT[4][0] = " A w czym rzecz?";
         TEXT[4][1] = " Nie, innym razem.";
         TEXT[4][2] = " Biorę to.";
         TEXT[4][3] = " Nie, innym razem.";
+        TEXT[4][4] = " Wykonalem zadanie.";
         //npc
-        TEXT[4][4] = " Rzucam ci wyzwanie podejmiesz się go?";
-        TEXT[4][5] = " Chodzi o zabicie x x-name";
+        TEXT[4][5] = " Rzucam ci wyzwanie podejmiesz się go?";
+        TEXT[4][6] = " Chodzi o zabicie x x-name";
         //
         //NPC #6
         //hero
-        TEXT[5] = new String[6];
+        TEXT[5] = new String[7];
         TEXT[5][0] = " Chciałbym coś kupić";
         TEXT[5][1] = " Chcę się zmierzyć z 'Valmorgiem'";
         TEXT[5][2] = " Zetnę mu głowę jestem tego pewien";
         TEXT[5][3] = " Jednak zrezygnuję";
-        TEXT[5][4] = " Witaj, chcesz coś kupić czy wybrać się na spotkanie z 'Valmorgiem', jednym z mrocznej piątki czempionów?";
-        TEXT[5][5] = " Mogę cię tam zabrać łódką, ale pamiętaj gdy zginiesz będziesz musiał wybić jego sługusów od początku";
+        TEXT[5][4] = " Wykonałem zlecenie";
+        //npc
+        TEXT[5][5] = " Witaj, chcesz coś kupić czy wybrać się na spotkanie z 'Valmorgiem', jednym z mrocznej piątki czempionów?";
+        TEXT[5][6] = " Mogę cię tam zabrać łódką, ale pamiętaj gdy zginiesz będziesz musiał wybić jego sługusów od początku";
         //
         //NPC #7
         //hero
-        TEXT[6] = new String[7];
+        TEXT[6] = new String[8];
         TEXT[6][0] = " Przybyłem tu aby walczyć.";
         TEXT[6][1] = " Mogę coś dla ciebie zrobić?";
         TEXT[6][2] = " Ok, zaraz wracam z trofeum.";
         TEXT[6][3] = " Nie zrobię tego, idę dalej.";
+        TEXT[6][4] = " Wykonałem zadanie";
         //npc
-        TEXT[6][4] = " Czego tu szukasz?";
-        TEXT[6][5] = " Każdy tak mówi, a większośc się poddaje.";
-        TEXT[6][6] = " Tak, jeśli chcesz mi pomóc zabij x x-name.";
+        TEXT[6][5] = " Czego tu szukasz?";
+        TEXT[6][6] = " Każdy tak mówi, a większośc się poddaje.";
+        TEXT[6][7] = " Tak, jeśli chcesz mi pomóc zabij x x-name.";
         //
         //NPC #8
         //hero
-        TEXT[7] = new String[6];
+        TEXT[7] = new String[7];
         TEXT[7][0] = " Tak, pokaż swój asortyment.";
         TEXT[7][1] = " Masz dla mnie jakieś zadanie?";
         TEXT[7][2] = " Ok, już się robi.";
         TEXT[7][3] = " Nie, nie chcę.";
+        TEXT[7][4] = " Wykonałem zadanie.";
         //npc
-        TEXT[7][4] = " Mam asortyment na sprzedarz chcesz coś kupic?";
-        TEXT[7][5] = " Jeśli chcesz zarobić zabij x x-name.";
+        TEXT[7][5] = " Mam asortyment na sprzedarz chcesz coś kupic?";
+        TEXT[7][6] = " Jeśli chcesz zarobić zabij x x-name.";
         //
         //NPC #9
         //hero
-        TEXT[8] = new String[3];
+        TEXT[8] = new String[4];
         TEXT[8][0] = " Upoluję go dla ciebie.";
         TEXT[8][1] = " To zbyt trudne dla mnie.";
+        TEXT[8][2] = " Wykonałem zadanie.";
         //npc
-        TEXT[8][2] = " Zatrzymaj się. Za moimi plecami jest jaskinia, znajduje się tam 'Quaregis' czwarty czempion z listy. Przynieś mi jego głowę a dostaniesz nagrodę";
+        TEXT[8][3] = " Zatrzymaj się. Za moimi plecami jest jaskinia, znajduje się tam 'Quaregis' czwarty czempion z listy. Przynieś mi jego głowę a dostaniesz nagrodę";
         //
         //NPC #10
         //hero
-        TEXT[9] = new String[3];
+        TEXT[9] = new String[4];
         TEXT[9][0] = " Pokaż sprzęt.";
         TEXT[9][1] = " Innym razem coś kupię.";
+        TEXT[9][2] = " Wykonałem zadanie.";
         //npc
-        TEXT[9][2] = " Mogę ci zaoferować nowy sprzęt.";
+        TEXT[9][3] = " Mogę ci zaoferować nowy sprzęt.";
         //
         //NPC #11
         //hero
-        TEXT[10] = new String[5];
+        TEXT[10] = new String[6];
         TEXT[10][0] = " Co dokładnie mam zrobić?";
         TEXT[10][1] = " Biorę to.";
         TEXT[10][2] = " Rezygnuję";
+        TEXT[10][3] = " Wykonałem zadanie.";
         //npc
-        TEXT[10][3] = " Mam dla Ciebie zadanie specjalne.";
-        TEXT[10][4] = " Zabij x x-name.";
+        TEXT[10][4] = " Mam dla Ciebie zadanie specjalne.";
+        TEXT[10][5] = " Zabij x x-name.";
         //
         //NPC #12
         //hero
-        TEXT[11] = new String[5];
+        TEXT[11] = new String[6];
         TEXT[11][0] = " Powiedz najpierw co mam zrobić.";
         TEXT[11][1] = " Podejmę się tego zadania.";
         TEXT[11][2] = " Masz rację to zbyt trudnę";
+        TEXT[11][3] = " Wykonałem zadanie.";
         //npc
-        TEXT[11][3] = " Jesteś gotowy aby podjąć się kolejnego wyzwania?";
-        TEXT[11][4] = " Jest to trudne zadanie. Zabij x x-name.";
+        TEXT[11][4] = " Jesteś gotowy aby podjąć się kolejnego wyzwania?";
+        TEXT[11][5] = " Jest to trudne zadanie. Zabij x x-name.";
         //
         //NPC #13
         //hero
-        TEXT[12] = new String[5];
+        TEXT[12] = new String[6];
         TEXT[12][0] = " Moim celem jest zgładzenie wszystkich czempionów.";
         TEXT[12][1] = " Tak, idę ich wyciąć.";
         TEXT[12][2] = " Nie, zrobię to innym razem.";
+        TEXT[12][3] = " Wykonałem zadanie.";
         //npc
-        TEXT[12][3] = " Witaj, słyszałem o tobie. Podobno bardzo dobrze sobie radzisz.";
-        TEXT[12][4] = " Dlatego mam dla ciebie zadanie, Zabij x x-name.";
+        TEXT[12][4] = " Witaj, słyszałem o tobie. Podobno bardzo dobrze sobie radzisz.";
+        TEXT[12][5] = " Dlatego mam dla ciebie zadanie, Zabij x x-name.";
         //
         //NPC #14
         //hero
-        TEXT[13] = new String[6];
+        TEXT[13] = new String[7];
         TEXT[13][0] = " Chcę coś kupić, pokąz co masz.";
-        TEXT[13][0] = " Oczywiścię że, chcę zarobić.";
-        TEXT[13][0] = " Ruszam w drogę.";
-        TEXT[13][0] = " Nie, nie mam teraz na to czasu.";
+        TEXT[13][1] = " Oczywiścię że, chcę zarobić.";
+        TEXT[13][2] = " Ruszam w drogę.";
+        TEXT[13][3] = " Nie, nie mam teraz na to czasu.";
+        TEXT[13][4] = " Wykonałem zadanie";
         //npc
-        TEXT[13][0] = " Witaj bohhaterze, chcesz coś kupić? A może chcesz zarobić?";
-        TEXT[13][0] = " Musisz zabić x x-name, którzy kręcą się w pobliżu obozu.";
+        TEXT[13][5] = " Witaj bohhaterze, chcesz coś kupić? A może chcesz zarobić?";
+        TEXT[13][6] = " Musisz zabić x x-name, którzy kręcą się w pobliżu obozu.";
         //
         //NPC #15
         //hero
-        TEXT[14] = new String[6];
+        TEXT[14] = new String[7];
         TEXT[14][0] = " W czym mogę ci pomóc?";
         TEXT[14][1] = " Czego odemnie chcesz?";
         TEXT[14][2] = " Zrobię to dla ciebie.";
         TEXT[14][3] = " Nie zrobię tego, nie zatrzymuj mnie.";
+        TEXT[14][4] = " Wykonałem zadanie.";
         //npc
-        TEXT[14][4] = " Zaczekaj, potrzebuje kogoś takiego jak ty.";
-        TEXT[14][5] = " Oczywiście chcę krwi. Przelej krew x x-name. ";
+        TEXT[14][5] = " Zaczekaj, potrzebuje kogoś takiego jak ty.";
+        TEXT[14][6] = " Oczywiście chcę krwi. Przelej krew x x-name. ";
         //
         //NPC #16
         //hero
-        //TEXT[15] = new String[]
+        TEXT[15] = new String[12];
+        TEXT[15][0] = " Kogo mam dla ciebie zabic?";
+        TEXT[15][1] = " Niczego się nie boję.";
+        TEXT[15][2] = " Nic mnie nie zatrzyma.";
+        TEXT[15][3] = " Przybyłem tu aby ściąć głowę Morganie.";
+        TEXT[15][4] = " Ruszam w drogę po głowę Morgany!";
+        TEXT[15][5] = " Nie lękam się, przyjmuję to zadanie.";
+        TEXT[15][6] = " Muszę odmówić wykonania tego zadania.";
+        TEXT[15][7] = " Wykonałem zadanie.";
+        //npc
+        TEXT[15][8] = " Zatrzymaj się, nie idz dalej jeśli chcesz zachować życe.";
+        TEXT[15][9] = " Zabij x x-name, będzie to dobry sprawdzian twoich umiejętności.";
+        TEXT[15][10] = " Lodowa odchłań to kraina inna niż wszystkie, tu zło jest owiele potężniejsze i bardziej przebiegłe.";
+        TEXT[15][11] = " Przygotuj się do tej walki, będzie ona wręcz najbardziej przerażająca, poleje się krew i bądz przygotowany na śmierć.";
+        //
+        //NPC #17
+        //hero
+        TEXT[16] = new String[11];
+        TEXT[16][0] = " Czy masz coś na sprzedarz?";
+        TEXT[16][1] = " Chcę przyjąć to zadanie bez względu na wszystko.";
+        TEXT[16][2] = " Zrezygnuję, muszę stać się jeszcze silniejszy.";
+        TEXT[16][3] = " Ruszam po ich głowy!";
+        TEXT[16][4] = " Nie jestem jeszcze gotowy na to wyzwanie.";
+        TEXT[16][5] = " Muszę je zobaczyć.";
+        TEXT[16][6] = " Innym razem je obejrzę.";
+        TEXT[16][7] = " Wykonałem zadanie.";
+        //npc
+        TEXT[16][8] = " Stój, Mam dla ciebie najtrudniejsze zadanie, któremu jeszcze nikt nie podołał";
+        TEXT[16][9] = " Zabij x x-name";
+        TEXT[16][10] = " Tak, mam kilka epickich przedmiotów na miarę ciebie.";
     }
 
     public static final void loadIndexOptions(){
@@ -267,79 +311,115 @@ public class BaseDialogs {
         INDEX_OPTIONS[2][14] = new int[]{};
         //
         //NPC #4
-        INDEX_OPTIONS[3] = new int[2][];
+        INDEX_OPTIONS[3] = new int[3][];
         INDEX_OPTIONS[3][0] = new int[]{};
         INDEX_OPTIONS[3][1] = new int[]{};
+        INDEX_OPTIONS[3][2] = new int[]{};
         //
         //npc #5
-        INDEX_OPTIONS[4] = new int[4][];
+        INDEX_OPTIONS[4] = new int[5][];
         INDEX_OPTIONS[4][0] = new int[]{5, 2, 3};
         INDEX_OPTIONS[4][1] = new int[]{};
         INDEX_OPTIONS[4][2] = new int[]{};
         INDEX_OPTIONS[4][3] = new int[]{};
+        INDEX_OPTIONS[4][4] = new int[]{};
         //
         //NPC #6
-        INDEX_OPTIONS[5] = new int[4][];
+        INDEX_OPTIONS[5] = new int[5][];
         INDEX_OPTIONS[5][0] = new int[]{};
-        INDEX_OPTIONS[5][1] = new int[]{5, 2, 3};
+        INDEX_OPTIONS[5][1] = new int[]{6, 2, 3};
         INDEX_OPTIONS[5][2] = new int[]{};
         INDEX_OPTIONS[5][3] = new int[]{};
+        INDEX_OPTIONS[5][4] = new int[]{};
         //
         //NPC #7
-        INDEX_OPTIONS[6] = new int[4][];
-        INDEX_OPTIONS[6][0] = new int[]{4, 1};
-        INDEX_OPTIONS[6][1] = new int[]{5, 2, 3};
+        INDEX_OPTIONS[6] = new int[5][];
+        INDEX_OPTIONS[6][0] = new int[]{5, 1};
+        INDEX_OPTIONS[6][1] = new int[]{6, 2, 3};
         INDEX_OPTIONS[6][2] = new int[]{};
         INDEX_OPTIONS[6][3] = new int[]{};
+        INDEX_OPTIONS[6][4] = new int[]{};
         //
         //NPC #8
-        INDEX_OPTIONS[7] = new int[4][];
+        INDEX_OPTIONS[7] = new int[5][];
         INDEX_OPTIONS[7][0] = new int[]{};
-        INDEX_OPTIONS[7][1] = new int[]{4, 2, 3};
+        INDEX_OPTIONS[7][1] = new int[]{5, 2, 3};
         INDEX_OPTIONS[7][2] = new int[]{};
         INDEX_OPTIONS[7][3] = new int[]{};
+        INDEX_OPTIONS[7][4] = new int[]{};
         //
         //NPC #9
-        INDEX_OPTIONS[8] = new int[2][];
+        INDEX_OPTIONS[8] = new int[3][];
         INDEX_OPTIONS[8][0] = new int[]{};
         INDEX_OPTIONS[8][1] = new int[]{};
+        INDEX_OPTIONS[8][2] = new int[]{};
         //
         //NPC #10
-        INDEX_OPTIONS[9] = new int[2][];
+        INDEX_OPTIONS[9] = new int[3][];
         INDEX_OPTIONS[9][0] = new int[]{};
         INDEX_OPTIONS[9][1] = new int[]{};
+        INDEX_OPTIONS[9][2] = new int[]{};
         //
         //NPC #11
-        INDEX_OPTIONS[10] = new int[3][];
-        INDEX_OPTIONS[10][0] = new int[]{3, 1, 2};
+        INDEX_OPTIONS[10] = new int[4][];
+        INDEX_OPTIONS[10][0] = new int[]{4, 1, 2};
         INDEX_OPTIONS[10][1] = new int[]{};
         INDEX_OPTIONS[10][2] = new int[]{};
+        INDEX_OPTIONS[10][3] = new int[]{};
         //
         //NPC #12
-        INDEX_OPTIONS[11] = new int[3][];
-        INDEX_OPTIONS[11][0] = new int[]{4, 1, 2};
+        INDEX_OPTIONS[11] = new int[4][];
+        INDEX_OPTIONS[11][0] = new int[]{5, 1, 2};
         INDEX_OPTIONS[11][1] = new int[]{};
         INDEX_OPTIONS[11][2] = new int[]{};
+        INDEX_OPTIONS[11][3] = new int[]{};
         //
         //NPC #13
-        INDEX_OPTIONS[12] = new int[3][];
-        INDEX_OPTIONS[12][0] = new int[]{4, 1, 2};
+        INDEX_OPTIONS[12] = new int[4][];
+        INDEX_OPTIONS[12][0] = new int[]{5, 1, 2};
         INDEX_OPTIONS[12][1] = new int[]{};
         INDEX_OPTIONS[12][2] = new int[]{};
+        INDEX_OPTIONS[12][3] = new int[]{};
         //
         //NPC #14
-        INDEX_OPTIONS[13] = new int[4][];
+        INDEX_OPTIONS[13] = new int[5][];
         INDEX_OPTIONS[13][0] = new int[]{};
-        INDEX_OPTIONS[13][1] = new int[]{5, 2, 3};
+        INDEX_OPTIONS[13][1] = new int[]{6, 2, 3};
         INDEX_OPTIONS[13][2] = new int[]{};
         INDEX_OPTIONS[13][3] = new int[]{};
+        INDEX_OPTIONS[13][4] = new int[]{};
         //
         //npc #15
-        INDEX_OPTIONS[14] = new int[4][];
-        INDEX_OPTIONS[14][0] = new int[]{5, 2, 3};
-        INDEX_OPTIONS[14][1] = new int[]{5, 2, 3};
+        INDEX_OPTIONS[14] = new int[5][];
+        INDEX_OPTIONS[14][0] = new int[]{6, 2, 3};
+        INDEX_OPTIONS[14][1] = new int[]{6, 2, 3};
         INDEX_OPTIONS[14][2] = new int[]{};
         INDEX_OPTIONS[14][3] = new int[]{};
+        INDEX_OPTIONS[14][4] = new int[]{};
+        //
+        //NPC #16
+        //hero
+        INDEX_OPTIONS[15] = new int[8][];
+        INDEX_OPTIONS[15][0] = new int[]{9, 5, 6};
+        INDEX_OPTIONS[15][1] = new int[]{10, 3};
+        INDEX_OPTIONS[15][2] = new int[]{10, 3};
+        INDEX_OPTIONS[15][3] = new int[]{11, 4};
+        INDEX_OPTIONS[15][4] = new int[]{};
+        INDEX_OPTIONS[15][5] = new int[]{};
+        INDEX_OPTIONS[15][6] = new int[]{};
+        INDEX_OPTIONS[15][7] = new int[]{};
+        //
+        //NPO #17
+        //hero
+        INDEX_OPTIONS[16] = new int[8][];
+        INDEX_OPTIONS[16][0] = new int[]{10, 5, 6};
+        INDEX_OPTIONS[16][1] = new int[]{10, 3, 4};
+        INDEX_OPTIONS[16][2] = new int[]{10, 3, 4};
+        INDEX_OPTIONS[16][3] = new int[]{};
+        INDEX_OPTIONS[16][4] = new int[]{};
+        INDEX_OPTIONS[16][5] = new int[]{};
+        INDEX_OPTIONS[16][6] = new int[]{};
+        INDEX_OPTIONS[16][7] = new int[]{};
     }
 
     /**
@@ -400,79 +480,113 @@ public class BaseDialogs {
         INDEX_LISTENER[2][14] = 1;
         //
         //NPC #4
-        INDEX_LISTENER[3] = new int[2];
+        INDEX_LISTENER[3] = new int[3];
         INDEX_LISTENER[3][0] = 3;
         INDEX_LISTENER[3][1] = 1;
+        INDEX_LISTENER[3][2] = 5;
         //
         //NPC #5
-        INDEX_LISTENER[4] = new int[4];
+        INDEX_LISTENER[4] = new int[5];
         INDEX_LISTENER[4][0] = 0;
         INDEX_LISTENER[4][1] = 1;
         INDEX_LISTENER[4][2] = 3;
         INDEX_LISTENER[4][3] = 1;
+        INDEX_LISTENER[4][4] = 5;
         //
         //NPC #6
-        INDEX_LISTENER[5] = new int[4];
+        INDEX_LISTENER[5] = new int[5];
         INDEX_LISTENER[5][0] = 2;
         INDEX_LISTENER[5][1] = 0;
         INDEX_LISTENER[5][2] = 1;
         INDEX_LISTENER[5][3] = 4;
+        INDEX_LISTENER[5][4] = 5;
         //
         //NPC #7
-        INDEX_LISTENER[6] = new int[4];
+        INDEX_LISTENER[6] = new int[5];
         INDEX_LISTENER[6][0] = 0;
         INDEX_LISTENER[6][1] = 0;
         INDEX_LISTENER[6][2] = 3;
         INDEX_LISTENER[6][3] = 1;
+        INDEX_LISTENER[6][4] = 5;
         //
         //NPC #8
-        INDEX_LISTENER[7] = new int[4];
+        INDEX_LISTENER[7] = new int[6];
         INDEX_LISTENER[7][0] = 2;
         INDEX_LISTENER[7][1] = 0;
         INDEX_LISTENER[7][2] = 3;
         INDEX_LISTENER[7][3] = 1;
+        INDEX_LISTENER[7][4] = 5;
         //
         //NPC #9
-        INDEX_LISTENER[8] = new int[2];
+        INDEX_LISTENER[8] = new int[3];
         INDEX_LISTENER[8][0] = 3;
         INDEX_LISTENER[8][1] = 1;
+        INDEX_LISTENER[8][2] = 5;
         //
         //NPC #10
-        INDEX_LISTENER[9] = new int[2];
+        INDEX_LISTENER[9] = new int[3];
         INDEX_LISTENER[9][0] = 3;
         INDEX_LISTENER[9][1] = 1;
+        INDEX_LISTENER[9][2] = 5;
         //
         //NPC #11
-        INDEX_LISTENER[10] = new int[3];
+        INDEX_LISTENER[10] = new int[4];
         INDEX_LISTENER[10][0] = 0;
         INDEX_LISTENER[10][1] = 3;
         INDEX_LISTENER[10][2] = 1;
+        INDEX_LISTENER[10][3] = 5;
         //
         //NPC #12
-        INDEX_LISTENER[11] = new int[3];
+        INDEX_LISTENER[11] = new int[4];
         INDEX_LISTENER[11][0] = 0;
         INDEX_LISTENER[11][1] = 3;
         INDEX_LISTENER[11][2] = 1;
+        INDEX_LISTENER[11][3] = 5;
         //
         //NPC #13
-        INDEX_LISTENER[12] = new int[3];
+        INDEX_LISTENER[12] = new int[4];
         INDEX_LISTENER[12][0] = 0;
         INDEX_LISTENER[12][1] = 3;
         INDEX_LISTENER[12][2] = 1;
+        INDEX_LISTENER[12][3] = 5;
         //
         //NPC #14
-        INDEX_LISTENER[13] = new int[4];
+        INDEX_LISTENER[13] = new int[5];
         INDEX_LISTENER[13][0] = 2;
         INDEX_LISTENER[13][1] = 0;
         INDEX_LISTENER[13][2] = 3;
         INDEX_LISTENER[13][3] = 1;
+        INDEX_LISTENER[13][4] = 5;
         //
         //NPC #15
-        INDEX_LISTENER[14] = new int[4];
+        INDEX_LISTENER[14] = new int[5];
         INDEX_LISTENER[14][0] = 0;
         INDEX_LISTENER[14][1] = 0;
         INDEX_LISTENER[14][2] = 3;
         INDEX_LISTENER[14][3] = 1;
+        INDEX_LISTENER[14][4] = 5;
+        //
+        //NPC #16
+        INDEX_LISTENER[15] = new int[8];
+        INDEX_LISTENER[15][0] = 0;
+        INDEX_LISTENER[15][1] = 0;
+        INDEX_LISTENER[15][2] = 0;
+        INDEX_LISTENER[15][3] = 0;
+        INDEX_LISTENER[15][4] = 1;
+        INDEX_LISTENER[15][5] = 3;
+        INDEX_LISTENER[15][6] = 1;
+        INDEX_LISTENER[15][7] = 5;
+        //
+        //NPC #17
+        INDEX_LISTENER[16] = new int[8];
+        INDEX_LISTENER[16][0] = 0;
+        INDEX_LISTENER[16][1] = 0;
+        INDEX_LISTENER[16][2] = 1;
+        INDEX_LISTENER[16][3] = 3;
+        INDEX_LISTENER[16][4] = 1;
+        INDEX_LISTENER[16][5] = 2;
+        INDEX_LISTENER[16][6] = 1;
+        INDEX_LISTENER[16][7] = 5;
     }
 
     public static String getText(int indexFirst, int indexSecond){

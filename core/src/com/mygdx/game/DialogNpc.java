@@ -34,6 +34,7 @@ public class DialogNpc {
     private int textHero0;
     private int textHero1;
     private int textHero2;
+    private int taskReward;
 
     private static final BitmapFont font = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle style = new Label.LabelStyle();
@@ -59,6 +60,7 @@ public class DialogNpc {
         textHero0 = BaseDialogs.STARTING_TEXT[npc.getId()][1];
         textHero1 = BaseDialogs.STARTING_TEXT[npc.getId()][2];
         textHero2 = BaseDialogs.STARTING_TEXT[npc.getId()][3];
+        taskReward = BaseDialogs.STARTING_TEXT[npc.getId()][4];
 
         BACKGROUND.setSize(BACKGROUND.getWidth(), 400);
         BACKGROUND.setPosition(POS_X +(BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, POS_TEXT_FIELD_NPC -345);
@@ -113,8 +115,10 @@ public class DialogNpc {
 
         if(BaseTask.isComplete(npc.getIdTask())) {
             //TODO change second parameter in base on task event
-            fieldTextList[3] = new FieldDialogue(npc.getId(), 7);
-            setListener(3, 7);
+            if(taskReward != -1) {
+                fieldTextList[3] = new FieldDialogue(npc.getId(), taskReward);
+                setListener(3, taskReward);
+            }
         }
         else {
             if(textHero2 != -1) {
@@ -150,7 +154,6 @@ public class DialogNpc {
                 fieldTextList[idFieldDialogue].info();
                 break;
             case 1:
-                System.out.println("set exit");
                 fieldTextList[idFieldDialogue].exit();
                 break;
             case 2:
