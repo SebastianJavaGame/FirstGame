@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class Map_05 extends BaseMap {
     public static final int STARTING_POS_X = 286;
     public static final int STARTING_POS_Y = 646;
-    public static final Vector2[] ENTRIENCES = new Vector2[]{new Vector2(2113, 1428), new Vector2(1195, 2280)};
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -36,12 +35,7 @@ public class Map_05 extends BaseMap {
     private static ArrayList<Character> characters;
 
     static {
-        //Asset asset = new Asset();
-        //asset.manager.load("MAP_01.jpg", Texture.class);
-        //asset.manager.finishLoading();
-        //if(asset.manager.update()) {
         mapImage = new Image(new Texture("MAP_05.jpg"));
-        //}
         mapWidth = (int)(mapImage.getWidth() *0.8f);
         mapHeight = (int)(mapImage.getHeight() *0.8f);
     }
