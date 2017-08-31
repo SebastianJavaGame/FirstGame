@@ -34,13 +34,10 @@ public class Map_03 extends BaseMap {
     private static ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Character> characters;
 
+    public static Npc e10;
+
     static {
-        //Asset asset = new Asset();
-        //asset.manager.load("MAP_01.jpg", Texture.class);
-        //asset.manager.finishLoading();
-        //if(asset.manager.update()) {
         mapImage = new Image(new Texture("MAP_03.jpg"));
-        //}
         mapWidth = (int)(mapImage.getWidth() *0.8f);
         mapHeight = (int)(mapImage.getHeight() *0.8f);
     }
@@ -162,19 +159,19 @@ public class Map_03 extends BaseMap {
         Npc npc6 = new Npc(new Texture(Gdx.files.internal("npc/7.png")), new Image(new Texture(Gdx.files.internal("npc/7h.png"))), "Adar", 35, 2, 2, 6);
         npc6.setPosition(975, 1367);
         characters.add(npc6);
-        npc6.setRectangle(0, 0, 0, 0);
+        npc6.setRectangle(8, 2, -16, -8);
         npc6.collisionUpdate();
 
         Npc npc7 = new Npc(new Texture(Gdx.files.internal("npc/8.png")), new Image(new Texture(Gdx.files.internal("npc/8h.png"))), "Trumv", 40, 2, 3, 7);
         npc7.setPosition(607, 1082);
         characters.add(npc7);
-        npc7.setRectangle(0, 0, 0, 0);
+        npc7.setRectangle(8, 2, -16, -8);
         npc7.collisionUpdate();
 
         Npc npc8 = new Npc(new Texture(Gdx.files.internal("npc/9.png")), new Image(new Texture(Gdx.files.internal("npc/9h.png"))), "Jaris", 46, 2, 4, 8);
         npc8.setPosition(1332, 1418);
         characters.add(npc8);
-        npc8.setRectangle(0, 0, 0, 0);
+        npc8.setRectangle(8, 2, -16, -8);
         npc8.collisionUpdate();
     }
 

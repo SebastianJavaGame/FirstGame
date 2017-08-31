@@ -141,7 +141,7 @@ public class BaseDialogs {
         TEXT[6][4] = " Wykonałem zadanie";
         //npc
         TEXT[6][5] = " Czego tu szukasz?";
-        TEXT[6][6] = " Każdy tak mówi, a większośc się poddaje.";
+        TEXT[6][6] = " Każdy tak mówi, a większośc upada.";
         TEXT[6][7] = " Tak, jeśli chcesz mi pomóc zabij x x-name.";
         //
         //NPC #8
@@ -357,7 +357,7 @@ public class BaseDialogs {
         //NPC #8
         INDEX_OPTIONS[7] = new int[5][];
         INDEX_OPTIONS[7][0] = new int[]{};
-        INDEX_OPTIONS[7][1] = new int[]{5, 2, 3};
+        INDEX_OPTIONS[7][1] = new int[]{6, 2, 3};
         INDEX_OPTIONS[7][2] = new int[]{};
         INDEX_OPTIONS[7][3] = new int[]{};
         INDEX_OPTIONS[7][4] = new int[]{};
@@ -524,7 +524,7 @@ public class BaseDialogs {
         INDEX_LISTENER[6][4] = 5;
         //
         //NPC #8
-        INDEX_LISTENER[7] = new int[6];
+        INDEX_LISTENER[7] = new int[5];
         INDEX_LISTENER[7][0] = 2;
         INDEX_LISTENER[7][1] = 0;
         INDEX_LISTENER[7][2] = 3;

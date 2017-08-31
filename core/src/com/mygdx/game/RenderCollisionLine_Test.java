@@ -164,7 +164,7 @@ public class RenderCollisionLine_Test implements Disposable{
         //drawRect(Map_01.e7.getX() + Map_01.e7.x, Map_01.e7.getY() + Map_01.e7.y, Map_01.e7.getWidth() + Map_01.e7.w, Map_01.e7.getHeight() + Map_01.e7.h);
         //drawRect(Map_01.e8.getX() + Map_01.e8.x, Map_01.e8.getY() + Map_01.e8.y, Map_01.e8.getWidth() + Map_01.e8.w, Map_01.e8.getHeight() + Map_01.e8.h);
         //drawRect(Map_01.e9.getX() + Map_01.e9.x, Map_01.e9.getY() + Map_01.e9.y, Map_01.e9.getWidth() + Map_01.e9.w, Map_01.e9.getHeight() + Map_01.e9.h);
-        //drawRect(Map_02.e10.getX() + Map_02.e10.x, Map_02.e10.getY() + Map_02.e10.y, Map_02.e10.getWidth() + Map_02.e10.w, Map_02.e10.getHeight() + Map_02.e10.h);
+        //drawRect(Map_03.e10.getX() + Map_03.e10.x, Map_03.e10.getY() + Map_03.e10.y, Map_03.e10.getWidth() + Map_03.e10.w, Map_03.e10.getHeight() + Map_03.e10.h);
         shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +hero.getX() -7, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +hero.getY() -24, 22, 60);
         //shapeRenderer.rect(-camera.position.x + BaseMap.VIEW_WIDTH / 2 +500, -camera.position.y + BaseMap.VIEW_HEIGHT / 2 +300, 100, 100);
         shapeRenderer.end();

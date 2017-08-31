@@ -34,8 +34,6 @@ public class Map_02 extends BaseMap {
     private static ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Character> characters;
 
-    public static Npc e10;
-
     static {
         mapImage = new Image(new Texture("MAP_02.jpg"));
         mapWidth = (int)(mapImage.getWidth() *0.8f);
@@ -175,7 +173,6 @@ public class Map_02 extends BaseMap {
         characters.add(npc5);
         npc5.setRectangle(8, 2, -16, -8);
         npc5.collisionUpdate();
-        e10 = npc5;
     }
 
     @Override

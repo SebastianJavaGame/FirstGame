@@ -19,8 +19,8 @@ import java.util.ArrayList;
  */
 
 public class MapBoss_01 extends BaseMap {
-    public static final int STARTING_POS_X = 500;
-    public static final int STARTING_POS_Y = 500;
+    public static final int STARTING_POS_X = 250;
+    public static final int STARTING_POS_Y = 350;
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
