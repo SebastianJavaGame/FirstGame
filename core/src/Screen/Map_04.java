@@ -60,12 +60,12 @@ public class Map_04 extends BaseMap {
             enemies[0][i].collisionUpdate();
             enemies[0][i].setDropItemName("wapons17", "armor9");
         }
-        enemies[0][0].setPosition(1431, 2041);
-        enemies[0][1].setPosition(1326, 2097);
-        enemies[0][2].setPosition(1734, 2034);
-        enemies[0][3].setPosition(1605, 2139);
-        enemies[0][4].setPosition(1887, 2049);
-        enemies[0][5].setPosition(1770, 2139);
+        enemies[0][0].setPosition(1431, reversePosY(2041));
+        enemies[0][1].setPosition(1326, reversePosY(2097));
+        enemies[0][2].setPosition(1734, reversePosY(2034));
+        enemies[0][3].setPosition(1605, reversePosY(2139));
+        enemies[0][4].setPosition(1887, reversePosY(2049));
+        enemies[0][5].setPosition(1770, reversePosY(2139));
 
         //Group 2
         countEnemy = 6;
@@ -77,11 +77,11 @@ public class Map_04 extends BaseMap {
             enemies[1][i].collisionUpdate();
             enemies[1][i].setDropItemName("helmet10", "ring8");
         }
-        enemies[1][0].setPosition(1753, 1899);
-        enemies[1][1].setPosition(1882, 1852);
-        enemies[1][2].setPosition(1929, 1753);
-        enemies[1][3].setPosition(1900, 1690);
-        enemies[1][4].setPosition(1597, 1465);
+        enemies[1][0].setPosition(1753, reversePosY(1899));
+        enemies[1][1].setPosition(1882, reversePosY(1852));
+        enemies[1][2].setPosition(1929, reversePosY(1753));
+        enemies[1][3].setPosition(1900, reversePosY(1690));
+        enemies[1][4].setPosition(1597, reversePosY(1465));
 
         //Group 3
         countEnemy = 7;
@@ -93,13 +93,13 @@ public class Map_04 extends BaseMap {
             enemies[2][i].collisionUpdate();
             enemies[2][i].setDropItemName("wapons18", "wapons19");
         }
-        enemies[2][0].setPosition(1485, 1696);
-        enemies[2][1].setPosition(1693, 1560);
-        enemies[2][2].setPosition(1432, 1467);
-        enemies[2][3].setPosition(1368, 1609);
-        enemies[2][4].setPosition(1260, 1717);
-        enemies[2][5].setPosition(1099, 1785);
-        enemies[2][6].setPosition(1164, 1644);
+        enemies[2][0].setPosition(1485, reversePosY(1696));
+        enemies[2][1].setPosition(1693, reversePosY(1560));
+        enemies[2][2].setPosition(1432, reversePosY(1467));
+        enemies[2][3].setPosition(1368, reversePosY(1609));
+        enemies[2][4].setPosition(1260, reversePosY(1717));
+        enemies[2][5].setPosition(1099, reversePosY(1785));
+        enemies[2][6].setPosition(1164, reversePosY(1644));
 
         //Group 4
         countEnemy = 5;
@@ -111,11 +111,11 @@ public class Map_04 extends BaseMap {
             enemies[3][i].collisionUpdate();
             enemies[3][i].setDropItemName("pants7", "shoes7");
         }
-        enemies[3][0].setPosition(925, 1903);
-        enemies[3][1].setPosition(757, 1827);
-        enemies[3][2].setPosition(904, 1687);
-        enemies[3][3].setPosition(657, 2023);
-        enemies[3][4].setPosition(558, 1835);
+        enemies[3][0].setPosition(925, reversePosY(1903));
+        enemies[3][1].setPosition(757, reversePosY(1827));
+        enemies[3][2].setPosition(904, reversePosY(1687));
+        enemies[3][3].setPosition(657, reversePosY(2023));
+        enemies[3][4].setPosition(558, reversePosY(1835));
 
         //Group 5
         countEnemy = 5;
@@ -127,11 +127,11 @@ public class Map_04 extends BaseMap {
             enemies[4][i].collisionUpdate();
             enemies[4][i].setDropItemName("armor10", "helmet11");
         }
-        enemies[4][0].setPosition(661, 1656);
-        enemies[4][1].setPosition(744, 1489);
-        enemies[4][2].setPosition(544, 1495);
-        enemies[4][3].setPosition(448, 1671);
-        enemies[4][4].setPosition(1290, 1299);
+        enemies[4][0].setPosition(661, reversePosY(1656));
+        enemies[4][1].setPosition(744, reversePosY(1489));
+        enemies[4][2].setPosition(544, reversePosY(1495));
+        enemies[4][3].setPosition(448, reversePosY(1671));
+        enemies[4][4].setPosition(1290, reversePosY(1299));
 
         //Group 6
         countEnemy = 8;
@@ -143,14 +143,14 @@ public class Map_04 extends BaseMap {
             enemies[5][i].collisionUpdate();
             enemies[5][i].setDropItemName("rekawice8", "ring9");
         }
-        enemies[5][0].setPosition(438, 978);
-        enemies[5][1].setPosition(601, 1093);
-        enemies[5][2].setPosition(411, 1144);
-        enemies[5][3].setPosition(1234, 826);
-        enemies[5][4].setPosition(556, 1287);
-        enemies[5][5].setPosition(783, 1165);
-        enemies[5][6].setPosition(430, 1932);
-        enemies[5][7].setPosition(708, 829);
+        enemies[5][0].setPosition(438, reversePosY(978));
+        enemies[5][1].setPosition(601, reversePosY(1093));
+        enemies[5][2].setPosition(411, reversePosY(1144));
+        enemies[5][3].setPosition(1234, reversePosY(826));
+        enemies[5][4].setPosition(556, reversePosY(1287));
+        enemies[5][5].setPosition(783, reversePosY(1165));
+        enemies[5][6].setPosition(430, reversePosY(1932));
+        enemies[5][7].setPosition(708, reversePosY(829));
 
         //Group 7
         countEnemy = 7;
@@ -162,13 +162,13 @@ public class Map_04 extends BaseMap {
             enemies[6][i].collisionUpdate();
             enemies[6][i].setDropItemName("wapons20", "ring10");
         }
-        enemies[6][0].setPosition(394, 658);
-        enemies[6][1].setPosition(534, 583);
-        enemies[6][2].setPosition(463, 2080);
-        enemies[6][3].setPosition(1266, 673);
-        enemies[6][4].setPosition(597, 478);
-        enemies[6][5].setPosition(417, 487);
-        enemies[6][6].setPosition(768, 426);
+        enemies[6][0].setPosition(394, reversePosY(658));
+        enemies[6][1].setPosition(534, reversePosY(583));
+        enemies[6][2].setPosition(463, reversePosY(2080));
+        enemies[6][3].setPosition(1266, reversePosY(673));
+        enemies[6][4].setPosition(597, reversePosY(478));
+        enemies[6][5].setPosition(417, reversePosY(487));
+        enemies[6][6].setPosition(768, reversePosY(426));
 
         //Group 8
         countEnemy = 6;
@@ -180,12 +180,12 @@ public class Map_04 extends BaseMap {
             enemies[7][i].collisionUpdate();
             enemies[7][i].setDropItemName("wapons21", "armoe11");
         }
-        enemies[7][0].setPosition(1066, 427);
-        enemies[7][1].setPosition(1287, 412);
-        enemies[7][2].setPosition(1213, 538);
-        enemies[7][3].setPosition(1023, 555);
-        enemies[7][4].setPosition(837, 534);
-        enemies[7][5].setPosition(1092, 697);
+        enemies[7][0].setPosition(1066, reversePosY(427));
+        enemies[7][1].setPosition(1287, reversePosY(412));
+        enemies[7][2].setPosition(1213, reversePosY(538));
+        enemies[7][3].setPosition(1023, reversePosY(555));
+        enemies[7][4].setPosition(837, reversePosY(534));
+        enemies[7][5].setPosition(1092, reversePosY(697));
 
         //Group 9
         countEnemy = 7;
@@ -197,13 +197,13 @@ public class Map_04 extends BaseMap {
             enemies[8][i].collisionUpdate();
             enemies[8][i].setDropItemName("pants8", "rekawice9");
         }
-        enemies[8][0].setPosition(1405, 595);
-        enemies[8][1].setPosition(1642, 777);
-        enemies[8][2].setPosition(1522, 685);
-        enemies[8][3].setPosition(1437, 816);
-        enemies[8][4].setPosition(1921, 609);
-        enemies[8][5].setPosition(1632, 1047);
-        enemies[8][6].setPosition(1569, 532);
+        enemies[8][0].setPosition(1405, reversePosY(595));
+        enemies[8][1].setPosition(1642, reversePosY(777));
+        enemies[8][2].setPosition(1522, reversePosY(685));
+        enemies[8][3].setPosition(1437, reversePosY(816));
+        enemies[8][4].setPosition(1921, reversePosY(609));
+        enemies[8][5].setPosition(1632, reversePosY(1047));
+        enemies[8][6].setPosition(1569, reversePosY(532));
 
         //Group 10
         countEnemy = 8;
@@ -215,14 +215,14 @@ public class Map_04 extends BaseMap {
             enemies[9][i].collisionUpdate();
             enemies[9][i].setDropItemName("ring11", "tarcza7", "shoes8", "helmet12");
         }
-        enemies[9][0].setPosition(1860, 478);
-        enemies[9][1].setPosition(1467, 406);
-        enemies[9][2].setPosition(1738, 540);
-        enemies[9][3].setPosition(1780, 670);
-        enemies[9][4].setPosition(1654, 421);
-        enemies[9][5].setPosition(2023, 930);
-        enemies[9][6].setPosition(1809, 1108);
-        enemies[9][7].setPosition(1920, 1200);
+        enemies[9][0].setPosition(1860, reversePosY(478));
+        enemies[9][1].setPosition(1467, reversePosY(406));
+        enemies[9][2].setPosition(1738, reversePosY(540));
+        enemies[9][3].setPosition(1780, reversePosY(670));
+        enemies[9][4].setPosition(1654, reversePosY(421));
+        enemies[9][5].setPosition(2023, reversePosY(930));
+        enemies[9][6].setPosition(1809, reversePosY(1108));
+        enemies[9][7].setPosition(1920, reversePosY(1200));
     }
 
     @Override

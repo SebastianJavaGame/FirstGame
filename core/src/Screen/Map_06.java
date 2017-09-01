@@ -51,104 +51,197 @@ public class Map_06 extends BaseMap {
         Enemy[][] enemies = new Enemy[10][7];
 
         //Group 1
-        for (int i = 0; i < 7; i++) {
+        int countEnemy = 7;
+        enemies[0] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[0][i] = new Enemy("enemy/map6/p1.png", "enemy/map6/1.png", "enemy/map6/w1.png", true, "Argona" ,82 ,        4850, 150, 130, 10f, 160, 150,        10, 11380, 3398, 240);//1195
-            enemies[0][i].setRectangle(0, 0, 0, 0);
+            enemies[0][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
             enemies[0][i].setDropItemName("pants10");
         }
-        enemies[0][0].setPosition(0, 0);
+        enemies[0][0].setPosition(1309, reversePosY(2194));
+        enemies[0][1].setPosition(1482, reversePosY(2163));
+        enemies[0][2].setPosition(1405, reversePosY(2254));
+        enemies[0][3].setPosition(934, reversePosY(2139));
+        enemies[0][4].setPosition(1030, reversePosY(2169));
+        enemies[0][5].setPosition(891, reversePosY(2224));
+        enemies[0][6].setPosition(1054, reversePosY(2274));
 
         //Group 2
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 7;
+        enemies[1] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[1][i] = new Enemy("enemy/map6/p2.png", "enemy/map6/2.png", "enemy/map6/w2.png", true, "Santria" ,85 ,       4950, 160, 150, 12f, 160, 160,       9.6f, 11730, 3650, 245);//1265
-            enemies[1][i].setRectangle(0, 0, 0, 0);
+            enemies[1][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[1][i]);
             enemies[1][i].collisionUpdate();
             enemies[1][i].setDropItemName("helmet15", "rekawice12");
         }
-        enemies[1][0].setPosition(0, 0);
+        enemies[1][0].setPosition(1912, reversePosY(2085));
+        enemies[1][1].setPosition(1830, reversePosY(2184));
+        enemies[1][2].setPosition(1671, reversePosY(2164));
+        enemies[1][3].setPosition(771, reversePosY(2145));
+        enemies[1][4].setPosition(651, reversePosY(2218));
+        enemies[1][5].setPosition(1014, reversePosY(1896));
+        enemies[1][6].setPosition(475, reversePosY(1830));
 
         //Group 3
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 6;
+        enemies[2] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[2][i] = new Enemy("enemy/map6/p3.png", "enemy/map6/3.png", "enemy/map6/w3.png", false, "Hydra" ,87 ,        5100, 150, 200, 12.5f, 130, 150,      10.3f, 11785, 3823, 260);//1275
-            enemies[2][i].setRectangle(0, 0, 0, 0);
+            enemies[2][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[2][i]);
             enemies[2][i].collisionUpdate();
             enemies[2][i].setDropItemName("ring16", "shoes10");
         }
-        enemies[2][0].setPosition(0, 0);
+        enemies[2][0].setPosition(496, reversePosY(2172));
+        enemies[2][1].setPosition(459, reversePosY(2074));
+        enemies[2][2].setPosition(597, reversePosY(2062));
+        enemies[2][3].setPosition(198, reversePosY(2185));
+        enemies[2][4].setPosition(358, reversePosY(1912));
+        enemies[2][5].setPosition(337, reversePosY(2095));
 
         //Group 4
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 7;
+        enemies[3] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[3][i] = new Enemy("enemy/map6/p4.png", "enemy/map6/4.png", "enemy/map6/w4.png", false, "Harpia" ,90 ,       5000, 200, 190, 13f, 140, 140,     9.4f, 11935, 4090, 270);//1310
-            enemies[3][i].setRectangle(0, 0, 0, 0);
+            enemies[3][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[3][i]);
             enemies[3][i].collisionUpdate();
             enemies[3][i].setDropItemName("shoes11", "wapons29");
         }
-        enemies[3][0].setPosition(0, 0);
+        enemies[3][0].setPosition(1434, reversePosY(1717));
+        enemies[3][1].setPosition(1305, reversePosY(1666));
+        enemies[3][2].setPosition(1309, reversePosY(1765));
+        enemies[3][3].setPosition(1263, reversePosY(1888));
+        enemies[3][4].setPosition(1987, reversePosY(1938));
+        enemies[3][5].setPosition(903, reversePosY(1617));
+        enemies[3][6].setPosition(931, reversePosY(1750));
 
         //Group 5
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 6;
+        enemies[4] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[4][i] = new Enemy("enemy/map6/p5.png", "enemy/map6/5.png", "enemy/map6/w5.png", true, "Gorgona" ,92 ,       5000, 160, 230, 14f, 140, 140,     9.6f, 11940, 4273, 280);//1320
-            enemies[4][i].setRectangle(0, 0, 0, 0);
+            enemies[4][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[4][i]);
             enemies[4][i].collisionUpdate();
             enemies[4][i].setDropItemName("wapons30", "pants11");
         }
-        enemies[4][0].setPosition(0, 0);
+        enemies[4][0].setPosition(706, reversePosY(1606));
+        enemies[4][1].setPosition(597, reversePosY(1476));
+        enemies[4][2].setPosition(550, reversePosY(1651));
+        enemies[4][3].setPosition(408, reversePosY(1552));
+        enemies[4][4].setPosition(372, reversePosY(1683));
+        enemies[4][5].setPosition(366, reversePosY(1417));
 
         //Group 6
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 8;
+        enemies[5] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[5][i] = new Enemy("enemy/map6/p6.png", "enemy/map6/6.png", "enemy/map6/w6.png", true, "Vassa" ,93 ,     4500, 220, 230, 14f, 140, 140,      9.2f, 11860, 4366, 290);//1330
-            enemies[5][i].setRectangle(0, 0, 0, 0);
+            enemies[5][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[5][i]);
             enemies[5][i].collisionUpdate();
             enemies[5][i].setDropItemName("tarcza10", "armor17");
         }
-        enemies[5][0].setPosition(0, 0);
+        enemies[5][0].setPosition(1969, reversePosY(1309));
+        enemies[5][1].setPosition(1807, reversePosY(1590));
+        enemies[5][2].setPosition(1683, reversePosY(1500));
+        enemies[5][3].setPosition(1495, reversePosY(1554));
+        enemies[5][4].setPosition(1525, reversePosY(1419));
+        enemies[5][5].setPosition(1918, reversePosY(1485));
+        enemies[5][6].setPosition(1920, reversePosY(1705));
+        enemies[5][7].setPosition(723, reversePosY(1374));
 
         //Group 7
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 10;
+        enemies[6] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[6][i] = new Enemy("enemy/map6/p7.png", "enemy/map6/7.png", "enemy/map6/w7.png", true, "Tassan" ,95 ,        5000, 270, 200, 13.5f, 130, 120,        9.5f, 11870, 4555, 300);//1365
-            enemies[6][i].setRectangle(0, 0, 0, 0);
+            enemies[6][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[6][i]);
             enemies[6][i].collisionUpdate();
             enemies[6][i].setDropItemName("helmet16", "ring17");
         }
-        enemies[6][0].setPosition(0, 0);
+        enemies[6][0].setPosition(766, reversePosY(1119));
+        enemies[6][1].setPosition(916, reversePosY(1092));
+        enemies[6][2].setPosition(379, reversePosY(1234));
+        enemies[6][3].setPosition(556, reversePosY(1305));
+        enemies[6][4].setPosition(795, reversePosY(1242));
+        enemies[6][5].setPosition(393, reversePosY(1056));
+        enemies[6][6].setPosition(1056, reversePosY(1167));
+        enemies[6][7].setPosition(672, reversePosY(924));
+        enemies[6][8].setPosition(1636, reversePosY(1266));
+        enemies[6][9].setPosition(2077, reversePosY(1032));
 
         //Group 8
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 10;
+        enemies[7] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[7][i] = new Enemy("enemy/map6/p8.png", "enemy/map6/8.png", "enemy/map6/w8.png", false, "Xantes" ,96 ,        4600, 200, 270, 12f, 150, 160,     10, 12166, 4651, 320);//1370
-            enemies[7][i].setRectangle(0, 0, 0, 0);
+            enemies[7][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[7][i]);
             enemies[7][i].collisionUpdate();
             enemies[7][i].setDropItemName("wapons31", "armor19");
         }
-        enemies[7][0].setPosition(0, 0);
+        enemies[7][0].setPosition(1863, reversePosY(1182));
+        enemies[7][1].setPosition(1779, reversePosY(1060));
+        enemies[7][2].setPosition(1948, reversePosY(1074));
+        enemies[7][3].setPosition(1888, reversePosY(936));
+        enemies[7][4].setPosition(1459, reversePosY(1105));
+        enemies[7][5].setPosition(1345, reversePosY(1038));
+        enemies[7][6].setPosition(948, reversePosY(804));
+        enemies[7][7].setPosition(397, reversePosY(888));
+        enemies[7][8].setPosition(545, reversePosY(829));
+        enemies[7][9].setPosition(1050, reversePosY(894));
 
         //Group 9
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 10;
+        enemies[8] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[8][i] = new Enemy("enemy/map6/p9.png", "enemy/map6/9.png", "enemy/map6/w9.png", true, "Selenus" ,98 ,      4500, 255, 240, 12f, 170, 170,       9.1f, 12555, 4846, 310);//1415
-            enemies[8][i].setRectangle(0, 0, 0, 0);
+            enemies[8][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[8][i]);
             enemies[8][i].collisionUpdate();
             enemies[8][i].setDropItemName("shoes12", "tarcza11", "wapons32");
         }
-        enemies[8][0].setPosition(0, 0);
+        enemies[8][0].setPosition(511, reversePosY(621));
+        enemies[8][1].setPosition(399, reversePosY(717));
+        enemies[8][2].setPosition(681, reversePosY(687));
+        enemies[8][3].setPosition(627, reversePosY(568));
+        enemies[8][4].setPosition(1686, reversePosY(762));
+        enemies[8][5].setPosition(1531, reversePosY(745));
+        enemies[8][6].setPosition(1609, reversePosY(844));
+        enemies[8][7].setPosition(1717, reversePosY(901));
+        enemies[8][8].setPosition(1597, reversePosY(951));
+        enemies[8][9].setPosition(783, reversePosY(555));
 
         //Group 10
-        for (int i = 0; i < 7; i++) {
+        countEnemy = 12;
+        enemies[9] = new Enemy[countEnemy];
+        for (int i = 0; i < countEnemy; i++) {
             enemies[9][i] = new Enemy("enemy/map6/p10.png", "enemy/map6/10.png", "enemy/map6/w10.png", true, "Raplieton" ,99 ,      6000, 300, 200, 10f, 110, 100,         10, 13333, 4945, 360);//1420
-            enemies[9][i].setRectangle(0, 0, 0, 0);
+            enemies[9][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[9][i]);
             enemies[9][i].collisionUpdate();
             enemies[9][i].setDropItemName("ring18", "pants12", "armor20", "wapons33");
         }
-        enemies[9][0].setPosition(0, 0);
+        enemies[9][0].setPosition(1645, reversePosY(493));
+        enemies[9][1].setPosition(1434, reversePosY(540));
+        enemies[9][2].setPosition(1339, reversePosY(556));
+        enemies[9][3].setPosition(1491, reversePosY(645));
+        enemies[9][4].setPosition(1243, reversePosY(526));
+        enemies[9][5].setPosition(972, reversePosY(609));
+        enemies[9][6].setPosition(1161, reversePosY(475));
+        enemies[9][7].setPosition(1057, reversePosY(537));
+        enemies[9][8].setPosition(1662, reversePosY(628));
+        enemies[9][9].setPosition(1344, reversePosY(685));
+        enemies[9][10].setPosition(1189, reversePosY(642));
+        enemies[9][11].setPosition(1830, reversePosY(529));
     }
 
     @Override
