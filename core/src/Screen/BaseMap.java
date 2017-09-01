@@ -345,6 +345,10 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         return 2520 -i;
     }
 
+    protected float reversePosYBoss(int i){
+        return 1120 -i;
+    }
+
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //System.out.println("x: " + screenX);
        // System.out.println("y: " + screenY);

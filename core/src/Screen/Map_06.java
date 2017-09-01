@@ -57,7 +57,6 @@ public class Map_06 extends BaseMap {
             enemies[0][i] = new Enemy("enemy/map6/p1.png", "enemy/map6/1.png", "enemy/map6/w1.png", true, "Argona" ,82 ,        4850, 150, 130, 10f, 160, 150,        10, 11380, 3398, 240);//1195
             enemies[0][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[0][i]);
-            enemies[0][i].collisionUpdate();
             enemies[0][i].setDropItemName("pants10");
         }
         enemies[0][0].setPosition(1309, reversePosY(2194));
@@ -75,7 +74,6 @@ public class Map_06 extends BaseMap {
             enemies[1][i] = new Enemy("enemy/map6/p2.png", "enemy/map6/2.png", "enemy/map6/w2.png", true, "Santria" ,85 ,       4950, 160, 150, 12f, 160, 160,       9.6f, 11730, 3650, 245);//1265
             enemies[1][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[1][i]);
-            enemies[1][i].collisionUpdate();
             enemies[1][i].setDropItemName("helmet15", "rekawice12");
         }
         enemies[1][0].setPosition(1912, reversePosY(2085));
@@ -93,7 +91,6 @@ public class Map_06 extends BaseMap {
             enemies[2][i] = new Enemy("enemy/map6/p3.png", "enemy/map6/3.png", "enemy/map6/w3.png", false, "Hydra" ,87 ,        5100, 150, 200, 12.5f, 130, 150,      10.3f, 11785, 3823, 260);//1275
             enemies[2][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[2][i]);
-            enemies[2][i].collisionUpdate();
             enemies[2][i].setDropItemName("ring16", "shoes10");
         }
         enemies[2][0].setPosition(496, reversePosY(2172));
@@ -110,7 +107,6 @@ public class Map_06 extends BaseMap {
             enemies[3][i] = new Enemy("enemy/map6/p4.png", "enemy/map6/4.png", "enemy/map6/w4.png", false, "Harpia" ,90 ,       5000, 200, 190, 13f, 140, 140,     9.4f, 11935, 4090, 270);//1310
             enemies[3][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[3][i]);
-            enemies[3][i].collisionUpdate();
             enemies[3][i].setDropItemName("shoes11", "wapons29");
         }
         enemies[3][0].setPosition(1434, reversePosY(1717));
@@ -128,7 +124,6 @@ public class Map_06 extends BaseMap {
             enemies[4][i] = new Enemy("enemy/map6/p5.png", "enemy/map6/5.png", "enemy/map6/w5.png", true, "Gorgona" ,92 ,       5000, 160, 230, 14f, 140, 140,     9.6f, 11940, 4273, 280);//1320
             enemies[4][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[4][i]);
-            enemies[4][i].collisionUpdate();
             enemies[4][i].setDropItemName("wapons30", "pants11");
         }
         enemies[4][0].setPosition(706, reversePosY(1606));
@@ -145,7 +140,6 @@ public class Map_06 extends BaseMap {
             enemies[5][i] = new Enemy("enemy/map6/p6.png", "enemy/map6/6.png", "enemy/map6/w6.png", true, "Vassa" ,93 ,     4500, 220, 230, 14f, 140, 140,      9.2f, 11860, 4366, 290);//1330
             enemies[5][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[5][i]);
-            enemies[5][i].collisionUpdate();
             enemies[5][i].setDropItemName("tarcza10", "armor17");
         }
         enemies[5][0].setPosition(1969, reversePosY(1309));
@@ -164,7 +158,6 @@ public class Map_06 extends BaseMap {
             enemies[6][i] = new Enemy("enemy/map6/p7.png", "enemy/map6/7.png", "enemy/map6/w7.png", true, "Tassan" ,95 ,        5000, 270, 200, 13.5f, 130, 120,        9.5f, 11870, 4555, 300);//1365
             enemies[6][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[6][i]);
-            enemies[6][i].collisionUpdate();
             enemies[6][i].setDropItemName("helmet16", "ring17");
         }
         enemies[6][0].setPosition(766, reversePosY(1119));
@@ -185,7 +178,6 @@ public class Map_06 extends BaseMap {
             enemies[7][i] = new Enemy("enemy/map6/p8.png", "enemy/map6/8.png", "enemy/map6/w8.png", false, "Xantes" ,96 ,        4600, 200, 270, 12f, 150, 160,     10, 12166, 4651, 320);//1370
             enemies[7][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[7][i]);
-            enemies[7][i].collisionUpdate();
             enemies[7][i].setDropItemName("wapons31", "armor19");
         }
         enemies[7][0].setPosition(1863, reversePosY(1182));
@@ -206,7 +198,6 @@ public class Map_06 extends BaseMap {
             enemies[8][i] = new Enemy("enemy/map6/p9.png", "enemy/map6/9.png", "enemy/map6/w9.png", true, "Selenus" ,98 ,      4500, 255, 240, 12f, 170, 170,       9.1f, 12555, 4846, 310);//1415
             enemies[8][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[8][i]);
-            enemies[8][i].collisionUpdate();
             enemies[8][i].setDropItemName("shoes12", "tarcza11", "wapons32");
         }
         enemies[8][0].setPosition(511, reversePosY(621));
@@ -227,7 +218,6 @@ public class Map_06 extends BaseMap {
             enemies[9][i] = new Enemy("enemy/map6/p10.png", "enemy/map6/10.png", "enemy/map6/w10.png", true, "Raplieton" ,99 ,      6000, 300, 200, 10f, 110, 100,         10, 13333, 4945, 360);//1420
             enemies[9][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[9][i]);
-            enemies[9][i].collisionUpdate();
             enemies[9][i].setDropItemName("ring18", "pants12", "armor20", "wapons33");
         }
         enemies[9][0].setPosition(1645, reversePosY(493));
@@ -242,17 +232,23 @@ public class Map_06 extends BaseMap {
         enemies[9][9].setPosition(1344, reversePosY(685));
         enemies[9][10].setPosition(1189, reversePosY(642));
         enemies[9][11].setPosition(1830, reversePosY(529));
+
+        for(Enemy enemiesList[]: enemies){
+            for(Character enemy: enemiesList){
+                enemy.collisionUpdate();
+            }
+        }
     }
 
     @Override
     public void addNpcToMap() {
-        Npc npc15 = new Npc(new Texture(Gdx.files.internal("npc/16.png")), new Image(new Texture(Gdx.files.internal("npc.16h.png"))), "Bertrand", 90, 5, 11, 15);
+        Npc npc15 = new Npc(new Texture(Gdx.files.internal("npc/16.png")), new Image(new Texture(Gdx.files.internal("npc/16h.png"))), "Bertrand", 90, 5, 11, 15);
         npc15.setPosition(885, 522);
         characters.add(npc15);
         npc15.setRectangle(8, 2, -16, -8);
         npc15.collisionUpdate();
 
-        Npc npc16 = new Npc(new Texture(Gdx.files.internal("npc/17.png")), new Image(new Texture(Gdx.files.internal("npc.17h.png"))), "Nevil", 95, 5, 12, 16);
+        Npc npc16 = new Npc(new Texture(Gdx.files.internal("npc/17.png")), new Image(new Texture(Gdx.files.internal("npc/17h.png"))), "Nevil", 95, 5, 12, 16);
         npc16.setPosition(1388, 448);
         characters.add(npc16);
         npc16.setRectangle(8, 2, -16, -8);

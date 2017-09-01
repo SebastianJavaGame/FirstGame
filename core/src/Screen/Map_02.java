@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class Map_02 extends BaseMap {
     public static final int STARTING_POS_X = 1251;
     public static final int STARTING_POS_Y = 347;
-    public static final Vector2[] ENTRIENCES = new Vector2[]{new Vector2(2024, 1921), new Vector2(253, 1717)};
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;

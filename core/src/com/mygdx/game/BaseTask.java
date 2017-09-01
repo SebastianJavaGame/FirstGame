@@ -6,7 +6,7 @@ package com.mygdx.game;
 
 public class BaseTask {
     //[idTask][
-    public static final int COUNT_TASKS = 4;
+    public static final int COUNT_TASKS = 14;
     private static final String[][] LIST_TASKS = new String[COUNT_TASKS][3];
     private static final int[][] REWARD_TASK = new int[COUNT_TASKS][2];
     private static final int[] LIST_PROGRESS = new int[COUNT_TASKS];
@@ -54,85 +54,85 @@ public class BaseTask {
 
         LIST_PROGRESS[3] = 5;
         //task #5
-        LIST_TASKS[3][0] = "Trumv";
-        LIST_TASKS[3][1] = "Zabij 4 Wachlaczy";
-        LIST_TASKS[3][2] = "Wachlacz";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[4][0] = "Trumv";
+        LIST_TASKS[4][1] = "Zabij 4 Wachlaczy";
+        LIST_TASKS[4][2] = "Wachlacz";
+        REWARD_TASK[4][0] = 2050;
+        REWARD_TASK[4][1] = 3000;
 
-        LIST_PROGRESS[3] = 4;
+        LIST_PROGRESS[4] = 4;
         //task #6
-        LIST_TASKS[3][0] = "Jaris";
-        LIST_TASKS[3][1] = "Zabij 6 Skalniaków";
-        LIST_TASKS[3][2] = "Skalniak";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[5][0] = "Jaris";
+        LIST_TASKS[5][1] = "Zabij 6 Skalniaków";
+        LIST_TASKS[5][2] = "Skalniak";
+        REWARD_TASK[5][0] = 2050;
+        REWARD_TASK[5][1] = 3000;
 
-        LIST_PROGRESS[3] = 6;
+        LIST_PROGRESS[5] = 6;
         //task #7
-        LIST_TASKS[3][0] = "Tumvill";
-        LIST_TASKS[3][1] = "Zabij 7 Dinotopów";
-        LIST_TASKS[3][2] = "Dinotop";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[6][0] = "Tumvill";
+        LIST_TASKS[6][1] = "Zabij 7 Dinotopów";
+        LIST_TASKS[6][2] = "Dinotop";
+        REWARD_TASK[6][0] = 2050;
+        REWARD_TASK[6][1] = 3000;
 
-        LIST_PROGRESS[3] = 7;
+        LIST_PROGRESS[6] = 7;
         //task #8
-        LIST_TASKS[3][0] = "Simza";
-        LIST_TASKS[3][1] = "Zabij 5 Bevterów";
-        LIST_TASKS[3][2] = "Bevter";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[7][0] = "Simza";
+        LIST_TASKS[7][1] = "Zabij 5 Bevterów";
+        LIST_TASKS[7][2] = "Bevter";
+        REWARD_TASK[7][0] = 2050;
+        REWARD_TASK[7][1] = 3000;
 
-        LIST_PROGRESS[3] = 5;
+        LIST_PROGRESS[7] = 5;
         //task #9
-        LIST_TASKS[3][0] = "Tahar";
-        LIST_TASKS[3][1] = "Zabij 8 Kratherów";
-        LIST_TASKS[3][2] = "Krather";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[8][0] = "Tahar";
+        LIST_TASKS[8][1] = "Zabij 8 Kratherów";
+        LIST_TASKS[8][2] = "Krather";
+        REWARD_TASK[8][0] = 2050;
+        REWARD_TASK[8][1] = 3000;
 
-        LIST_PROGRESS[3] = 8;
+        LIST_PROGRESS[8] = 8;
         //task #10
-        LIST_TASKS[3][0] = "Flegrum";
-        LIST_TASKS[3][1] = "Zabij 7 Cybrisów";
-        LIST_TASKS[3][2] = "Cybris";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[9][0] = "Flegrum";
+        LIST_TASKS[9][1] = "Zabij 7 Cybrisów";
+        LIST_TASKS[9][2] = "Cybris";
+        REWARD_TASK[9][0] = 2050;
+        REWARD_TASK[9][1] = 3000;
 
-        LIST_PROGRESS[3] = 7;
+        LIST_PROGRESS[9] = 7;
         //task #11
-        LIST_TASKS[3][0] = "Alwas";
-        LIST_TASKS[3][1] = "Zabij 5 Upadłych";
-        LIST_TASKS[3][2] = "Upadły";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[10][0] = "Alwas";
+        LIST_TASKS[10][1] = "Zabij 5 Upadłych";
+        LIST_TASKS[10][2] = "Upadły";
+        REWARD_TASK[10][0] = 2050;
+        REWARD_TASK[10][1] = 3000;
 
-        LIST_PROGRESS[3] = 5;
+        LIST_PROGRESS[10] = 5;
         //task #12
-        LIST_TASKS[3][0] = "Miranda";
-        LIST_TASKS[3][1] = "Zabij 4 Diabeuze";
-        LIST_TASKS[3][2] = "Diabeuza";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[11][0] = "Miranda";
+        LIST_TASKS[11][1] = "Zabij 4 Diabeuze";
+        LIST_TASKS[11][2] = "Diabeuza";
+        REWARD_TASK[11][0] = 2050;
+        REWARD_TASK[11][1] = 3000;
 
-        LIST_PROGRESS[3] = 4;
+        LIST_PROGRESS[11] = 4;
         //task #13
-        LIST_TASKS[3][0] = "Bertrand";
-        LIST_TASKS[3][1] = "Zabij 7 Hydr";
-        LIST_TASKS[3][2] = "Hydra";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[12][0] = "Bertrand";
+        LIST_TASKS[12][1] = "Zabij 7 Hydr";
+        LIST_TASKS[12][2] = "Hydra";
+        REWARD_TASK[12][0] = 2050;
+        REWARD_TASK[12][1] = 3000;
 
-        LIST_PROGRESS[3] = 7;
+        LIST_PROGRESS[12] = 7;
         //task #14
-        LIST_TASKS[3][0] = "Nevil";
-        LIST_TASKS[3][1] = "Zabij 3 Xantessy";
-        LIST_TASKS[3][2] = "Xantes";
-        REWARD_TASK[3][0] = 2050;
-        REWARD_TASK[3][1] = 3000;
+        LIST_TASKS[13][0] = "Nevil";
+        LIST_TASKS[13][1] = "Zabij 3 Xantessy";
+        LIST_TASKS[13][2] = "Xantes";
+        REWARD_TASK[13][0] = 2050;
+        REWARD_TASK[13][1] = 3000;
 
-        LIST_PROGRESS[3] = 3;
+        LIST_PROGRESS[13] = 3;
 
     }
 
