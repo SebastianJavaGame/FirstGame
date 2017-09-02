@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 
 public class Map_01 extends BaseMap {
-    public static final String NAME = "'Awirdan'";
+    public static final String NAME = "'Awirdan";
     public static final int STARTING_POS_X = 626;
     public static final int STARTING_POS_Y = 416;
     private static Image mapImage;
@@ -290,7 +290,7 @@ public class Map_01 extends BaseMap {
         positionOptimalise.add(new Vector2(1878, 1838)); arrayBoolean.add(new boolean[]{false, false});
 
         addObjectCollision(new float[]{221,784,313,843,292,1005,250,1037,254,1077,420,1169,372,1378,420,1169,372,1378,420,1388,457,1495,373,1675,416,1750,383,1853,352,1928,467,1993,471,2033,850,2233,919,2181,1006,2188,1103,2150,1214,2242,105,2434});
-        addVerticalToObjectCollision(new Vector2[]{new Vector2(320, 842), new Vector2(428,1165), new Vector2(466,1495), new Vector2(519,1928), new Vector2(806, 2090), new Vector2(1108,2133)});
+        addVerticalToObjectCollision(new Vector2[]{new Vector2(320, 842), new Vector2(428,1165), new Vector2(466,1495), new Vector2(519,1928), new Vector2(806, 2090), new Vector2(1108,2133), new Vector2(1231, 2250)});
         positionOptimalise.add(new Vector2(485, 1895));     arrayBoolean.add(new boolean[]{true, false});
 
         addObjectCollision(new float[]{1708,1567,1859,1634,1958,1714,1954,1763,1839,1878,1772,1825,1675,1829,1483,1743,1481,1696});

@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 
 public class MapBoss_01 extends BaseMap {
+    public static final String NAME = "Maven-land";
     public static final int STARTING_POS_X = 250;
     public static final int STARTING_POS_Y = 350;
     public static final int DEAD_POS_X = 350; //TODO all boss map
@@ -191,6 +192,9 @@ public class MapBoss_01 extends BaseMap {
         addEntranceToMap();
 
         stage.addActor(bgTexture);
+
+        mapView = new Image(new Texture("map01BossView.jpg"));//TODO
+        mapName = NAME;
 
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;

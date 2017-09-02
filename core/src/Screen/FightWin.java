@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -21,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.Compass;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.ExperienceRequired;
@@ -216,7 +216,6 @@ public class FightWin extends BaseScreen {
                 Menu.setIsFirstSpawnHeroPosition(true);
                 Menu.getSoundClick().play();
 
-                //final Enemy enemy = new Enemy("enemy/map1/p1.png", "enemy/map1/1.png", "enemy/map1/w1.png", true, "Grzybox" ,1 ,     0, 5, 4, 0.3f, 3, 2,       1, 1, 1, 2);
                 oryginalEnemy.setPosition(0, 0);
                 oryginalEnemy.setRectangle(0,0,0,0);
                 BaseMap.getActualMap().getCharacter().add(oryginalEnemy);
@@ -272,7 +271,6 @@ public class FightWin extends BaseScreen {
                         resultActualExp = (float) allExp / expMax * 100;
                         precentStart = 0;
                         Hero.levelUp();
-                        System.out.println("LEVEL UP");
                     }
                 }
                 return false;
@@ -287,6 +285,18 @@ public class FightWin extends BaseScreen {
         BaseMap.getActualMap().getCharacter().remove(enemy);
 
         Image emptyCircleProgressBar = new Image(new Texture(Gdx.files.internal("circleExp/circleProgresBarExp.png")));
+
+        Preferences preferences = Gdx.app.getPreferences(Compass.LIST);
+        if(enemy.getName().equals("Maven"))
+            preferences.putBoolean("BOSS_1", true).flush();
+        if(enemy.getName().equals("Quaregis"))
+            preferences.putBoolean("BOSS_2", true).flush();
+        if(enemy.getName().equals("Vedvarr"))
+            preferences.putBoolean("BOSS_3", true).flush();
+        if(enemy.getName().equals("Nathagan"))
+            preferences.putBoolean("BOSS_4", true).flush();
+        if(enemy.getName().equals("Valmorg"))
+            preferences.putBoolean("BOSS_5", true).flush();
 
         //Android
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
@@ -377,14 +387,7 @@ public class FightWin extends BaseScreen {
                     Hero.playSoundLvlUp();
                     label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.80f);
 
-                    Action action = Actions.run(new Runnable() {
-                        @Override
-                        public void run() {
-                            label.setFontScale(2);
-                            label.setPosition(label.getX() -label.getWidth() /2, label.getY());
-                        }
-                    });
-                    label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(1), action),
+                    label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(1)),
                             Actions.parallel(Actions.delay(1), Actions.moveBy(0, 20, 1)), Actions.parallel(Actions.moveBy(0, 30, 1.5f), Actions.fadeOut(1.5f))));
                     stage.addActor(label);
 

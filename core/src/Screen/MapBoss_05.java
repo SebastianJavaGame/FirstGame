@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 
 public class MapBoss_05 extends BaseMap {
+    public static final String NAME = "Valmorg-land";
     public static final int STARTING_POS_X = 295;
     public static final int STARTING_POS_Y = 640;
     private static Image mapImage;
@@ -179,6 +180,9 @@ public class MapBoss_05 extends BaseMap {
             firstRun = true;
 
             bgTexture.setSize(mapWidth, mapHeight);
+
+            mapView = new Image(new Texture("map05BossView.jpg"));//TODO
+            mapName = NAME;
 
             addEnemyToMap();
             addNpcToMap();

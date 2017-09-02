@@ -85,13 +85,13 @@ public class Compass {
                     Hero.setStopStep();
                     hero.setCharacterCollisionLook(false);
                     Hero3D.setRenderHero3d(false);
-                    BaseMap.setStopGame(true);
+                    BaseMap.setStopGameTwo(true);
                     createCard();
                 }else{
                     openCard = false;
                     removeAllActor();
                     Hero3D.setRenderHero3d(true);
-                    BaseMap.setStopGame(false);
+                    BaseMap.setStopGameTwo(false);
                 }
 
                 //TODO create class list and view map
@@ -195,11 +195,11 @@ public class Compass {
                 cross.setVisible(false);
                 list.setVisible(true);
 
-                if(preferences.getBoolean("BOSS_1", true)){
+                if(preferences.getBoolean("BOSS_1", false)){
                     line[0].setVisible(true);
                     shadow[0].setVisible(true);
                 }
-                if(preferences.getBoolean("BOSS_2", true)){
+                if(preferences.getBoolean("BOSS_2", false)){
                     line[1].setVisible(true);
                     shadow[1].setVisible(true);
                 }

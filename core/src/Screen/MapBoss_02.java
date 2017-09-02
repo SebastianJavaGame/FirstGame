@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 
 public class MapBoss_02 extends BaseMap {
+    public static final String NAME = "Quaregis-land";
     public static final int STARTING_POS_X = 300;
     public static final int STARTING_POS_Y = 590;
     private static Image mapImage;
@@ -179,6 +180,9 @@ public class MapBoss_02 extends BaseMap {
             firstRun = true;
 
             bgTexture.setSize(mapWidth, mapHeight);
+
+            mapView = new Image(new Texture("map02BossView.jpg"));//TODO
+            mapName = NAME;
 
             addEnemyToMap();
             addNpcToMap();

@@ -20,6 +20,7 @@ import com.mygdx.game.Asset;
 import com.mygdx.game.BaseDialogs;
 import com.mygdx.game.BaseEnemyAI;
 import com.mygdx.game.BaseTask;
+import com.mygdx.game.Compass;
 import com.mygdx.game.Equipment;
 import com.mygdx.game.ExperienceRequired;
 import com.mygdx.game.LoadAllItemToGame;
@@ -215,16 +216,19 @@ public class Menu extends BaseScreen {
         Preferences prefEq = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
         Preferences prefTask = Gdx.app.getPreferences(Quest.PREF_TASK);
         Preferences prefFight = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
+        Preferences prefList = Gdx.app.getPreferences(Compass.LIST);
 
         prefStats.clear();
         prefEq.clear();
         prefTask.clear();
         prefFight.clear();
+        prefList.clear();
 
         prefStats.flush();
         prefEq.flush();
         prefTask.flush();
         prefFight.flush();
+        prefList.flush();
 
         prefStats.putInteger("POS_X", prefStats.getInteger("POS_X", Map_01.STARTING_POS_X)).flush();
         prefStats.putInteger("POS_Y", prefStats.getInteger("POS_Y", Map_01.STARTING_POS_Y)).flush();

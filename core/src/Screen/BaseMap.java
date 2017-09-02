@@ -73,6 +73,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     private boolean windowStatsOpen;
     private static boolean stopGame;
+    private static boolean stopGameTwo;
 
     private Image uiBackground;
     private Image uiBarEmptyHp, uiBarEmptyExp;
@@ -119,6 +120,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
             windowStatsOpen = false;
             stopGame = false;
+            stopGameTwo = false;
 
             hpRefresh = 0;
 
@@ -362,7 +364,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("x: " + screenX);
        // System.out.println("y: " + screenY);
-    if(!stopGame && !Hero.getActiveMove()) {
+    if(!stopGame && !stopGameTwo && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
             if (screenY > uiBackground.getHeight()) {
@@ -376,6 +378,10 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public static void setStopGame(boolean stop){
         stopGame = stop;
+    }
+
+    public static void setStopGameTwo(boolean stop){
+        stopGameTwo = stop;
     }
 
     public void resize(int width, int height) {

@@ -823,12 +823,15 @@ public class FightScreen extends BaseScreen {
                     if(sizeListDropItem > 0) {
                         float chanceOnDrop = enemy.getRandomDrop() *10;
                         temporary = MathUtils.random(1, 1000);
-
+                        System.out.println(temporary +" procent wylosowany");
+                        System.out.println(chanceOnDrop +" procent szans");
                         if((int)temporary <= (int)chanceOnDrop) {
                             temporary = MathUtils.random(0, sizeListDropItem - 1);
                             dropItemName = enemy.getDropItem().get((int) temporary);
                         }
                     }
+
+
 
                     musicBattle.stop();
                     game.setScreen(new FightWin(game, hero, enemy, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), (int)moneyDrop, (int)expDrop, dropItemName));
@@ -986,7 +989,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private int calculateMagicDmgEnemy() {
-        float dmg = enemy.getWiedza() *((100 +(float)enemy.getLevel()*2) /100) *3;
+        float dmg = enemy.getWiedza() *((100 +(float)enemy.getLevel()*2) /100) *2.5f;
 
         System.out.println("Dmg enemy to hero - Magic");
         System.out.println("enemy wiedza: " + enemy.getWiedza());
@@ -1021,7 +1024,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private int calculateMagicDmgHero() {
-        float dmg = hero.getWiedzaEq() *((100 +(float)hero.getLevel()*2) /100) *3;
+        float dmg = hero.getWiedzaEq() *((100 +(float)hero.getLevel()*2) /100) *2.5f;
 
         System.out.println("Dmg hero to enemy - Magic");
         System.out.println("hero wiedza: " + hero.getWiedzaEq());
@@ -1060,7 +1063,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private int calculatePhysicsDmgEnemy() {
-        float dmg = enemy.getStrong() *((100 +(float)enemy.getLevel()) /100) *2.5f;
+        float dmg = enemy.getStrong() *((100 +(float)enemy.getLevel()) /100) *2;
 
         System.out.println("Dmg enemy to hero");
         System.out.println("enemy strong: " + enemy.getStrong());
@@ -1095,7 +1098,7 @@ public class FightScreen extends BaseScreen {
     }
 
     private int calculatePhysicsDmgHero() {
-        float dmg = hero.getStrongEq() *((100 +(float)hero.getLevel()) /100) *2.5f;
+        float dmg = hero.getStrongEq() *((100 +(float)hero.getLevel()) /100) *2;
 
         System.out.println("Dmg hero to enemy");
         System.out.println("hero strong: " + hero.getStrongEq());

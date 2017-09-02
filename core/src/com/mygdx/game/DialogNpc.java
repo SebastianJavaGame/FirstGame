@@ -22,7 +22,7 @@ import Screen.Menu;
  */
 
 public class DialogNpc {
-    private static final Image BACKGROUND = new Image(new Texture(Gdx.files.internal("dialogueBackground.png")));
+    private static final Image BACKGROUND = new Image(new Texture(Gdx.files.internal("dialogueBackground.jpg")));
     private static final Image UP_LABEL = new Image(new Texture(Gdx.files.internal("dialogueUpLabel.png")));
     private static final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
 
@@ -56,13 +56,15 @@ public class DialogNpc {
         this.stage = BaseScreen.getStage();
         fieldTextList = new FieldDialogue[4];
 
+        Compass.disapear();
+
         textNpc = BaseDialogs.STARTING_TEXT[npc.getId()][0];
         textHero0 = BaseDialogs.STARTING_TEXT[npc.getId()][1];
         textHero1 = BaseDialogs.STARTING_TEXT[npc.getId()][2];
         textHero2 = BaseDialogs.STARTING_TEXT[npc.getId()][3];
         taskReward = BaseDialogs.STARTING_TEXT[npc.getId()][4];
 
-        BACKGROUND.setSize(BACKGROUND.getWidth(), 400);
+        BACKGROUND.setSize(270, 400);
         BACKGROUND.setPosition(POS_X +(BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, POS_TEXT_FIELD_NPC -345);
         UP_LABEL.setSize(BACKGROUND.getWidth() +20, UP_LABEL.getHeight());//TODO upLabel add background convert to one object
         UP_LABEL.setPosition(BACKGROUND.getX() -15, POS_Y +370);
@@ -76,6 +78,7 @@ public class DialogNpc {
                 FieldDialogue.clearDialogueReward();
                 Hero.setActiveMove(false);
                 Hero3D.setRenderHero3d(true);
+                Compass.appear();
                 return false;
             }
         });
@@ -105,7 +108,7 @@ public class DialogNpc {
 
     private void create(){
         //Hero.setActiveMove(false);
-        fieldTextList[0] = new FieldDialogue(npc.getId(), textNpc).setPosition(POS_TEXT_FIELD_NPC);
+        fieldTextList[0] = new FieldDialogue(npc.getId(), textNpc);
         fieldTextList[1] = new FieldDialogue(npc.getId(), textHero0);
         setListener(1, textHero0);
 

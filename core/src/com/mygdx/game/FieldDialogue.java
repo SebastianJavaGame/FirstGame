@@ -30,7 +30,7 @@ public class FieldDialogue {
     private static final BitmapFont FONT = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
-    public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +40;
+    public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +35;
     private static final int LINE_LENGTH = 27;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
     private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);
@@ -138,10 +138,15 @@ public class FieldDialogue {
 
     public FieldDialogue setPosition(int downY){
         int y = downY -(int)(label.getHeight()*0.6f);
+        barHorizontalUp.setSize(barHorizontalUp.getWidth() +10, barHorizontalUp.getHeight());
+        barHorizontalDown.setSize(barHorizontalDown.getWidth() +10, barHorizontalDown.getHeight());
         barHorizontalUp.setPosition(POSITION_X + 2, y + label.getHeight()*0.6f - 5);
         barHorizontalDown.setPosition(POSITION_X + 2, y - 5);
         label.setHeight((barHorizontalUp.getY() -barHorizontalDown.getY()) +8);
         label.setPosition(POSITION_X + 2, barHorizontalDown.getY() +2);
+
+        System.out.println(label.getHeight() + "getHeight label text");
+        System.out.println(barHorizontalUp.getY() - barHorizontalDown.getY() + "get Position Y");
 
         barVerticalLeft.setSize(barVerticalLeft.getWidth(), label.getHeight()*0.6f +10);
         barVerticalLeft.setPosition(POSITION_X -5, barHorizontalDown.getY());
@@ -184,6 +189,7 @@ public class FieldDialogue {
                 DialogNpc.removeAll();
                 Hero.setActiveMove(false);
                 Hero3D.setRenderHero3d(true);
+                Compass.appear();
                 return false;
             }
         });
