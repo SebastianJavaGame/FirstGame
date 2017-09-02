@@ -20,6 +20,7 @@ import java.util.ArrayList;
  */
 
 public class Map_04 extends BaseMap {
+    public static final String NAME = "Canavar";
     public static final int STARTING_POS_X = 1352;
     public static final int STARTING_POS_Y = 360;
     private static Image mapImage;
@@ -297,6 +298,9 @@ public class Map_04 extends BaseMap {
         addEntranceToMap();
 
         stage.addActor(bgTexture);
+
+        mapView = new Image(new Texture("map04View.jpg"));//TODO
+        mapName = NAME;
 
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;

@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.mygdx.game.Asset;
 import com.mygdx.game.Bag;
 import com.mygdx.game.Character;
+import com.mygdx.game.Compass;
 import com.mygdx.game.Hero;
 import com.mygdx.game.Hero3D;
 import com.mygdx.game.ImplementObjectMap;
@@ -46,9 +47,14 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     protected static Hero hero;
     protected static Hero3D hero3D;
+
     protected Image bgTexture;
+    protected Image mapView;
     protected static BaseMap actualMap;
+    protected static String mapName;
+
     private Preferences preferences;
+    private Compass compass;
 
     private float hpRefresh;
 
@@ -66,7 +72,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     private static Stage stageCard;
 
     private boolean windowStatsOpen;
-    private boolean stopGame;
+    private static boolean stopGame;
 
     private Image uiBackground;
     private Image uiBarEmptyHp, uiBarEmptyExp;
@@ -235,6 +241,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
 
+        compass = new Compass(hero, stageUi, mapView, bgTexture.getWidth(), bgTexture.getHeight());
         uiBackground = addImageToStageUi("uiBackground.png", 0, 430);
         uiBackground.setSize(VIEW_WIDTH, uiBackground.getHeight() + 3);
         addImageToStageUi("uiHp.png", 60, 455, ICON_ITEM_SIZE -2, ICON_ITEM_SIZE -2);
@@ -263,12 +270,15 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
                     stageCard.clear();
                     card.play();
                 }else{
+                    hero.clearActions();
+                    Hero3D.setStopAnimation();
+                    Hero.setStopStep();
+                    hero.setCharacterCollisionLook(false);
                     windowStatsOpen = true;
                     stopGame = true;
                     new Bag(stageStats, stageCard, hero);
                     card.play();
                 }
-                System.out.println(windowStatsOpen);
                 return false;
             }
 
@@ -350,7 +360,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        //System.out.println("x: " + screenX);
+        System.out.println("x: " + screenX);
        // System.out.println("y: " + screenY);
     if(!stopGame && !Hero.getActiveMove()) {
             screenX /= realWidth;
@@ -362,6 +372,10 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             }
         }
         return false;
+    }
+
+    public static void setStopGame(boolean stop){
+        stopGame = stop;
     }
 
     public void resize(int width, int height) {
@@ -410,5 +424,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public static Vector2 getDeadPosition(){
         return new Vector2(deadPosX, deadPosY);
+    }
+
+    public static String getMapName(){
+        return mapName;
     }
 }

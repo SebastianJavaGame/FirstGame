@@ -21,6 +21,7 @@ import java.util.ArrayList;
  */
 
 public class Map_05 extends BaseMap {
+    public static final String NAME = "Leaoh";
     public static final int STARTING_POS_X = 286;
     public static final int STARTING_POS_Y = 646;
     private static Image mapImage;
@@ -231,7 +232,7 @@ public class Map_05 extends BaseMap {
     @Override
     public void addNpcToMap() {
         Npc npc12 = new Npc(new Texture(Gdx.files.internal("npc/13.png")), new Image(new Texture(Gdx.files.internal("npc/13h.png"))), "Flegrum", 73, 4, 8, 12);
-        npc12.setPosition(1880, 1148);
+        npc12.setPosition(1168, 1304);
         characters.add(npc12);
         npc12.setRectangle(8, 2, -16, -8);
         npc12.collisionUpdate();
@@ -302,6 +303,9 @@ public class Map_05 extends BaseMap {
         addEntranceToMap();
 
         stage.addActor(bgTexture);
+
+        mapView = new Image(new Texture("map05View.jpg"));//TODO
+        mapName = NAME;
 
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;

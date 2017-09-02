@@ -20,6 +20,7 @@ import java.util.ArrayList;
  */
 
 public class Map_03 extends BaseMap {
+    public static final String NAME = "Avandia";
     public static final int STARTING_POS_X = 2116;
     public static final int STARTING_POS_Y = 594;
     private static Image mapImage;
@@ -299,6 +300,9 @@ public class Map_03 extends BaseMap {
         addEntranceToMap();
 
         stage.addActor(bgTexture);
+
+        mapView = new Image(new Texture("map03View.jpg"));//TODO
+        mapName = NAME;
 
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;

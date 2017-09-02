@@ -134,7 +134,7 @@ public class MapBoss_01 extends BaseMap {
         countEnemy = 1;
         enemies[6] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[6][i] = new Enemy("enemy/boss/boss1.png", "enemy/boss/boss1h.png", "enemy/boss/boss1w.png", false, "Valmorg" ,40 ,      1400, 100, 80, 12f, 95, 90,         12, 4335, 815, 199);//590
+            enemies[6][i] = new Enemy("enemy/boss/boss1.png", "enemy/boss/boss1h.png", "enemy/boss/boss1w.png", false, "Maven" ,40 ,      1400, 100, 80, 12f, 95, 90,         12, 4335, 815, 199);//590
             enemies[6][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[6][i]);
             enemies[6][i].setDropItemName("pants5", "shoes5");

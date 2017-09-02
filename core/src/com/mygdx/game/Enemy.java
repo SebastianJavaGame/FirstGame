@@ -96,6 +96,8 @@ public class Enemy extends Character implements Cloneable{
 
     @Override
     public void collisionDo() {
+        Compass.disapear();
+
         asset.loadEnemy();
         asset.manager.finishLoading();
         if(asset.manager.update()) {
@@ -205,6 +207,7 @@ public class Enemy extends Character implements Cloneable{
                     infoBackground.addListener(new InputListener() {
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                            Compass.appear();
                             lName.remove();
                             lLevel.remove();
                             lHp.remove();
@@ -227,6 +230,7 @@ public class Enemy extends Character implements Cloneable{
 
             cancel.addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                    Compass.appear();
                     shadow.remove();
                     attackScreen.remove();
                     infoEnemy.remove();

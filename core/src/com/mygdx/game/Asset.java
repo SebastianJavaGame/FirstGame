@@ -19,8 +19,19 @@ public class Asset implements Disposable {
         manager.load("menuButton.png", Texture.class);
         manager.load("confirmNewGame.png", Texture.class);
         manager.load("loadingFull.png", Texture.class);
-
         manager.load("sound/click.ogg", Sound.class);
+    }
+
+    public void loadCompassClass(){
+        manager.load("compass.png", Texture.class);
+        manager.load("compassToward.png", Texture.class);
+        manager.load("map.png", Texture.class);
+        manager.load("map01View.jpg", Texture.class);
+        manager.load("list.png", Texture.class);
+        manager.load("cross.png", Texture.class);
+        manager.load("mapMap.png", Texture.class);
+        manager.load("deleteLine.png", Texture.class);
+        manager.load("deleteBoss.png", Texture.class);
     }
 
     public void loadBag(){
