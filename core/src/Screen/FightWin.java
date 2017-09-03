@@ -31,6 +31,8 @@ import com.mygdx.game.ProgressCircle;
 import com.mygdx.game.Quest;
 import com.mygdx.game.StatsHero;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sebastian on 2017-07-11.
  */
@@ -108,6 +110,7 @@ public class FightWin extends BaseScreen {
         final Enemy oryginalEnemy = new Enemy(enemy.getTexturePath(), enemy.getHeadPath(), enemy.getWaponPath(), enemy.getAttackType(), enemy.getName(), enemy.getLevel(),
                 enemy.getHp(), enemy.getStrong(), enemy.getWiedza(), enemy.getArmor(), enemy.getDefensePhysics(), enemy.getDefenseMagic(), enemy.getRandomDrop(),
                 enemy.getExpDrop(), enemy.getMoneyDrop(), enemy.getSpawnSecond());
+        final ArrayList<String>  itemList = enemy.getDropItem();
         final Vector2 orginalPosition = new Vector2(enemy.getX(), enemy.getY());
         final Rectangle temporaryRectangleCollision = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
 
@@ -226,6 +229,7 @@ public class FightWin extends BaseScreen {
                         if(!hero.calculateCollisionTwoRectangle(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()), temporaryRectangleCollision)) {
                             oryginalEnemy.setPosition(orginalPosition.x, orginalPosition.y);
                             oryginalEnemy.collisionUpdate();
+                            oryginalEnemy.setDropItemName(itemList);
                             this.cancel();
                         }
                     }

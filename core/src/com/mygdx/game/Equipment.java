@@ -26,9 +26,6 @@ import Screen.Menu;
  */
 
 public class Equipment{
-    //Value
-    static final float FONT_SIZE_NOT_AVILABLE_SLOT = 1;
-    //
     public static final String PREF_NAME_EQ = "ITEMS";
     public static final String PREF_NAME_FIGHT = "FIGHT";
 
@@ -143,7 +140,7 @@ public class Equipment{
                     plusButton = new ImageButton[4];
                     minusButton = new ImageButton[4];
 
-                    BitmapFont font = MyGdxGame.createBitmapFont(20, Color.WHITE);
+                    BitmapFont font = MyGdxGame.createDistanceFont();
                     Label.LabelStyle style = new Label.LabelStyle();
                     style.font = font;
 

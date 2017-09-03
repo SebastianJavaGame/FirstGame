@@ -820,6 +820,8 @@ public class FightScreen extends BaseScreen {
                     int sizeListDropItem = enemy.getDropItem().size();
                     String dropItemName = "";
 
+                    System.out.println(sizeListDropItem + "size");
+
                     if(sizeListDropItem > 0) {
                         float chanceOnDrop = enemy.getRandomDrop() *10;
                         temporary = MathUtils.random(1, 1000);
@@ -830,7 +832,6 @@ public class FightScreen extends BaseScreen {
                             dropItemName = enemy.getDropItem().get((int) temporary);
                         }
                     }
-
 
 
                     musicBattle.stop();
@@ -1165,7 +1166,7 @@ public class FightScreen extends BaseScreen {
             case 5:
                 return 2.5f;
             default:
-                return 0.05f;
+                return 0.01f;
         }
     }
 

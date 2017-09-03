@@ -70,6 +70,10 @@ public class MyGdxGame extends Game{
             prefEq.putString("ITEM_HAND", "rekawice1");
             prefEq.flush();
 
+            Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+            //prefStats.clear();
+            prefStats.putInteger("FREE_POINT", 6).flush();
+
             firstLoad.putString("FIRST", "IS LOAD");
             firstLoad.flush();
         }

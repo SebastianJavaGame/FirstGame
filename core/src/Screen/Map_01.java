@@ -68,11 +68,11 @@ public class Map_01 extends BaseMap {
         int countEnemy = 4;
         enemies[0] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[0][i] = new Enemy("enemy/map1/p1.png", "enemy/map1/1.png", "enemy/map1/w1.png", true, "Grzybox" ,1 ,     30, 4, 4, 0.3f, 2, 2,       25, 50, 50, 75); //20
+            enemies[0][i] = new Enemy("enemy/map1/p1.png", "enemy/map1/1.png", "enemy/map1/w1.png", true, "Grzybox" ,1 ,     30, 4, 4, 0.3f, 2, 2,       25, 50, 50, 5); //20
             enemies[0][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[0][i]);
             enemies[0][i].collisionUpdate();
-            enemies[0][i].setDropItemName("wapon1", "armor1");
+            enemies[0][i].setDropItemName("wapons1", "armor1");
         }
         enemies[0][0].setPosition(462, 763);
         enemies[0][1].setPosition(492, 647);

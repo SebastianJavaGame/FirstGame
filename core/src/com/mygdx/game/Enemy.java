@@ -94,6 +94,11 @@ public class Enemy extends Character implements Cloneable{
             dropItemName.add(item);
     }
 
+    public void setDropItemName(ArrayList<String> itemName){
+        for(String item: itemName)
+            dropItemName.add(item);
+    }
+
     @Override
     public void collisionDo() {
         Compass.disapear();
