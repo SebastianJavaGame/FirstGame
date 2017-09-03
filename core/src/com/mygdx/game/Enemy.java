@@ -111,6 +111,13 @@ public class Enemy extends Character implements Cloneable{
             final ImageButton infoEnemy = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonInfo.png", Texture.class))));
             final ImageButton cancel = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonCancel.png", Texture.class))));
             final Image infoBackground = new Image(asset.manager.get("infoEnemy.png", Texture.class));
+            final Image hpIcon = new Image(asset.manager.get("hp.jpg", Texture.class));
+            final Image silaIcon = new Image(asset.manager.get("sila.jpg", Texture.class));
+            final Image wiedzaIcon = new Image(asset.manager.get("wiedza.jpg", Texture.class));
+            final Image pancerzIcon = new Image(asset.manager.get("pancerz.jpg", Texture.class));
+            final Image zrecznoscIcon = new Image(asset.manager.get("zrecznosc.jpg", Texture.class));
+            final Image magiaIcon = new Image(asset.manager.get("magia.jpg", Texture.class));
+            final float SIZE_ICONS = 0.7f;
 
             hero.setActiveMove(true);
 
@@ -157,9 +164,9 @@ public class Enemy extends Character implements Cloneable{
                     final Label lArmor = new Label("Pancerz " + armor + "%", style);
                     final Label lStrong = new Label("Siła " + strong, style);
                     final Label lWiedza = new Label("Wiedza " + wiedza, style);
-                    final Label lDefensePhysics = new Label("ObronaFizyczna " + getDefensePhysics(), style);
-                    final Label lDefenseMagic = new Label("ObronaMagiczna " + getDefenseMagic(), style);
-                    final Label lRandomDrop = new Label("Szansa na zdobycie przedmiotu " + getRandomDrop() + "%", style);
+                    final Label lDefensePhysics = new Label("Zręczność " + getDefensePhysics(), style);
+                    final Label lDefenseMagic = new Label("Magia " + getDefenseMagic(), style);
+                    final Label lRandomDrop = new Label("Szansa na drop przedmiotu " + getRandomDrop() + "%", style);
                     final Image imageEnemy = new Image(getTexture());
                     Vector2 sizeEnemyInfo = scale(getTexture());
                     imageEnemy.setSize(sizeEnemyInfo.x, sizeEnemyInfo.y);
@@ -170,9 +177,9 @@ public class Enemy extends Character implements Cloneable{
                     lArmor.setFontScale(0.5f);
                     lStrong.setFontScale(0.5f);
                     lWiedza.setFontScale(0.5f);
-                    lDefensePhysics.setFontScale(0.45f);
-                    lDefenseMagic.setFontScale(0.45f);
-                    lRandomDrop.setFontScale(0.4f);
+                    lDefensePhysics.setFontScale(0.5f);
+                    lDefenseMagic.setFontScale(0.5f);
+                    lRandomDrop.setFontScale(0.45f);
 
                     imageEnemy.setTouchable(Touchable.disabled);
                     lName.setTouchable(Touchable.disabled);
@@ -184,6 +191,12 @@ public class Enemy extends Character implements Cloneable{
                     lDefensePhysics.setTouchable(Touchable.disabled);
                     lDefenseMagic.setTouchable(Touchable.disabled);
                     lRandomDrop.setTouchable(Touchable.disabled);
+                    hpIcon.setTouchable(Touchable.disabled);
+                    silaIcon.setTouchable(Touchable.disabled);
+                    wiedzaIcon.setTouchable(Touchable.disabled);
+                    pancerzIcon.setTouchable(Touchable.disabled);
+                    zrecznoscIcon.setTouchable(Touchable.disabled);
+                    magiaIcon.setTouchable(Touchable.disabled);
 
                     if(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +35 > 200) {
                         lName.setPosition(BaseMap.VIEW_WIDTH / 2 -(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +5) /2, 330);
@@ -193,16 +206,24 @@ public class Enemy extends Character implements Cloneable{
                         lName.setPosition(BaseMap.VIEW_WIDTH / 2 - (lName.getWidth() * 0.5f + lLevel.getWidth() * 0.5f + 35) / 2, 330);
                         lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 35, 330);
                     }
-                    lHp.setPosition(25, 110);
-                    lArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 10, 110);
-                    lStrong.setPosition(25, 80);
-                    lWiedza.setPosition(BaseMap.VIEW_WIDTH / 2 + 10, 80);
-                    lDefensePhysics.setPosition(25, 50);
-                    lDefenseMagic.setPosition(BaseMap.VIEW_WIDTH / 2 + 10, 50);
-                    lRandomDrop.setPosition(BaseMap.VIEW_WIDTH / 2 - lRandomDrop.getWidth()*0.4f / 2, 20);
+                    lHp.setPosition(38, 110);
+                    lArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 40, 110);
+                    lStrong.setPosition(38, 80);
+                    lWiedza.setPosition(BaseMap.VIEW_WIDTH / 2 + 40, 80);
+                    lDefensePhysics.setPosition(38, 50);
+                    lDefenseMagic.setPosition(BaseMap.VIEW_WIDTH / 2 + 40, 50);
+                    lRandomDrop.setPosition(BaseMap.VIEW_WIDTH / 2 - lRandomDrop.getWidth()*0.4f / 2 -4, 20);
                     imageEnemy.setPosition((BaseMap.VIEW_WIDTH / 2 - imageEnemy.getWidth() / 2), (BaseMap.VIEW_HEIGHT / 2 - imageEnemy.getHeight() / 2));
+                    hpIcon.setBounds(lHp.getX() -hpIcon.getWidth() *SIZE_ICONS -1, lHp.getY() +hpIcon.getHeight() *(1.1f -SIZE_ICONS), hpIcon.getWidth() *SIZE_ICONS, hpIcon.getHeight() *SIZE_ICONS);
+                    silaIcon.setBounds(lStrong.getX() -silaIcon.getWidth() *SIZE_ICONS -1, lStrong.getY() +silaIcon.getHeight() *(1.1f -SIZE_ICONS), silaIcon.getWidth() *SIZE_ICONS, silaIcon.getHeight() *SIZE_ICONS);
+                    wiedzaIcon.setBounds(lWiedza.getX() -wiedzaIcon.getWidth() *SIZE_ICONS -1, lWiedza.getY() +wiedzaIcon.getHeight() *(1.1f -SIZE_ICONS), wiedzaIcon.getWidth() *SIZE_ICONS, wiedzaIcon.getHeight() *SIZE_ICONS);
+                    pancerzIcon.setBounds(lArmor.getX() -pancerzIcon.getWidth() *SIZE_ICONS -1, lArmor.getY() +pancerzIcon.getHeight() *(1.1f -SIZE_ICONS), pancerzIcon.getWidth() *SIZE_ICONS, pancerzIcon.getHeight() *SIZE_ICONS);
+                    zrecznoscIcon.setBounds(lDefensePhysics.getX() -zrecznoscIcon.getWidth() *SIZE_ICONS -1, lDefensePhysics.getY() +zrecznoscIcon.getHeight() *(1.1f -SIZE_ICONS), zrecznoscIcon.getWidth() *SIZE_ICONS, zrecznoscIcon.getHeight() *SIZE_ICONS);
+                    magiaIcon.setBounds(lDefenseMagic.getX() -magiaIcon.getWidth() *SIZE_ICONS -1, lDefenseMagic.getY() +magiaIcon.getHeight() *(1.1f -SIZE_ICONS), magiaIcon.getWidth() *SIZE_ICONS, magiaIcon.getHeight() *SIZE_ICONS);
 
-                    addActor(infoBackground, lName, lLevel, imageEnemy, lHp, lArmor, lStrong, lWiedza, lDefensePhysics, lDefenseMagic, lRandomDrop);
+
+                    addActor(infoBackground, lName, lLevel, imageEnemy, lHp, lArmor, lStrong, lWiedza, lDefensePhysics, lDefenseMagic, lRandomDrop,
+                            hpIcon, silaIcon, wiedzaIcon, pancerzIcon, zrecznoscIcon, magiaIcon);
 
                     infoBackground.addListener(new InputListener() {
                         @Override
@@ -219,6 +240,12 @@ public class Enemy extends Character implements Cloneable{
                             lRandomDrop.remove();
                             imageEnemy.remove();
                             infoBackground.remove();
+                            hpIcon.remove();
+                            silaIcon.remove();
+                            wiedzaIcon.remove();
+                            pancerzIcon.remove();
+                            zrecznoscIcon.remove();
+                            magiaIcon.remove();
                             hero.getHero3D().setRenderHero3d(true);
                             hero.setActiveMove(false);
                             return false;
@@ -242,9 +269,9 @@ public class Enemy extends Character implements Cloneable{
             });
 
             addActor(shadow, attackScreen, infoEnemy, cancel);
-            attackScreen.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() / 2 - cancel.getWidth() / 2 + 10, getY() + getHeight() / 2 - cancel.getHeight() / 2), Actions.parallel(Actions.moveTo(21, 90, 0.3f), Actions.fadeIn(0.6f))));
-            infoEnemy.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() / 2 - cancel.getWidth() / 2 + 10, getY() + getHeight() / 2 - cancel.getHeight() / 2), Actions.parallel(Actions.moveTo(21 + attackScreen.getWidth() + 22, 90, 0.3f), Actions.fadeIn(0.6f))));
-            cancel.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(getX() + getWidth() / 2 - cancel.getWidth() / 2 + 10, getY() + getHeight() / 2 - cancel.getHeight() / 2), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH / 2 - cancel.getWidth() / 2, 280, 0.3f), Actions.fadeIn(0.6f))));
+            attackScreen.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(21, 90, 0.3f), Actions.fadeIn(0.6f))));
+            infoEnemy.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(21 + attackScreen.getWidth() + 22, 90, 0.3f), Actions.fadeIn(0.6f))));
+            cancel.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH / 2 - cancel.getWidth() / 2, 280, 0.3f), Actions.fadeIn(0.6f))));
         }
     }
 

@@ -231,9 +231,9 @@ public class Transaction {
         lMoneyRight.setColor(Color.GOLD);
         iMoneyRight.setSize(20, 20);
 
-        lTextLeft.setPosition(bBuy.getX() + bBuy.getWidth() / 2 - lTextLeft.getWidth()*0.5f / 2, bBuy.getY() + 20);
-        lMoneyLeft.setPosition(bBuy.getX() + bBuy.getWidth() / 2 - lMoneyLeft.getWidth()*0.5f / 2 - iMoneyLeft.getWidth() / 2, bBuy.getY());
-        iMoneyLeft.setPosition(lMoneyLeft.getX() + lMoneyLeft.getWidth()*0.5f + 5, lMoneyLeft.getY() +10);
+        lTextLeft.setPosition(bBuy.getX() + bBuy.getWidth() / 2 - lTextLeft.getWidth()*0.5f / 2, bBuy.getY() + 14);
+        lMoneyLeft.setPosition(bBuy.getX() + bBuy.getWidth() / 2 - lMoneyLeft.getWidth()*0.5f / 2 - iMoneyLeft.getWidth() / 2, bBuy.getY() -4);
+        iMoneyLeft.setPosition(lMoneyLeft.getX() + lMoneyLeft.getWidth()*0.5f + 5, lMoneyLeft.getY() +8);
 
         lTextRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lTextRight.getWidth()*0.5f /2 -16, bSell.getY() + 20);
         lMoneyRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lMoneyRight.getWidth()*0.5f -iMoneyRight.getWidth() /2, bSell.getY());

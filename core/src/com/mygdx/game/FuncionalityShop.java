@@ -23,8 +23,15 @@ import Screen.BaseScreen;
  */
 
 public class FuncionalityShop {
+    public static final float SIZE_ICONS = 0.7f;
     private static Stage stage;
 
+    private static Image hpIcon;
+    private static Image silaIcon;
+    private static Image pancerzIcon;
+    private static Image wiedzaIcon;
+    private static Image zrecznoscIcon;
+    private static Image magiaIcon;
     private static Image backgroundUp;
     private static Image itemImage;
     private static Label itemName;
@@ -155,10 +162,16 @@ public class FuncionalityShop {
                 itemStrong = new Label("Siła +" + item.getStrong(), style);
                 itemWiedza = new Label("Wiedza +" + item.getWiedza(), style);
                 itemArmor = new Label("Pancerz +" + item.getArmor() + "%", style);
-                itemDefenseFiz = new Label("ObronaFizyczna +" + item.getDefenseFiz(), style);
-                itemDefenseMag = new Label("ObronaMagiczna +" + item.getDefenseMag(), style);
+                itemDefenseFiz = new Label("Zręczność +" + item.getDefenseFiz(), style);
+                itemDefenseMag = new Label("Magia +" + item.getDefenseMag(), style);
                 itemPrice = new Label("" + item.getCashValue(), style);
                 lPrice = new Label("Cena", style);
+                hpIcon = new Image(asset.manager.get("hp.jpg", Texture.class));
+                silaIcon = new Image(asset.manager.get("sila.jpg", Texture.class));
+                wiedzaIcon = new Image(asset.manager.get("wiedza.jpg", Texture.class));
+                pancerzIcon = new Image(asset.manager.get("pancerz.jpg", Texture.class));
+                zrecznoscIcon = new Image(asset.manager.get("zrecznosc.jpg", Texture.class));
+                magiaIcon = new Image(asset.manager.get("magia.jpg", Texture.class));
                 price = (int)(item.getCashValue()*0.35f);
 
                 money = new Image(asset.manager.get("uiMoney.png", Texture.class));
@@ -172,12 +185,12 @@ public class FuncionalityShop {
                 itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
                 itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 152);
                 itemLevelRequire.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 121);
-                itemHp.setPosition(20, backgroundUp.getY() + 90);
-                itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 90);
-                itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 60);
-                itemWiedza.setPosition(20, backgroundUp.getY() + 60);
-                itemDefenseFiz.setPosition(10, backgroundUp.getY() + 30);
-                itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 10, backgroundUp.getY() + 30);
+                itemHp.setPosition(32, backgroundUp.getY() + 90);
+                itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 90);
+                itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 60);
+                itemWiedza.setPosition(32, backgroundUp.getY() + 64);
+                itemDefenseFiz.setPosition(32, backgroundUp.getY() + 38);
+                itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 40, backgroundUp.getY() + 30);
                 itemPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - itemPrice.getWidth()*scale / 2 - 10, backgroundUp.getY() -itemPrice.getHeight()*scale/2 +6);
                 money.setBounds(itemPrice.getX() + itemPrice.getWidth() *scale + 7, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
                 barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +18, itemName.getHeight()*scale + 15);
@@ -185,6 +198,13 @@ public class FuncionalityShop {
                 barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
                 bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY());
                 lPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - lPrice.getWidth()*0.5f / 2, Screen.Shop.POS_Y_NEXT_BACKGROUND + 25);
+                hpIcon.setBounds(itemHp.getX() -hpIcon.getWidth() *SIZE_ICONS -1, itemHp.getY() +hpIcon.getHeight() *(1.1f -SIZE_ICONS), hpIcon.getWidth() *SIZE_ICONS, hpIcon.getHeight() *SIZE_ICONS);
+                silaIcon.setBounds(itemStrong.getX() -silaIcon.getWidth() *SIZE_ICONS -1, itemStrong.getY() +silaIcon.getHeight() *(1.1f -SIZE_ICONS), silaIcon.getWidth() *SIZE_ICONS, silaIcon.getHeight() *SIZE_ICONS);
+                wiedzaIcon.setBounds(itemWiedza.getX() -wiedzaIcon.getWidth() *SIZE_ICONS -1, itemWiedza.getY() +wiedzaIcon.getHeight() *(1.1f -SIZE_ICONS), wiedzaIcon.getWidth() *SIZE_ICONS, wiedzaIcon.getHeight() *SIZE_ICONS);
+                pancerzIcon.setBounds(itemArmor.getX() -pancerzIcon.getWidth() *SIZE_ICONS -1, itemArmor.getY() +pancerzIcon.getHeight() *(1.1f -SIZE_ICONS), pancerzIcon.getWidth() *SIZE_ICONS, pancerzIcon.getHeight() *SIZE_ICONS);
+                zrecznoscIcon.setBounds(itemDefenseFiz.getX() -zrecznoscIcon.getWidth() *SIZE_ICONS -1, itemDefenseFiz.getY() +zrecznoscIcon.getHeight() *(1.1f -SIZE_ICONS), zrecznoscIcon.getWidth() *SIZE_ICONS, zrecznoscIcon.getHeight() *SIZE_ICONS);
+                magiaIcon.setBounds(itemDefenseMag.getX() -magiaIcon.getWidth() *SIZE_ICONS -1, itemDefenseMag.getY() +magiaIcon.getHeight() *(1.1f -SIZE_ICONS), magiaIcon.getWidth() *SIZE_ICONS, magiaIcon.getHeight() *SIZE_ICONS);
+
 
                 itemPrice.setColor(Color.GOLD);
 
@@ -225,7 +245,7 @@ public class FuncionalityShop {
                 lPrice.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(0.6f), Actions.fadeIn(0.3f)));
 
                 addActors(backgroundUp, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong, itemWiedza,
-                        itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, bClose, money, itemPrice, lPrice);
+                        itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, bClose, money, itemPrice, lPrice, hpIcon, wiedzaIcon, silaIcon, pancerzIcon, zrecznoscIcon, magiaIcon);
             }
         }
     }
@@ -262,10 +282,16 @@ public class FuncionalityShop {
             itemStrong = new Label("Siła +" + item.getStrong(), style);
             itemWiedza = new Label("Wiedza +" + item.getWiedza(), style);
             itemArmor = new Label("Pancerz +" + item.getArmor() + "%", style);
-            itemDefenseFiz = new Label("ObronaFizyczna +" + item.getDefenseFiz(), style);
-            itemDefenseMag = new Label("ObronaMagiczna +" + item.getDefenseMag(), style);
+            itemDefenseFiz = new Label("Zręczność +" + item.getDefenseFiz(), style);
+            itemDefenseMag = new Label("Magia +" + item.getDefenseMag(), style);
             itemPrice = new Label("" + item.getCashValue(), style);
             lPrice = new Label("Cena", style);
+            hpIcon = new Image(asset.manager.get("hp.jpg", Texture.class));
+            silaIcon = new Image(asset.manager.get("sila.jpg", Texture.class));
+            wiedzaIcon = new Image(asset.manager.get("wiedza.jpg", Texture.class));
+            pancerzIcon = new Image(asset.manager.get("pancerz.jpg", Texture.class));
+            zrecznoscIcon = new Image(asset.manager.get("zrecznosc.jpg", Texture.class));
+            magiaIcon = new Image(asset.manager.get("magia.jpg", Texture.class));
             price = item.getCashValue();
 
             money = new Image(asset.manager.get("uiMoney.png", Texture.class));
@@ -279,19 +305,26 @@ public class FuncionalityShop {
             itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
             itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 152);
             itemLevelRequire.setPosition(itemName.getX() +itemName.getWidth()*scale /2 -itemName.getWidth()*scale /3, backgroundUp.getY() + 122);
-            itemHp.setPosition(20, backgroundUp.getY() + 90);
-            itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 90);
-            itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 20, backgroundUp.getY() + 64);
-            itemWiedza.setPosition(20, backgroundUp.getY() + 64);
-            itemDefenseFiz.setPosition(10, backgroundUp.getY() + 38);
-            itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 10, backgroundUp.getY() + 38);
+            itemHp.setPosition(32, backgroundUp.getY() + 90);
+            itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 90);
+            itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 64);
+            itemWiedza.setPosition(32, backgroundUp.getY() + 64);
+            itemDefenseFiz.setPosition(32, backgroundUp.getY() + 38);
+            itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 38);
             itemPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - itemPrice.getWidth()*scale / 2 - 10, backgroundUp.getY() -itemPrice.getHeight()*scale/2 +2);
             money.setBounds(itemPrice.getX() + itemPrice.getWidth() *scale + 7, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
             barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +20, itemName.getHeight()*scale + 15);
             itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
             barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
-            bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY() +18);
+            bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY() +13);
             lPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - lPrice.getWidth()*0.5f / 2, Screen.Shop.POS_Y_NEXT_BACKGROUND + 26);
+            hpIcon.setBounds(itemHp.getX() -hpIcon.getWidth() *SIZE_ICONS -1, itemHp.getY() +hpIcon.getHeight() *(1.1f -SIZE_ICONS), hpIcon.getWidth() *SIZE_ICONS, hpIcon.getHeight() *SIZE_ICONS);
+            silaIcon.setBounds(itemStrong.getX() -silaIcon.getWidth() *SIZE_ICONS -1, itemStrong.getY() +silaIcon.getHeight() *(1.1f -SIZE_ICONS), silaIcon.getWidth() *SIZE_ICONS, silaIcon.getHeight() *SIZE_ICONS);
+            wiedzaIcon.setBounds(itemWiedza.getX() -wiedzaIcon.getWidth() *SIZE_ICONS -1, itemWiedza.getY() +wiedzaIcon.getHeight() *(1.1f -SIZE_ICONS), wiedzaIcon.getWidth() *SIZE_ICONS, wiedzaIcon.getHeight() *SIZE_ICONS);
+            pancerzIcon.setBounds(itemArmor.getX() -pancerzIcon.getWidth() *SIZE_ICONS -1, itemArmor.getY() +pancerzIcon.getHeight() *(1.1f -SIZE_ICONS), pancerzIcon.getWidth() *SIZE_ICONS, pancerzIcon.getHeight() *SIZE_ICONS);
+            zrecznoscIcon.setBounds(itemDefenseFiz.getX() -zrecznoscIcon.getWidth() *SIZE_ICONS -1, itemDefenseFiz.getY() +zrecznoscIcon.getHeight() *(1.1f -SIZE_ICONS), zrecznoscIcon.getWidth() *SIZE_ICONS, zrecznoscIcon.getHeight() *SIZE_ICONS);
+            magiaIcon.setBounds(itemDefenseMag.getX() -magiaIcon.getWidth() *SIZE_ICONS -1, itemDefenseMag.getY() +magiaIcon.getHeight() *(1.1f -SIZE_ICONS), magiaIcon.getWidth() *SIZE_ICONS, magiaIcon.getHeight() *SIZE_ICONS);
+
 
             itemPrice.setColor(Color.GOLD);
 
@@ -329,12 +362,12 @@ public class FuncionalityShop {
                     itemPrice.setPosition(itemPrice.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND - 25);
                     money.setPosition(money.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND -15);
                 }
-            }), Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(0, 34, 0.8f)))));
+            }), Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(0, 30, 0.8f)))));
             money.addAction(Actions.sequence(Actions.fadeOut(0), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(0, 34, 0.8f))));
             lPrice.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(0.6f), Actions.fadeIn(0.3f)));
 
             addActors(backgroundUp, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong, itemWiedza,
-                    itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, bClose, money, itemPrice, lPrice);
+                    itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, bClose, money, itemPrice, lPrice, hpIcon, wiedzaIcon, silaIcon, pancerzIcon, zrecznoscIcon, magiaIcon);
         }
     }
 
@@ -375,6 +408,12 @@ public class FuncionalityShop {
             Screen.Transaction.updateSellButton(true);
             Screen.Transaction.updateBuyButton(true);
             lPrice.remove();
+            hpIcon.remove();
+            silaIcon.remove();
+            wiedzaIcon.remove();
+            pancerzIcon.remove();
+            zrecznoscIcon.remove();
+            magiaIcon.remove();
         }
     }
 

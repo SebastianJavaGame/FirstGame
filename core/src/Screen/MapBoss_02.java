@@ -52,7 +52,7 @@ public class MapBoss_02 extends BaseMap {
         int countEnemy = 2;
         enemies[0] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[0][i] = new Enemy("enemy/map3/p5.png", "enemy/map3/5.png", "enemy/map3/w5.png", false, "Mendrec" ,40 ,       1400, 90, 80, 13f, 95, 90,         12, 4335, 815, 199);//590
+            enemies[0][i] = new Enemy("enemy/map3/p5.png", "enemy/map3/5.png", "enemy/map3/w5.png", false, "Mendrec" ,40 ,       1400, 90, 80, 13f, 95, 90,         12, 4335, 815, -1);//590
             enemies[0][i].setRectangle(2, 2, -4, -4);
             characters.add(enemies[0][i]);
             enemies[0][i].setDropItemName("pants5", "shoes5");
@@ -64,7 +64,7 @@ public class MapBoss_02 extends BaseMap {
         countEnemy = 2;
         enemies[1] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[1][i] = new Enemy("enemy/map3/p6.png", "enemy/map3/6.png", "enemy/map3/w6.png", true, "Stary skalniak" ,42 ,        1550, 80, 90, 13f, 90, 100,          12.3f, 4800, 898, 200);//610
+            enemies[1][i] = new Enemy("enemy/map3/p6.png", "enemy/map3/6.png", "enemy/map3/w6.png", true, "Stary skalniak" ,42 ,        1550, 80, 90, 13f, 90, 100,          12.3f, 4800, 898, -1);//610
             enemies[1][i].setRectangle(2, 2, -4, -4);
             characters.add(enemies[1][i]);
             enemies[1][i].setDropItemName("rekawice6", "armor7");
@@ -77,7 +77,7 @@ public class MapBoss_02 extends BaseMap {
         countEnemy = 2;
         enemies[2] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[2][i] = new Enemy("enemy/map3/p7.png", "enemy/map3/7.png", "enemy/map3/w7.png",  false, "Stoban" ,44 ,      1750, 115, 85, 15f, 100, 90,         11.7f, 4900, 985, 206);//680
+            enemies[2][i] = new Enemy("enemy/map3/p7.png", "enemy/map3/7.png", "enemy/map3/w7.png",  false, "Stoban" ,44 ,      1750, 115, 85, 15f, 100, 90,         11.7f, 4900, 985, -1);//680
             enemies[2][i].setRectangle(2, 2, -4, -4);
             characters.add(enemies[2][i]);
             enemies[2][i].setDropItemName("wapons15", "armor8");
@@ -89,7 +89,7 @@ public class MapBoss_02 extends BaseMap {
         countEnemy = 3;
         enemies[3] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[3][i] = new Enemy("enemy/map3/p8.png", "enemy/map3/8.png", "enemy/map3/w8.png", false, "Skalniak" ,45 ,    1700, 90, 120, 15.5f, 95, 95,        11.5f, 5000, 1030, 214);//690
+            enemies[3][i] = new Enemy("enemy/map3/p8.png", "enemy/map3/8.png", "enemy/map3/w8.png", false, "Skalniak" ,45 ,    1700, 90, 120, 15.5f, 95, 95,        11.5f, 5000, 1030, -1);//690
             enemies[3][i].setRectangle(2, 2, -4, -4);
             characters.add(enemies[3][i]);
             enemies[3][i].setDropItemName("helmet9", "pants6");
@@ -102,7 +102,7 @@ public class MapBoss_02 extends BaseMap {
         countEnemy = 4;
         enemies[4] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[4][i] = new Enemy("enemy/map3/p9.png", "enemy/map3/9.png", "enemy/map3/w9.png", true, "Jaszczur" ,47 ,        1400, 140, 120, 14.5f, 105, 95,           12, 5250, 1123, 220);//710
+            enemies[4][i] = new Enemy("enemy/map3/p9.png", "enemy/map3/9.png", "enemy/map3/w9.png", true, "Jaszczur" ,47 ,        1400, 140, 120, 14.5f, 105, 95,           12, 5250, 1123, -1);//710
             enemies[4][i].setRectangle(2, 2, -4, -4);
             characters.add(enemies[4][i]);
             enemies[4][i].setDropItemName("ring7", "tarcza5");
@@ -116,7 +116,7 @@ public class MapBoss_02 extends BaseMap {
         countEnemy = 7;
         enemies[5] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[5][i] = new Enemy("enemy/map3/p10.png", "enemy/map3/10.png", "enemy/map3/w10.png", false, "Jugger" ,48 ,       1750, 135, 85, 16f, 110, 90,           11, 5365, 1171, 210);//720
+            enemies[5][i] = new Enemy("enemy/map3/p10.png", "enemy/map3/10.png", "enemy/map3/w10.png", false, "Jugger" ,48 ,       1750, 135, 85, 16f, 110, 90,           11, 5365, 1171, -1);//720
             enemies[5][i].setRectangle(2, 2, -4, -4);
             characters.add(enemies[5][i]);
             enemies[5][i].setDropItemName("wapons16", "armor8", "pants6");
@@ -133,7 +133,7 @@ public class MapBoss_02 extends BaseMap {
         countEnemy = 1;
         enemies[6] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[6][i] = new Enemy("enemy/boss/boss2.png", "enemy/boss/boss2h.png", "enemy/boss/boss2w.png", false, "Quaregis" ,55 ,      2300, 120, 100, 14f, 125, 100,         10.4f, 6135, 1535, 220);//805
+            enemies[6][i] = new Enemy("enemy/boss/boss2.png", "enemy/boss/boss2h.png", "enemy/boss/boss2w.png", false, "Quaregis" ,55 ,      2300, 120, 100, 14f, 125, 100,         10.4f, 6135, 1535, -1);//805
             enemies[6][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[6][i]);
             enemies[6][i].setDropItemName("pants7", "shoes7");

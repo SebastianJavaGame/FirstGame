@@ -52,6 +52,12 @@ public class Asset implements Disposable {
         manager.load("buttonInfo.png", Texture.class);
         manager.load("buttonCancel.png", Texture.class);
         manager.load("infoEnemy.png", Texture.class);
+        manager.load("hp.jpg", Texture.class);
+        manager.load("sila.jpg", Texture.class);
+        manager.load("wiedza.jpg", Texture.class);
+        manager.load("pancerz.jpg", Texture.class);
+        manager.load("zrecznosc.jpg", Texture.class);
+        manager.load("magia.jpg", Texture.class);
 
         manager.load("sound/collisionEnemy.ogg", Sound.class);
         manager.load("sound/card.ogg", Sound.class);
@@ -71,6 +77,12 @@ public class Asset implements Disposable {
         manager.load("slotInfoItem.png", Texture.class);
         manager.load("nameBar.png", Texture.class);
         manager.load("barX.png", Texture.class);
+        manager.load("hp.jpg", Texture.class);
+        manager.load("sila.jpg", Texture.class);
+        manager.load("wiedza.jpg", Texture.class);
+        manager.load("pancerz.jpg", Texture.class);
+        manager.load("zrecznosc.jpg", Texture.class);
+        manager.load("magia.jpg", Texture.class);
 
         manager.load("sound/soundEquipment.ogg", Sound.class);
     }
@@ -91,6 +103,12 @@ public class Asset implements Disposable {
         manager.load("slotInfoItem.png", Texture.class);
         manager.load("nameBar.png", Texture.class);
         manager.load("barX.png", Texture.class);
+        manager.load("hp.jpg", Texture.class);
+        manager.load("sila.jpg", Texture.class);
+        manager.load("wiedza.jpg", Texture.class);
+        manager.load("pancerz.jpg", Texture.class);
+        manager.load("zrecznosc.jpg", Texture.class);
+        manager.load("magia.jpg", Texture.class);
     }
 
     public void loadHero(){

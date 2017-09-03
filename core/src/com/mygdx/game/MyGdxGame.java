@@ -46,6 +46,7 @@ public class MyGdxGame extends Game{
             prefEq.putString("ITEM_BLOCK", "tarcza1");
             prefEq.putString("RING", "ring1");
             prefEq.putString("ITEM_HAND", "rekawice1");
+            prefEq.putString("SLOT0", "rekawice1");
             prefEq.flush();
 
             Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);

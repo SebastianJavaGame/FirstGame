@@ -58,6 +58,18 @@ public class Equipment{
     private TextButton drop;
     private TextButton cancel;
 
+    private Image hpIcon;
+    private Image hpIconDown;
+    private Image silaIcon;
+    private Image silaIconDown;
+    private Image pancerzIcon;
+    private Image pancerzIconDown;
+    private Image wiedzaIcon;
+    private Image wiedzaIconDown;
+    private Image zrecznoscIcon;
+    private Image zrecznoscIconDown;
+    private Image magiaIcon;
+    private Image magiaIconDown;
     private Image backgroundUp;
     private Image backgroundDown;
     private Image itemImage;
@@ -393,6 +405,7 @@ public class Equipment{
     }
 
     private void imageAddListener(final Item item, final Image image, final String pathImage) {
+        final float SIZE_ICONS = 0.7f;
         image.addListener(new InputListener() {
             public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                 if (!blockClick) {
@@ -423,14 +436,20 @@ public class Equipment{
                     itemStrong = new Label("Siła +" + item.getStrong(), style);
                     itemWiedza = new Label("Wiedza +" + item.getWiedza(), style);
                     itemArmor = new Label("Pancerz +" + item.getArmor() + "%", style);
-                    itemDefenseFiz = new Label("ObronaFizyczna +" + item.getDefenseFiz(), style);
-                    itemDefenseMag = new Label("ObronaMagicza +" + item.getDefenseMag(), style);
+                    itemDefenseFiz = new Label("Zręczność +" + item.getDefenseFiz(), style);
+                    itemDefenseMag = new Label("Magia +" + item.getDefenseMag(), style);
                     money = new Image(asset.manager.get("uiMoney.png", Texture.class));
                     itemPrice = new Label("Cena: " + (int)(item.getCashValue()*0.35f), style);
                     infoStorage = new Label("PLECAK", styleGreen);
                     itemBackground = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
                     barName = new Image(asset.manager.get("nameBar.png", Texture.class));
                     barPrice = new Image(asset.manager.get("barX.png", Texture.class));
+                    hpIcon = new Image(asset.manager.get("hp.jpg", Texture.class));
+                    silaIcon = new Image(asset.manager.get("sila.jpg", Texture.class));
+                    wiedzaIcon = new Image(asset.manager.get("wiedza.jpg", Texture.class));
+                    pancerzIcon = new Image(asset.manager.get("pancerz.jpg", Texture.class));
+                    zrecznoscIcon = new Image(asset.manager.get("zrecznosc.jpg", Texture.class));
+                    magiaIcon = new Image(asset.manager.get("magia.jpg", Texture.class));
 
                     float scale = 0.5f;
 
@@ -439,12 +458,12 @@ public class Equipment{
 
                     itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
                     itemName.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemName.getWidth()*scale/ 2, backgroundUp.getY() + 150);
-                    itemHp.setPosition(20, backgroundUp.getY() + 85);
-                    itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 85);
-                    itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundUp.getY() + 55);
-                    itemWiedza.setPosition(20, backgroundUp.getY() + 55);
-                    itemDefenseFiz.setPosition(10, backgroundUp.getY() + 25);
-                    itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 +5, backgroundUp.getY() + 25);
+                    itemHp.setPosition(30, backgroundUp.getY() + 85);
+                    itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 +35, backgroundUp.getY() + 85);
+                    itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 +35, backgroundUp.getY() + 55);
+                    itemWiedza.setPosition(30, backgroundUp.getY() + 55);
+                    itemDefenseFiz.setPosition(30, backgroundUp.getY() + 25);
+                    itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 +35, backgroundUp.getY() + 25);
                     itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth()*scale /2 +15, backgroundUp.getY() -itemPrice.getHeight()*scale /2 +2);
                     money.setBounds(itemPrice.getX() +itemPrice.getWidth()*scale +10, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
                     infoStorage.setPosition(5, itemPrice.getY());
@@ -452,6 +471,12 @@ public class Equipment{
                     itemLevelRequire.setPosition(barName.getX() +(itemName.getWidth()*scale/2 -itemLevelRequire.getWidth()*scale / 2), backgroundUp.getY() + 120);
                     itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
                     barPrice.setBounds(0, backgroundUp.getY(), BaseMap.VIEW_WIDTH +15, 25);
+                    hpIcon.setBounds(itemHp.getX() -hpIcon.getWidth() *SIZE_ICONS -1, itemHp.getY() +hpIcon.getHeight() *(1.1f -SIZE_ICONS), hpIcon.getWidth() *SIZE_ICONS, hpIcon.getHeight() *SIZE_ICONS);
+                    silaIcon.setBounds(itemStrong.getX() -silaIcon.getWidth() *SIZE_ICONS -1, itemStrong.getY() +silaIcon.getHeight() *(1.1f -SIZE_ICONS), silaIcon.getWidth() *SIZE_ICONS, silaIcon.getHeight() *SIZE_ICONS);
+                    wiedzaIcon.setBounds(itemWiedza.getX() -wiedzaIcon.getWidth() *SIZE_ICONS -1, itemWiedza.getY() +wiedzaIcon.getHeight() *(1.1f -SIZE_ICONS), wiedzaIcon.getWidth() *SIZE_ICONS, wiedzaIcon.getHeight() *SIZE_ICONS);
+                    pancerzIcon.setBounds(itemArmor.getX() -pancerzIcon.getWidth() *SIZE_ICONS -1, itemArmor.getY() +pancerzIcon.getHeight() *(1.1f -SIZE_ICONS), pancerzIcon.getWidth() *SIZE_ICONS, pancerzIcon.getHeight() *SIZE_ICONS);
+                    zrecznoscIcon.setBounds(itemDefenseFiz.getX() -zrecznoscIcon.getWidth() *SIZE_ICONS -1, itemDefenseFiz.getY() +zrecznoscIcon.getHeight() *(1.1f -SIZE_ICONS), zrecznoscIcon.getWidth() *SIZE_ICONS, zrecznoscIcon.getHeight() *SIZE_ICONS);
+                    magiaIcon.setBounds(itemDefenseMag.getX() -magiaIcon.getWidth() *SIZE_ICONS -1, itemDefenseMag.getY() +magiaIcon.getHeight() *(1.1f -SIZE_ICONS), magiaIcon.getWidth() *SIZE_ICONS, magiaIcon.getHeight() *SIZE_ICONS);
 
                     itemPrice.setColor(Color.GOLD);
 
@@ -484,14 +509,20 @@ public class Equipment{
                                     itemStrongDown = new Label("Siła +" + itemUp.getStrong(), style);
                                     itemWiedzaDown = new Label("Wiedza +" + itemUp.getWiedza(), style);
                                     itemArmorDown = new Label("Pancerz +" + itemUp.getArmor() + "%", style);
-                                    itemDefenseFizDown = new Label("ObronaFizyczna +" + itemUp.getDefenseFiz(), style);
-                                    itemDefenseMagDown = new Label("ObronaMagiczna +" + itemUp.getDefenseMag(), style);
+                                    itemDefenseFizDown = new Label("Zręczność +" + itemUp.getDefenseFiz(), style);
+                                    itemDefenseMagDown = new Label("Magia +" + itemUp.getDefenseMag(), style);
                                     moneyDown = new Image(asset.manager.get("uiMoney.png", Texture.class));
                                     itemPriceDown = new Label("Cena: " + (int)(itemUp.getCashValue()*0.35f), style);
-                                    infoStorageDown = new Label("Założone", styleGreen);
+                                    infoStorageDown = new Label("ZAŁOŻONE", styleGreen);
                                     itemBackgroundDown = new Image(asset.manager.get("slotInfoItem.png", Texture.class));
                                     barNameDown = new Image(asset.manager.get("nameBar.png", Texture.class));
                                     barPriceDown = new Image(asset.manager.get("barX.png", Texture.class));
+                                    hpIconDown = new Image(asset.manager.get("hp.jpg", Texture.class));
+                                    silaIconDown = new Image(asset.manager.get("sila.jpg", Texture.class));
+                                    wiedzaIconDown = new Image(asset.manager.get("wiedza.jpg", Texture.class));
+                                    pancerzIconDown = new Image(asset.manager.get("pancerz.jpg", Texture.class));
+                                    zrecznoscIconDown = new Image(asset.manager.get("zrecznosc.jpg", Texture.class));
+                                    magiaIconDown = new Image(asset.manager.get("magia.jpg", Texture.class));
 
                                     if(itemUp.getLevelRequire() > hero.getLevel())
                                         itemLevelRequire.setColor(Color.ROYAL);
@@ -499,12 +530,12 @@ public class Equipment{
                                     //Item INFO
                                     itemImageDown.setBounds(20, backgroundDown.getY() + 120, 60, 60);
                                     itemNameDown.setPosition((BaseMap.VIEW_WIDTH + 75) / 2 - itemNameDown.getWidth()*(scale)/ 2, backgroundDown.getY() + 150);
-                                    itemHpDown.setPosition(20, backgroundDown.getY() + 85);
-                                    itemArmorDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 85);
-                                    itemStrongDown.setPosition(BaseMap.VIEW_WIDTH / 2 +20, backgroundDown.getY() + 55);
-                                    itemWiedzaDown.setPosition(20, backgroundDown.getY() + 55);
-                                    itemDefenseFizDown.setPosition(10, backgroundDown.getY() + 25);
-                                    itemDefenseMagDown.setPosition(BaseMap.VIEW_WIDTH / 2 +5, backgroundDown.getY() + 25);
+                                    itemHpDown.setPosition(30, backgroundDown.getY() + 85);
+                                    itemArmorDown.setPosition(BaseMap.VIEW_WIDTH / 2 +35, backgroundDown.getY() + 85);
+                                    itemStrongDown.setPosition(BaseMap.VIEW_WIDTH / 2 +35, backgroundDown.getY() + 55);
+                                    itemWiedzaDown.setPosition(30, backgroundDown.getY() + 55);
+                                    itemDefenseFizDown.setPosition(30, backgroundDown.getY() + 25);
+                                    itemDefenseMagDown.setPosition(BaseMap.VIEW_WIDTH / 2 +35, backgroundDown.getY() + 25);
                                     itemPriceDown.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPriceDown.getWidth()*scale /2 +15, backgroundDown.getY() -itemPriceDown.getHeight()*scale /2 +2);
                                     moneyDown.setBounds(itemPriceDown.getX() +itemPriceDown.getWidth()*scale +10, itemPriceDown.getY() +itemPriceDown.getHeight()*scale /2, 20, 20);
                                     infoStorageDown.setPosition(5, itemPriceDown.getY());
@@ -512,6 +543,12 @@ public class Equipment{
                                     itemLevelRequireDown.setPosition(barNameDown.getX() +(itemNameDown.getWidth()*scale/2 -itemLevelRequireDown.getWidth()*scale / 2), backgroundDown.getY() + 120);
                                     itemBackgroundDown.setBounds(15, backgroundDown.getY() + 115, 70, 70);
                                     barPriceDown.setBounds(0, backgroundDown.getY(), BaseMap.VIEW_WIDTH +15, 25);
+                                    hpIconDown.setBounds(itemHpDown.getX() -hpIconDown.getWidth() *SIZE_ICONS -1, itemHpDown.getY() +hpIconDown.getHeight() *(1.1f -SIZE_ICONS), hpIconDown.getWidth() *SIZE_ICONS, hpIconDown.getHeight() *SIZE_ICONS);
+                                    silaIconDown.setBounds(itemStrongDown.getX() -silaIconDown.getWidth() *SIZE_ICONS -1, itemStrongDown.getY() +silaIconDown.getHeight() *(1.1f -SIZE_ICONS), silaIconDown.getWidth() *SIZE_ICONS, silaIconDown.getHeight() *SIZE_ICONS);
+                                    wiedzaIconDown.setBounds(itemWiedzaDown.getX() -wiedzaIconDown.getWidth() *SIZE_ICONS -1, itemWiedzaDown.getY() +wiedzaIconDown.getHeight() *(1.1f -SIZE_ICONS), wiedzaIconDown.getWidth() *SIZE_ICONS, wiedzaIconDown.getHeight() *SIZE_ICONS);
+                                    pancerzIconDown.setBounds(itemArmorDown.getX() -pancerzIconDown.getWidth() *SIZE_ICONS -1, itemArmorDown.getY() +pancerzIconDown.getHeight() *(1.1f -SIZE_ICONS), pancerzIconDown.getWidth() *SIZE_ICONS, pancerzIconDown.getHeight() *SIZE_ICONS);
+                                    zrecznoscIconDown.setBounds(itemDefenseFizDown.getX() -zrecznoscIconDown.getWidth() *SIZE_ICONS -1, itemDefenseFizDown.getY() +zrecznoscIconDown.getHeight() *(1.1f -SIZE_ICONS), zrecznoscIconDown.getWidth() *SIZE_ICONS, zrecznoscIconDown.getHeight() *SIZE_ICONS);
+                                    magiaIconDown.setBounds(itemDefenseMagDown.getX() -magiaIconDown.getWidth() *SIZE_ICONS -1, itemDefenseMagDown.getY() +magiaIconDown.getHeight() *(1.1f -SIZE_ICONS), magiaIconDown.getWidth() *SIZE_ICONS, magiaIconDown.getHeight() *SIZE_ICONS);
 
                                     itemPriceDown.setColor(Color.GOLD);
 
@@ -599,7 +636,8 @@ public class Equipment{
                                     addAllActorToStage(backgroundUp, backgroundDown, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong,
                                             itemWiedza, itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, infoStorage, money, itemPrice, itemBackgroundDown, itemImageDown, barNameDown,
                                             itemNameDown, itemLevelRequireDown, itemHpDown, itemStrongDown, itemWiedzaDown, itemArmorDown,
-                                            itemDefenseFizDown, itemDefenseMagDown, barPriceDown, moneyDown, itemPriceDown, infoStorageDown, takeOn,  drop, cancel);
+                                            itemDefenseFizDown, itemDefenseMagDown, barPriceDown, moneyDown, itemPriceDown, infoStorageDown, takeOn,  drop, cancel,
+                                            hpIcon, silaIcon, wiedzaIcon, pancerzIcon, magiaIcon, zrecznoscIcon, hpIconDown, silaIconDown, wiedzaIconDown, pancerzIconDown, zrecznoscIconDown, magiaIconDown);
                                 } else {
                                     takeOn.setBounds(0, 190, BaseMap.VIEW_WIDTH / 3, 50);
                                     takeOn.addListener(new InputListener() {
@@ -669,7 +707,8 @@ public class Equipment{
                                     });
                                     //Add Actor on stage
                                     addAllActorToStage(backgroundUp, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong, itemWiedza,
-                                            itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, money, itemPrice, infoStorage, takeOn,  drop, cancel);
+                                            itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, money, itemPrice, infoStorage, takeOn,  drop, cancel,
+                                            hpIcon, silaIcon, wiedzaIcon, pancerzIcon, magiaIcon, zrecznoscIcon);
                                 }
                                 break;
                             } catch (CloneNotSupportedException e) {
@@ -716,7 +755,8 @@ public class Equipment{
                             });
                             //Add Actor on stage
                             addAllActorToStage(backgroundUp, itemBackground, itemImage, barName, itemName, itemLevelRequire, itemHp, itemStrong, itemWiedza,
-                                    itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, money, itemPrice, infoStorage, takeOff, cancel);
+                                    itemArmor, itemDefenseFiz, itemDefenseMag, barPrice, money, itemPrice, infoStorage, takeOff, cancel,
+                                    hpIcon, silaIcon, wiedzaIcon, pancerzIcon, magiaIcon, zrecznoscIcon);
                             //
                             break;
                         default:
@@ -750,6 +790,12 @@ public class Equipment{
         takeOn.remove();
         takeOff.remove();
         backgroundUp.remove();
+        hpIcon.remove();
+        silaIcon.remove();
+        wiedzaIcon.remove();
+        pancerzIcon.remove();
+        zrecznoscIcon.remove();
+        magiaIcon.remove();
     }
 
     private void removeAllDown(){
@@ -769,6 +815,12 @@ public class Equipment{
         infoStorageDown.remove();
         moneyDown.remove();
         backgroundDown.remove();
+        hpIconDown.remove();
+        wiedzaIconDown.remove();
+        silaIconDown.remove();
+        pancerzIconDown.remove();
+        zrecznoscIconDown.remove();
+        magiaIconDown.remove();
     }
 
     private static void addListener(final int iterator, boolean plus, final Label label){

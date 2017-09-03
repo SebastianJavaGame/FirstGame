@@ -219,21 +219,22 @@ public class FightWin extends BaseScreen {
                 Menu.setIsFirstSpawnHeroPosition(true);
                 Menu.getSoundClick().play();
 
-                oryginalEnemy.setPosition(0, 0);
-                oryginalEnemy.setRectangle(0,0,0,0);
-                BaseMap.getActualMap().getCharacter().add(oryginalEnemy);
+                if(oryginalEnemy.getSpawnSecond() > 0) {
+                    oryginalEnemy.setRectangle(5, 5, -10, -10);
+                    BaseMap.getActualMap().getCharacter().add(oryginalEnemy);
 
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        if(!hero.calculateCollisionTwoRectangle(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()), temporaryRectangleCollision)) {
-                            oryginalEnemy.setPosition(orginalPosition.x, orginalPosition.y);
-                            oryginalEnemy.collisionUpdate();
-                            oryginalEnemy.setDropItemName(itemList);
-                            this.cancel();
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            if (!hero.calculateCollisionTwoRectangle(new Rectangle(getPosX(), getPosY(), hero.getHeroBox().getWidth(), hero.getHeroBox().getHeight()), temporaryRectangleCollision)) {
+                                oryginalEnemy.setPosition(orginalPosition.x, orginalPosition.y);
+                                oryginalEnemy.collisionUpdate();
+                                oryginalEnemy.setDropItemName(itemList);
+                                this.cancel();
+                            }
                         }
-                    }
-                }, oryginalEnemy.getSpawnSecond(), 2, 9999);
+                    }, oryginalEnemy.getSpawnSecond(), 2, 9999);
+                }
 
                 expMax = ExperienceRequired.getMaxExperience(twoBase);
                 float resultPrecent;
