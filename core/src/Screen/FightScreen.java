@@ -226,14 +226,14 @@ public class FightScreen extends BaseScreen {
             labelName.setFontScale(0.6f);
             labelLvl.setFontScale(0.5f);
 
-            lHpHero.setPosition(53 + barHpHero.getWidth() / 2 - (lHpHero.getWidth() *0.4f) / 2, 5);
-            lHpEnemy.setPosition(267 + barHpEnemy.getWidth() / 2 - (lHpEnemy.getWidth() *0.4f) / 2, 452);
-            lEnergyHero.setPosition(53 + barEnergyHero.getWidth() / 2 - (lEnergyHero.getWidth() *0.4f) / 2, -10);
-            lEnergyEnemy.setPosition(267 + barEnergyEnemy.getWidth() / 2 - (lEnergyEnemy.getWidth() *0.4f) / 2, 436);
-            labelName.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelName.getWidth()*0.6f / 2, 450);
-            labelLvl.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelLvl.getWidth()*0.5f / 2 + 10, 432);
-            labelFreePoint.setPosition(131, 97);
-            labelRoundNumber.setPosition(287, 97);
+            lHpHero.setPosition(53 + barHpHero.getWidth() / 2 - (lHpHero.getWidth() *0.4f) / 2, 1);
+            lHpEnemy.setPosition(267 + barHpEnemy.getWidth() / 2 - (lHpEnemy.getWidth() *0.4f) / 2, 448);
+            lEnergyHero.setPosition(53 + barEnergyHero.getWidth() / 2 - (lEnergyHero.getWidth() *0.4f) / 2, -14);
+            lEnergyEnemy.setPosition(267 + barEnergyEnemy.getWidth() / 2 - (lEnergyEnemy.getWidth() *0.4f) / 2, 432);
+            labelName.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelName.getWidth()*0.6f / 2, 446);
+            labelLvl.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelLvl.getWidth()*0.5f / 2 + 10, 428);
+            labelFreePoint.setPosition(131, 92);
+            labelRoundNumber.setPosition(287, 92);
 
             abortNonActive = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonAbord.png", Texture.class))));
             abortNonActive.setBounds(255, 0, 45, 45);
@@ -376,7 +376,7 @@ public class FightScreen extends BaseScreen {
 
                 labelPointFight[i] = new Label("" + pointUserPref[i], style);
                 labelPointFight[i].setFontScale(0.7f);
-                labelPointFight[i].setPosition(52 + i * 78, 60);
+                labelPointFight[i].setPosition(52 + i * 78, 56);
 
                 addListener(i, true, labelFreePoint);
                 addListener(i, false, labelFreePoint);

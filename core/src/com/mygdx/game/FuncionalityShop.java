@@ -183,8 +183,8 @@ public class FuncionalityShop {
 
                 backgroundUp.setBounds(0, 230, BaseMap.VIEW_WIDTH, 190);
                 itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
-                itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 152);
-                itemLevelRequire.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 121);
+                itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 150);
+                itemLevelRequire.setPosition(itemImage.getX() +itemImage.getWidth() + 25, backgroundUp.getY() + 121);
                 itemHp.setPosition(32, backgroundUp.getY() + 90);
                 itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 90);
                 itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 60);
@@ -193,7 +193,7 @@ public class FuncionalityShop {
                 itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 40, backgroundUp.getY() + 30);
                 itemPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - itemPrice.getWidth()*scale / 2 - 10, backgroundUp.getY() -itemPrice.getHeight()*scale/2 +6);
                 money.setBounds(itemPrice.getX() + itemPrice.getWidth() *scale + 7, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
-                barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +18, itemName.getHeight()*scale + 15);
+                barName.setBounds(itemName.getX() -10, itemName.getY() +2, itemName.getWidth()*scale +19, itemName.getHeight()*scale + 15);
                 itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
                 barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
                 bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY());
@@ -303,8 +303,8 @@ public class FuncionalityShop {
 
             backgroundUp.setBounds(0, -16, BaseMap.VIEW_WIDTH, 190);
             itemImage.setBounds(20, backgroundUp.getY() + 120, 60, 60);
-            itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 152);
-            itemLevelRequire.setPosition(itemName.getX() +itemName.getWidth()*scale /2 -itemName.getWidth()*scale /3, backgroundUp.getY() + 122);
+            itemName.setPosition((BaseMap.VIEW_WIDTH + 80) / 2 - itemName.getWidth()*scale / 2, backgroundUp.getY() + 150);
+            itemLevelRequire.setPosition(itemImage.getX() +itemImage.getWidth() + 25, backgroundUp.getY() + 122);
             itemHp.setPosition(32, backgroundUp.getY() + 90);
             itemArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 90);
             itemStrong.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 64);
@@ -313,7 +313,7 @@ public class FuncionalityShop {
             itemDefenseMag.setPosition(BaseMap.VIEW_WIDTH / 2 + 38, backgroundUp.getY() + 38);
             itemPrice.setPosition(BaseScreen.VIEW_WIDTH / 2 - itemPrice.getWidth()*scale / 2 - 10, backgroundUp.getY() -itemPrice.getHeight()*scale/2 +2);
             money.setBounds(itemPrice.getX() + itemPrice.getWidth() *scale + 7, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
-            barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +20, itemName.getHeight()*scale + 15);
+            barName.setBounds(itemName.getX() -10, itemName.getY() +2, itemName.getWidth()*scale +19, itemName.getHeight()*scale + 15);
             itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
             barPrice.setBounds(0, itemPrice.getY() - 4, BaseMap.VIEW_WIDTH + 15, 25);
             bClose.setPosition(BaseScreen.VIEW_WIDTH / 2 - bClose.getWidth() / 2, itemPrice.getY() +13);
@@ -376,9 +376,10 @@ public class FuncionalityShop {
         imageAnimTransaction = new Image(new Texture(Gdx.files.internal("uiMoney.png")));
 
         lAnimTransaction.setColor(color);
+        lAnimTransaction.setFontScale(0.5f);
         imageAnimTransaction.setSize(20, 20);
-        lAnimTransaction.setPosition(BaseScreen.VIEW_WIDTH /2 -(lAnimTransaction.getWidth() +imageAnimTransaction.getWidth()) /2, 190);
-        imageAnimTransaction.setPosition(lAnimTransaction.getX() +lAnimTransaction.getWidth() +4, 190);
+        lAnimTransaction.setPosition(BaseScreen.VIEW_WIDTH /2 -(lAnimTransaction.getWidth() *0.5f +imageAnimTransaction.getWidth()) /2, 190 -lAnimTransaction.getHeight()*0.5f +6);
+        imageAnimTransaction.setPosition(lAnimTransaction.getX() +lAnimTransaction.getWidth() *0.5f +4, 190);
 
         lAnimTransaction.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(1), Actions.delay(3), Actions.fadeOut(1)));
         imageAnimTransaction.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(1), Actions.delay(3), Actions.fadeOut(1)));

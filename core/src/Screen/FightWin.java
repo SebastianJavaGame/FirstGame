@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.Bag;
 import com.mygdx.game.Compass;
 import com.mygdx.game.Enemy;
 import com.mygdx.game.Equipment;
@@ -200,6 +201,8 @@ public class FightWin extends BaseScreen {
 
                 addActors(background, barGold, barStats, iconMoney, emptySlotItem, iconHideItemDrop, lExpText,
                         lMoney, lDrop, lDropChar, itemImage, lStatsDmgAverrage, lStatsCelnosc, confirm);
+                BaseMap.addRedLight();
+                Bag.addRedLight(0);
             } else {
 
                 lEmpty = new Label("Pusto", styleRed);

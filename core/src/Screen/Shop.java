@@ -35,10 +35,11 @@ public class Shop extends BaseScreen{
     private ImageButton close;
     public static final int POS_Y_NEXT_BACKGROUND = 164;
 
-    private static final BitmapFont font = MyGdxGame.createDistanceFont();
+    //private static final BitmapFont font = MyGdxGame.createDistanceFont();
+    public static final BitmapFont FONT_NAME = MyGdxGame.createFontName();
     private static final Label.LabelStyle style = new Label.LabelStyle();
     static {
-        style.font = font;
+        style.font = FONT_NAME;
     }
 
     private Stage stage;
@@ -78,13 +79,13 @@ public class Shop extends BaseScreen{
             lName = new Label(name, style);
             lLevel = new Label("Poziom " + level, style);
 
-            lName.setFontScale(0.6f);
-            lLevel.setFontScale(0.6f);
+            lName.setFontScale(0.5f);
+            lLevel.setFontScale(0.5f);
 
             image.setPosition(20, BaseScreen.VIEW_HEIGHT - image.getHeight() + 5);
             int lengthX = 135;
-            lName.setPosition(lengthX - lName.getWidth()*0.6f / 2, BaseScreen.VIEW_HEIGHT - 28);
-            lLevel.setPosition(lengthX - lLevel.getWidth()*0.6f / 2, BaseScreen.VIEW_HEIGHT - 46);
+            lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, BaseScreen.VIEW_HEIGHT - 50);
+            lLevel.setPosition(lengthX - lLevel.getWidth()*0.5f / 2, BaseScreen.VIEW_HEIGHT - 68);
 
             close.setSize(55, 55);
             close.setPosition(BaseScreen.VIEW_WIDTH - close.getWidth() - 25, BaseScreen.VIEW_HEIGHT - close.getHeight() + 6);

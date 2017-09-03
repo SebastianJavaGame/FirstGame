@@ -32,10 +32,10 @@ public class DialogNpc {
     private int textHero2;
     private int taskReward;
 
-    private static final BitmapFont font = MyGdxGame.createDistanceFont();
-    private static final Label.LabelStyle style = new Label.LabelStyle();
+    private static final BitmapFont FONT_NAME = MyGdxGame.createFontName();
+    private static final Label.LabelStyle STYLE_NAME = new Label.LabelStyle();
     static {
-        style.font = font;
+        STYLE_NAME.font = FONT_NAME;
     }
 
     private static Npc npc;
@@ -79,8 +79,8 @@ public class DialogNpc {
             }
         });
 
-        lName = new Label("" + npc.getName(), style);
-        lLevel = new Label("Poziom " + npc.getLevel(), style);
+        lName = new Label("" + npc.getName(), STYLE_NAME);
+        lLevel = new Label("Poziom " + npc.getLevel(), STYLE_NAME);
 
         lName.setFontScale(0.5f);
         lLevel.setFontScale(0.5f);
@@ -95,8 +95,8 @@ public class DialogNpc {
         Hero3D.setRenderHero3d(false);
         Hero.setActiveMove(true);
 
-        lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, UP_LABEL.getY() +13);
-        lLevel.setPosition(lengthX - lLevel.getWidth()*0.5f / 2, UP_LABEL.getY() -5);
+        lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, UP_LABEL.getY() -2);
+        lLevel.setPosition(lengthX - lLevel.getWidth()*0.5f / 2, UP_LABEL.getY() -22);
         addActors(BACKGROUND, UP_LABEL, CLOSE_BUTTON, lName, lLevel, imageHead);
 
         create();

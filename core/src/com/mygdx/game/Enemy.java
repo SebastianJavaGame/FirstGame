@@ -117,14 +117,23 @@ public class Enemy extends Character implements Cloneable{
             final Image pancerzIcon = new Image(asset.manager.get("pancerz.jpg", Texture.class));
             final Image zrecznoscIcon = new Image(asset.manager.get("zrecznosc.jpg", Texture.class));
             final Image magiaIcon = new Image(asset.manager.get("magia.jpg", Texture.class));
+            final Image[] buttonBorder = new Image[3];
+            for(int i = 0; i < 3; i++) {
+                buttonBorder[i] = new Image(asset.manager.get("buttonBorder.png", Texture.class));
+                buttonBorder[i].setTouchable(Touchable.disabled);
+                buttonBorder[i].setOrigin(buttonBorder[i].getWidth() /2, buttonBorder[i].getHeight() /2);
+            }
             final float SIZE_ICONS = 0.7f;
 
             hero.setActiveMove(true);
 
             shadow.setPosition(0, 0);
             attackScreen.setPosition(21, 90);
+            buttonBorder[0].setPosition(21, 90);
             infoEnemy.setPosition(21 +attackScreen.getWidth() + 22, 90);
+            buttonBorder[1].setPosition(21 +attackScreen.getWidth() + 22, 90);
             cancel.setPosition(BaseScreen.VIEW_WIDTH / 2 - cancel.getWidth() / 2, 280);
+            buttonBorder[2].setPosition(BaseScreen.VIEW_WIDTH / 2 - cancel.getWidth() / 2, 280);
 
             final Enemy enemy = this;
 
@@ -246,6 +255,9 @@ public class Enemy extends Character implements Cloneable{
                             pancerzIcon.remove();
                             zrecznoscIcon.remove();
                             magiaIcon.remove();
+                            buttonBorder[0].remove();
+                            buttonBorder[1].remove();
+                            buttonBorder[2].remove();
                             hero.getHero3D().setRenderHero3d(true);
                             hero.setActiveMove(false);
                             return false;
@@ -263,15 +275,21 @@ public class Enemy extends Character implements Cloneable{
                     infoEnemy.remove();
                     cancel.remove();
                     Menu.getSoundClick().play();
+                    buttonBorder[0].remove();
+                    buttonBorder[1].remove();
+                    buttonBorder[2].remove();
                     hero.setActiveMove(false);
                     return false;
                 }
             });
 
-            addActor(shadow, attackScreen, infoEnemy, cancel);
+            addActor(shadow, buttonBorder[0], buttonBorder[1], buttonBorder[2], attackScreen, infoEnemy, cancel);
             attackScreen.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(21, 90, 0.3f), Actions.fadeIn(0.6f))));
             infoEnemy.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(21 + attackScreen.getWidth() + 22, 90, 0.3f), Actions.fadeIn(0.6f))));
             cancel.addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH / 2 - cancel.getWidth() / 2, 280, 0.3f), Actions.fadeIn(0.6f))));
+            buttonBorder[0].addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(21, 90, 0.3f), Actions.fadeIn(0.6f)), Actions.forever(Actions.rotateBy(20, 1))));
+            buttonBorder[1].addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(21 + attackScreen.getWidth() + 22, 90, 0.3f), Actions.fadeIn(0.6f)), Actions.forever(Actions.rotateBy(20, 1))));
+            buttonBorder[2].addAction(Actions.sequence(Actions.fadeOut(0), Actions.moveTo(BaseScreen.VIEW_WIDTH /2 -attackScreen.getWidth() /2, BaseScreen.VIEW_WIDTH /2 -attackScreen.getHeight() /2), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH / 2 - cancel.getWidth() / 2, 280, 0.3f), Actions.fadeIn(0.6f)), Actions.forever(Actions.rotateBy(20, 1))));
         }
     }
 

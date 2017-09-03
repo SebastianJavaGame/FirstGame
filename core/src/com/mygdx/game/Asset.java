@@ -58,6 +58,7 @@ public class Asset implements Disposable {
         manager.load("pancerz.jpg", Texture.class);
         manager.load("zrecznosc.jpg", Texture.class);
         manager.load("magia.jpg", Texture.class);
+        manager.load("buttonBorder.png", Texture.class);
 
         manager.load("sound/collisionEnemy.ogg", Sound.class);
         manager.load("sound/card.ogg", Sound.class);

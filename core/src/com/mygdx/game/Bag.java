@@ -133,11 +133,6 @@ public class Bag {
             });
             buttonExit.setPosition(background.getX() + 250, 385);
 
-            buttonExit.setDebug(true);
-            buttonEq.setDebug(true);
-            buttonQuest.setDebug(true);
-            buttonStats.setDebug(true);
-
             stage.addActor(background);
             stage.addActor(buttonEq);
             stage.addActor(buttonStats);
@@ -226,7 +221,10 @@ public class Bag {
         switch (position){
             case 0:
                 redLightStats.setPosition(30 -3, 385 -3);
-                break;
+                redLightStats.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f),
+                                                         Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f),
+                                                         Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f)));
+                return;
             case 1:
                 redLightStats.setPosition(103 -3, 385 -3);
                 break;

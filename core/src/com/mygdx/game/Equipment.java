@@ -157,7 +157,8 @@ public class Equipment{
                     style.font = font;
 
                     labelFreePoint = new Label("Free points: " + PREF_FIGHT.getInteger("FIGHT_POINT", 10), style);
-                    labelFreePoint.setPosition(5, 425);
+                    labelFreePoint.setFontScale(0.8f);
+                    labelFreePoint.setPosition(5, 412);
 
                     final TextButton.TextButtonStyle styleSave = new TextButton.TextButtonStyle();
                     styleSave.font = font;
@@ -223,8 +224,8 @@ public class Equipment{
                         minusButton[i].setPosition(70, (i + 1) * 95);
 
                         labelPointFight[i] = new Label(String.valueOf(PREF_FIGHT.getInteger(KEY_PREF_FIGHT[i])), style);
-                        labelPointFight[i].setPosition(BaseMap.VIEW_WIDTH / 2 - labelPointFight[i].getWidth() / 2 - 3, 98 + i * 95);
-                        labelPointFight[i].setFontScale(1.6f);
+                        labelPointFight[i].setPosition(BaseMap.VIEW_WIDTH / 2 - labelPointFight[i].getWidth() / 2 - 3, 87 + i * 95);
+                        labelPointFight[i].setFontScale(1.5f);
 
                         addListener(i, true, labelFreePoint);
                         addListener(i, false, labelFreePoint);

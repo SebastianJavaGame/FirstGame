@@ -45,7 +45,7 @@ public class Quest {
 
         STYLE.font = FONT;
         lTitle = new Label("Lista zadan", STYLE);
-        lTitle.setPosition(BaseScreen.VIEW_WIDTH /2 -lTitle.getWidth()/2, 350);
+        lTitle.setPosition(BaseScreen.VIEW_WIDTH /2 -lTitle.getWidth()/2, 340);
 
         for(int i = 0;; i++){
             if(PREF.getInteger("TASK" + i, -1) != -1){

@@ -33,6 +33,7 @@ public class Transaction {
     private Asset asset = new Asset();
     private Image backgroundTransaction;
     public static final BitmapFont FONT = MyGdxGame.createDistanceFont();
+    public static final BitmapFont FONT_BUTTON = MyGdxGame.createButtonFont();
     private static final TextButton.TextButtonStyle STYLE_TRANSACTION_BUY = new TextButton.TextButtonStyle();
     private static final TextButton.TextButtonStyle STYLE_TRANSACTION_SELL = new TextButton.TextButtonStyle();
     private static final TextButton.TextButtonStyle STYLE_BACK = new TextButton.TextButtonStyle();
@@ -43,8 +44,8 @@ public class Transaction {
 
     static {
         style.font = FONT;
-        STYLE_TRANSACTION_BUY.font = FONT;
-        STYLE_TRANSACTION_SELL.font = FONT;
+        STYLE_TRANSACTION_BUY.font = FONT_BUTTON;
+        STYLE_TRANSACTION_SELL.font = FONT_BUTTON;
         STYLE_BACK.font = FONT;
     }
 
@@ -81,7 +82,6 @@ public class Transaction {
             STYLE_TRANSACTION_SELL.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonTransaction.png", Texture.class)));
             STYLE_TRANSACTION_BUY.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonTransaction.png", Texture.class)));
             backgroundTransaction = new Image(asset.manager.get("shopBackgroundTransaction.png", Texture.class));
-
             FuncionalityShop.setActive(true);
 
             backgroundTransaction.setPosition(0, Screen.Shop.POS_Y_NEXT_BACKGROUND);
@@ -146,7 +146,7 @@ public class Transaction {
                                         FuncionalityShop.getlAnimTransaction().remove();
                                     if(FuncionalityShop.getImageAnimTransaction() != null)
                                         FuncionalityShop.getImageAnimTransaction().remove();
-                                    FuncionalityShop.animationEndTransaction("Brak zlota!", Color.RED);
+                                    FuncionalityShop.animationEndTransaction("Brak\nzłota!", Color.RED);
                                 }
                                 FuncionalityShop.removeAllShop();
                             } catch (CloneNotSupportedException e) {

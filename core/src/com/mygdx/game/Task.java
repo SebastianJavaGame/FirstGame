@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import Screen.BaseMap;
 import Screen.Menu;
 
 /**
@@ -35,7 +36,6 @@ public class Task {
     private Label lProgress;
     private TextButton cancel;
 
-    private int indexTask;
     private int idTask;
 
     static {
@@ -44,7 +44,6 @@ public class Task {
     }
 
     public Task(final int idTask, final int indexTask){
-        this.indexTask = indexTask;
         this.idTask = idTask;
 
         asset.loadTask();
@@ -118,6 +117,8 @@ public class Task {
             lProgress.setText("Zrobione! Odbierz nagrode");
             lProgress.setColor(Color.OLIVE);
             BaseTask.setTaskComplete(idTask, true);
+            BaseMap.addRedLight();
+            Bag.addRedLight(2);
         }
 
         return (int)(MAX_PROGRESS_PERCENT *percent);
