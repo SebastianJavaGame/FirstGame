@@ -39,7 +39,7 @@ public class FightScreen extends BaseScreen {
     private Asset asset = new Asset();
     private static final int ENERGY_MAX = 100;
 
-    private static final int[] DURATION_ANIMATION = new int[]{1, 4, 7, 10, 13, 16};
+    private static final float[] DURATION_ANIMATION = new float[]{1, 3.5f, 6, 8.5f, 11, 13.5f};
 
     private Hero hero;
     private Enemy enemy;
@@ -52,7 +52,7 @@ public class FightScreen extends BaseScreen {
     private Image magicEnemy;
     private Image block;
     private Image blood;
-    private Image skull;
+    //private Image skull;
 
     private float targetX;
 
@@ -171,7 +171,7 @@ public class FightScreen extends BaseScreen {
             barEnergyHero = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
             barEnergyEnemy = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
             heroImage = new Image(asset.manager.get("heroImage.png", Texture.class));
-            skull = new Image(asset.manager.get("skull.png", Texture.class));
+            //skull = new Image(asset.manager.get("skull.png", Texture.class));
 
             try {
                 waponHero = flipY();
@@ -189,8 +189,8 @@ public class FightScreen extends BaseScreen {
             waponEnemy.setPosition(95, 280);
             waponEnemy.setSize(80, 80);
             waponEnemy.setOrigin(waponEnemy.getWidth(), 0);
-            skull.setSize(160, 120);
-            skull.setPosition(BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
+            //skull.setSize(160, 120);
+            //skull.setPosition(BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
 
             magicHero = new Image(asset.manager.get("magicHero.png", Texture.class));
             magicHero.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() / 2, enemyImage.getWidth() - 30, enemyImage.getHeight() - 120);
@@ -450,7 +450,7 @@ public class FightScreen extends BaseScreen {
         int[] randomHit = randomQueueHit();
 
         for(int i = 0; i < 6; i++){
-            int duration = DURATION_ANIMATION[i];
+            float duration = DURATION_ANIMATION[i];
             if(!stopAnimationRoundAttack) {
                 System.out.println(stopAnimationRoundAttack);
                 switch (randomHit[i]) {
@@ -486,7 +486,7 @@ public class FightScreen extends BaseScreen {
                             abortNonActive.remove();
                         }
                     });
-                    stage.addAction(Actions.sequence(Actions.delay(18), action));
+                    stage.addAction(Actions.sequence(Actions.delay(16), action));
                 }
             }
         }
@@ -542,10 +542,10 @@ public class FightScreen extends BaseScreen {
             return dmg;
     }
 
-    private void sixAttack(final int dmg, final int procent, int duration) {
+    private void sixAttack(final int dmg, final int procent, float duration) {
         labelCalculateHp[5] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[5] = new Label(procent + "%", style);
-        labelCalculateHp[5].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[5].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateHp[5].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 -labelCalculateHp[5].getWidth() +15, enemyImage.getY() + enemyImage.getHeight() -15);
         labelCalculateProcent[5].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[5].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() +10);
         addActors(labelCalculateHp[5],labelCalculateProcent[5]);
         Action action = Actions.run(new Runnable() {
@@ -572,10 +572,10 @@ public class FightScreen extends BaseScreen {
         animateMagic(labelCalculateHp[5], labelCalculateProcent[5], duration, action, true);
     }
 
-    private void fiveAttack(final int dmg, final int procent, int duration) {
+    private void fiveAttack(final int dmg, final int procent, float duration) {
         labelCalculateHp[4] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[4] = new Label(procent + "%", style);
-        labelCalculateHp[4].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[4].getWidth() /2, heroImage.getY() + heroImage.getHeight() -15);
+        labelCalculateHp[4].setPosition(heroImage.getX() + heroImage.getWidth() /2 -15, heroImage.getY() + heroImage.getHeight() -15);
         labelCalculateProcent[4].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[4].getWidth() /2 +10, heroImage.getY() + heroImage.getHeight() +10);
         addActors(labelCalculateHp[4], labelCalculateProcent[4]);
         Action action = Actions.run(new Runnable() {
@@ -600,10 +600,10 @@ public class FightScreen extends BaseScreen {
         animateMagic(labelCalculateHp[4], labelCalculateProcent[4], duration, action, false);
     }
 
-    private void fourthAttack(final int dmg, final int procent, int duration) {
+    private void fourthAttack(final int dmg, final int procent, float duration) {
         labelCalculateHp[3] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[3] = new Label(procent + "%", style);
-        labelCalculateHp[3].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[3].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateHp[3].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 -labelCalculateHp[3].getWidth() +15, enemyImage.getY() + enemyImage.getHeight() -15);
         labelCalculateProcent[3].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[3].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() +10);
         addActors(labelCalculateHp[3], labelCalculateProcent[3]);
         Action action = Actions.run(new Runnable() {
@@ -630,10 +630,10 @@ public class FightScreen extends BaseScreen {
         animatePhysics(labelCalculateHp[3], labelCalculateProcent[3], duration, action, true);
     }
 
-    private void thirdAttack(final int dmg, final int procent, int duration) throws CloneNotSupportedException {
+    private void thirdAttack(final int dmg, final int procent, float duration) throws CloneNotSupportedException {
         labelCalculateHp[2] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[2] = new Label(procent + "%", style);
-        labelCalculateHp[2].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateHp[2].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() -15);
+        labelCalculateHp[2].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 -labelCalculateHp[2].getWidth() +15, enemyImage.getY() + enemyImage.getHeight() -15);
         labelCalculateProcent[2].setPosition(enemyImage.getX() + enemyImage.getWidth() /2 - labelCalculateProcent[2].getWidth() /2, enemyImage.getY() + enemyImage.getHeight() +10);
         addActors(labelCalculateHp[2], labelCalculateProcent[2]);
         Action action = Actions.run(new Runnable() {
@@ -660,10 +660,10 @@ public class FightScreen extends BaseScreen {
         animatePhysics(labelCalculateHp[2], labelCalculateProcent[2], duration, action, true);
     }
 
-    private void secondAttack(final int dmg, final int procent, int duration) {
+    private void secondAttack(final int dmg, final int procent, float duration) {
         labelCalculateHp[1] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[1] = new Label(procent + "%", style);
-        labelCalculateHp[1].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[1].getWidth() /2, heroImage.getY() + heroImage.getHeight() -15);
+        labelCalculateHp[1].setPosition(heroImage.getX() + heroImage.getWidth() /2 -15, heroImage.getY() + heroImage.getHeight() -15);
         labelCalculateProcent[1].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[1].getWidth() /2 +10, heroImage.getY() + heroImage.getHeight() +10);
         addActors(labelCalculateHp[1], labelCalculateProcent[1]);
         Action action = Actions.run(new Runnable() {
@@ -688,10 +688,10 @@ public class FightScreen extends BaseScreen {
 
     }
 
-    private void firstAttack(final int dmg, final int procent, int duration) {
+    private void firstAttack(final int dmg, final int procent, float duration) {
         labelCalculateHp[0] = new Label("-" + dmg, styleBlood);
         labelCalculateProcent[0] = new Label(procent + "%", style);
-        labelCalculateHp[0].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateHp[0].getWidth() /2, heroImage.getY() + heroImage.getHeight() -15);
+        labelCalculateHp[0].setPosition(heroImage.getX() + heroImage.getWidth() /2 -15, heroImage.getY() + heroImage.getHeight() -15);
         labelCalculateProcent[0].setPosition(heroImage.getX() + heroImage.getWidth() /2 - labelCalculateProcent[0].getWidth() /2 +10, heroImage.getY() + heroImage.getHeight() +10);
         addActors(labelCalculateHp[0],  labelCalculateProcent[0]);
         Action action = Actions.run(new Runnable() {
@@ -763,13 +763,13 @@ public class FightScreen extends BaseScreen {
         if (hpHero < 1) {
             hpHero = 0;
 
-            skull.addAction(Actions.fadeOut(0));
-            skull.addAction(Actions.moveTo(heroImage.getX() +heroImage.getWidth()/2 -skull.getWidth() /2, heroImage.getY() +heroImage.getHeight() /2 -skull.getHeight() /2));
-            skull.addAction(Actions.fadeIn(2));
+           // skull.addAction(Actions.fadeOut(0));
+           // skull.addAction(Actions.moveTo(heroImage.getX() +heroImage.getWidth()/2 -skull.getWidth() /2, heroImage.getY() +heroImage.getHeight() /2 -skull.getHeight() /2));
+            //skull.addAction(Actions.fadeIn(2));
             heroImage.addAction(Actions.fadeOut(2));
-            stage.addActor(skull);
+            //stage.addActor(skull);
 
-            stage.addAction(Actions.sequence(Actions.delay(2.5f),Actions.run(new Runnable() {
+            stage.addAction(Actions.sequence(Actions.delay(1),Actions.run(new Runnable() {
                 @Override
                 public void run() {
                     endFightRemoveEffect();
@@ -791,13 +791,13 @@ public class FightScreen extends BaseScreen {
         else if(hpEnemy < 1){
             hpEnemy = 0;
 
-            skull.addAction(Actions.fadeOut(0));
-            skull.addAction(Actions.moveTo(enemyImage.getX() +enemyImage.getWidth()/2 -skull.getWidth() /2, enemyImage.getY() +enemyImage.getHeight() /2 -skull.getHeight() /2));
-            skull.addAction(Actions.fadeIn(2));
+           // skull.addAction(Actions.fadeOut(0));
+           // skull.addAction(Actions.moveTo(enemyImage.getX() +enemyImage.getWidth()/2 -skull.getWidth() /2, enemyImage.getY() +enemyImage.getHeight() /2 -skull.getHeight() /2));
+            //skull.addAction(Actions.fadeIn(2));
             enemyImage.addAction(Actions.fadeOut(2));
-            stage.addActor(skull);
+            //stage.addActor(skull);
 
-            stage.addAction(Actions.sequence(Actions.delay(2.5f),Actions.run(new Runnable() {
+            stage.addAction(Actions.sequence(Actions.delay(1),Actions.run(new Runnable() {
                 @Override
                 public void run() {
                     endFightRemoveEffect();
@@ -832,7 +832,6 @@ public class FightScreen extends BaseScreen {
                             dropItemName = enemy.getDropItem().get((int) temporary);
                         }
                     }
-
 
                     musicBattle.stop();
                     game.setScreen(new FightWin(game, hero, enemy, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), (int)moneyDrop, (int)expDrop, dropItemName));
@@ -904,19 +903,19 @@ public class FightScreen extends BaseScreen {
     }
 
     private void endFightRemoveEffect(){
-        startFight.addAction(Actions.fadeOut(0));
-        waponHero.remove();
-        waponEnemy.remove();
-        magicHero.remove();
-        magicEnemy.remove();
-        block.remove();
-        blood.remove();
+        waponHero.setVisible(false);
+        waponEnemy.setVisible(false);
+        magicHero.setVisible(false);
+        magicEnemy.setVisible(false);
+        block.setVisible(false);
+        blood.setVisible(false);
         for(Label l: labelCalculateHp)
-                l.remove();
+                l.setVisible(false);
 
         for(Label l: labelCalculateProcent)
-                l.remove();
-        startFight.remove();
+                l.setVisible(false);
+
+        startFight.setVisible(false);
     }
 
     private Label animateEnergyMinusPoint(boolean isHero){
@@ -938,35 +937,35 @@ public class FightScreen extends BaseScreen {
         return label;
     }
 
-    private void animatePhysics(Label dmg, Label procent, int delay, Action action, boolean isHero) {
+    private void animatePhysics(Label dmg, Label procent, float delay, Action action, boolean isHero) {
         if(isHero) {
-            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
-            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            waponHero.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(-18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(-36, 0.3f)), Actions.rotateBy(-18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(-9, 0.15f)), Actions.rotateBy(61)));
+            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2f), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1f))));
+            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2f), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1f))));
+            waponHero.addAction(Actions.sequence(Actions.delay(delay -0.2f), Actions.rotateBy(20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(-18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(-36, 0.3f)), Actions.rotateBy(-18, 0.15f), Actions.parallel(Actions.fadeOut(0.105f), Actions.rotateBy(-9, 0.15f)), Actions.rotateBy(61)));
         }else{
             if(enemy.getAttackType()){
-                dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
+                dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
                 procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-                waponEnemy.addAction(Actions.sequence(Actions.delay(delay - 0.2f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() +20, enemyImage.getY() + enemyImage.getHeight() /2 -waponEnemy.getHeight() /2), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() /2, enemyImage.getY() + enemyImage.getHeight() /2 -waponEnemy.getHeight() /2, 0.7f)), Actions.parallel(Actions.sequence(Actions.delay(0.5f), Actions.fadeOut(0.4f)), Actions.moveBy(70, 0, 0.7f))));
+                waponEnemy.addAction(Actions.sequence(Actions.delay(delay - 0.2f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() +20, enemyImage.getY() + enemyImage.getHeight() /2 -waponEnemy.getHeight() /2), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveTo(heroImage.getX() +heroImage.getWidth() /2, enemyImage.getY() + enemyImage.getHeight() /2 -waponEnemy.getHeight() /2, 0.7f)), Actions.parallel(Actions.sequence(Actions.delay(0.5f), Actions.fadeOut(0.3f)), Actions.moveBy(70, 0, 0.49f))));
             }else {
                 dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay + 0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
-                procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
+                procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.2f), Actions.moveBy(0, 10, 1))));
                 waponEnemy.addAction(Actions.sequence(Actions.delay(delay - 0.2f), Actions.rotateBy(-20), Actions.parallel(Actions.fadeIn(0.15f), Actions.rotateBy(18, 0.15f)), Actions.parallel(Actions.delay(0.3f), Actions.rotateBy(36, 0.3f)), Actions.rotateBy(18, 0.15f), Actions.parallel(Actions.fadeOut(0.15f), Actions.rotateBy(9, 0.15f)), Actions.rotateBy(-61)));
             }
         }
     }
 
-    private void animateMagic(Label dmg, Label procent, int delay, Action action, boolean isHero) {
+    private void animateMagic(Label dmg, Label procent, float delay, Action action, boolean isHero) {
         final float SPEED_MAGIC = 0.5f;
         if(isHero) {
-            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
-            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(targetX +60, enemyImage.getY() + enemyImage.getHeight() /2, SPEED_MAGIC-0.2f), Actions.delay(0.2f), Actions.fadeOut(0.5f))));
+            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
+            procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.2f), Actions.moveBy(0, 10, 1))));
+            magicHero.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(targetX +60, enemyImage.getY() + enemyImage.getHeight() /2, SPEED_MAGIC-0.2f), Actions.delay(0.2f), Actions.fadeOut(0.3f))));
             magicHero.setBounds(heroImage.getX() + 50, heroImage.getY() +80, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }else{
-            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.8f), Actions.moveBy(0, 10, 1))));
+            dmg.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay +0.6f), Actions.fadeIn(0), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
             procent.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(delay), Actions.fadeIn(0), action, Actions.delay(0.1f), Actions.moveBy(0, 20, 2), Actions.parallel(Actions.fadeOut(0.4f), Actions.moveBy(0, 10, 1))));
-            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH /4 -magicEnemy.getWidth() /2 -60, heroImage.getY() + heroImage.getHeight() /2, SPEED_MAGIC-0.2f), Actions.delay(0.2f), Actions.fadeOut(0.5f))));
+            magicEnemy.addAction(Actions.sequence(Actions.delay(delay -0.5f), Actions.parallel(Actions.fadeIn(0.5f), Actions.moveBy(-50, -10, SPEED_MAGIC +0.1f), Actions.scaleTo(1, 1, SPEED_MAGIC)), Actions.parallel(Actions.moveTo(BaseScreen.VIEW_WIDTH /4 -magicEnemy.getWidth() /2 -60, heroImage.getY() + heroImage.getHeight() /2, SPEED_MAGIC-0.2f), Actions.delay(0.2f), Actions.fadeOut(0.3f))));
             magicEnemy.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() /2, heroImage.getWidth() -30, heroImage.getHeight() -120);
         }
     }

@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -37,6 +39,7 @@ public class Bag {
 
     private Image background;
     private Image separator;
+    private static Image redLightStats;
 
     private BitmapFont font;
     private Label.LabelStyle styleWhite;
@@ -44,6 +47,12 @@ public class Bag {
     private Label infoCloseGame;
 
     private Sound page;
+
+    static {
+        redLightStats = new Image(new Texture(Gdx.files.internal("statsRed.png")));
+        redLightStats.setTouchable(Touchable.disabled);
+        redLightStats.addAction(Actions.fadeOut(0));
+    }
 
     public Bag(Stage card){
         this.card = card;
@@ -71,6 +80,8 @@ public class Bag {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (!Equipment.getBlockClick()) {
                         try {
+                            redLightStats.clearActions();
+                            redLightStats.addAction(Actions.fadeOut(0));
                             page.play();
                             initCardEq();
                         } catch (CloneNotSupportedException e) {
@@ -86,6 +97,8 @@ public class Bag {
             buttonStats.addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (!Equipment.getBlockClick()) {
+                        redLightStats.clearActions();
+                        redLightStats.addAction(Actions.fadeOut(0));
                         page.play();
                         initCardStats();
                     }
@@ -98,6 +111,8 @@ public class Bag {
             buttonQuest.addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     if (!Equipment.getBlockClick()){
+                        redLightStats.clearActions();
+                        redLightStats.addAction(Actions.fadeOut(0));
                         page.play();
                         initCardQuest();
                     }
@@ -128,6 +143,7 @@ public class Bag {
             stage.addActor(buttonStats);
             stage.addActor(buttonQuest);
             stage.addActor(buttonExit);
+            stage.addActor(redLightStats);
 
             if (!Equipment.getBlockClick()) {
                 try {
@@ -204,5 +220,21 @@ public class Bag {
         card.addActor(separator);
         card.addActor(infoCloseGame);
         card.addActor(closeGame);
+    }
+
+    public static void addRedLight(int position){
+        switch (position){
+            case 0:
+                redLightStats.setPosition(30 -3, 385 -3);
+                break;
+            case 1:
+                redLightStats.setPosition(103 -3, 385 -3);
+                break;
+            case 2:
+                redLightStats.setPosition(176 -3, 385 -3);
+                break;
+        }
+
+        redLightStats.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f))));
     }
 }

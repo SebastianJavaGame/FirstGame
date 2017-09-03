@@ -26,11 +26,11 @@ public class FieldDialogue {
     private Image barVerticalRight;
     private Image barHorizontalUp;
     private Image barHorizontalDown;
-    private final Stage STAGE = BaseScreen.getStage();
+    private final Stage STAGE = BaseMap.getStageUi();
     private static final BitmapFont FONT = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
     private static final Label.LabelStyle STYLE_GREEN = new Label.LabelStyle();
-    public final int POSITION_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2 +35;
+    public final int POSITION_X = 35;
     private static final int LINE_LENGTH = 27;
     private final FieldDialogue[] arrayDialog = DialogNpc.getFieldTextList();
     private final Preferences PREF = Gdx.app.getPreferences(Quest.PREF_TASK);

@@ -3,19 +3,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import Screen.Menu;
 
 public class MyGdxGame extends Game{
     private static DialogInfo dialogInfo;
-
-    private static FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private static FreeTypeFontGenerator generator;
 
     public MyGdxGame(DialogInfo dialogInfo){
         this.dialogInfo = dialogInfo;
@@ -33,23 +26,8 @@ public class MyGdxGame extends Game{
         dialogInfo.showDialog(message);
     }
 
-    public static BitmapFont createBitmapFont(float size, Color color){
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("font/fonts.ttf"));
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = Math.round(size);
-        generator.scaleForPixelHeight((int)Math.ceil(size));
-        parameter.minFilter = Texture.TextureFilter.Nearest;
-        parameter.magFilter = Texture.TextureFilter.MipMapLinearNearest;
-
-        BitmapFont bitmapFont = generator.generateFont(parameter);
-        bitmapFont.setColor(color);
-        return bitmapFont;
-    }
-
     public static BitmapFont createDistanceFont(){
-        Texture texture = new Texture(Gdx.files.internal("font/font.png"));
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        BitmapFont font = new BitmapFont(Gdx.files.internal("font/font.fnt"), new TextureRegion(texture), false);
+        BitmapFont font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         return font;
     }
 

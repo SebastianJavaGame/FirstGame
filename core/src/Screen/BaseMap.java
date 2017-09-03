@@ -16,6 +16,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -80,6 +82,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     private Image uiBarHp;
     private Image uiBarExp;
     private Image backgtoundLvl;
+    private static Image redLightUiStats;
     private ImageButton uiStats;
 
     private Label.LabelStyle labelStyle;
@@ -107,6 +110,12 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         entriaceToMapRectangle = new ArrayList<Rectangle>();
         indexToLoadNextMap = new ArrayList<Integer>();
         entriencesPosition = new ArrayList<Vector2>();
+
+        redLightUiStats = new Image(new Texture(Gdx.files.internal("uiStatsRed.png")));
+        redLightUiStats.setSize(50, 50);
+        redLightUiStats.setPosition(267, 430);
+        redLightUiStats.setTouchable(Touchable.disabled);
+        redLightUiStats.addAction(Actions.fadeOut(0));
     }
 
     public BaseMap(Game game, Image imageBg) {
@@ -258,7 +267,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         moneyLabel = addLabelToStageUi(220, 470, 0.4f);
         hpLabel = addLabelToStageUi(5, 0, 0.4f);
         expLabel = addLabelToStageUi(5, 0 , 0.4f);
-        Label levelNameLabel = addLabelToStageUi(9, 463, 0.5f);
+        Label levelNameLabel = addLabelToStageUi(7, 463, 0.5f);
         levelNameLabel.setText("Poziom");
         levelLabel = addLabelToStageUi(0, 446, 0.6f);
 
@@ -272,6 +281,8 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
                     stageCard.clear();
                     card.play();
                 }else{
+                    redLightUiStats.clearActions();
+                    redLightUiStats.addAction(Actions.fadeOut(0));
                     hero.clearActions();
                     Hero3D.setStopAnimation();
                     Hero.setStopStep();
@@ -288,6 +299,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         uiStats.setPosition(267, 430);
         uiStats.setSize(50, 50);
 
+        stageUi.addActor(redLightUiStats);
         stageUi.addActor(uiStats);
     }
 
@@ -376,6 +388,10 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         return false;
     }
 
+    public static void addRedLight(){
+        redLightUiStats.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f))));
+    }
+
     public static void setStopGame(boolean stop){
         stopGame = stop;
     }
@@ -434,5 +450,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public static String getMapName(){
         return mapName;
+    }
+
+    public static Stage getStageUi(){
+        return stageUi;
     }
 }

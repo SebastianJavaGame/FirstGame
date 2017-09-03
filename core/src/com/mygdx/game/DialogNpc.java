@@ -26,10 +26,6 @@ public class DialogNpc {
     private static final Image UP_LABEL = new Image(new Texture(Gdx.files.internal("dialogueUpLabel.png")));
     private static final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
 
-    public final int POS_X = (int)BaseScreen.camera.position.x - BaseMap.VIEW_WIDTH /2;
-    public final int POS_Y = (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2;
-    public final int POS_TEXT_FIELD_NPC = POS_Y +360;
-
     private int textNpc;
     private int textHero0;
     private int textHero1;
@@ -53,7 +49,7 @@ public class DialogNpc {
 
     public DialogNpc(Npc npc) {
         this.npc = npc;
-        this.stage = BaseScreen.getStage();
+        this.stage = BaseMap.getStageUi();
         fieldTextList = new FieldDialogue[4];
 
         Compass.disapear();
@@ -65,11 +61,11 @@ public class DialogNpc {
         taskReward = BaseDialogs.STARTING_TEXT[npc.getId()][4];
 
         BACKGROUND.setSize(270, 400);
-        BACKGROUND.setPosition(POS_X +(BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, POS_TEXT_FIELD_NPC -345);
+        BACKGROUND.setPosition((BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, 360 -345);
         UP_LABEL.setSize(BACKGROUND.getWidth() +20, UP_LABEL.getHeight());//TODO upLabel add background convert to one object
-        UP_LABEL.setPosition(BACKGROUND.getX() -15, POS_Y +370);
+        UP_LABEL.setPosition(BACKGROUND.getX() -15, 370);
         CLOSE_BUTTON.setSize(60, 60);
-        CLOSE_BUTTON.setPosition(POS_X +BaseScreen.VIEW_WIDTH -CLOSE_BUTTON.getWidth() +1, UP_LABEL.getY() -6);
+        CLOSE_BUTTON.setPosition(BaseScreen.VIEW_WIDTH -CLOSE_BUTTON.getWidth() +1, UP_LABEL.getY() -6);
         CLOSE_BUTTON.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -91,7 +87,7 @@ public class DialogNpc {
 
         imageHead = npc.getHead();
 
-        int lengthX = POS_X +122;
+        int lengthX = 122;
 
         imageHead.setSize(60, 60);
         imageHead.setPosition(UP_LABEL.getX() -9, UP_LABEL.getY() -6);
@@ -99,8 +95,8 @@ public class DialogNpc {
         Hero3D.setRenderHero3d(false);
         Hero.setActiveMove(true);
 
-        lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, UP_LABEL.getY() + 35*0.5f);
-        lLevel.setPosition(lengthX - lLevel.getWidth()*0.5f / 2, UP_LABEL.getY() -1);
+        lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, UP_LABEL.getY() +13);
+        lLevel.setPosition(lengthX - lLevel.getWidth()*0.5f / 2, UP_LABEL.getY() -5);
         addActors(BACKGROUND, UP_LABEL, CLOSE_BUTTON, lName, lLevel, imageHead);
 
         create();
@@ -135,7 +131,7 @@ public class DialogNpc {
 
     public static void updatePosition(){
         if(fieldTextList[0] != null) {
-            fieldTextList[0].setPosition((int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2 +360);
+            fieldTextList[0].setPosition(360);
             fieldTextList[0].getLabel().clearListeners();
         }
         for(int i = 1; i < 4; i++){

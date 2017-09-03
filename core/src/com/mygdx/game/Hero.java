@@ -40,7 +40,7 @@ import Screen.Map_06;
 
 public class Hero extends Character {
     public final static int SPEED_MOVE = 100;//25
-    public Texture arm;
+    private Texture arm;
 
     private final Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
     private Asset asset = new Asset();
@@ -163,7 +163,7 @@ public class Hero extends Character {
         setLevel(preferences.getInteger("LEVEL", 1));
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
 
-        setMaxHp(preferences.getInteger("MAX_HP", 100));
+        setMaxHp(preferences.getInteger("MAX_HP", 50));
         setHpNonEq(getMaxHp());
 
         actualIndexCharacter = 0;//preferences.getInteger("COLLISION", 0);
@@ -188,10 +188,8 @@ public class Hero extends Character {
             setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
         }
 
-        //preferences.putInteger("MONEY", 1000).flush();
-        setMoney(preferences.getInteger("MONEY", 1000));
-        //preferences.putInteger("FREE_POINT", 6).flush();
-        point = preferences.getInteger("FREE_POINT", 6);
+        setMoney(preferences.getInteger("MONEY", 0));
+        point = preferences.getInteger("FREE_POINT", 0);
 
         try {
             new UpdateHeroStats(this);
@@ -667,6 +665,8 @@ public class Hero extends Character {
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
         setPoint(getPoint() +6);
         System.out.println(getPoint() + "point");
+        BaseMap.addRedLight();
+        Bag.addRedLight(1);
     }
 
     private float calculateAction(int index, boolean xOrY){
@@ -720,7 +720,6 @@ public class Hero extends Character {
                 hero3D.setStopAnimation();
                 actualIndexCharacter = i;
                 preferences.putInteger("COLLISION", actualIndexCharacter).flush();
-                System.out.println(actualIndexCharacter + "actual index character");
                 soundStep.stop();
                 setPosition(nonCollision.x, nonCollision.y);
             }else {

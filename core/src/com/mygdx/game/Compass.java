@@ -162,8 +162,8 @@ public class Compass {
 
         lList.setFontScale(0.7f);
 
-        lMap.setPosition(BaseScreen.VIEW_WIDTH /4 -lMap.getWidth() /2 -21, 382);
-        lList.setPosition(BaseScreen.VIEW_WIDTH /3 *2 -lList.getWidth()*0.7f /2 +1, 382);
+        lMap.setPosition(BaseScreen.VIEW_WIDTH /4 -lMap.getWidth() /2 -21, 377);
+        lList.setPosition(BaseScreen.VIEW_WIDTH /3 *2 -lList.getWidth()*0.7f /2 +1, 377);
         lMapName.setPosition(20 +(205 -20) /2 -lMapName.getWidth() /2, 23);
 
         float scrX = screenX /280;

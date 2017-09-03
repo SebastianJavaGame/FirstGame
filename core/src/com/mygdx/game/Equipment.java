@@ -448,7 +448,7 @@ public class Equipment{
                     itemPrice.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPrice.getWidth()*scale /2 +15, backgroundUp.getY() -itemPrice.getHeight()*scale /2 +2);
                     money.setBounds(itemPrice.getX() +itemPrice.getWidth()*scale +10, itemPrice.getY() +itemPrice.getHeight()*scale /2, 20, 20);
                     infoStorage.setPosition(5, itemPrice.getY());
-                    barName.setBounds(itemName.getX() -10, itemName.getY() -2, itemName.getWidth()*scale +18, itemName.getHeight()*scale +15);
+                    barName.setBounds(itemName.getX() -10, itemName.getY() +2, itemName.getWidth()*scale +18, itemName.getHeight()*scale +15);
                     itemLevelRequire.setPosition(barName.getX() +(itemName.getWidth()*scale/2 -itemLevelRequire.getWidth()*scale / 2), backgroundUp.getY() + 120);
                     itemBackground.setBounds(15, backgroundUp.getY() + 115, 70, 70);
                     barPrice.setBounds(0, backgroundUp.getY(), BaseMap.VIEW_WIDTH +15, 25);
@@ -508,7 +508,7 @@ public class Equipment{
                                     itemPriceDown.setPosition(BaseScreen.VIEW_WIDTH /2 -itemPriceDown.getWidth()*scale /2 +15, backgroundDown.getY() -itemPriceDown.getHeight()*scale /2 +2);
                                     moneyDown.setBounds(itemPriceDown.getX() +itemPriceDown.getWidth()*scale +10, itemPriceDown.getY() +itemPriceDown.getHeight()*scale /2, 20, 20);
                                     infoStorageDown.setPosition(5, itemPriceDown.getY());
-                                    barNameDown.setBounds(itemNameDown.getX() -10, itemNameDown.getY() -2, itemNameDown.getWidth()*scale +18, itemNameDown.getHeight()*scale +15);
+                                    barNameDown.setBounds(itemNameDown.getX() -10, itemNameDown.getY() +2, itemNameDown.getWidth()*scale +18, itemNameDown.getHeight()*scale +15);
                                     itemLevelRequireDown.setPosition(barNameDown.getX() +(itemNameDown.getWidth()*scale/2 -itemLevelRequireDown.getWidth()*scale / 2), backgroundDown.getY() + 120);
                                     itemBackgroundDown.setBounds(15, backgroundDown.getY() + 115, 70, 70);
                                     barPriceDown.setBounds(0, backgroundDown.getY(), BaseMap.VIEW_WIDTH +15, 25);
