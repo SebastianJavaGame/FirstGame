@@ -350,4 +350,9 @@ public class Map_01 extends BaseMap {
     public void dispose(){
         super.dispose();
     }
+
+    @Override
+    public String getName(){
+        return NAME;
+    }
 }

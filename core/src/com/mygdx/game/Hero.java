@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
@@ -15,6 +16,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import net.dermetfan.utils.libgdx.math.GeometryUtils;
 
@@ -855,43 +858,114 @@ public class Hero extends Character {
 
                 switch (BaseMap.getIndexToLoadNextMap().get(i)) {
                     case 0:
-                        System.out.println("map1");
-                        game.setScreen(new Map_01(game));
+                        changeMap(Map_01.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new Map_01(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 1:
-                        System.out.println("map2");
-                        game.setScreen(new Map_02(game));
+                        changeMap(Map_02.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new Map_02(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 2:
-                        System.out.println("map3");
-                        game.setScreen(new Map_03(game));
+                        changeMap(Map_03.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new Map_03(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 3:
-                        System.out.println("map4");
-                        game.setScreen(new Map_04(game));
+                        changeMap(Map_04.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new Map_04(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 4:
-                        System.out.println("map5");
-                        game.setScreen(new Map_05(game));
+                        changeMap(Map_05.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new Map_05(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 5:
-                        System.out.println("map6");
-                        game.setScreen(new Map_06(game));
+                        changeMap(Map_06.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new Map_06(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 6:
-                        game.setScreen(new MapBoss_01(game));
+                        changeMap(MapBoss_01.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new MapBoss_01(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 7:
-                        game.setScreen(new MapBoss_02(game));
+                        changeMap(MapBoss_02.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new MapBoss_02(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 8:
-                        game.setScreen(new MapBoss_03(game));
+                        changeMap(MapBoss_03.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new MapBoss_03(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 9:
-                        game.setScreen(new MapBoss_04(game));
+                        changeMap(MapBoss_04.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new MapBoss_04(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     case 10:
-                        game.setScreen(new MapBoss_05(game));
+                        changeMap(MapBoss_05.NAME);
+                        stage.addAction(Actions.sequence(Actions.delay(1.5f), Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                game.setScreen(new MapBoss_05(game));
+                                Hero3D.setRenderHero3d(true);
+                            }
+                        })));
                         break;
                     default:
                         try {
@@ -904,6 +978,28 @@ public class Hero extends Character {
                 }
             }
         }
+    }
+
+    private void changeMap(String name){
+        BitmapFont font = MyGdxGame.createFontName();
+        Label.LabelStyle style = new Label.LabelStyle();
+        style.font = font;
+
+        final Image image = new Image(new Texture(Gdx.files.internal("blackShadow.png")));
+        final Image iLoad = new Image(new Texture(Gdx.files.internal("loadingFull.png")));
+        final Label mapName = new Label(name, style);
+        mapName.setFontScale(1.8f);
+
+        iLoad.setSize(280, 50);
+        iLoad.setPosition(BaseScreen.VIEW_WIDTH /2 -iLoad.getWidth() /2, 30);
+        mapName.setPosition(BaseScreen.VIEW_WIDTH /2 -mapName.getWidth() *1.8f /2, BaseMap.VIEW_HEIGHT /2);
+
+        BaseMap.getStageUi().addActor(image);
+        BaseMap.getStageUi().addActor(iLoad);
+        BaseMap.getStageUi().addActor(mapName);
+        Hero3D.setRenderHero3d(false);
+        animationPlay = false;
+        clearActions();
     }
 
     private void heroPolygonUpdate() {

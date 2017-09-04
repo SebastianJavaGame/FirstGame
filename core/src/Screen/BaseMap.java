@@ -144,6 +144,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     protected abstract void generateMap();
     protected abstract ArrayList<Character> getCharacter();
     protected abstract void saveOrginalPosition();
+    public abstract String getName();
 
     @Override
     public void create() {

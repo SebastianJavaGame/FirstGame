@@ -371,4 +371,9 @@ public class Map_05 extends BaseMap {
             file.writeString(e.toString(), true);
         }
     }
+
+    @Override
+    public String getName(){
+        return NAME;
+    }
 }
