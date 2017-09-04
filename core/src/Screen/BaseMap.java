@@ -365,7 +365,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         camera.update();
     }
 
-    protected float reversePosY(int i) {
+    protected static float reversePosY(int i) {
         return 2520 -i;
     }
 

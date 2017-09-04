@@ -124,8 +124,8 @@ public class Hero extends Character {
     public Hero(Texture texture, ArrayList<Polygon> baseOjectMap, ArrayList<Vector2[]> baseVertical, ArrayList<Vector2> optimisePosition, ArrayList<boolean[]> optimiseToward, Camera camera, Hero3D hero3D,
                 ArrayList<Character> characters) {
         super(texture);
-        //this.baseOjectMap = baseOjectMap;
-        //this.baseVertical = baseVertical;
+        this.baseOjectMap = baseOjectMap;
+        this.baseVertical = baseVertical;
         this.optimisePosition = optimisePosition;
         this.optimiseToward = optimiseToward;
         this.camera = camera;
@@ -140,10 +140,10 @@ public class Hero extends Character {
         heroBox = new Rectangle();
         cornersHero = new Vector2[2];
         nonCollision = new Vector2(getX(), getY());
-        //objectMap = new ArrayList<Polygon>();
-        //vertical = new ArrayList<Vector2[]>();
-        objectMap = baseOjectMap;
-        vertical = baseVertical;
+        objectMap = new ArrayList<Polygon>();
+        vertical = new ArrayList<Vector2[]>();
+        //objectMap = baseOjectMap;
+        //vertical = baseVertical;
 
         for(Character character: characters)
             character.setHero(this);
@@ -211,19 +211,28 @@ public class Hero extends Character {
     }
 
     public void move(final float posX, final float posY) {
-        System.out.println("Petle obliczeniowe kolizji: " + count);
-        count = 0;
-        //objectMap.clear();
-        //vertical.clear();
-        //for(int i = 0; i < baseOjectMap.size(); i++){
-          //  boolean[] a = optimiseToward.get(i);
-            //if(checkOptimaliseCollision(optimisePosition.get(i), a[0], a[1]))
-              //  continue;
-            //else {
-              //  objectMap.add(baseOjectMap.get(i));
-                //vertical.add(baseVertical.get(i));
-            //}
-        //}
+        if(optimisePosition != null) {
+            System.out.println("Petle obliczeniowe kolizji: " + count);
+            count = 0;
+            objectMap.clear();
+            vertical.clear();
+            for (int i = 0; i < baseOjectMap.size(); i++) {
+                boolean[] a = optimiseToward.get(i);
+                if (checkOptimaliseCollision(optimisePosition.get(i), a[0], a[1]))
+                    continue;
+                else {
+                    objectMap.add(baseOjectMap.get(i));
+                    vertical.add(baseVertical.get(i));
+                }
+            }
+            if (objectMap.size() < 1) {
+                objectMap.add(baseOjectMap.get(0));
+                vertical.add(baseVertical.get(0));
+            }
+        }else{
+            objectMap.add(baseOjectMap.get(0));
+            vertical.add(baseVertical.get(0));
+        }
         clearActions();
         heroPolygonUpdate();
         heroUpdateCollisionBox();

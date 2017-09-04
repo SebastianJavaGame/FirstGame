@@ -26,6 +26,9 @@ public class Compass {
     private Stage stage;
     private Hero hero;
 
+    private static final BitmapFont FONT_NAME = MyGdxGame.createFontName();
+    private static final Label.LabelStyle STYLE_NAME = new Label.LabelStyle();
+
     private static Image compass;
     private static Image compassToward;
 
@@ -46,6 +49,10 @@ public class Compass {
     private float screenY;
 
     private boolean openCard;
+
+    static{
+        STYLE_NAME.font = FONT_NAME;
+    }
 
     public Compass(final Hero hero, Stage stage, Image mapBg, float width, float height){
         this.stage = stage;
@@ -123,7 +130,7 @@ public class Compass {
 
         lList = new Label("Lista czempionów", style);
         lMap = new Label("Mapa", style);
-        lMapName = new Label(BaseMap.getMapName(), style);
+        lMapName = new Label(BaseMap.getMapName(), STYLE_NAME);
 
         for(int i = 0; i < 5; i++){
             line[i] = new Image(asset.manager.get("deleteLine.png", Texture.class));
@@ -164,7 +171,7 @@ public class Compass {
 
         lMap.setPosition(BaseScreen.VIEW_WIDTH /4 -lMap.getWidth() /2 -21, 377);
         lList.setPosition(BaseScreen.VIEW_WIDTH /3 *2 -lList.getWidth()*0.7f /2 +1, 377);
-        lMapName.setPosition(20 +(205 -20) /2 -lMapName.getWidth() /2, 23);
+        lMapName.setPosition(20 +(205 -20) /2 -lMapName.getWidth() /2, 4);
 
         float scrX = screenX /280;
         float scrY = screenY /302;

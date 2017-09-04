@@ -32,9 +32,9 @@ public class Map_03 extends BaseMap {
 
     private static ArrayList<Polygon> objectCollision;
     private static ArrayList<Vector2[]> verticalCollision;
+    private static ArrayList<Vector2> positionOptimalise;
+    private static ArrayList<boolean[]> arrayBoolean;
     private static ArrayList<Character> characters;
-
-    public static Npc e10;
 
     static {
         mapImage = new Image(new Texture("MAP_03.jpg"));
@@ -265,24 +265,44 @@ public class Map_03 extends BaseMap {
     public void addCollisionToMap() {
         objectCollision = new ArrayList<Polygon>();
         verticalCollision = new ArrayList<Vector2[]>();
+        positionOptimalise = new ArrayList<Vector2>();
+        arrayBoolean = new ArrayList<boolean[]>();
+
         addObjectCollision(new float[]{264,1836,316,1854,340,1916,314,1971,369,1994,386,2041,437,2055,459,2128,608,2199,662,2166,762,2219,853,2216,922,2271,981,2243,1061,2285,1059,2322,207,2344});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(320, 1850), new Vector2(347, 1917), new Vector2(442, 2048), new Vector2(662, 2157), new Vector2(857, 2209), new Vector2(983, 2236), new Vector2(1067, 2280)});
+        positionOptimalise.add(new Vector2(465, BaseMap.reversePosY(414)));     arrayBoolean.add(new boolean[]{true, false});
+
         addObjectCollision(new float[]{1172,2330,1174,2280,1230,2238,1330,2241,1420,2197,1520,2221,1592,2187,1682,2179,1875,2205,1964,2210,1985,2161,2040,2142,2118,2161,2091,1989,2078,1858,2075,1752,2014,1786,1944,1694,1939,1486,1958,1449,2062,1427,2074,919,2039,928,1962,817,1960,744,1989,712,2060,692,2089,691,2098,634,2131,615,2215,641,2250,2412});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(1166, 2275), new Vector2(1226,2228), new Vector2(1418,2193), new Vector2(1592,2176), new Vector2(2038, 2132), new Vector2(2011,1798), new Vector2(1929, 1698), new Vector2(2034,939), new Vector2(1951, 823)});
+        positionOptimalise.add(new Vector2(1875, BaseMap.reversePosY(390)));     arrayBoolean.add(new boolean[]{false, false});
+
         addObjectCollision(new float[]{2212,558,2089,556,2090,343,2062,344,2003,322,1925,386,1890,384,1838,284,1792,301,1728,263,1681,325,1661,327,1631,313,1615,280,1602,312,1575,322,1554,324,1505,295,1493,323,1390,315,1354,288,1315,308,1226,306,1172,284,1135,251,1134,275,1021,387,989,386,956,361,919,283,847,294,831,341,782,371,759,364,726,312,707,307,686,283,675,309,656,320,607,243,532,298,484,285,449,363,375,462,338,439,281,381,300,540,278,591,279,683,316,741,269,949,303,1005,259,1134,305,1182,252,1355,303,1428,264,1537,289,1571,257,1707,206,1749,204,1798,138,1628,238,318,656,132,2170,132,2170,238,2254,479});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(2080,564), new Vector2(1928,394), new Vector2(1883,391), new Vector2(1789,312), new Vector2(1683,338), new Vector2(1605,323), new Vector2(1499, 352), new Vector2(1383, 328), new Vector2(1223, 319), new Vector2(1024, 399), new Vector2(984,396), new Vector2(836, 367), new Vector2(782, 382), new Vector2(655, 347), new Vector2(375, 474), new Vector2(323, 740), new Vector2(311, 1004), new Vector2(312, 1132), new Vector2(310, 1430), new Vector2(297, 1572), new Vector2(265, 1713)});
+        positionOptimalise.add(new Vector2(369, BaseMap.reversePosY(1842)));     arrayBoolean.add(new boolean[]{true, true});
+
         addObjectCollision(new float[]{1086,564,1196,607,1258,654,1326,680,1337,726,1306,832,1278,877,1243,892,1217,874,1183,828,1137,895,1096,896,1057,875,1024,838,995,835,964,778,941,776,909,703,930,637,987,622,1004,590});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(1086, 556), new Vector2(1339, 668), new Vector2(1346, 729), new Vector2(1286, 889), new Vector2(1242, 903), new Vector2(1139, 910), new Vector2(1093, 907), new Vector2(991, 847), new Vector2(933, 788), new Vector2(899, 703), new Vector2(922, 631), new Vector2(1000, 584)});
+        positionOptimalise.add(new Vector2(-1, BaseMap.reversePosY(1608)));     arrayBoolean.add(new boolean[]{true, true});
+
         addObjectCollision(new float[]{581,973,635,1016,635,1055,520,1136,367,1054,379,1003,480,964,541,966});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(583, 962), new Vector2(644, 1012), new Vector2(643, 1062), new Vector2(518, 1149), new Vector2(357, 1057), new Vector2(374, 998), new Vector2(476, 955)});
+        positionOptimalise.add(new Vector2(-1, BaseMap.reversePosY(1365)));     arrayBoolean.add(new boolean[]{true, true});
+
         addObjectCollision(new float[]{847,1338,1148,1465,1127,1622,1090,1642,1052,1618,1027,1590,878,1511,868,1557,824,1542,819,1480,728,1421,761,1372});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(846, 1330), new Vector2(1154, 1460), new Vector2(1134, 1629), new Vector2(1087, 1652), new Vector2(1038, 1620), new Vector2(871, 1567), new Vector2(814, 1548), new Vector2(718, 1421), new Vector2(754, 1366)});
+        positionOptimalise.add(new Vector2(-1, BaseMap.reversePosY(1203)));     arrayBoolean.add(new boolean[]{true, false});
+
         addObjectCollision(new float[]{1209,1119,1278,1104,1493,1226,1487,1272,1454,1312,1379,1339,1338,1366,1325,1332,1281,1297,1283,1230,1210,1274,1108,1206,1113,1166});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(1278, 1097), new Vector2(1502, 1221), new Vector2(1496, 1276), new Vector2(1456, 1326), new Vector2(1336, 1378), new Vector2(1272, 1303), new Vector2(1208, 1284), new Vector2(1098, 1207), new Vector2(1102, 1162)});
+        positionOptimalise.add(new Vector2(1089, -1));     arrayBoolean.add(new boolean[]{false, true});
+
         addObjectCollision(new float[]{1402,1442,1499,1444,1670,1559,1680,1615,1607,1660,1532,1771,1439,1797,1236,1603,1239,1564,1242,1528});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(1399, 1434), new Vector2(1500, 1434), new Vector2(1677, 1557), new Vector2(1689, 1619), new Vector2(1537, 1781), new Vector2(1436, 1812), new Vector2(1227, 1606), new Vector2(1231, 1522)});
+        positionOptimalise.add(new Vector2(1206, -1));     arrayBoolean.add(new boolean[]{false, true});
+
         addObjectCollision(new float[]{948,1744,1048,1833,1039,1891,1063,1949,1054,1986,934,2076,878,2019,792,2095,751,2089,710,1993,696,1800,792,1747,853,1772});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(1057,1827), new Vector2(1070, 1947), new Vector2(1060, 1994), new Vector2(934, 2087), new Vector2(793, 2104), new Vector2(744, 2098), new Vector2(699, 1994), new Vector2(687, 1797), new Vector2(790, 1738), new Vector2(947, 1737)});
+        positionOptimalise.add(new Vector2(1089, -1));     arrayBoolean.add(new boolean[]{true, true});
     }
 
     @Override
@@ -306,6 +326,8 @@ public class Map_03 extends BaseMap {
 
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;
+        optimiseMap = positionOptimalise;
+        optimiseToward = arrayBoolean;
         charactersList = characters;
 
         for(Character character: characters) {

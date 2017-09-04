@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 
 public class Map_01 extends BaseMap {
-    public static final String NAME = "'Awirdan";
+    public static final String NAME = "Awirdan";
     public static final int STARTING_POS_X = 626;
     public static final int STARTING_POS_Y = 416;
     private static Image mapImage;
@@ -35,17 +35,6 @@ public class Map_01 extends BaseMap {
     private static ArrayList<Vector2> positionOptimalise;
     private static ArrayList<boolean[]> arrayBoolean;
     private static ArrayList<Character> characters;
-
-    public static Enemy e1;
-    public static Enemy e2;
-    public static Enemy e3;
-    public static Enemy e4;
-    public static Enemy e5;
-    public static Enemy e6;
-    public static Enemy e7;
-    public static Enemy e8;
-    public static Enemy e9;
-    //public static Enemy e10;
 
     static {
         mapImage = new Image(new Texture("MAP_01.jpg"));
@@ -285,7 +274,7 @@ public class Map_01 extends BaseMap {
         addVerticalToObjectCollision(new Vector2[]{new Vector2(434,674), new Vector2(803, 504), new Vector2(1755,557)});
         positionOptimalise.add(new Vector2(-10, 855));   arrayBoolean.add(new boolean[]{true, true});
 
-        addObjectCollision(new float[]{2060,450,2070,652,2068,740,2061,795,2080,843,1957,929,1902,1044,1949,1242,1927,1326,2035,1688,2006,1728,2048,1930,1950,1878,1745,1979,1728,2030,1555,2141,1455,2085,1359,2124,1287,2216,1272,2279,2327,2461});
+        addObjectCollision(new float[]{2130,450,2060,450,2070,652,2068,740,2061,795,2080,843,1957,929,1902,1044,1949,1242,1927,1326,2035,1688,2006,1728,2048,1930,1950,1878,1745,1979,1728,2030,1555,2141,1455,2085,1359,2124,1287,2216,1272,2279,2327,2461});
         addVerticalToObjectCollision(new Vector2[]{new Vector2(1945,920), new Vector2(1882,1044), new Vector2(1914,1330), new Vector2(1989, 1727), new Vector2(1954,1873), new Vector2(1462,2071), new Vector2(1271,2199)});
         positionOptimalise.add(new Vector2(1878, 1838)); arrayBoolean.add(new boolean[]{false, false});
 
@@ -315,7 +304,7 @@ public class Map_01 extends BaseMap {
 
         stage.addActor(bgTexture);
 
-        mapView = new Image(new Texture("map01View.jpg"));//TODO
+        mapView = new Image(new Texture("map01View.jpg"));
         mapName = NAME;
 
         objectPolygon = objectCollision;
