@@ -49,7 +49,7 @@ public class Task {
         asset.loadTask();
         asset.manager.finishLoading();
         if(asset.manager.update()) {
-            taskBackground = new Image(asset.manager.get("taskBackground.png", Texture.class));
+            taskBackground = new Image(asset.manager.get("taskBackground.jpg", Texture.class));
             taskProgressBackground = new Image(asset.manager.get("taskProgressBackground.png", Texture.class));
             taskProgressForefround = new Image(asset.manager.get("taskProgress.png", Texture.class));
             BUTTON_STYLE.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonTaskCancel.png", Texture.class)));

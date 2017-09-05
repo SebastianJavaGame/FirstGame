@@ -329,7 +329,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     private void uiUpdate() {
         hpRefresh += Gdx.graphics.getDeltaTime();
-        if(hpRefresh > 2){
+        if(hpRefresh > 1){
             hero.setHp((int)(hero.getHp() +(hero.getFullHp() *0.02f)));
 
             if(hero.getHp() > hero.getFullHp())

@@ -24,7 +24,7 @@ import Screen.Menu;
 public class DialogNpc {
     private static final Image BACKGROUND = new Image(new Texture(Gdx.files.internal("dialogueBackground.jpg")));
     private static final Image UP_LABEL = new Image(new Texture(Gdx.files.internal("dialogueUpLabel.png")));
-    private static final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonCancel.png")))));
+    private static final Button CLOSE_BUTTON = new Button(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttonExit.png")))));
 
     private int textNpc;
     private int textHero0;

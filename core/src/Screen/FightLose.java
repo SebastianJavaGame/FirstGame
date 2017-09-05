@@ -114,13 +114,13 @@ public class FightLose extends BaseScreen {
         lExpText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExpText.getWidth()*0.9f /2, 440);
         lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() *lenghtText / 2, BaseScreen.VIEW_HEIGHT *0.74f);
         lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.67f);
-        lMoney.setPosition(BaseScreen.VIEW_WIDTH /2 -lMoney.getWidth() /2, 245);
+        lMoney.setPosition(BaseScreen.VIEW_WIDTH /2 -lMoney.getWidth()*0.8f /2, 245);
         lDead.setPosition(BaseScreen.VIEW_WIDTH /2 -lDead.getWidth() /2 -25, 146);
-        lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH /2 - lStatsDmgAverrage.getWidth()*0.5f /2, 76);
-        lStatsCelnosc.setPosition(BaseScreen.VIEW_WIDTH /2 - lStatsCelnosc.getWidth()*0.5f /2, 55);
+        lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH /2 - lStatsDmgAverrage.getWidth()*0.5f /2, 69);
+        lStatsCelnosc.setPosition(BaseScreen.VIEW_WIDTH /2 - lStatsCelnosc.getWidth()*0.5f /2, 48);
 
         background.setPosition(0, 0);
-        barGold.setBounds(lMoney.getX() -5, lMoney.getY(), lMoney.getWidth()*0.8f +10, iconMoney.getHeight());
+        barGold.setBounds(lMoney.getX() -5, lMoney.getY()+4, lMoney.getWidth()*0.8f +10, iconMoney.getHeight());
         barStats.setBounds(lStatsCelnosc.getX() - 15, 48, lStatsCelnosc.getWidth()*0.5f + 30, 70);
         iconMoney.setPosition(lMoney.getX() + lMoney.getWidth()*0.8f +10, 240);
         iconDead.setSize(40, 40);

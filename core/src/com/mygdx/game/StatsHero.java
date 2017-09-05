@@ -237,7 +237,7 @@ public class StatsHero {
             uiBarExp.setSize(procent / 100 * uiBarEmptyExp.getWidth() - 9, uiBarEmptyExp.getHeight() - 6);
 
             barUp.setBounds(0, 345, BaseMap.VIEW_WIDTH + 15, 35);
-            money.setBounds(40 + moneyValue.getWidth()*scale +5, barUp.getY() +2, 32, 31);
+            money.setBounds(40 + moneyValue.getWidth()*scale +10, barUp.getY() +2, 32, 31);
             money.setColor(Color.GOLD);
 
             table.row().padTop(40);

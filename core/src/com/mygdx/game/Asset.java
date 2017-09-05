@@ -39,6 +39,7 @@ public class Asset implements Disposable {
         manager.load("eq.png", Texture.class);
         manager.load("stats.png", Texture.class);
         manager.load("quest.png", Texture.class);
+        manager.load("pay.png", Texture.class);
         manager.load("exit.png", Texture.class);
         manager.load("bar.png", Texture.class);
         manager.load("exitGame.png", Texture.class);
@@ -136,7 +137,7 @@ public class Asset implements Disposable {
     }
 
     public void loadTask(){
-        manager.load("taskBackground.png", Texture.class);
+        manager.load("taskBackground.jpg", Texture.class);
         manager.load("taskProgressBackground.png", Texture.class);
         manager.load("taskProgress.png", Texture.class);
         manager.load("buttonTaskCancel.png", Texture.class);
@@ -179,7 +180,6 @@ public class Asset implements Disposable {
         manager.load("itemButton.png", Texture.class);
         manager.load("plus.png", Texture.class);
         manager.load("minus.png", Texture.class);
-        manager.load("skull.png", Texture.class);
 
         manager.load("sound/battle.ogg", Music.class);
         manager.load("sound/blockAttack.ogg", Sound.class);

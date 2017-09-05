@@ -52,16 +52,16 @@ public class LoadAllItemToGame {
          */
         ITEMS.put("wapons1pay", new Item("wapons1pay", "Items/wapons/1pay.png", "Grom", Item.ItemType.WAPON, 5,           20, 9, 5, 0.1f, 3, 3, 30));
         ITEMS.put("wapons2pay", new Item("wapons2pay", "Items/wapons/2pay.png", "Isgeraptor", Item.ItemType.WAPON, 12,    30, 13, 7, 0.1f, 4, 3, 45));
-        //ITEMS.put("wapons3pay", new Item("wapons3pay", "Items/wapons/3pay.png", "Killamur", Item.ItemType.WAPON, 18,      50, 16, 10, 0.4f, 6, 4, 0.60));
-        //ITEMS.put("wapons4pay", new Item("wapons4pay", "Items/wapons/4pay.png", "Panaris", Item.ItemType.WAPON, 25,       80, 24, 19, 0.8f, 8, 8, 0.80));
-        //ITEMS.put("wapons5pay", new Item("wapons5pay", "Items/wapons/5pay.png", "Zgon", Item.ItemType.WAPON, 32,          90, 24, 14, 0.8f, 9,6, 1.00));
-        //ITEMS.put("wapons6pay", new Item("wapons6pay", "Items/wapons/6pay.png", "Htegen", Item.ItemType.WAPON, 36,        100, 25, 18, 1f, 10,7, 1.20));
-        //ITEMS.put("wapons7pay", new Item("wapons7pay", "Items/wapons/7pay.png", "Santrion", Item.ItemType.WAPON, 40,      110, 28, 19, 1.1f, 12,8, 1.50));
-        //ITEMS.put("wapons8pay", new Item("wapons8pay", "Items/wapons/8pay.png", "Ból", Item.ItemType.WAPON, 45,           120, 29, 20, 1.2f, 14,10, 1.90));
-        //ITEMS.put("wapons9pay", new Item("wapons9pay", "Items/wapons/9pay.png", "Strach", Item.ItemType.WAPON, 50,        130, 32, 20, 1.4f, 16,10, 2.30));
-        //ITEMS.put("wapons10pay", new Item("wapons10pay", "Items/wapons/10pay.png", "Errable", Item.ItemType.WAPON, 55,    150, 33, 22, 1.5f, 16,12, 2.90));
-        //ITEMS.put("wapons11pay", new Item("wapons11pay", "Items/wapons/11pay.png", "Cierń", Item.ItemType.WAPON, 60,      170, 37, 25, 1.7f, 17,13, 3.50));
-        //ITEMS.put("wapons12pay", new Item("wapons12pay", "Items/wapons/12pay.png", "Morran", Item.ItemType.WAPON, 65,     200, 40, 26, 2f, 18,15, 4.90));
+        ITEMS.put("wapons3pay", new Item("wapons3pay", "Items/wapons/3pay.png", "Killamur", Item.ItemType.WAPON, 18,      50, 16, 10, 0.4f, 6, 4,60));
+        ITEMS.put("wapons4pay", new Item("wapons4pay", "Items/wapons/4pay.png", "Panaris", Item.ItemType.WAPON, 25,       80, 24, 19, 0.8f, 8, 8, 80));
+        ITEMS.put("wapons5pay", new Item("wapons5pay", "Items/wapons/5pay.png", "Zgon", Item.ItemType.WAPON, 32,          90, 24, 14, 0.8f, 9,6, 1));
+        ITEMS.put("wapons6pay", new Item("wapons6pay", "Items/wapons/6pay.png", "Htegen", Item.ItemType.WAPON, 36,        100, 25, 18, 1f, 10,7, 1));
+        ITEMS.put("wapons7pay", new Item("wapons7pay", "Items/wapons/7pay.png", "Santrion", Item.ItemType.WAPON, 40,      110, 28, 19, 1.1f, 12,8, 1));
+        ITEMS.put("wapons8pay", new Item("wapons8pay", "Items/wapons/8pay.png", "Ból", Item.ItemType.WAPON, 45,           120, 29, 20, 1.2f, 14,10, 1));
+        ITEMS.put("wapons9pay", new Item("wapons9pay", "Items/wapons/9pay.png", "Strach", Item.ItemType.WAPON, 50,        130, 32, 20, 1.4f, 16,10, 2));
+        ITEMS.put("wapons10pay", new Item("wapons10pay", "Items/wapons/10pay.png", "Errable", Item.ItemType.WAPON, 55,    150, 33, 22, 1.5f, 16,12, 2));
+        ITEMS.put("wapons11pay", new Item("wapons11pay", "Items/wapons/11pay.png", "Cierń", Item.ItemType.WAPON, 60,      170, 37, 25, 1.7f, 17,13, 3));
+        ITEMS.put("wapons12pay", new Item("wapons12pay", "Items/wapons/12pay.png", "Morran", Item.ItemType.WAPON, 65,     200, 40, 26, 2f, 18,15, 4));
 
         /**
          * Armor
@@ -91,13 +91,13 @@ public class LoadAllItemToGame {
         /**
          * Armor pay
          */
-        //ITEMS.put("armor1pay", new Item("armor1pay", "Items/armor/1pay.png", "Mager", Item.ItemType.ARMOR, 15,      100, 3, 3, 1.4f, 10, 9, 0.40));
-        //ITEMS.put("armor2pay", new Item("armor2pay", "Items/armor/2pay.png", "Vay", Item.ItemType.ARMOR, 21,        130, 4, 4, 1.9f, 13, 11, 0.60));
-        //ITEMS.put("armor3pay", new Item("armor3pay", "Items/armor/3pay.png", "Varthall", Item.ItemType.ARMOR, 25,   150, 4, 4, 2f, 15, 13, 0.80));
-        //ITEMS.put("armor4pay", new Item("armor4pay", "Items/armor/4pay.png", "Kalleres", Item.ItemType.ARMOR, 36,   190, 6, 5, 2.3f, 20, 18, 1.20));
-        //ITEMS.put("armor5pay", new Item("armor5pay", "Items/armor/5pay.png", "Vorg", Item.ItemType.ARMOR, 45,       200, 6, 6, 2.5f, 23, 21, 1.60));
-        //ITEMS.put("armor6pay", new Item("armor6pay", "Items/armor/6pay.png", "Agonia", Item.ItemType.ARMOR, 50,     250, 8, 7, 3f, 26, 25, 2.25));
-        //ITEMS.put("armor7pay", new Item("armor7pay", "Items/armor/7pay.png", "Xergen", Item.ItemType.ARMOR, 65,     300, 10, 10, 3.5f, 33, 28, 3.90));
+        ITEMS.put("armor1pay", new Item("armor1pay", "Items/armor/1pay.png", "Mager", Item.ItemType.ARMOR, 15,      100, 3, 3, 1.4f, 10, 9, 40));
+        ITEMS.put("armor2pay", new Item("armor2pay", "Items/armor/2pay.png", "Vay", Item.ItemType.ARMOR, 21,        130, 4, 4, 1.9f, 13, 11, 60));
+        ITEMS.put("armor3pay", new Item("armor3pay", "Items/armor/3pay.png", "Varthall", Item.ItemType.ARMOR, 25,   150, 4, 4, 2f, 15, 13, 80));
+        ITEMS.put("armor4pay", new Item("armor4pay", "Items/armor/4pay.png", "Kalleres", Item.ItemType.ARMOR, 36,   190, 6, 5, 2.3f, 20, 18, 1));
+        ITEMS.put("armor5pay", new Item("armor5pay", "Items/armor/5pay.png", "Vorg", Item.ItemType.ARMOR, 45,       200, 6, 6, 2.5f, 23, 21, 1));
+        ITEMS.put("armor6pay", new Item("armor6pay", "Items/armor/6pay.png", "Agonia", Item.ItemType.ARMOR, 50,     250, 8, 7, 3f, 26, 25, 2));
+        ITEMS.put("armor7pay", new Item("armor7pay", "Items/armor/7pay.png", "Xergen", Item.ItemType.ARMOR, 65,     300, 10, 10, 3.5f, 33, 28, 3));
 
         /**
          * Helmet
@@ -124,9 +124,9 @@ public class LoadAllItemToGame {
          * Helmet pay
          */
         ITEMS.put("helmet1pay", new Item("helmet1pay", "Items/helmet/1pay.png", "Iskra", Item.ItemType.HELMET, 20,          110, 9, 8, 1f, 12, 10, 60000));
-        //ITEMS.put("helmet2pay", new Item("helmet2pay", "Items/helmet/2pay.png", "Kres", Item.ItemType.HELMET, 30,          150, 12, 11, 1.5f, 17, 18, 0.90));
-        //ITEMS.put("helmet3pay", new Item("helmet3pay", "Items/helmet/3pay.png", "Bargon", Item.ItemType.HELMET, 44,          180, 15, 14, 1.9f, 22, 23, 1.90));
-        //ITEMS.put("helmet4pay", new Item("helmet4pay", "Items/helmet/4pay.png", "Valdren", Item.ItemType.HELMET, 60,          200, 15, 15, 2.6f, 30, 30, 2.90));
+        ITEMS.put("helmet2pay", new Item("helmet2pay", "Items/helmet/2pay.png", "Kres", Item.ItemType.HELMET, 30,          150, 12, 11, 1.5f, 17, 18, 90));
+        ITEMS.put("helmet3pay", new Item("helmet3pay", "Items/helmet/3pay.png", "Bargon", Item.ItemType.HELMET, 44,          180, 15, 14, 1.9f, 22, 23, 90));
+        ITEMS.put("helmet4pay", new Item("helmet4pay", "Items/helmet/4pay.png", "Valdren", Item.ItemType.HELMET, 60,          200, 15, 15, 2.6f, 30, 30, 90));
 
 
         /**
@@ -149,8 +149,8 @@ public class LoadAllItemToGame {
         /**
          * Pants pay
          */
-        //ITEMS.put("pants1pay", new Item("pants1pay", "Items/pants/1pay.png", "Magny", Item.ItemType.PANTS, 38,             170, 16, 15, 2f, 20, 21, 1.90));
-        //ITEMS.put("pants2pay", new Item("pants2pay", "Items/pants/2pay.png", "Frexy", Item.ItemType.PANTS, 64,             200, 18, 17, 2.5f, 26, 26, 2.90));
+        ITEMS.put("pants1pay", new Item("pants1pay", "Items/pants/1pay.png", "Magny", Item.ItemType.PANTS, 38,             170, 16, 15, 2f, 20, 21, 90));
+        ITEMS.put("pants2pay", new Item("pants2pay", "Items/pants/2pay.png", "Frexy", Item.ItemType.PANTS, 64,             200, 18, 17, 2.5f, 26, 26, 90));
 
         /**
          * Rekawice
@@ -173,9 +173,9 @@ public class LoadAllItemToGame {
         /**
          * Rekawice pay
          */
-        //ITEMS.put("rekawice1pay", new Item("rekawice1pay", "Items/rekawice/1pay.png", "Grensy", Item.ItemType.ITEM_HAND, 24,          180, 17, 19, 0.5f, 15, 17, 0.90));  //325
-        //ITEMS.put("rekawice2pay", new Item("rekawice2pay", "Items/rekawice/2pay.png", "Tharimy", Item.ItemType.ITEM_HAND, 42,          210, 23, 24, 0.7f, 19, 19, 1.90));  //325
-        //ITEMS.put("rekawice3pay", new Item("rekawice3pay", "Items/rekawice/3pay.png", "Verrvy", Item.ItemType.ITEM_HAND, 58,          270, 30, 30, 1.4f, 22, 22, 2.90));  //325
+        ITEMS.put("rekawice1pay", new Item("rekawice1pay", "Items/rekawice/1pay.png", "Grensy", Item.ItemType.ITEM_HAND, 24,          180, 17, 19, 0.5f, 15, 17, 90));  //325
+        ITEMS.put("rekawice2pay", new Item("rekawice2pay", "Items/rekawice/2pay.png", "Tharimy", Item.ItemType.ITEM_HAND, 42,          210, 23, 24, 0.7f, 19, 19, 90));  //325
+        ITEMS.put("rekawice3pay", new Item("rekawice3pay", "Items/rekawice/3pay.png", "Verrvy", Item.ItemType.ITEM_HAND, 58,          270, 30, 30, 1.4f, 22, 22, 90));  //325
 
         /**
          * Ring
@@ -203,10 +203,10 @@ public class LoadAllItemToGame {
         /**
          * Ring pay
          */
-        //ITEMS.put("ring1pay", new Item("ring1pay", "Items/ring/1pay.png", "Skra", Item.ItemType.RING, 20,              150, 12, 13, 0.2f, 10, 13, 0.60));
-        //ITEMS.put("ring2pay", new Item("ring2pay", "Items/ring/2pay.png", "Carpon", Item.ItemType.RING, 34,              220, 18, 18, 0.2f, 15, 18, 1.10));
-        //ITEMS.put("ring3pay", new Item("ring3pay", "Items/ring/3pay.png", "Kriaring", Item.ItemType.RING, 47,              260, 21, 22, 0.5f, 23, 24, 1.90));
-        //ITEMS.put("ring4pay", new Item("ring4pay", "Items/ring/4pay.png", "Eatarus", Item.ItemType.RING, 60,              300, 23, 27, 0.7f, 24, 33, 2.90));
+        ITEMS.put("ring1pay", new Item("ring1pay", "Items/ring/1pay.png", "Skra", Item.ItemType.RING, 20,              150, 12, 13, 0.2f, 10, 13, 60));
+        ITEMS.put("ring2pay", new Item("ring2pay", "Items/ring/2pay.png", "Carpon", Item.ItemType.RING, 34,              220, 18, 18, 0.2f, 15, 18, 10));
+        ITEMS.put("ring3pay", new Item("ring3pay", "Items/ring/3pay.png", "Kriaring", Item.ItemType.RING, 47,              260, 21, 22, 0.5f, 23, 24, 90));
+        ITEMS.put("ring4pay", new Item("ring4pay", "Items/ring/4pay.png", "Eatarus", Item.ItemType.RING, 60,              300, 23, 27, 0.7f, 24, 33, 90));
 
         /**
          * Shoes
@@ -227,9 +227,9 @@ public class LoadAllItemToGame {
         /**
          * Shoes pay
          */
-        //ITEMS.put("shoes1pay", new Item("shoes1pay", "Items/shoes/1pay.png", "Zigsy", Item.ItemType.SHOES, 30,           180, 16, 10, 2f, 16, 9, 0.90));
-        //ITEMS.put("shoes2pay", new Item("shoes2pay", "Items/shoes/2pay.png", "Morgi", Item.ItemType.SHOES, 48,            200, 20, 14, 2.6f, 21, 15, 1.90));
-        //ITEMS.put("shoes3pay", new Item("shoes3pay", "Items/shoes/3pay.png", "Holmy", Item.ItemType.SHOES, 62,           250, 20, 16, 3f, 25, 22, 2.90));
+        ITEMS.put("shoes1pay", new Item("shoes1pay", "Items/shoes/1pay.png", "Zigsy", Item.ItemType.SHOES, 30,           180, 16, 10, 2f, 16, 9, 90));
+        ITEMS.put("shoes2pay", new Item("shoes2pay", "Items/shoes/2pay.png", "Morgi", Item.ItemType.SHOES, 48,            200, 20, 14, 2.6f, 21, 15, 90));
+        ITEMS.put("shoes3pay", new Item("shoes3pay", "Items/shoes/3pay.png", "Holmy", Item.ItemType.SHOES, 62,           250, 20, 16, 3f, 25, 22, 90));
 
         /**
          * Tarcza

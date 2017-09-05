@@ -52,7 +52,6 @@ public class FightScreen extends BaseScreen {
     private Image magicEnemy;
     private Image block;
     private Image blood;
-    //private Image skull;
 
     private float targetX;
 
@@ -227,7 +226,7 @@ public class FightScreen extends BaseScreen {
             labelLvl.setFontScale(0.5f);
 
             lHpHero.setPosition(53 + barHpHero.getWidth() / 2 - (lHpHero.getWidth() *0.4f) / 2, 1);
-            lHpEnemy.setPosition(267 + barHpEnemy.getWidth() / 2 - (lHpEnemy.getWidth() *0.4f) / 2, 448);
+            lHpEnemy.setPosition(267 + barHpEnemy.getWidth() / 2 - (lHpEnemy.getWidth() *0.4f) / 2, 447);
             lEnergyHero.setPosition(53 + barEnergyHero.getWidth() / 2 - (lEnergyHero.getWidth() *0.4f) / 2, -14);
             lEnergyEnemy.setPosition(267 + barEnergyEnemy.getWidth() / 2 - (lEnergyEnemy.getWidth() *0.4f) / 2, 432);
             labelName.setPosition((BaseScreen.VIEW_WIDTH - 190) / 2 - labelName.getWidth()*0.6f / 2, 446);
@@ -393,8 +392,8 @@ public class FightScreen extends BaseScreen {
                     barEnergyEnemy, enemyImage, enemy.getHead(), lHpHero, lHpEnemy, lEnergyHero, lEnergyEnemy, startFight);
         }
         musicBattle.setLooping(true);
-        musicBattle.setVolume(0.6f);
-        //musicBattle.play();//TODO play
+        musicBattle.setVolume(1);
+        musicBattle.play();
     }
 
     @Override
@@ -763,11 +762,7 @@ public class FightScreen extends BaseScreen {
         if (hpHero < 1) {
             hpHero = 0;
 
-           // skull.addAction(Actions.fadeOut(0));
-           // skull.addAction(Actions.moveTo(heroImage.getX() +heroImage.getWidth()/2 -skull.getWidth() /2, heroImage.getY() +heroImage.getHeight() /2 -skull.getHeight() /2));
-            //skull.addAction(Actions.fadeIn(2));
             heroImage.addAction(Actions.fadeOut(2));
-            //stage.addActor(skull);
 
             stage.addAction(Actions.sequence(Actions.delay(1),Actions.run(new Runnable() {
                 @Override
@@ -775,7 +770,7 @@ public class FightScreen extends BaseScreen {
                     endFightRemoveEffect();
                     die.play(0.6f);
                 }
-            }),Actions.delay(3), Actions.run(new Runnable() {
+            }),Actions.delay(1.5f), Actions.run(new Runnable() {
                 @Override
                 public void run() {
                     float expMinus = Hero.getMaxExp();
@@ -791,11 +786,7 @@ public class FightScreen extends BaseScreen {
         else if(hpEnemy < 1){
             hpEnemy = 0;
 
-           // skull.addAction(Actions.fadeOut(0));
-           // skull.addAction(Actions.moveTo(enemyImage.getX() +enemyImage.getWidth()/2 -skull.getWidth() /2, enemyImage.getY() +enemyImage.getHeight() /2 -skull.getHeight() /2));
-            //skull.addAction(Actions.fadeIn(2));
             enemyImage.addAction(Actions.fadeOut(2));
-            //stage.addActor(skull);
 
             stage.addAction(Actions.sequence(Actions.delay(1),Actions.run(new Runnable() {
                 @Override
@@ -803,7 +794,7 @@ public class FightScreen extends BaseScreen {
                     endFightRemoveEffect();
                     die.play(0.6f);
                 }
-            }),Actions.delay(3), Actions.run(new Runnable() {
+            }),Actions.delay(1.5f), Actions.run(new Runnable() {
                 @Override
                 public void run() {
                     float expDrop = enemy.getExpDrop();

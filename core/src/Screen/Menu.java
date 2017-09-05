@@ -47,6 +47,7 @@ public class Menu extends BaseScreen {
     private TextButton lNewGame;
     private TextButton lLoadGame;
     private TextButton lMore;
+    private TextButton lCredits;
     private TextButton lExit;
 
     private static Sound soundClick;
@@ -71,7 +72,7 @@ public class Menu extends BaseScreen {
             textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("confirmButtonNewGame.png", Texture.class)));
             textStyleDisapear.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("menuButton.png", Texture.class)));
             iLoad = new Image(new Texture(Gdx.files.internal("loadingFull.png")));
-            iLoad.setSize(280, 50);
+            iLoad.setSize(280, 45);
             iLoad.setPosition(BaseScreen.VIEW_WIDTH /2 -iLoad.getWidth() /2, 30);
         }
 
@@ -79,12 +80,14 @@ public class Menu extends BaseScreen {
         lNewGame = new TextButton("Nowa gra", textStyleDisapear);
         lLoadGame = new TextButton ("Wczytaj gre", textStyleDisapear);
         lMore = new TextButton("Jak grac?", textStyleDisapear);
+        lCredits = new TextButton("Autorzy", textStyleDisapear);
         lExit = new TextButton("Wyjscie", textStyleDisapear);
 
         lNewGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 300);
-        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 228);
-        lMore.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 156);
-        lExit.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 85);
+        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 241);
+        lMore.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 181);
+        lCredits.setPosition(BaseScreen.VIEW_WIDTH/2 -lCredits.getWidth()/2, 128);
+        lExit.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 70);
 
         lNewGame.addListener(new InputListener(){
             @Override
@@ -134,6 +137,15 @@ public class Menu extends BaseScreen {
             }
         });
 
+        lCredits.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                getSoundClick().play();
+                new Autors(game);
+                return false;
+            }
+        });
+
         lExit.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -145,7 +157,7 @@ public class Menu extends BaseScreen {
 
         stage.addActor(texture);
 
-        addActors(lNewGame, lLoadGame, lMore, lExit);
+        addActors(lNewGame, lLoadGame, lMore, lCredits, lExit);
     }
 
     @Override

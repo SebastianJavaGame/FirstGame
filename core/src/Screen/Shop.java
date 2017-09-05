@@ -74,7 +74,7 @@ public class Shop extends BaseScreen{
         if(asset.manager.update()) {
             background = new Image(asset.manager.get("shopBackground.png", Texture.class));
             backgroundMenu = new Image(asset.manager.get("shopMenuBackground.png", Texture.class));
-            close = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonCancel.png", Texture.class))));
+            close = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonExit.png", Texture.class))));
 
             lName = new Label(name, style);
             lLevel = new Label("Poziom " + level, style);
