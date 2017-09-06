@@ -14,7 +14,7 @@ public class Asset implements Disposable {
     public final AssetManager manager = new AssetManager();
 
     public void loadMenu(){
-        manager.load("menu.png", Texture.class);
+        manager.load("menu.jpg", Texture.class);
         manager.load("confirmButtonNewGame.png", Texture.class);
         manager.load("menuButton.png", Texture.class);
         manager.load("confirmNewGame.png", Texture.class);

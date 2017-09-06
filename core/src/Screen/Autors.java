@@ -38,7 +38,7 @@ public class Autors extends BaseScreen {
 
         final Table scrollTable = new Table();
 
-        Label[] labels = new Label[124];
+        Label[] labels = new Label[126];
         labels[0] = new Label("Zasoby są na licencji creative commons modyfikowane w conajmniej minimalnym stopniu. Autorzy i odnośniki do zasobu:\nClint Bellanger, Blarumyrran, crowline, Justin Nichol", STYLE);
         labels[1] = new Label("\nhttp://www.supergameasset.com  yinakoSGA", STYLE);
         labels[2] = new Label("\nClint Bellanger and Justin Nichol", STYLE);
@@ -164,11 +164,13 @@ public class Autors extends BaseScreen {
         labels[121] = new Label("http://www.cadnav.com/3d-models/model-37916.html", STYLE);
         labels[122] = new Label("http://www.cadnav.com/3d-models/model-40347.html", STYLE);
         labels[123] = new Label("http://www.cadnav.com/3d-models/model-40587.html", STYLE);
+        labels[124] = new Label("J. W. Bjerk (eleazzaar) -- www.jwbjerk.com/art -- find this and other open art at: http://opengameart.org", STYLE);
+        labels[125] = new Label("HorrorPen https://opengameart.org/content/ice-spell-icons", STYLE);
 
-        for(int i = 0; i < 124; i++)
+        for(int i = 0; i < 126; i++)
             labels[i].setFontScale(0.5f);
 
-        for(int i = 0; i < 124; i++){
+        for(int i = 0; i < 126; i++){
             scrollTable.add(labels[i]);
             scrollTable.row();
         }

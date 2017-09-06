@@ -41,6 +41,11 @@ public class MyGdxGame extends Game{
         return font;
     }
 
+    public static BitmapFont createLargeFont(){
+        BitmapFont font = new BitmapFont(Gdx.files.internal("font/largeFont.fnt"));
+        return font;
+    }
+
     public static void loadDefaultEq(){
         Preferences firstLoad = Gdx.app.getPreferences("START");
         firstLoad.clear(); //TODO delete if first load must be starting during first play

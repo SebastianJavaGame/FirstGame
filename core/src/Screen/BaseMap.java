@@ -119,26 +119,26 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     }
 
     public BaseMap(Game game, Image imageBg) {
-            super(game);
-            this.bgTexture = imageBg;
+        super(game);
+        this.bgTexture = imageBg;
 
-            preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+        preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
 
-            realWidth = (float) Gdx.app.getGraphics().getWidth() / VIEW_WIDTH;
-            realHeight = (float) Gdx.app.getGraphics().getHeight() / VIEW_HEIGHT;
+        realWidth = (float) Gdx.app.getGraphics().getWidth() / VIEW_WIDTH;
+        realHeight = (float) Gdx.app.getGraphics().getHeight() / VIEW_HEIGHT;
 
-            windowStatsOpen = false;
-            stopGame = false;
-            stopGameTwo = false;
+        windowStatsOpen = false;
+        stopGame = false;
+        stopGameTwo = false;
 
-            hpRefresh = 0;
+        hpRefresh = 0;
 
-            asset.loadBaseMap();
-            asset.manager.finishLoading();
-            if(asset.manager.update()) {
-                 create();
-                 initializeUiStage();
-             }
+        asset.loadBaseMap();
+        asset.manager.finishLoading();
+        if(asset.manager.update()) {
+            create();
+            initializeUiStage();
+        }
     }
 
     protected abstract void generateMap();
@@ -184,12 +184,12 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         testRender.draw();
         //for(Character c: charactersList)
-         //   RenderCollisionLine_Test.drawPublic(c.getCollision());
+        //   RenderCollisionLine_Test.drawPublic(c.getCollision());
         //for(Rectangle r: entriaceToMapRectangle)
-           // RenderCollisionLine_Test.drawPublic(r);
+        // RenderCollisionLine_Test.drawPublic(r);
 
         //for(Vector2 v: Hero.temporaryListVector)
-            //RenderCollisionLine_Test.drawPointSquare(v);
+        //RenderCollisionLine_Test.drawPointSquare(v);
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
             System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
@@ -374,10 +374,11 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         return 1120 -i;
     }
 
+    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("x: " + screenX);
         System.out.println("y: " + screenY);
-    if(!stopGame && !stopGameTwo && !Hero.getActiveMove()) {
+        if(!stopGame && !stopGameTwo && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
             if (screenY > uiBackground.getHeight()) {

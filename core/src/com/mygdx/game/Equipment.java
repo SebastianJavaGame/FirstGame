@@ -140,6 +140,7 @@ public class Equipment{
         if(asset.manager.update()) {
             soundEquipment = asset.manager.get("sound/soundEquipment.ogg", Sound.class);
             ImageButton userPref = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("buttonUserPref.png", Texture.class))));
+            userPref.setSize(60, 60);
             userPref.setPosition(250, 180);
             userPref.addListener(new InputListener() {
                 @Override

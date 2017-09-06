@@ -57,7 +57,7 @@ public class Hero3D {
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
         controller = new AnimationController(instance);
-        controller.setAnimation("Armature|Idle", 1);
+        setStopAnimation();
 
         initializeTabPolygon();
     }
@@ -117,11 +117,11 @@ public class Hero3D {
     }
 
     public static void setStopAnimation(){
-        controller.setAnimation("Armature|Idle", 1);
+        controller.setAnimation("Armature|Idle.001", 1);
     }
 
     public static void setPlayAnimation(){
-        controller.setAnimation("Walk", -1);
+        controller.setAnimation("Armature|ArmatureAction", -1);
     }
 
     public static void dispose () {

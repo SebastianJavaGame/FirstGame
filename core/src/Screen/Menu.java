@@ -35,7 +35,8 @@ import com.mygdx.game.StatsHero;
 
 public class Menu extends BaseScreen {
     private Asset asset;
-    private final BitmapFont FONT = MyGdxGame.createDistanceFont();//MyGdxGame.createBitmapFont(20, Color.BLACK);
+    private final BitmapFont FONT = MyGdxGame.createButtonFont();
+    private final BitmapFont FONT_MESSAGE = MyGdxGame.createDistanceFont();
     private final Label.LabelStyle STYLE = new Label.LabelStyle();
     private TextButton.TextButtonStyle textStyle;
     private TextButton.TextButtonStyle textStyleDisapear;
@@ -68,26 +69,27 @@ public class Menu extends BaseScreen {
         asset.manager.finishLoading();
         if(asset.manager.update()){
             soundClick = asset.manager.get("sound/click.ogg", Sound.class);
-            texture = new Image(asset.manager.get("menu.png", Texture.class));
+            texture = new Image(asset.manager.get("menu.jpg", Texture.class));
             textStyle.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("confirmButtonNewGame.png", Texture.class)));
             textStyleDisapear.up = new TextureRegionDrawable(new TextureRegion(asset.manager.get("menuButton.png", Texture.class)));
             iLoad = new Image(new Texture(Gdx.files.internal("loadingFull.png")));
             iLoad.setSize(280, 45);
             iLoad.setPosition(BaseScreen.VIEW_WIDTH /2 -iLoad.getWidth() /2, 30);
         }
+        texture.setSize(320, 480);
 
-        STYLE.font = FONT;
+        STYLE.font = FONT_MESSAGE;
         lNewGame = new TextButton("Nowa gra", textStyleDisapear);
         lLoadGame = new TextButton ("Wczytaj gre", textStyleDisapear);
         lMore = new TextButton("Jak grac?", textStyleDisapear);
         lCredits = new TextButton("Autorzy", textStyleDisapear);
         lExit = new TextButton("Wyjscie", textStyleDisapear);
 
-        lNewGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 300);
-        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 241);
-        lMore.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 181);
-        lCredits.setPosition(BaseScreen.VIEW_WIDTH/2 -lCredits.getWidth()/2, 128);
-        lExit.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 70);
+        lNewGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 287);
+        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 237);
+        lMore.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 186);
+        lCredits.setPosition(BaseScreen.VIEW_WIDTH/2 -lCredits.getWidth()/2, 136);
+        lExit.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 88);
 
         lNewGame.addListener(new InputListener(){
             @Override
@@ -117,7 +119,7 @@ public class Menu extends BaseScreen {
                     public void run() {
                         stage.addActor(iLoad);
                     }
-                }), Actions.delay(0.5f), Actions.run(new Runnable() {
+                }), Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         new Quest(stage);
@@ -171,34 +173,34 @@ public class Menu extends BaseScreen {
             Image background = new Image(asset.manager.get("confirmNewGame.png", Texture.class));
             TextButton bYes = new TextButton("Tak", textStyle);
             TextButton bNo = new TextButton("Nie", textStyle);
-            Label label = new Label("Czy napewno chcesz\nrozapoczac nowa gre?", STYLE);
-            label.setFontScale(0.7f);
+            Label label = new Label("Czy napewno chcesz\nrozpocząć nową gre?", STYLE);
+            label.setFontScale(0.6f);
 
             background.setSize(background.getWidth() + 24, 90);
             background.setPosition(BaseScreen.VIEW_WIDTH /2 -background.getWidth() /2, 290);
-            label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*0.7f /2, background.getY() +background.getHeight() /2 -30);
-            bYes.setPosition(BaseScreen.VIEW_WIDTH /4 -bYes.getWidth() /2, 275);
-            bNo.setPosition(BaseScreen.VIEW_WIDTH /4 *3 -bYes.getWidth() /2, 275);
+            label.setPosition(BaseScreen.VIEW_WIDTH /2 -label.getWidth()*0.6f /2, background.getY() +background.getHeight() /2 -30);
+            bYes.setPosition(BaseScreen.VIEW_WIDTH /4 -bYes.getWidth() /2, 280);
+            bNo.setPosition(BaseScreen.VIEW_WIDTH /4 *3 -bYes.getWidth() /2, 280);
 
             bYes.addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     getSoundClick().play();
                     clearAllPreference();
-                    new LoadAllItemToGame().loadItems();
-                    ExperienceRequired.loadExperienceList();
-                    BaseDialogs.loadNpcTextList();
-                    BaseDialogs.loadIndexOptions();
-                    BaseDialogs.loadIndexListener();
-                    BaseTask.loadAllTasks();
-                    BaseEnemyAI.loadAI();
-                    MyGdxGame.loadDefaultEq();
                     stage.addAction(Actions.sequence(Actions.run(new Runnable() {
                         @Override
                         public void run() {
                             stage.addActor(iLoad);
+                            new LoadAllItemToGame().loadItems();
+                            ExperienceRequired.loadExperienceList();
+                            BaseDialogs.loadNpcTextList();
+                            BaseDialogs.loadIndexOptions();
+                            BaseDialogs.loadIndexListener();
+                            BaseTask.loadAllTasks();
+                            BaseEnemyAI.loadAI();
+                            MyGdxGame.loadDefaultEq();
                         }
-                    }), Actions.delay(0.5f), Actions.run(new Runnable() {
+                    }), Actions.run(new Runnable() {
                         @Override
                         public void run() {
                             new Quest(stage);

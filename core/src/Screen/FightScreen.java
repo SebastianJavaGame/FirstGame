@@ -138,8 +138,6 @@ public class FightScreen extends BaseScreen {
         final Preferences preferences = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         hpHero = hero.getHp();
         hpEnemy = enemy.getHp();
-        //hpHero = 0;
-        //hpEnemy = 50;
         hpMaxHero = hero.getFullHp();
         hpMaxEnemy = enemy.getHp();
         freePointFight = preferences.getInteger("FIGHT_POINT", 10);
@@ -170,7 +168,6 @@ public class FightScreen extends BaseScreen {
             barEnergyHero = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
             barEnergyEnemy = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
             heroImage = new Image(asset.manager.get("heroImage.png", Texture.class));
-            //skull = new Image(asset.manager.get("skull.png", Texture.class));
 
             try {
                 waponHero = flipY();
@@ -188,8 +185,6 @@ public class FightScreen extends BaseScreen {
             waponEnemy.setPosition(95, 280);
             waponEnemy.setSize(80, 80);
             waponEnemy.setOrigin(waponEnemy.getWidth(), 0);
-            //skull.setSize(160, 120);
-            //skull.setPosition(BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
 
             magicHero = new Image(asset.manager.get("magicHero.png", Texture.class));
             magicHero.setBounds(targetX, enemyImage.getY() + enemyImage.getHeight() / 2, enemyImage.getWidth() - 30, enemyImage.getHeight() - 120);
