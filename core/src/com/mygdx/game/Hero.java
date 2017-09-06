@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Timer;
 
 import net.dermetfan.utils.libgdx.math.GeometryUtils;
 
@@ -79,6 +80,8 @@ public class Hero extends Character {
     private  Vector2 o2;
     private Vector2 o4;
     private Vector2 nonCollision;
+    private Vector2 finalCollision = new Vector2(0, 0);
+    private int finalIndexCharacter;
 
     private boolean moveStop;
     private boolean aroundMove;
@@ -176,7 +179,7 @@ public class Hero extends Character {
         defenseFiz = preferences.getInteger("DEFENSE_FIZ", 1);
         defenseMag = preferences.getInteger("DEFENSE_MAG", 1);
 
-        int experience = preferences.getInteger("EXP", 65);
+        int experience = preferences.getInteger("EXP", 1);
         if(experience <= getMaxExp())
             setExp(experience);
         else {
@@ -700,7 +703,6 @@ public class Hero extends Character {
 
     public void objectCollision(){
         heroPolygonUpdate();
-        System.out.println(getX());
         if(calculateConcavePoligonCollision(heroPolygon, getActualCollision())){
             hero3D.setStopAnimation();
             this.clearActions();
@@ -733,7 +735,64 @@ public class Hero extends Character {
                 actualIndexCharacter = i;
                 preferences.putInteger("COLLISION", actualIndexCharacter).flush();
                 soundStep.stop();
-                setPosition(nonCollision.x, nonCollision.y);
+
+                System.out.println("wystepuje kolizja");
+                if(finalIndexCharacter != i)
+                    finalCollision.set(0, 0);
+
+                if(finalCollision.x == 0) {
+                    setPosition(nonCollision.x, nonCollision.y);
+                    characters.get(i).setRectangle(14, 14, -28, -28);
+                    characters.get(i).collisionUpdate();
+                    finalCollision.set(nonCollision.x, nonCollision.y);
+                    finalIndexCharacter = i;
+                    final Rectangle rectangle = heroBox;
+                    final Character character = characters.get(i);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            character.setRectangle(14, 14, -28, -28);
+                            character.collisionUpdate();
+                            if (!calculateCollisionTwoRectangle(rectangle, character.getCollision())) {
+                                character.setRectangle(-4, -4, 8, 8);
+                                character.collisionUpdate();
+                                if (!calculateCollisionTwoRectangle(rectangle, character.getCollision())) {
+                                    character.setRectangle(5, 5, -10, -10);
+                                    character.collisionUpdate();
+                                    finalCollision.set(0, 0);
+                                    this.cancel();
+                                }
+                                System.out.println("lolek");
+                                character.setRectangle(14, 14, -28, -28);
+                                character.collisionUpdate();
+                            }
+                        }
+                    }, 0.5f, 0.5f, 9999);
+                }else {
+                    setPosition(finalCollision.x, finalCollision.y);
+                    final Rectangle rectangle = heroBox;
+                    final Character character = characters.get(i);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            character.setRectangle(14, 14, -28, -28);
+                            character.collisionUpdate();
+                            if (!calculateCollisionTwoRectangle(rectangle, character.getCollision())) {
+                                character.setRectangle(-4, -4, 8, 8);
+                                character.collisionUpdate();
+                                if (!calculateCollisionTwoRectangle(rectangle, character.getCollision())) {
+                                    character.setRectangle(5, 5, -10, -10);
+                                    character.collisionUpdate();
+                                    finalCollision.set(0, 0);
+                                    this.cancel();
+                                }
+                                System.out.println("lolek");
+                                character.setRectangle(14, 14, -28, -28);
+                                character.collisionUpdate();
+                            }
+                        }
+                    }, 0.5f, 0.5f, 9999);
+                }
             }else {
                 if(i == characters.size() -1)
                     nonCollision.set(getX(), getY());
