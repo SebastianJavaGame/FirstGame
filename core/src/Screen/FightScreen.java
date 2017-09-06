@@ -56,6 +56,7 @@ public class FightScreen extends BaseScreen {
     private float targetX;
 
     private Image backgroundFight;
+    private Image fieldBackground;
     private ImageButton[] plusButton;
     private ImageButton[] minusButton;
     private ImageButton abortNonActive;
@@ -163,6 +164,7 @@ public class FightScreen extends BaseScreen {
             hitPositive = asset.manager.get("sound/hitPositive.ogg", Sound.class);
             die = asset.manager.get("sound/herodie.ogg", Sound.class);
             backgroundFight = new Image(asset.manager.get("fight.png", Texture.class));
+            fieldBackground = BaseMap.getBackgroundFight();
             barHpHero = new Image(asset.manager.get("barHpFight.png", Texture.class));
             barHpEnemy = new Image(asset.manager.get("barHpFight.png", Texture.class));
             barEnergyHero = new Image(asset.manager.get("barEnergyFight.png", Texture.class));
@@ -377,6 +379,9 @@ public class FightScreen extends BaseScreen {
             }
 
             addActors(backgroundFight);
+            fieldBackground.setSize(320, 310);
+            fieldBackground.setPosition(0, 128);
+            addActors(fieldBackground);
             for (int i = 0; i < 4; i++) {
                 stage.addActor(plusButton[i]);
                 stage.addActor(minusButton[i]);

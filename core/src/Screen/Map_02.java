@@ -23,6 +23,7 @@ public class Map_02 extends BaseMap {
     public static final String NAME = "Erendia";
     public static final int STARTING_POS_X = 1251;
     public static final int STARTING_POS_Y = 347;
+    private static final Image bgFight = new Image(new Texture(Gdx.files.internal("zielen.jpg")));
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -331,6 +332,7 @@ public class Map_02 extends BaseMap {
         optimiseMap = positionOptimalise;
         optimiseToward = arrayBoolean;
         charactersList = characters;
+        backgroundFight = bgFight;
 
         for(Character character: characters) {
             stage.addActor(character);

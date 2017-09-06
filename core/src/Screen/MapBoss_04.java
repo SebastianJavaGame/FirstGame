@@ -22,6 +22,7 @@ public class MapBoss_04 extends BaseMap {
     public static final String NAME = "Nathagan-land";
     public static final int STARTING_POS_X = 265;
     public static final int STARTING_POS_Y = 530;
+    private static final Image bgFight = new Image(new Texture(Gdx.files.internal("pustynia.jpg")));
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -195,6 +196,7 @@ public class MapBoss_04 extends BaseMap {
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;
         charactersList = characters;
+        backgroundFight = bgFight;
 
         for(Character character: characters) {
             stage.addActor(character);

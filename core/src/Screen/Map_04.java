@@ -23,6 +23,7 @@ public class Map_04 extends BaseMap {
     public static final String NAME = "Canavar";
     public static final int STARTING_POS_X = 1352;
     public static final int STARTING_POS_Y = 360;
+    private static final Image bgFight = new Image(new Texture(Gdx.files.internal("pustynia.jpg")));
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -325,6 +326,7 @@ public class Map_04 extends BaseMap {
         optimiseMap = positionOptimalise;
         optimiseToward = arrayBoolean;
         charactersList = characters;
+        backgroundFight = bgFight;
 
         for(Character character: characters) {
             stage.addActor(character);

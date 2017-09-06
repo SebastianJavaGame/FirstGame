@@ -52,6 +52,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     protected Image bgTexture;
     protected Image mapView;
+    protected static Image backgroundFight;
     protected static BaseMap actualMap;
     protected static String mapName;
 
@@ -182,7 +183,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             stageCard.draw();
         }
 
-        testRender.draw();
+        //testRender.draw();
         //for(Character c: charactersList)
         //   RenderCollisionLine_Test.drawPublic(c.getCollision());
         //for(Rectangle r: entriaceToMapRectangle)
@@ -205,8 +206,6 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
         if(hero.isAnimation()) {
             hero.finishWalk();
-
-            //TODO check are heroBox is in collision with entrience rectangle list
         }
 
         if(hero.isCharacterCollisionLook())
@@ -456,5 +455,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public static Stage getStageUi(){
         return stageUi;
+    }
+
+    public static Image getBackgroundFight(){
+        return  backgroundFight;
     }
 }

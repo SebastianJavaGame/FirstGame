@@ -23,6 +23,7 @@ public class Map_01 extends BaseMap {
     public static final String NAME = "Awirdan";
     public static final int STARTING_POS_X = 626;
     public static final int STARTING_POS_Y = 416;
+    private static final Image bgFight = new Image(new Texture(Gdx.files.internal("zielen.jpg")));
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -312,6 +313,7 @@ public class Map_01 extends BaseMap {
         optimiseMap = positionOptimalise;
         optimiseToward = arrayBoolean;
         charactersList = characters;
+        backgroundFight = bgFight;
 
         for(Character character: characters) {
             stage.addActor(character);

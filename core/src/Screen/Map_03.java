@@ -23,6 +23,7 @@ public class Map_03 extends BaseMap {
     public static final String NAME = "Avandia";
     public static final int STARTING_POS_X = 2116;
     public static final int STARTING_POS_Y = 594;
+    private static final Image bgFight = new Image(new Texture(Gdx.files.internal("zielen.jpg")));
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -321,7 +322,7 @@ public class Map_03 extends BaseMap {
 
         stage.addActor(bgTexture);
 
-        mapView = new Image(new Texture("map03View.jpg"));//TODO
+        mapView = new Image(new Texture("map03View.jpg"));
         mapName = NAME;
 
         objectPolygon = objectCollision;
@@ -329,6 +330,7 @@ public class Map_03 extends BaseMap {
         optimiseMap = positionOptimalise;
         optimiseToward = arrayBoolean;
         charactersList = characters;
+        backgroundFight = bgFight;
 
         for(Character character: characters) {
             stage.addActor(character);

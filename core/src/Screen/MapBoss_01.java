@@ -22,6 +22,7 @@ public class MapBoss_01 extends BaseMap {
     public static final String NAME = "Maven-land";
     public static final int STARTING_POS_X = 250;
     public static final int STARTING_POS_Y = 350;
+    private static final Image bgFight = new Image(new Texture(Gdx.files.internal("zielen.jpg")));
     public static final int DEAD_POS_X = 350; //TODO all boss map
     public static final int DEAD_POS_Y = 350;
     private static Image mapImage;
@@ -199,6 +200,7 @@ public class MapBoss_01 extends BaseMap {
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;
         charactersList = characters;
+        backgroundFight = bgFight;
 
         for(Character character: characters) {
             stage.addActor(character);
