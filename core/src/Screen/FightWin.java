@@ -345,7 +345,7 @@ public class FightWin extends BaseScreen {
         sprite.setPercentage(precentStart);
 
         precentEnd = ((float) expActual + expAdd) / expMax * 100;
-        duration = 7;
+        duration = 3;
 
         lFull.addAction(Actions.sequence(Actions.fadeOut(0), Actions.delay(duration - 2), Actions.fadeIn(2)));
 

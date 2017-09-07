@@ -224,7 +224,7 @@ public class Bag {
                 }
 
                 Menu.getSoundClick().play();
-                Gdx.app.exit();
+                System.exit(0);
                 return false;
             }
         });

@@ -379,8 +379,8 @@ public class FightScreen extends BaseScreen {
             }
 
             addActors(backgroundFight);
-            fieldBackground.setSize(320, 310);
-            fieldBackground.setPosition(0, 128);
+            fieldBackground.setSize(321, 311);
+            fieldBackground.setPosition(0, 127);
             addActors(fieldBackground);
             for (int i = 0; i < 4; i++) {
                 stage.addActor(plusButton[i]);
@@ -763,6 +763,8 @@ public class FightScreen extends BaseScreen {
             hpHero = 0;
 
             heroImage.addAction(Actions.fadeOut(2));
+            Preferences pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+            pref.putInteger("HP", hpHero).flush();
 
             stage.addAction(Actions.sequence(Actions.delay(1),Actions.run(new Runnable() {
                 @Override
@@ -787,6 +789,8 @@ public class FightScreen extends BaseScreen {
             hpEnemy = 0;
 
             enemyImage.addAction(Actions.fadeOut(2));
+            Preferences pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+            pref.putInteger("HP", hpHero).flush();
 
             stage.addAction(Actions.sequence(Actions.delay(1),Actions.run(new Runnable() {
                 @Override

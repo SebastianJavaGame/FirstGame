@@ -104,20 +104,20 @@ public class Menu extends BaseScreen {
         lLoadGame.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                iLoad.setVisible(true);
-                getSoundClick().play();
-                new LoadAllItemToGame().loadItems();
-                ExperienceRequired.loadExperienceList();
-                BaseDialogs.loadNpcTextList();
-                BaseDialogs.loadIndexOptions();
-                BaseDialogs.loadIndexListener();
-                BaseTask.loadAllTasks();
-                BaseEnemyAI.loadAI();
-                MyGdxGame.loadDefaultEq();
                 stage.addAction(Actions.sequence(Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         stage.addActor(iLoad);
+                        iLoad.setVisible(true);
+                        getSoundClick().play();
+                        new LoadAllItemToGame().loadItems();
+                        ExperienceRequired.loadExperienceList();
+                        BaseDialogs.loadNpcTextList();
+                        BaseDialogs.loadIndexOptions();
+                        BaseDialogs.loadIndexListener();
+                        BaseTask.loadAllTasks();
+                        BaseEnemyAI.loadAI();
+                        MyGdxGame.loadDefaultEq();
                     }
                 }), Actions.run(new Runnable() {
                     @Override

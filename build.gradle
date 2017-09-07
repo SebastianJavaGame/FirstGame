@@ -23,6 +23,7 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         admobVersion = '8.3.0'
+        gdxPayVersion = '0.11.1'
     }
 
     repositories {
@@ -72,6 +73,8 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
         compile "com.google.android.gms:play-services-ads:$admobVersion"
+        compile "com.badlogicgames.gdxpay:gdx-pay-android:$gdxPayVersion"
+        compile "com.badlogicgames.gdxpay:gdx-pay-android-googleplay:${gdxPayVersion}@aar"
     }
 }
 
@@ -83,6 +86,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        compile "com.badlogicgames.gdxpay:gdx-pay-client:$gdxPayVersion"
     }
 }
 

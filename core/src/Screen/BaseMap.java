@@ -355,7 +355,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
                 + String.valueOf(hero.getMaxExp()).length()) *3 +1) -1, 438 + uiBarEmptyExp.getHeight() /2);
 
         uiBarHp.setSize((float) hero.getHp() / hero.getFullHp() * 100, uiBarHp.getHeight());
-        uiBarExp.setSize((float) hero.getExp() / hero.getMaxExp() * 100, uiBarExp.getHeight());
+        uiBarExp.setSize((float) hero.getExp() / hero.getMaxExp() * 178, uiBarExp.getHeight());
     }
 
     private void cameraUpdate() {
