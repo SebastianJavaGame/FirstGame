@@ -167,7 +167,7 @@ public class Hero extends Character {
         setLevel(preferences.getInteger("LEVEL", 1));
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
 
-        setMaxHp(preferences.getInteger("MAX_HP", 50));
+        setMaxHp(preferences.getInteger("MAX_HP", 40));
         setHpNonEq(getMaxHp());
 
         actualIndexCharacter = 0;//preferences.getInteger("COLLISION", 0);
@@ -177,7 +177,7 @@ public class Hero extends Character {
         defenseFiz = preferences.getInteger("DEFENSE_FIZ", 1);
         defenseMag = preferences.getInteger("DEFENSE_MAG", 1);
 
-        int experience = preferences.getInteger("EXP", 99);
+        int experience = preferences.getInteger("EXP", 1);
         if(experience <= getMaxExp())
             setExp(experience);
         else {

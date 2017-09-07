@@ -34,7 +34,6 @@ public class Bag {
     private ImageButton buttonEq;
     private ImageButton buttonStats;
     private ImageButton buttonQuest;
-    private ImageButton buttonPay;
     private ImageButton buttonExit;
     private ImageButton closeGame;
 
@@ -92,7 +91,7 @@ public class Bag {
                     return false;
                 }
             });
-            buttonEq.setPosition(background.getX() + 20, 385);
+            buttonEq.setPosition(background.getX() + 30, 385);
 
             buttonStats = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("stats.png", Texture.class))));
             buttonStats.addListener(new InputListener() {
@@ -106,7 +105,7 @@ public class Bag {
                     return false;
                 }
             });
-            buttonStats.setPosition(background.getX() + 80, 385);
+            buttonStats.setPosition(background.getX() + 103, 385);
 
             buttonQuest = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("quest.png", Texture.class))));
             buttonQuest.addListener(new InputListener() {
@@ -120,19 +119,7 @@ public class Bag {
                     return false;
                 }
             });
-            buttonQuest.setPosition(background.getX() + 140, 385);
-
-            buttonPay = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("pay.png", Texture.class))));
-            buttonPay.addListener(new InputListener() {
-                public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
-                    if (!Equipment.getBlockClick()){
-                        page.play();
-                        initCardPay();
-                    }
-                    return false;
-                }
-            });
-            buttonPay.setPosition(background.getX() + 200, 385);
+            buttonQuest.setPosition(background.getX() + 176, 385);
 
             buttonExit = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("exit.png", Texture.class))));
             buttonExit.addListener(new InputListener() {
@@ -144,13 +131,12 @@ public class Bag {
                     return false;
                 }
             });
-            buttonExit.setPosition(background.getX() + 260, 385);
+            buttonExit.setPosition(background.getX() + 250, 385);
 
             stage.addActor(background);
             stage.addActor(buttonEq);
             stage.addActor(buttonStats);
             stage.addActor(buttonQuest);
-            stage.addActor(buttonPay);
             stage.addActor(buttonExit);
             stage.addActor(redLightStats);
 
@@ -177,11 +163,6 @@ public class Bag {
     public static void initCardQuest(){
         card.clear();
         new Quest(card);
-    }
-
-    private static void initCardPay(){
-        card.clear();
-        new Pay(card);
     }
 
     private void initCardExit() {
@@ -239,16 +220,16 @@ public class Bag {
     public static void addRedLight(int position){
         switch (position){
             case 0:
-                redLightStats.setPosition(20 -3, 385 -3);
+                redLightStats.setPosition(30 -3, 385 -3);
                 redLightStats.addAction(Actions.sequence(Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f),
-                                                         Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f),
-                                                         Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f)));
+                        Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f),
+                        Actions.fadeIn(0.5f), Actions.delay(0.5f), Actions.fadeOut(0.5f), Actions.delay(0.5f)));
                 return;
             case 1:
-                redLightStats.setPosition(80 -3, 385 -3);
+                redLightStats.setPosition(103 -3, 385 -3);
                 break;
             case 2:
-                redLightStats.setPosition(140 -3, 385 -3);
+                redLightStats.setPosition(176 -3, 385 -3);
                 break;
         }
 
