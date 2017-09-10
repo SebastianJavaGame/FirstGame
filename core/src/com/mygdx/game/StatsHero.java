@@ -241,7 +241,7 @@ public class StatsHero {
             money.setBounds(40 + moneyValue.getWidth()*scale +10, barUp.getY() +2, 32, 31);
             money.setColor(Color.GOLD);
 
-            table.row().padTop(40);
+            table.row().padTop(90);
             table.add();
             table.add(moneyValue).align(Align.left).padLeft(-35).fill();
             table.add(freePoint).fill();

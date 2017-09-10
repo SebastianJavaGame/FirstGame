@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -49,6 +49,7 @@ public class AndroidLauncher extends AndroidApplication {
 			adView.setAdSize(AdSize.BANNER);
 		}
 		*/
+		adView.setAdSize(AdSize.BANNER);
 		adView.setAdUnitId("ca-app-pub-8448913483080652/2975233819");
 
 		AdRequest.Builder builder = new AdRequest.Builder();
@@ -61,6 +62,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 		layout.addView(adView, adParams);
 		adView.loadAd(builder.build());
+		adView.setBackgroundColor(Color.TRANSPARENT);
 		setContentView(layout);
 	}
 }

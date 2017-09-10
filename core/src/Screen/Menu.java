@@ -76,7 +76,7 @@ public class Menu extends BaseScreen {
             iLoad.setSize(280, 45);
             iLoad.setPosition(BaseScreen.VIEW_WIDTH /2 -iLoad.getWidth() /2, 30);
         }
-        texture.setSize(320, 480);
+        texture.setSize(320, 530);
 
         STYLE.font = FONT_MESSAGE;
         lNewGame = new TextButton("Nowa gra", textStyleDisapear);
@@ -85,11 +85,11 @@ public class Menu extends BaseScreen {
         lCredits = new TextButton("Autorzy", textStyleDisapear);
         lExit = new TextButton("Wyjscie", textStyleDisapear);
 
-        lNewGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 287);
-        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 237);
-        lMore.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 186);
-        lCredits.setPosition(BaseScreen.VIEW_WIDTH/2 -lCredits.getWidth()/2, 136);
-        lExit.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 88);
+        lNewGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 318);
+        lLoadGame.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 263);
+        lMore.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 208);
+        lCredits.setPosition(BaseScreen.VIEW_WIDTH/2 -lCredits.getWidth()/2, 153);
+        lExit.setPosition(BaseScreen.VIEW_WIDTH/2 -lNewGame.getWidth()/2, 101);
 
         lNewGame.addListener(new InputListener(){
             @Override
