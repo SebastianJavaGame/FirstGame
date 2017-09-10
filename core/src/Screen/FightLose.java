@@ -314,7 +314,7 @@ public class FightLose extends BaseScreen {
         }
 
         if(!nameItem.equals("") && slotNr != -1){
-            prefItem.putString("SLOT" + slotNr, "");
+            prefItem.putString("SLOT" + slotNr, "").flush();
         }
     }
 

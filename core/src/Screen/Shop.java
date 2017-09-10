@@ -82,13 +82,13 @@ public class Shop extends BaseScreen{
             lName.setFontScale(0.5f);
             lLevel.setFontScale(0.5f);
 
-            image.setPosition(20, BaseScreen.VIEW_HEIGHT - image.getHeight() + 5);
+            image.setPosition(20, 480 - image.getHeight() + 5);
             int lengthX = 135;
-            lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, BaseScreen.VIEW_HEIGHT - 50);
-            lLevel.setPosition(lengthX - lLevel.getWidth()*0.5f / 2, BaseScreen.VIEW_HEIGHT - 68);
+            lName.setPosition(lengthX - lName.getWidth()*0.5f / 2, 480 - 50);
+            lLevel.setPosition(lengthX - lLevel.getWidth()*0.5f / 2, 480 - 68);
 
             close.setSize(55, 55);
-            close.setPosition(BaseScreen.VIEW_WIDTH - close.getWidth() - 25, BaseScreen.VIEW_HEIGHT - close.getHeight() + 6);
+            close.setPosition(BaseScreen.VIEW_WIDTH - close.getWidth() - 25, 480 - close.getHeight() + 6);
             close.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

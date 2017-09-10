@@ -125,6 +125,7 @@ public class Asset implements Disposable {
         manager.load("shopBackground.png", Texture.class);
         manager.load("shopMenuBackground.png", Texture.class);
         manager.load("buttonCancel.png", Texture.class);
+        manager.load("buttonExit.png", Texture.class);
     }
 
     public void loadStatsHero(){

@@ -211,7 +211,7 @@ public class FightScreen extends BaseScreen {
             labelFreePoint = new Label("" + freePointFight, style);
             labelRoundNumber = new Label("1", style);
             Label labelName = new Label("" + enemy.getName(), style);
-            Label labelLvl = new Label("Level " + enemy.getLevel(), style);
+            Label labelLvl = new Label("Poziom " + enemy.getLevel(), style);
 
             lHpHero.setFontScale(0.4f);
             lHpEnemy.setFontScale(0.4f);
@@ -379,8 +379,8 @@ public class FightScreen extends BaseScreen {
             }
 
             addActors(backgroundFight);
-            fieldBackground.setSize(321, 311);
-            fieldBackground.setPosition(0, 127);
+            fieldBackground.setSize(322, 311);
+            fieldBackground.setPosition(-1, 127);
             addActors(fieldBackground);
             for (int i = 0; i < 4; i++) {
                 stage.addActor(plusButton[i]);
@@ -818,18 +818,20 @@ public class FightScreen extends BaseScreen {
                     System.out.println(sizeListDropItem + "size");
 
                     if(sizeListDropItem > 0) {
-                        float chanceOnDrop = enemy.getRandomDrop() *10;
-                        temporary = MathUtils.random(1, 1000);
+                        float chanceOnDrop = enemy.getRandomDrop();
+                        chanceOnDrop *= 20;
+                        temporary = MathUtils.random(0, 999) + MathUtils.random(0, 999);
                         System.out.println(temporary +" procent wylosowany");
                         System.out.println(chanceOnDrop +" procent szans");
                         if((int)temporary <= (int)chanceOnDrop) {
                             temporary = MathUtils.random(0, sizeListDropItem - 1);
-                            dropItemName = enemy.getDropItem().get((int) temporary);
+                            dropItemName = enemy.getDropItem().get((int)temporary);
                         }
                     }
 
                     musicBattle.stop();
-                    game.setScreen(new FightWin(game, hero, enemy, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), (int)moneyDrop, (int)expDrop, dropItemName));
+
+                    game.setScreen(new FightWin(game, hero, enemy, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), (int)moneyDrop *20, (int)expDrop*10, dropItemName));//TODO delete *10
                 }
             })));
         }

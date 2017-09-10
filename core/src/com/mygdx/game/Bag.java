@@ -25,28 +25,28 @@ import Screen.Menu;
  */
 
 public class Bag {
-    private Hero hero;
+    private static Hero hero;
     private Asset asset = new Asset();
 
-    private Stage stage;
+    private static Stage stage;
     private static Stage card;
 
-    private ImageButton buttonEq;
-    private ImageButton buttonStats;
-    private ImageButton buttonQuest;
-    private ImageButton buttonExit;
-    private ImageButton closeGame;
+    private static ImageButton buttonEq;
+    private static ImageButton buttonStats;
+    private static ImageButton buttonQuest;
+    private static ImageButton buttonExit;
+    private static ImageButton closeGame;
 
-    private Image background;
-    private Image separator;
+    private static Image background;
+    private static Image separator;
     private static Image redLightStats;
 
-    private BitmapFont font;
-    private Label.LabelStyle styleWhite;
-    private Label infoCloseCard;
-    private Label infoCloseGame;
+    private static BitmapFont font;
+    private static Label.LabelStyle styleWhite;
+    private static Label infoCloseCard;
+    private static Label infoCloseGame;
 
-    private Sound page;
+    private static Sound page;
 
     static {
         redLightStats = new Image(new Texture(Gdx.files.internal("statsRed.png")));
@@ -73,7 +73,7 @@ public class Bag {
             page = asset.manager.get("sound/card.ogg", Sound.class);
 
             background = new Image(asset.manager.get("statsBackground.png", Texture.class));
-            background.setSize(BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT - 50);
+            background.setSize(BaseScreen.VIEW_WIDTH, 480 - 50);
 
             buttonEq = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("eq.png", Texture.class))));
             buttonEq.addListener(new InputListener() {
@@ -165,7 +165,7 @@ public class Bag {
         new Quest(card);
     }
 
-    private void initCardExit() {
+    private static void initCardExit() {
         card.clear();
 
         font = MyGdxGame.createDistanceFont();
@@ -176,7 +176,7 @@ public class Bag {
         infoCloseCard.setFontScale(0.7f);
         infoCloseCard.setPosition((background.getWidth() - infoCloseCard.getWidth() *0.7f) /2, 300);
 
-        separator = new Image(asset.manager.get("bar.png", Texture.class));
+        separator = new Image(new Texture("bar.png"));
         separator.setPosition(5, 250);
         separator.setSize(310, 3);
 
@@ -184,7 +184,7 @@ public class Bag {
         infoCloseGame.setPosition((background.getWidth() - infoCloseGame.getWidth() *0.9f) /2, 180);
         infoCloseGame.setFontScale(0.9f);
 
-        closeGame = new ImageButton(new TextureRegionDrawable(new TextureRegion(asset.manager.get("exitGame.png", Texture.class))));
+        closeGame = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("exitGame.png"))));
         closeGame.addListener(new InputListener(){
             public boolean touchDown (InputEvent ev, float x, float y, int pointer, int button){
                 Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);

@@ -52,7 +52,6 @@ public class MyGdxGame extends Game{
         firstLoad.flush();
         if(firstLoad.getString("FIRST").equals("")) {
             Preferences prefEq = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
-            prefEq.clear();
             prefEq.putString("ARMOR", "armor1");
             prefEq.putString("HELMET", "helmet1");
             prefEq.putString("PANTS", "pants1");
@@ -66,7 +65,7 @@ public class MyGdxGame extends Game{
 
             Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
             //prefStats.clear();
-            prefStats.putInteger("FREE_POINT", 6).flush();
+            //prefStats.putInteger("FREE_POINT", 6).flush();
 
             firstLoad.putString("FIRST", "IS LOAD");
             firstLoad.flush();

@@ -29,7 +29,8 @@ import com.mygdx.game.MyGdxGame;
 public abstract class BaseScreen implements Screen, InputProcessor{
 
     public final static int VIEW_WIDTH = 320;
-    public final static int VIEW_HEIGHT = 480;
+    public final static int VIEW_HEIGHT = 530;
+    public final static int VIEW_HEIGHT_NO_AD = 480;
 
     protected static Game game;
     public static OrthographicCamera camera;
@@ -81,9 +82,10 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
         fps++;
         ms += Gdx.graphics.getDeltaTime();
-        if(ms >= 1){
+        System.out.println(ms);
+        if(ms >= 10){
             //System.out.println("------------");
-            System.out.println("FPS: " + fps);
+            //System.out.println("FPS: " + fps);
             //System.out.println("------------");
             fps = 0;
             ms = 0;
@@ -138,7 +140,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     System.exit(0);
-                    Gdx.app.exit();
                     return false;
                 }
             });
@@ -169,7 +170,7 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     public void resume()  {  }
     public void dispose() {
         stage.dispose();
-        //game.dispose();
+        game.dispose();
     }
     public void show()    {  }
     public void hide()    {  }

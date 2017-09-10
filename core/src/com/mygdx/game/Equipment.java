@@ -161,7 +161,7 @@ public class Equipment{
                     labelFreePoint = new Label("Free points: " + PREF_FIGHT.getInteger("FIGHT_POINT", 10), style);
                     labelFreePoint.setTouchable(Touchable.disabled);
                     labelFreePoint.setFontScale(0.8f);
-                    labelFreePoint.setPosition(5, 412);
+                    labelFreePoint.setPosition(5, 420);
 
                     final TextButton.TextButtonStyle styleSave = new TextButton.TextButtonStyle();
                     styleSave.font = font;
@@ -834,7 +834,7 @@ public class Equipment{
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Menu.getSoundClick().play();
                     int actualPoint = Integer.parseInt(labelPointFight[iterator].getText().toString());
-                    if(actualPoint < 5 && freePointFight >= 0) {
+                    if(actualPoint < 5 && freePointFight > 0) {
                         actualPoint++;
                         freePointFight--;
                         label.setText("Free points: " + freePointFight);

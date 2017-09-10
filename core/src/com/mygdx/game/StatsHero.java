@@ -135,7 +135,6 @@ public class StatsHero {
                         preferences.putInteger("FREE_POINT", hero.getPoint());
                         preferences.putInteger("MAX_HP", hero.getMaxHp());
                         preferences.flush();
-                        System.out.println(hero.getMaxHp());
                         try {
                             new UpdateHeroStats(hero);
                         } catch (CloneNotSupportedException e) {
@@ -156,8 +155,8 @@ public class StatsHero {
                         hero.setArmorEq(hero.getArmorEq() + 0.1f);
                         hero.setPoint(hero.getPoint() - 1);
                         pointToAdd.setText("" + hero.getPoint());
-                        attributeStats[2].setText("" + hero.getArmor() + "%");
-                        attributeStats[3].setText("" + hero.getArmorEq() + "%");
+                        attributeStats[2].setText(String.format("%, .2f", hero.getArmor()) + "%");
+                        attributeStats[3].setText(String.format("%, .2f", hero.getArmorEq()) + "%");
                         attributeStats[2].setFontScale(scale);
                         attributeStats[3].setFontScale(scale);
                         preferences.putInteger("FREE_POINT", hero.getPoint());
@@ -186,6 +185,7 @@ public class StatsHero {
             buttonAdd[3].setSize(37, 30);
             buttonAdd[3].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                    Menu.getSoundClick().play();
                     if (hero.getPoint() > 0) {
                         hero.setWiedza(hero.getWiedza() + 1);
                         hero.setWiedzaEq(hero.getWiedzaEq() + 1);
@@ -213,6 +213,7 @@ public class StatsHero {
             buttonAdd[5].setSize(37, 30);
             buttonAdd[5].addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
+                    Menu.getSoundClick().play();
                     if (hero.getPoint() > 0) {
                         hero.setDefenseMag(hero.getDefenseMag() + 1);
                         hero.setDefenseMagEq(hero.getDefenseMagEq() + 1);
@@ -291,11 +292,11 @@ public class StatsHero {
             attributeStats[1].setPosition(224 - attributeStats[1].getWidth()*scale / 2, 263);
             attributeStats[1].setFontScale(scale);
 
-            attributeStats[2] = new Label(hero.getArmor() + "%", styleWhite);
+            attributeStats[2] = new Label(String.format("%, .2f", hero.getArmor()) + "%", styleWhite);
             attributeStats[2].setPosition(123 - attributeStats[2].getWidth()*scale / 2, 217);
             attributeStats[2].setFontScale(scale);
 
-            attributeStats[3] = new Label(hero.getArmorEq() + "%", styleGreen);
+            attributeStats[3] = new Label(String.format("%, .2f", hero.getArmorEq()) + "%", styleGreen);
             attributeStats[3].setPosition(224 - attributeStats[3].getWidth()*scale / 2, 217);
             attributeStats[3].setFontScale(scale);
 
