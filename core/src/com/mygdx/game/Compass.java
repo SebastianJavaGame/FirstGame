@@ -238,18 +238,20 @@ public class Compass {
         createCompass();
     }
 
-    private void removeAllActor(){
-        background.remove();
-        lList.remove();
-        lMap.remove();
-        map.remove();
-        lMapName.remove();
-        cross.remove();
-        borders.remove();
-        list.remove();
-        for(int i = 0; i < 5; i++){
-            line[i].remove();
-            shadow[i].remove();
+    public void removeAllActor(){
+        if(background != null) {
+            background.remove();
+            lList.remove();
+            lMap.remove();
+            map.remove();
+            lMapName.remove();
+            cross.remove();
+            borders.remove();
+            list.remove();
+            for (int i = 0; i < 5; i++) {
+                line[i].remove();
+                shadow[i].remove();
+            }
         }
     }
 

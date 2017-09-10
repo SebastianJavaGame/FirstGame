@@ -32,12 +32,14 @@ public class AndroidLauncher extends AndroidApplication {
 				Log.i(TAG, "Ad loaded...");
 			}
 		});
+		/*
 		DisplayMetrics dm = getResources().getDisplayMetrics();
 
 		double density = dm.density * 160;
 		double x = Math.pow(dm.widthPixels / density, 2);
 		double y = Math.pow(dm.heightPixels / density, 2);
 		double screenInches = Math.sqrt(x + y);
+
 
 		if (screenInches > 8) { // > 728 X 90
 			adView.setAdSize(AdSize.LEADERBOARD);
@@ -46,6 +48,7 @@ public class AndroidLauncher extends AndroidApplication {
 		} else { // > 320 X 50
 			adView.setAdSize(AdSize.BANNER);
 		}
+		*/
 		adView.setAdUnitId("ca-app-pub-8448913483080652/2975233819");
 
 		AdRequest.Builder builder = new AdRequest.Builder();

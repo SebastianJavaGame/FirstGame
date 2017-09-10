@@ -280,6 +280,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
                     stageStats.clear();
                     stageCard.clear();
                     card.play();
+                    compass.removeAllActor();
+                    Hero3D.setRenderHero3d(true);
+                    BaseMap.setStopGameTwo(false);
                 }else{
                     redLightUiStats.clearActions();
                     redLightUiStats.addAction(Actions.fadeOut(0));
@@ -380,7 +383,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         if(!stopGame && !stopGameTwo && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;
-            if (screenY > uiBackground.getHeight()) {
+            if (screenY > uiBackground.getHeight() -3) {
                 float x = ((screenX + camera.position.x) - BaseMap.VIEW_WIDTH /2 - hero.getWidth() /2);
                 float y = (((BaseMap.VIEW_HEIGHT + camera.position.y) - BaseMap.VIEW_HEIGHT /2) - screenY - hero.getHeight() /2);
                 hero.move(x, y);

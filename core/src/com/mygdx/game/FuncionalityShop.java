@@ -238,7 +238,7 @@ public class FuncionalityShop {
                     @Override
                     public void run() {
                         itemPrice.setText("" + item.getCashValue());
-                        itemPrice.setColor(Color.GOLD);
+                        itemPrice.setColor(Color.ORANGE);
                     }
                 }), Actions.moveBy(0, -55, 1)));
                 money.addAction(Actions.moveBy(0, -55, 1));
@@ -358,7 +358,7 @@ public class FuncionalityShop {
                 @Override
                 public void run() {
                     itemPrice.setText("" + item.getCashValue());
-                    itemPrice.setColor(Color.GOLD);
+                    itemPrice.setColor(Color.ORANGE);
                     itemPrice.setPosition(itemPrice.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND - 25);
                     money.setPosition(money.getX(), Screen.Shop.POS_Y_NEXT_BACKGROUND -15);
                 }

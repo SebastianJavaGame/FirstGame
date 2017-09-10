@@ -99,6 +99,7 @@ public class Enemy extends Character implements Cloneable{
     @Override
     public void collisionDo() {
         Compass.disapear();
+        Hero3D.setRenderHero3d(false);
 
         asset.loadEnemy();
         asset.manager.finishLoading();
@@ -148,6 +149,7 @@ public class Enemy extends Character implements Cloneable{
                     cancel.remove();
                     hero.setActiveMove(false);
                     hero.getGame().setScreen(new FightScreen(hero.getGame(), hero, enemy, true));
+                    Hero3D.setRenderHero3d(true);
                     return false;
                 }
             });
@@ -208,12 +210,12 @@ public class Enemy extends Character implements Cloneable{
                     magiaIcon.setTouchable(Touchable.disabled);
 
                     if(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +35 > 200) {
-                        lName.setPosition(BaseMap.VIEW_WIDTH / 2 -(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +5) /2, 377);
-                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 5, 377);
+                        lName.setPosition(BaseMap.VIEW_WIDTH / 2 -(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +5) /2, 367);
+                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 5, 367);
                     }
                     else {
-                        lName.setPosition(BaseMap.VIEW_WIDTH / 2 - (lName.getWidth() * 0.5f + lLevel.getWidth() * 0.5f + 35) / 2, 377);
-                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 35, 377);
+                        lName.setPosition(BaseMap.VIEW_WIDTH / 2 - (lName.getWidth() * 0.5f + lLevel.getWidth() * 0.5f + 35) / 2, 367);
+                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 35, 367);
                     }
                     lHp.setPosition(38, 110);
                     lArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 40, 110);
@@ -238,6 +240,7 @@ public class Enemy extends Character implements Cloneable{
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                             Compass.appear();
+                            Hero3D.setRenderHero3d(true);
                             lName.remove();
                             lLevel.remove();
                             lHp.remove();
@@ -270,6 +273,7 @@ public class Enemy extends Character implements Cloneable{
             cancel.addListener(new InputListener() {
                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {
                     Compass.appear();
+                    Hero3D.setRenderHero3d(true);
                     shadow.remove();
                     attackScreen.remove();
                     infoEnemy.remove();
