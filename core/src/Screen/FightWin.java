@@ -160,8 +160,8 @@ public class FightWin extends BaseScreen {
         lFull.setFontScale(0.4f);
 
         lExpText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExpText.getWidth()*0.9f /2, 440);
-        lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() *lenghtText / 2, BaseScreen.VIEW_HEIGHT *0.74f);
-        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.67f);
+        lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() *lenghtText / 2, BaseScreen.VIEW_HEIGHT *0.66f);
+        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.61f);
         lMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lMoney.getWidth()*0.8f /2, 238);
         lDrop.setPosition(BaseScreen.VIEW_WIDTH / 2 - lDrop.getWidth()*0.6f /2, 207);
         lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsDmgAverrage.getWidth()*0.5f /2, 69);
@@ -323,10 +323,10 @@ public class FightWin extends BaseScreen {
             TextureRegion texture = loadImage(minValue);
 
             emptyCircleProgressBar.setSize(screenX * texture.getRegionWidth(), screenY * texture.getRegionHeight());
-            emptyCircleProgressBar.setPosition(BaseScreen.VIEW_WIDTH / 2 - screenX * texture.getRegionWidth() / 2, BaseScreen.VIEW_HEIGHT * 0.583f);
+            emptyCircleProgressBar.setPosition(BaseScreen.VIEW_WIDTH / 2 - screenX * texture.getRegionWidth() / 2, BaseScreen.VIEW_HEIGHT * 0.535f);
 
             sprite = new ProgressCircle(texture, pbatch);
-            sprite.setPosition(width / 2 - sprite.getWidth() / 2, height * 0.583f);
+            sprite.setPosition(width / 2 - sprite.getWidth() / 2, height * 0.535f);
         } else {  //Desktop and others
             int width = Gdx.app.getGraphics().getWidth();
             int height = Gdx.app.getGraphics().getHeight();
@@ -336,7 +336,7 @@ public class FightWin extends BaseScreen {
 
             TextureRegion texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp320.png")));
             sprite = new ProgressCircle(texture, pbatch);
-            sprite.setPosition(screenX * width / 2 - sprite.getWidth() / 2, screenY * height * 0.583f);
+            sprite.setPosition(screenX * width / 2 - sprite.getWidth() / 2, screenY * height * 0.535f);
             emptyCircleProgressBar.setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         }
         addActors(emptyCircleProgressBar, lExp, lWordExp, sprite);

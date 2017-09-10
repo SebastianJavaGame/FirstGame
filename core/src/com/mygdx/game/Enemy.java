@@ -208,12 +208,12 @@ public class Enemy extends Character implements Cloneable{
                     magiaIcon.setTouchable(Touchable.disabled);
 
                     if(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +35 > 200) {
-                        lName.setPosition(BaseMap.VIEW_WIDTH / 2 -(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +5) /2, 327);
-                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 5, 327);
+                        lName.setPosition(BaseMap.VIEW_WIDTH / 2 -(lName.getWidth()*0.5f +lLevel.getWidth()*0.5f +5) /2, 377);
+                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 5, 377);
                     }
                     else {
-                        lName.setPosition(BaseMap.VIEW_WIDTH / 2 - (lName.getWidth() * 0.5f + lLevel.getWidth() * 0.5f + 35) / 2, 327);
-                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 35, 327);
+                        lName.setPosition(BaseMap.VIEW_WIDTH / 2 - (lName.getWidth() * 0.5f + lLevel.getWidth() * 0.5f + 35) / 2, 377);
+                        lLevel.setPosition(lName.getX() + lName.getWidth() * 0.5f + 35, 377);
                     }
                     lHp.setPosition(38, 110);
                     lArmor.setPosition(BaseMap.VIEW_WIDTH / 2 + 40, 110);
