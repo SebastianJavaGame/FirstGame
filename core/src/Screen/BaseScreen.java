@@ -45,7 +45,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
     public BaseScreen(Game g)
     {
-        try {
             game = g;
             camera = new OrthographicCamera();
             camera.setToOrtho(false, VIEW_WIDTH, VIEW_HEIGHT);
@@ -57,9 +56,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
 
             posX = 0;
             posY = 0;
-        } catch (Exception e) {
-            showException(e);
-        }
     }
 
     public abstract void create() throws CloneNotSupportedException;
@@ -74,90 +70,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
             stage.draw();
             update(dt);
-       // } catch (IllegalStateException e1){
-            //showException(e1);
-       // } catch (Exception e){
-           //showException(e);
-       // }
-
-        fps++;
-        ms += Gdx.graphics.getDeltaTime();
-        System.out.println(ms);
-        if(ms >= 10){
-            //System.out.println("------------");
-            //System.out.println("FPS: " + fps);
-            //System.out.println("------------");
-            fps = 0;
-            ms = 0;
-        }
-    }
-
-    public static void showException(Exception e){
-        int x = (int) -camera.position.x + BaseMap.VIEW_WIDTH / 2;
-        int y = (int) -camera.position.y + BaseMap.VIEW_HEIGHT / 2;
-        stage.clear();
-        Image image = new Image(new Texture(Gdx.files.internal("shadow.png")));
-        image.setBounds(x, y, BaseScreen.VIEW_WIDTH, BaseScreen.VIEW_HEIGHT);
-        stage.addActor(image);
-
-        String describe = e.toString();
-        int describeLength = describe.length();
-
-        String exceptionMessage = "Class: " + e.getStackTrace()[0].getClassName() +
-                "\n Method: " + e.getStackTrace()[0].getMethodName() + "\n Line: " +
-                e.getStackTrace()[0].getLineNumber() + "\n Describe: ";
-
-        int i = 0;
-        int lineLength = 40;
-        while(describeLength > lineLength){
-            describeLength -=lineLength;
-            exceptionMessage += "\n" + describe.substring(lineLength *i, lineLength + lineLength *i);
-            i++;
-        }
-
-        if(describeLength < lineLength)
-            exceptionMessage += "\n" + describe.substring(0, describeLength);
-
-        try{
-            BitmapFont font = new BitmapFont();
-            Label.LabelStyle style = new Label.LabelStyle();
-            style.font = font;
-            style.fontColor = new Color(Color.RED);
-
-            TextButton.TextButtonStyle styleError = new TextButton.TextButtonStyle();
-            styleError.font = font;
-            styleError.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("itemButton.png"))));
-
-            Label lTitle = new Label("Blad! 'Pokaz to tworcy'", style);
-            lTitle.setPosition(x +VIEW_WIDTH /2 -lTitle.getWidth(), y +460);
-            lTitle.setFontScale(2);
-
-            Label lMessage = new Label(exceptionMessage, style);
-
-            TextButton exit = new TextButton("Wyjdz", styleError);
-            exit.setPosition(x +VIEW_WIDTH /2 -exit.getWidth() /2, y +5);
-            exit.addListener(new InputListener(){
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.exit(0);
-                    return false;
-                }
-            });
-            lMessage.setPosition(x +10, y +exit.getY() +exit.getHeight());
-
-            stage.addActor(lTitle);
-            stage.addActor(lMessage);
-            stage.addActor(exit);
-
-            exception = true;
-
-        }catch(RuntimeException e1) {
-            MyGdxGame.dialog(exceptionMessage);
-        }
-
-        if(Gdx.app.getType() == Application.ApplicationType.Desktop){
-            e.printStackTrace();
-        }
     }
 
     public void resize(int width, int height) {
@@ -187,7 +99,6 @@ public abstract class BaseScreen implements Screen, InputProcessor{
     public boolean scrolled(int amount)
     {  return false;  }
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println(screenY + "y");
         return false;}
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {  return false;  }

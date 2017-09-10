@@ -101,13 +101,6 @@ public class Task {
         }
     }
 
-    /*private static void showPref(){
-        for(int i = 0; i < 3; i++){
-            System.out.println(PREF.getInteger("TASK" +i, -1));
-            System.out.println(PREF.getInteger("TASK" +i +"_PROGRESS", -1));
-        }
-    }*/
-
     public int getProgressPercent(){
         float actualStep = PREF.getInteger("TASK" +idTask + "_PROGRESS", 0);
         float endStep = BaseTask.getProgressMax(idTask);

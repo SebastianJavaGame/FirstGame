@@ -451,7 +451,6 @@ public class FightScreen extends BaseScreen {
         for(int i = 0; i < 6; i++){
             float duration = DURATION_ANIMATION[i];
             if(!stopAnimationRoundAttack) {
-                System.out.println(stopAnimationRoundAttack);
                 switch (randomHit[i]) {
                     case 1:
                         firstAttack(randomHit(physicsDmgEnemy, physicsProcentEnemy), physicsProcentEnemy, duration);
@@ -526,15 +525,11 @@ public class FightScreen extends BaseScreen {
                 }while (!end);
             }
         }
-        for (int num: number)
-            System.out.println(num);
         return number;
     }
 
     private int randomHit(final int dmg, final int procent){
         int fortune = MathUtils.random(1, 100);
-        System.out.println("dmg: " + dmg);
-        System.out.println(fortune + " " + procent + "%" + (fortune < procent));
         if(fortune > procent)
             return 0;
         else
@@ -781,7 +776,7 @@ public class FightScreen extends BaseScreen {
                     expMinus *= (temporary /100);
 
                     musicBattle.stop();
-                    game.setScreen(new FightLose(game, hero, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), -1000, -(int)expMinus));//TODO set minus gold
+                    game.setScreen(new FightLose(game, hero, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), -1000, -(int)expMinus));
                 }
             })));
         }
@@ -815,14 +810,11 @@ public class FightScreen extends BaseScreen {
                     int sizeListDropItem = enemy.getDropItem().size();
                     String dropItemName = "";
 
-                    System.out.println(sizeListDropItem + "size");
 
                     if(sizeListDropItem > 0) {
                         float chanceOnDrop = enemy.getRandomDrop();
                         chanceOnDrop *= 20;
                         temporary = MathUtils.random(0, 999) + MathUtils.random(0, 999);
-                        System.out.println(temporary +" procent wylosowany");
-                        System.out.println(chanceOnDrop +" procent szans");
                         if((int)temporary <= (int)chanceOnDrop) {
                             temporary = MathUtils.random(0, sizeListDropItem - 1);
                             dropItemName = enemy.getDropItem().get((int)temporary);
@@ -856,15 +848,6 @@ public class FightScreen extends BaseScreen {
             int actualPoint3 = Integer.parseInt(labelPointFight[3].getText().toString());
 
             int sume = freePointFight +actualPoint0 +actualPoint1 +actualPoint2 +actualPoint3;
-            System.out.println(sume);
-
-            if(sume > 10)
-                try {
-                    throw new MyException();
-                } catch (MyException e) {
-                    BaseScreen.showException(e);
-                    e.printStackTrace();
-                }
 
             if(sume > 5) {
                 animateEnergyMinusPoint(true);
@@ -972,32 +955,13 @@ public class FightScreen extends BaseScreen {
         float heroCellDefense = pointTable(3, true) *(float)hero.getDefenseMagEq();
         float procent = enemyCellAttack /(enemyCellAttack + heroCellDefense) *100;
 
-        System.out.println("Procent enemy to hero - Magic");
-        System.out.println("enemy point: " + pointTable(enemyAiStats[2], false) *100 + "%");
-        System.out.println("hero point: " + pointTable(3, true) *100 + "%");
-        System.out.println("enemy attack: " + enemy.getDefenseMagic());
-        System.out.println("hero defense: " + hero.getDefenseMagEq());
-        System.out.println("enemy procent: " + enemyCellAttack);
-        System.out.println("hero procent: " + heroCellDefense);
-        System.out.println("F: " + procent + " I: " + (int)procent);
-        System.out.println("-----------------------------------------------");
-
         return (int)procent;
     }
 
     private int calculateMagicDmgEnemy() {
         float dmg = enemy.getWiedza() *((100 +(float)enemy.getLevel()*2) /100) *2.5f;
 
-        System.out.println("Dmg enemy to hero - Magic");
-        System.out.println("enemy wiedza: " + enemy.getWiedza());
-        System.out.println("enemy level hit: " + (100 +(float)enemy.getLevel()*2) + "%");
-        System.out.println("Dmg none armor: " + dmg);
-
         dmg -= dmg *((float)hero.getArmor() /100);
-
-        System.out.println("Armor: " + hero.getArmor() + "%");
-        System.out.println("Final DMG: F: " + dmg + " I: " + (int)dmg);
-        System.out.println("-----------------------------------------------");
 
         return (int)dmg;
     }
@@ -1007,32 +971,14 @@ public class FightScreen extends BaseScreen {
         float enemyCellDefense = pointTable(enemyAiStats[3], false) *(float)enemy.getDefenseMagic();
         float procent = heroCellAttack /(heroCellAttack + enemyCellDefense) *100;
 
-        System.out.println("Procent hero to enemy - Magic");
-        System.out.println("hero point: " + pointTable(2, true) *100 + "%");
-        System.out.println("enemy point: " + pointTable(enemyAiStats[3], false) *100 + "%");
-        System.out.println("hero attack: " + hero.getDefenseMagEq());
-        System.out.println("enemy defense: " + enemy.getDefenseMagic());
-        System.out.println("hero procent: " + heroCellAttack);
-        System.out.println("enemy procent: " + enemyCellDefense);
-        System.out.println("F: " + procent + " I: " + (int)procent);
-        System.out.println("-----------------------------------------------");
-
         return (int)procent;
     }
 
     private int calculateMagicDmgHero() {
         float dmg = hero.getWiedzaEq() *((100 +(float)hero.getLevel()*2) /100) *2.5f;
 
-        System.out.println("Dmg hero to enemy - Magic");
-        System.out.println("hero wiedza: " + hero.getWiedzaEq());
-        System.out.println("hero level hit: " + (100 +(float)hero.getLevel()*2) + "%");
-        System.out.println("Dmg none armor: " + dmg);
 
         dmg -= dmg *((float)enemy.getArmor() /100);
-
-        System.out.println("Armor: " + enemy.getArmor() + "%");
-        System.out.println("Final DMG: F: " + dmg + " I: " + (int)dmg);
-        System.out.println("-----------------------------------------------");
 
         float temporary = MathUtils.random(-12, 12);
         temporary = (100 +temporary) /100;
@@ -1046,32 +992,13 @@ public class FightScreen extends BaseScreen {
         float heroCellDefense = pointTable(1, true) *(float)hero.getDefenseFizEq();
         float procent = enemyCellAttack /(enemyCellAttack + heroCellDefense) *100;
 
-        System.out.println("Procent enemy to hero");
-        System.out.println("enemy point: " + pointTable(enemyAiStats[0], false) *100 + "%");
-        System.out.println("hero point: " + pointTable(1, true) *100 + "%");
-        System.out.println("enemy attack: " + enemy.getDefensePhysics());
-        System.out.println("hero defense: " + hero.getDefenseFizEq());
-        System.out.println("enemy procent: " + enemyCellAttack);
-        System.out.println("hero procent: " + heroCellDefense);
-        System.out.println("F: " + procent + " I: " + (int)procent);
-        System.out.println("-----------------------------------------------");
-
         return (int)procent;
     }
 
     private int calculatePhysicsDmgEnemy() {
         float dmg = enemy.getStrong() *((100 +(float)enemy.getLevel()) /100) *2;
 
-        System.out.println("Dmg enemy to hero");
-        System.out.println("enemy strong: " + enemy.getStrong());
-        System.out.println("enemy level hit: " + (100 +(float)enemy.getLevel()) + "%");
-        System.out.println("Dmg none armor: " + dmg);
-
         dmg -= dmg *((float)hero.getArmor() /100);
-
-        System.out.println("Armor: " + hero.getArmorEq() + "%");
-        System.out.println("Final DMG: F: " + dmg + " I: " + (int)dmg);
-        System.out.println("-----------------------------------------------");
 
         return (int)dmg;
     }
@@ -1081,32 +1008,13 @@ public class FightScreen extends BaseScreen {
         float enemyCellDefense = pointTable(enemyAiStats[1], false) *(float)enemy.getDefensePhysics();
         float procent = heroCellAttack /(heroCellAttack + enemyCellDefense) *100;
 
-        System.out.println("Procent hero to enemy");
-        System.out.println("hero point: " + pointTable(0, true) *100 + "%");
-        System.out.println("enemy point: " + pointTable(enemyAiStats[1], false) *100 + "%");
-        System.out.println("hero attack: " + hero.getDefenseFizEq());
-        System.out.println("enemy defense: " + enemy.getDefensePhysics());
-        System.out.println("hero procent: " + heroCellAttack);
-        System.out.println("enemy procent: " + enemyCellDefense);
-        System.out.println("F: " + procent + " I: " + (int)procent);
-        System.out.println("-----------------------------------------------");
-
         return (int)procent;
     }
 
     private int calculatePhysicsDmgHero() {
         float dmg = hero.getStrongEq() *((100 +(float)hero.getLevel()) /100) *2;
 
-        System.out.println("Dmg hero to enemy");
-        System.out.println("hero strong: " + hero.getStrongEq());
-        System.out.println("hero level hit: " + (100 +(float)hero.getLevel()) + "%");
-        System.out.println("Dmg none armor: " + dmg);
-
         dmg -= dmg *((float)enemy.getArmor() /100);
-
-        System.out.println("Armor: " + enemy.getArmor() + "%");
-        System.out.println("Final DMG: F: " + dmg + " I: " + (int)dmg);
-        System.out.println("-----------------------------------------------");
 
         float temporary = MathUtils.random(-12, 12);
         temporary = (100 +temporary) /100;
@@ -1122,26 +1030,19 @@ public class FightScreen extends BaseScreen {
         int random;
         if(pointFightEnemy > 8) {
             random = MathUtils.random(0, 3);
-            System.out.println("random" + random);
         }else{
             random = MathUtils.random(0, 2);
-            System.out.println("random" + random);
         }
 
         if((enemyPercentHp -heroPercentHp) >= 20) {
-            System.out.println("ATTACK");
             return BaseEnemyAI.getEnemyAIPoint(2, pointFightEnemy, random);
         }
         else if((enemyPercentHp - heroPercentHp) < 20 && (enemyPercentHp -heroPercentHp) > -20) {
-            System.out.println("NORMAL");
             return BaseEnemyAI.getEnemyAIPoint(1, pointFightEnemy, random);
         }
         else if ((enemyPercentHp -heroPercentHp) < -20) {
-            System.out.println("Defense");
             return BaseEnemyAI.getEnemyAIPoint(0, pointFightEnemy, random);
         }
-        else
-            System.out.println("ERROR NOT CHANGE SETTING POINT FIGHT");
 
         return new int[]{2, 3, 3, 2};
     }
@@ -1149,7 +1050,6 @@ public class FightScreen extends BaseScreen {
     private float pointTable(int i, boolean heroBoolean) {
         if(heroBoolean)
             i = Integer.parseInt(labelPointFight[i].getText().toString());
-        //TODO set % values count point
         switch (i){
             case 1:
                 return 0.7f;

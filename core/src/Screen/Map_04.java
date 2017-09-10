@@ -318,7 +318,7 @@ public class Map_04 extends BaseMap {
 
         stage.addActor(bgTexture);
 
-        mapView = new Image(new Texture("map04View.jpg"));//TODO
+        mapView = new Image(new Texture("map04View.jpg"));
         mapName = NAME;
 
         objectPolygon = objectCollision;

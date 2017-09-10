@@ -308,7 +308,6 @@ public class FightLose extends BaseScreen {
                         slotNr = i;
                     }
                 } catch (CloneNotSupportedException e) {
-                    BaseScreen.showException(e);
                 }
             }
         }
@@ -408,8 +407,8 @@ public class FightLose extends BaseScreen {
         else if (minValue > 510 && minValue <= 600)
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp540.png")));
         else if (minValue > 600 && minValue <= 750)
-            texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp720.png")));//TODO optimalize choose 720 or 768 and save to two resolution screen
-        else if (minValue > 750 && minValue <= 790)                       //TODO reschear all image and look at resolution x,y sometimes two images have the same resolution
+            texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp720.png")));
+        else if (minValue > 750 && minValue <= 790)
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp768.png")));
         else if (minValue > 790 && minValue <= 950)
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp800.png")));

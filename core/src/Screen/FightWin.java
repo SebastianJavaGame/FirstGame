@@ -445,7 +445,6 @@ public class FightWin extends BaseScreen {
             for (int i = 2; i >= 0; i--) {
                 for (int j = 0; j < 6; j++) {
                     if (slotNr == slot) {
-                        //TODO add in menu screen seting and set true/false this bit code, becouse you show testers how look error
                     Equipment.slotEmpty = new boolean[18];
                     for (int k = 0; k < 18; k++) {
                         if (!prefItem.getString("SLOT" + k, "").equals(""))
@@ -453,7 +452,6 @@ public class FightWin extends BaseScreen {
                         else
                             Equipment.slotEmpty[k] = false;
                     }
-                    //TODO #end
                         Equipment.slotEmpty[slotNr] = true;
                         prefItem.putString("SLOT" + slotNr, item);
                         prefItem.flush();
@@ -463,7 +461,6 @@ public class FightWin extends BaseScreen {
                 }
             }
         }catch (Exception e) {
-            BaseScreen.showException(e);
         }
     }
 
@@ -478,8 +475,8 @@ public class FightWin extends BaseScreen {
         else if (minValue > 510 && minValue <= 600)
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp540.png")));
         else if (minValue > 600 && minValue <= 750)
-            texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp720.png")));//TODO optimalize choose 720 or 768 and save to two resolution screen
-        else if (minValue > 750 && minValue <= 790)                       //TODO reschear all image and look at resolution x,y sometimes two images have the same resolution
+            texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp720.png")));
+        else if (minValue > 750 && minValue <= 790)
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp768.png")));
         else if (minValue > 790 && minValue <= 950)
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp800.png")));

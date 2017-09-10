@@ -62,7 +62,7 @@ public class DialogNpc {
 
         BACKGROUND.setSize(270, 400);
         BACKGROUND.setPosition((BaseScreen.VIEW_WIDTH -BACKGROUND.getWidth()) /2, 360 -345);
-        UP_LABEL.setSize(BACKGROUND.getWidth() +20, UP_LABEL.getHeight());//TODO upLabel add background convert to one object
+        UP_LABEL.setSize(BACKGROUND.getWidth() +20, UP_LABEL.getHeight());//lTODO upLabel add background convert to one object
         UP_LABEL.setPosition(BACKGROUND.getX() -15, 370);
         CLOSE_BUTTON.setSize(60, 60);
         CLOSE_BUTTON.setPosition(BaseScreen.VIEW_WIDTH -CLOSE_BUTTON.getWidth() +1, UP_LABEL.getY() -6);
@@ -114,7 +114,6 @@ public class DialogNpc {
         }
 
         if(BaseTask.isComplete(npc.getIdTask())) {
-            //TODO change second parameter in base on task event
             if(taskReward != -1) {
                 fieldTextList[3] = new FieldDialogue(npc.getId(), taskReward);
                 setListener(3, taskReward);
@@ -171,7 +170,6 @@ public class DialogNpc {
                 try {
                     throw new MyException();
                 } catch (MyException e) {
-                    BaseScreen.showException(e);
                     e.printStackTrace();
                 }
                 break;

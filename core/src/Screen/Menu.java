@@ -231,13 +231,16 @@ public class Menu extends BaseScreen {
         Preferences prefTask = Gdx.app.getPreferences(Quest.PREF_TASK);
         Preferences prefFight = Gdx.app.getPreferences(Equipment.PREF_NAME_FIGHT);
         Preferences prefList = Gdx.app.getPreferences(Compass.LIST);
+        Preferences prefEqSave = Gdx.app.getPreferences(MyGdxGame.PREF_EQ_SAVE);
 
         prefStats.clear();
         prefEq.clear();
         prefTask.clear();
         prefFight.clear();
         prefList.clear();
+        prefEqSave.clear();
 
+        prefEqSave.flush();
         prefStats.flush();
         prefEq.flush();
         prefTask.flush();
@@ -289,7 +292,6 @@ public class Menu extends BaseScreen {
                 try {
                     throw new MyException();
                 } catch (MyException e) {
-                    BaseScreen.showException(e);
                     e.printStackTrace();
                 }
                 break;

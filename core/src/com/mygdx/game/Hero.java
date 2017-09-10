@@ -181,7 +181,6 @@ public class Hero extends Character {
         if(experience <= getMaxExp())
             setExp(experience);
         else {
-            System.out.println("ERROR #1: 'exp is bigger to max exp'");
             int calculate = experience -ExperienceRequired.getMaxExperience(getLevel());
             while(calculate > ExperienceRequired.getMaxExperience(getLevel())) {
                 setLevel(getLevel() + 1);
@@ -210,7 +209,6 @@ public class Hero extends Character {
             throw new MyException();
         } catch (MyException e) {
             e.printStackTrace();
-            BaseScreen.showException(e);
         }
     }
 
@@ -316,7 +314,6 @@ public class Hero extends Character {
                     throw new MyException();
                 } catch (MyException e) {
                     e.printStackTrace();
-                    BaseScreen.showException(e);
                 }
             }
         } else
@@ -677,7 +674,6 @@ public class Hero extends Character {
         setLevel(getLevel() + 1);
         setMaxExp(ExperienceRequired.getMaxExperience(getLevel()));
         setPoint(getPoint() +6);
-        System.out.println(getPoint() + "point");
         BaseMap.addRedLight();
         Bag.addRedLight(1);
     }
@@ -806,11 +802,6 @@ public class Hero extends Character {
         Vector2 o3 = new Vector2(other.getX() +other.getWidth(), other.getY() +other.getHeight());
         o4 = new Vector2(other.getX(), other.getY() +other.getHeight());
 
-        //temporaryListVector.add(o1);
-        //temporaryListVector.add(o2);
-        //temporaryListVector.add(o3);
-        //temporaryListVector.add(o4);
-
         int indexCorner = 0;
         cornersHero[0] = null;
         cornersHero[1] = null;
@@ -863,13 +854,6 @@ public class Hero extends Character {
                 return true;
             }
         }
-
-        //throw ExceptionCollision
-        //if(hero.getX() +hero.getWidth() <= o4.y && hero.getX() +hero.getWidth() >= o4.x && hero.getY() +hero.getHeight() /2 <= o2.x && hero.getY() +hero.getHeight() /2 >= o2.y)
-        //    return true;
-        //if(hero.getX() <= o3.x && hero.getY() +hero.getHeight() /2 <= o3.y && hero.getX() >= o1.x && hero.getY() +hero.getHeight() /2 >= o1.y)
-        //    return true;
-
         return temporaryValue;
     }
 
@@ -1025,7 +1009,6 @@ public class Hero extends Character {
                         try {
                             throw new MyException();
                         } catch (MyException e) {
-                            BaseScreen.showException(e);
                             e.printStackTrace();
                         }
                         break;

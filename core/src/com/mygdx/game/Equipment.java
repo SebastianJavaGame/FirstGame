@@ -295,7 +295,7 @@ public class Equipment{
                     imageAddListener(item, item.getImage(), item.getPathImage());
                     slotEmpty[slotNr] = true;
 
-                    PREF_ITEMS.putString("SLOT" + slotNr, item.getItemKey());//TODO delete those two line and test are it work
+                    PREF_ITEMS.putString("SLOT" + slotNr, item.getItemKey());
                     PREF_ITEMS.flush();
 
                     card.addActor(item.getImage());
@@ -303,9 +303,6 @@ public class Equipment{
                 }
                 slotNr++;
             }
-        }
-        if(slotNr == 18){
-            //TODO show message by fight about bag is full
         }
     }
 
@@ -498,7 +495,6 @@ public class Equipment{
 
                     switch (item.getStan()) {
                         case BAG:
-                            System.out.println("BAG");
                             try {
                                 if (!PREF_ITEMS.getString(item.getItemType().toString()).equals("")) {
                                     backgroundDown = new Image(asset.manager.get("statsBackground.png", Texture.class));
@@ -658,16 +654,11 @@ public class Equipment{
                                                     column = 2;
                                                 int slotNr = column * 6 + row;
 
-                                                System.out.println(PREF_ITEMS.getString("WAPON"));
-
                                                 updatePositionFitIn(item);
                                                 slotEmpty[slotNr] = false;
                                                 PREF_ITEMS.putString("SLOT" + slotNr, "");
                                                 PREF_ITEMS.flush();
                                                 updateStats();
-
-                                                System.out.println(PREF_ITEMS.getString("WAPON"));
-                                                System.out.println(blockEmpty[4]);
 
                                                 removeAll();
                                                 soundEquipment.play(0.5f);
@@ -718,7 +709,6 @@ public class Equipment{
                             } catch (CloneNotSupportedException e) {
                             }
                         case HUMAN:
-                            System.out.println("HUMAN");
                             takeOff.setBounds(0, 190, BaseMap.VIEW_WIDTH / 2, 50);
                             takeOff.addListener(new InputListener() {
                                 public boolean touchDown(InputEvent ev, float x, float y, int pointer, int button) {

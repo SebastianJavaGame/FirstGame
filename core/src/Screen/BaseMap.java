@@ -183,18 +183,6 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             stageCard.draw();
         }
 
-        //testRender.draw();
-        //for(Character c: charactersList)
-        //   RenderCollisionLine_Test.drawPublic(c.getCollision());
-        //for(Rectangle r: entriaceToMapRectangle)
-        // RenderCollisionLine_Test.drawPublic(r);
-
-        //for(Vector2 v: Hero.temporaryListVector)
-        //RenderCollisionLine_Test.drawPointSquare(v);
-
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
-            System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
-
         if(hero.isMoveStop())
             hero.objectCollision();
 
@@ -231,11 +219,6 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             preferences.putInteger("POS_X", (int) hero.getX()).flush();
             preferences.putInteger("POS_Y", (int) hero.getY()).flush();
         }
-    }
-
-    public void clearCharacterList(){
-        charactersList.clear();
-        //TODO if enemy not desapeare with map try change this method to static and enemyList with this class too
     }
 
     private void initializeUiStage(){
@@ -378,8 +361,6 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("x: " + screenX);
-        System.out.println("y: " + screenY);
         if(!stopGame && !stopGameTwo && !Hero.getActiveMove()) {
             screenX /= realWidth;
             screenY /= realHeight;

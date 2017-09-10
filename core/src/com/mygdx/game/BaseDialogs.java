@@ -42,7 +42,7 @@ public class BaseDialogs {
         TEXT[0][19] = " Nie wiem jak tu się znalazłeś i skąd wogóle wiesz o tym miejscu widziałem tylko jak samotnie dryfujesz nieprzytomny na łódce.";
         TEXT[0][20] = " Rozsądniej będzię gdy wrócisz skąd przybyłeś i zapomnisz o tym miejscu.";
         TEXT[0][21] = " Sam tego chciałeś. Jest to wyspa zwana sześcioma żywiołami...";
-        TEXT[0][22] = " Są tu krainy Toksyczna zieleń, Ogniste Piaski";//TODO  Dodać nazwy krain
+        TEXT[0][22] = " Są tu krainy Toksyczna zieleń, Ogniste Piaski i Lodowa odchłań";
         TEXT[0][23] = " Zło którego nie jesteś w stanie sobie wyobrazić dlatego będzie lepiej jak stąd odpłyniesz.";
         TEXT[0][24] = " Nie jestem tu sam staramy się walczyć ze złem ale jest coraz gorzej. Upadamy";
         TEXT[0][25] = " Widzę że mężny z ciebie człowiek lecz to za mało";
@@ -604,8 +604,6 @@ public class BaseDialogs {
     }
 
     public static String getText(int indexFirst, int indexSecond){
-        System.out.println(indexFirst);
-        System.out.println(indexSecond);
         return TEXT[indexFirst][indexSecond];
     }
 

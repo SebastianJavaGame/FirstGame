@@ -23,7 +23,7 @@ public class MapBoss_01 extends BaseMap {
     public static final int STARTING_POS_X = 250;
     public static final int STARTING_POS_Y = 350;
     private static final Image bgFight = new Image(new Texture(Gdx.files.internal("zielen.jpg")));
-    public static final int DEAD_POS_X = 350; //TODO all boss map
+    public static final int DEAD_POS_X = 350;
     public static final int DEAD_POS_Y = 350;
     private static Image mapImage;
     private static int mapWidth;
@@ -132,7 +132,7 @@ public class MapBoss_01 extends BaseMap {
         enemies[5][5].setPosition(699, reversePosYBoss(483));
         enemies[5][6].setPosition(794, reversePosYBoss(557));
 
-        //Group 7//TODO boss and all position
+        //Group 7
         countEnemy = 1;
         enemies[6] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
@@ -165,7 +165,6 @@ public class MapBoss_01 extends BaseMap {
         entriaceToMapRectangle.add(new Rectangle(150, 217, 200, 100));
         indexToLoadNextMap.add(1);
         entriencesPosition.add(new Vector2(2005, 1909));
-        //TODO above npc
         //
     }
 
@@ -194,7 +193,7 @@ public class MapBoss_01 extends BaseMap {
 
         stage.addActor(bgTexture);
 
-        mapView = new Image(new Texture("map01BossView.jpg"));//TODO
+        mapView = new Image(new Texture("map01BossView.jpg"));
         mapName = NAME;
 
         objectPolygon = objectCollision;

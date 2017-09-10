@@ -100,8 +100,6 @@ public class Compass {
                     Hero3D.setRenderHero3d(true);
                     BaseMap.setStopGameTwo(false);
                 }
-
-                //TODO create class list and view map
                 return false;
 
             }

@@ -117,7 +117,6 @@ public class Quest {
                         try {
                             throw new MyException();
                         } catch (MyException e) {
-                            BaseScreen.showException(e);
                             e.printStackTrace();
                         }
                     }

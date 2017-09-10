@@ -110,7 +110,6 @@ public class Shop extends BaseScreen{
                     try {
                         FuncionalityShop.addItemToBag(LoadAllItemToGame.getItem(value), i);
                     } catch (CloneNotSupportedException e) {
-                        BaseScreen.showException(e);
                         e.printStackTrace();
                     }
                 else
@@ -251,9 +250,7 @@ public class Shop extends BaseScreen{
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {//TODO to delete
-        System.out.println(screenX);
-        System.out.println(screenY);
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         return super.touchDown(screenX, screenY, pointer, button);
     }
 

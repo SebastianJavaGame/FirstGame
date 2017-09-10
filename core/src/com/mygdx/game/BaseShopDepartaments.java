@@ -479,9 +479,6 @@ public class BaseShopDepartaments {
             items[i] = itemName;
         }
 
-        for(String s:items)
-            System.out.println(s);
-
         return items;
     }
 }

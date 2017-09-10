@@ -130,7 +130,7 @@ public class MapBoss_02 extends BaseMap {
         enemies[5][5].setPosition(579, reversePosYBoss(739));
         enemies[5][6].setPosition(909, reversePosYBoss(689));
 
-        //Group 7//TODO boss and all position
+        //Group 7
         countEnemy = 1;
         enemies[6] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
@@ -182,7 +182,7 @@ public class MapBoss_02 extends BaseMap {
 
             bgTexture.setSize(mapWidth, mapHeight);
 
-            mapView = new Image(new Texture("map02BossView.jpg"));//TODO
+            mapView = new Image(new Texture("map02BossView.jpg"));
             mapName = NAME;
 
             addEnemyToMap();

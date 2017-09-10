@@ -125,7 +125,7 @@ public class FuncionalityShop {
             asset.loadFunctionalityShop();
             asset.manager.finishLoading();
             if (asset.manager.update()) {
-                removeAllShop(); //TODO removeAllBag
+                removeAllShop();
                 firstClick = false;
 
                 int row = (int) (item.getImage().getX() - 10) / 50;

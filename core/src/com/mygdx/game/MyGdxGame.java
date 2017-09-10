@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import Screen.Menu;
 
 public class MyGdxGame extends Game{
+    public static final String PREF_EQ_SAVE = "START";
     private static DialogInfo dialogInfo;
 
     public MyGdxGame(DialogInfo dialogInfo){
@@ -41,15 +42,8 @@ public class MyGdxGame extends Game{
         return font;
     }
 
-    public static BitmapFont createLargeFont(){
-        BitmapFont font = new BitmapFont(Gdx.files.internal("font/largeFont.fnt"));
-        return font;
-    }
-
     public static void loadDefaultEq(){
-        Preferences firstLoad = Gdx.app.getPreferences("START");
-        firstLoad.clear(); //TODO delete if first load must be starting during first play
-        firstLoad.flush();
+        Preferences firstLoad = Gdx.app.getPreferences(PREF_EQ_SAVE);
         if(firstLoad.getString("FIRST").equals("")) {
             Preferences prefEq = Gdx.app.getPreferences(Equipment.PREF_NAME_EQ);
             prefEq.putString("ARMOR", "armor1");
@@ -63,13 +57,8 @@ public class MyGdxGame extends Game{
             prefEq.putString("SLOT0", "rekawice1");
             prefEq.flush();
 
-            Preferences prefStats = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
-            //prefStats.clear();
-            //prefStats.putInteger("FREE_POINT", 6).flush();
-
             firstLoad.putString("FIRST", "IS LOAD");
             firstLoad.flush();
         }
-        //TODO delete all and load in hero... with default values
     }
 }

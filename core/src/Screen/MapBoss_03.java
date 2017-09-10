@@ -130,7 +130,7 @@ public class MapBoss_03 extends BaseMap {
         enemies[5][5].setPosition(565, reversePosYBoss(411));
         enemies[5][6].setPosition(471, reversePosYBoss(669));
 
-        //Group 7//TODO boss and all position
+        //Group 7
         countEnemy = 1;
         enemies[6] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
@@ -183,7 +183,7 @@ public class MapBoss_03 extends BaseMap {
 
             bgTexture.setSize(mapWidth, mapHeight);
 
-            mapView = new Image(new Texture("map03BossView.jpg"));//TODO
+            mapView = new Image(new Texture("map03BossView.jpg"));
             mapName = NAME;
 
             addEnemyToMap();
@@ -219,16 +219,6 @@ public class MapBoss_03 extends BaseMap {
 
     private void addVerticalToObjectCollision(Vector2[] point){
         verticalCollision.add(point);
-    }
-
-    private Enemy addEnemy(String path, String head, String wapon, int x){
-        Enemy enemy = new Enemy(path, head, wapon, true, "Glomin", 5, 180, 8, 8, 16, 10, 8, 24.5f, 60, 70, 10);
-        enemy.setRectangle(0, 0, 0, 0);
-        enemy.setPosition(x, x);
-        //TODO if not equals null add item drop;     enemy.setDropItemName();
-        characters.add(enemy);
-        enemy.collisionUpdate();
-        return enemy;
     }
 
     public ArrayList<Character> getCharacter(){

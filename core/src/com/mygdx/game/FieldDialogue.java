@@ -111,11 +111,10 @@ public class FieldDialogue {
 
                 text += getText.substring(end, getText.length());
             } catch (Exception e) {
-                BaseScreen.showException(e);
                 e.printStackTrace();
             }
 
-            if (indexText < BaseDialogs.INDEX_LISTENER[idNpc].length)//TODO may be error
+            if (indexText < BaseDialogs.INDEX_LISTENER[idNpc].length)
                 label = new Label(text, STYLE_GREEN);
             else
                 label = new Label(text, STYLE_WHITE);
@@ -144,9 +143,6 @@ public class FieldDialogue {
         barHorizontalDown.setPosition(POSITION_X + 2, y - 5);
         label.setHeight((barHorizontalUp.getY() -barHorizontalDown.getY()) +8);
         label.setPosition(POSITION_X + 2, barHorizontalDown.getY() +2);
-
-        System.out.println(label.getHeight() + "getHeight label text");
-        System.out.println(barHorizontalUp.getY() - barHorizontalDown.getY() + "get Position Y");
 
         barVerticalLeft.setSize(barVerticalLeft.getWidth(), label.getHeight()*0.6f +10);
         barVerticalLeft.setPosition(POSITION_X -5, barHorizontalDown.getY());
@@ -223,18 +219,10 @@ public class FieldDialogue {
                 DialogNpc.removeAll();
                 Hero.setActiveMove(false);
                 Hero3D.setRenderHero3d(true);
-                //TODO add animation red migajace circle around icon bag
                 for(int i = 0;; i++){
-                    /*if(PREF.getInteger("TASK" +i) == idTask) {
-                       //TODO show communicate at map as new class
-                        System.out.println("inside");
-                        break;
-                    }*/
 
                     if(PREF.getInteger("TASK" + i, -1) == -1) {
                         PREF.putInteger("TASK" + i, idTask).flush();
-                        //PREF.putInteger("TASK" + i + "_PROGRESS", 1);
-                        System.out.println("put task");
                         break;
                     }
                 }

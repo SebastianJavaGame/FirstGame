@@ -127,8 +127,6 @@ public class Transaction {
                         if (value.equals("")) {
                             try {
                                 int money = preferencesStats.getInteger("MONEY");
-                                System.out.println("hero money= " + money);
-                                System.out.println("Item price= " + FuncionalityShop.getPrice());
                                 if (money >= FuncionalityShop.getPrice()) {
                                     soundShop.play();
                                     FuncionalityShop.animationEndTransaction("-" + FuncionalityShop.getPrice(), Color.RED);
@@ -154,14 +152,8 @@ public class Transaction {
                             }
                             break;
                         }
-                        if (i == 17) {//TODO TEST!
+                        if (i == 17) {
                             new InfoScreen("Brak pustego miejsca w ekwipunku", 2, stage);
-                            /*Label label = new Label("Brak pustego miejsca w ekwipunku", style);
-                            label.setFontScale(1);
-                            label.setPosition(BaseScreen.VIEW_WIDTH / 2 - label.getWidth() / 2, BaseScreen.VIEW_HEIGHT / 2);
-                            label.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.6f), Actions.delay(1), Actions.fadeOut(0.4f)));
-                            stage.addActor(label);
-                            */
                         }
                     }
                     return false;
@@ -206,7 +198,6 @@ public class Transaction {
                 try {
                     FuncionalityShop.addItemToShop(LoadAllItemToGame.getItem(value), i);
                 } catch (CloneNotSupportedException e) {
-                    BaseScreen.showException(e);
                     e.printStackTrace();
                 }
         }
