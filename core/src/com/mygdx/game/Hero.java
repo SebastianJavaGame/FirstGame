@@ -43,7 +43,7 @@ import Screen.Map_06;
  */
 
 public class Hero extends Character {
-    public final static int SPEED_MOVE = 35;
+    public final static int SPEED_MOVE = 120;//35;
     private Texture arm;
 
     private final Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
@@ -891,6 +891,7 @@ public class Hero extends Character {
                 /**
                  * i = indexToLoadMap
                  */
+                preferences.putInteger("HP", getHp()).flush();
                 preferences.putInteger("POS_X", (int) BaseMap.getEntriencesPosition().get(i).x).flush();
                 preferences.putInteger("POS_Y", (int) BaseMap.getEntriencesPosition().get(i).y).flush();
 

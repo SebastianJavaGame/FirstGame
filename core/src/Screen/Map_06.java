@@ -246,13 +246,13 @@ public class Map_06 extends BaseMap {
 
     @Override
     public void addNpcToMap() {
-        Npc npc15 = new Npc(new Texture(Gdx.files.internal("npc/16.png")), new Image(new Texture(Gdx.files.internal("npc/16h.png"))), "Bertrand", 90, 5, 11, 15);
+        Npc npc15 = new Npc(new Texture(Gdx.files.internal("npc/16.png")), new Image(new Texture(Gdx.files.internal("npc/16h.png"))), "Bertrand", 90, 5, 10, 15);
         npc15.setPosition(885, 522);
         characters.add(npc15);
         npc15.setRectangle(8, 2, -16, -8);
         npc15.collisionUpdate();
 
-        Npc npc16 = new Npc(new Texture(Gdx.files.internal("npc/17.png")), new Image(new Texture(Gdx.files.internal("npc/17h.png"))), "Nevil", 95, 5, 12, 16);
+        Npc npc16 = new Npc(new Texture(Gdx.files.internal("npc/17.png")), new Image(new Texture(Gdx.files.internal("npc/17h.png"))), "Nevil", 95, 5, 11, 16);
         npc16.setPosition(1388, 448);
         characters.add(npc16);
         npc16.setRectangle(8, 2, -16, -8);

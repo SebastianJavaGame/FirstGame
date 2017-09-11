@@ -179,7 +179,7 @@ public class FightScreen extends BaseScreen {
             }
 
             heroImage.setBounds(30, 175, BaseScreen.VIEW_WIDTH / 2 - 50, 190);
-            heroImage.setSize(heroImage.getWidth() *0.9f, heroImage.getHeight() *0.9f);
+            heroImage.setSize(heroImage.getWidth() *0.75f, heroImage.getHeight() *0.75f);
             enemyImage.setSize(enemy.getOryginalWidth()*0.8f, enemy.getOryginalHeight()*0.8f);
             targetX = (BaseScreen.VIEW_WIDTH / 2 - enemyImage.getWidth()) / 2 + BaseScreen.VIEW_WIDTH / 2;
             enemyImage.setPosition(targetX, 180);
@@ -814,10 +814,10 @@ public class FightScreen extends BaseScreen {
                     if(sizeListDropItem > 0) {
                         float chanceOnDrop = enemy.getRandomDrop();
                         chanceOnDrop *= 20;
-                        temporary = MathUtils.random(0, 999) + MathUtils.random(0, 999);
-                        if((int)temporary <= (int)chanceOnDrop) {
-                            temporary = MathUtils.random(0, sizeListDropItem - 1);
-                            dropItemName = enemy.getDropItem().get((int)temporary);
+                        int temporaryRandom = MathUtils.random(0, 999) + MathUtils.random(0, 999);
+                        if(temporaryRandom <= (int)chanceOnDrop) {
+                            int random = MathUtils.random(0, sizeListDropItem - 1);
+                            dropItemName = enemy.getDropItem().get(random);
                         }
                     }
 

@@ -102,7 +102,7 @@ public class BaseDialogs {
         TEXT[3][1] = " Nie, nie mam na to czasu.";
         TEXT[3][2] = " Wykonałem zadanie.";
         //npc
-        TEXT[3][3] = " Zaczekaj, pomóż mi zabić x x-name a wynagrodzę cię. Podejmujesz sie tego wyzwania?";
+        TEXT[3][3] = " Zaczekaj, pomóż mi zabić 5 Grykonów(poziom 21) a wynagrodzę cię. Podejmujesz sie tego wyzwania?";
         //
         //NPC #5
         //hero
@@ -115,19 +115,19 @@ public class BaseDialogs {
         TEXT[4][4] = " Wykonalem zadanie.";
         //npc
         TEXT[4][5] = " Rzucam ci wyzwanie podejmiesz się go?";
-        TEXT[4][6] = " Chodzi o zabicie x x-name";
+        TEXT[4][6] = " Chodzi o zabicie 6 Ognistych wilków(poziom 25)";
         //
         //NPC #6
         //hero
         STARTING_TEXT[5] = new int[]{5, 0, 1, -1, 4};
         TEXT[5] = new String[7];
         TEXT[5][0] = " Chciałbym coś kupić";
-        TEXT[5][1] = " Chcę się zmierzyć z 'Valmorgiem'";
+        TEXT[5][1] = " Chcę się zmierzyć z 'Mavenem'";
         TEXT[5][2] = " Zetnę mu głowę jestem tego pewien. Ruszajmy.";
         TEXT[5][3] = " Jednak zrezygnuję";
         TEXT[5][4] = " Wykonałem zlecenie";
         //npc
-        TEXT[5][5] = " Witaj, chcesz coś kupić czy wybrać się na spotkanie z 'Valmorgiem', jednym z mrocznej piątki czempionów?";
+        TEXT[5][5] = " Witaj, chcesz coś kupić czy wybrać się na spotkanie z 'Mavenem', jednym z mrocznej piątki czempionów?";
         TEXT[5][6] = " Mogę cię tam zabrać łódką, ale pamiętaj gdy zginiesz będziesz musiał wybić jego sługusów od początku";
         //
         //NPC #7
@@ -142,7 +142,7 @@ public class BaseDialogs {
         //npc
         TEXT[6][5] = " Czego tu szukasz?";
         TEXT[6][6] = " Każdy tak mówi, a większośc upada.";
-        TEXT[6][7] = " Tak, jeśli chcesz mi pomóc zabij x x-name.";
+        TEXT[6][7] = " Tak, jeśli chcesz mi pomóc zabij 5 Białych tarantul(poziom 35)";
         //
         //NPC #8
         //hero
@@ -155,27 +155,30 @@ public class BaseDialogs {
         TEXT[7][4] = " Wykonałem zadanie.";
         //npc
         TEXT[7][5] = " Mam asortyment na sprzedarz chcesz coś kupic?";
-        TEXT[7][6] = " Jeśli chcesz zarobić zabij x x-name.";
+        TEXT[7][6] = " Jeśli chcesz zarobić zabij 4 Wachlaczy(poziom 39)";
         //
         //NPC #9
         //hero
-        STARTING_TEXT[8] = new int[]{3, 0, 1, -1, 2};
-        TEXT[8] = new String[4];
+        STARTING_TEXT[8] = new int[]{3, 0, 1, -1, -1};
+        TEXT[8] = new String[3];
         TEXT[8][0] = " Upoluję go dla ciebie.";
         TEXT[8][1] = " To zbyt trudne dla mnie.";
-        TEXT[8][2] = " Wykonałem zadanie.";
         //npc
-        TEXT[8][3] = " Zatrzymaj się. Za moimi plecami jest jaskinia, znajduje się tam 'Quaregis' czwarty czempion z listy. Przynieś mi jego głowę a dostaniesz nagrodę";
+        TEXT[8][2] = " Zatrzymaj się. Za moimi plecami jest jaskinia, znajduje się tam 'Quaregis' czwarty czempion z listy";
         //
         //NPC #10
         //hero
-        STARTING_TEXT[9] = new int[]{3, 0, 1, -1, 2};
-        TEXT[9] = new String[4];
+        STARTING_TEXT[9] = new int[]{6, 0, 1, 2, 5};
+        TEXT[9] = new String[8];
         TEXT[9][0] = " Pokaż sprzęt.";
         TEXT[9][1] = " Innym razem coś kupię.";
-        TEXT[9][2] = " Wykonałem zadanie.";
+        TEXT[9][2] = " Masz dla mnie jakieś zadanie?";
+        TEXT[9][3] = " Zrobię to dla ciebie.";
+        TEXT[9][4] = " Rezygnuje, to zbyt trudne.";
+        TEXT[9][5] = " Wykonałem zadanie.";
         //npc
-        TEXT[9][3] = " Mogę ci zaoferować nowy sprzęt.";
+        TEXT[9][6] = " Mogę ci zaoferować nowy sprzęt.";
+        TEXT[9][7] = " Podejmij się dla mnie zabicia 7 Dinotopów(poziom 54)";
         //
         //NPC #11
         //hero
@@ -187,7 +190,7 @@ public class BaseDialogs {
         TEXT[10][3] = " Wykonałem zadanie.";
         //npc
         TEXT[10][4] = " Mam dla Ciebie zadanie specjalne.";
-        TEXT[10][5] = " Zabij x x-name.";
+        TEXT[10][5] = " Zabij 5 Bevterów(poziom 57)";
         //
         //NPC #12
         //hero
@@ -199,7 +202,7 @@ public class BaseDialogs {
         TEXT[11][3] = " Wykonałem zadanie.";
         //npc
         TEXT[11][4] = " Jesteś gotowy aby podjąć się kolejnego wyzwania?";
-        TEXT[11][5] = " Jest to trudne zadanie. Zabij x x-name.";
+        TEXT[11][5] = " Jest to trudne zadanie. Zabij 8 Kratherów(poziom 64)";
         //
         //NPC #13
         //hero
@@ -211,7 +214,7 @@ public class BaseDialogs {
         TEXT[12][3] = " Wykonałem zadanie.";
         //npc
         TEXT[12][4] = " Witaj, słyszałem o tobie. Podobno bardzo dobrze sobie radzisz.";
-        TEXT[12][5] = " Dlatego mam dla ciebie zadanie, Zabij x x-name.";
+        TEXT[12][5] = " Dlatego mam dla ciebie zadanie, Zabij 7 Cybrisów(poziom 71)";
         //
         //NPC #14
         //hero
@@ -224,7 +227,7 @@ public class BaseDialogs {
         TEXT[13][4] = " Wykonałem zadanie";
         //npc
         TEXT[13][5] = " Witaj bohhaterze, chcesz coś kupić? A może chcesz zarobić?";
-        TEXT[13][6] = " Musisz zabić x x-name, którzy kręcą się w pobliżu obozu.";
+        TEXT[13][6] = " Musisz zabić 5 Upadłych(poziom 75), którzy kręcą się w pobliżu obozu.";
         //
         //NPC #15
         //hero
@@ -237,7 +240,7 @@ public class BaseDialogs {
         TEXT[14][4] = " Wykonałem zadanie.";
         //npc
         TEXT[14][5] = " Zaczekaj, potrzebuje kogoś takiego jak ty.";
-        TEXT[14][6] = " Oczywiście chcę krwi. Przelej krew x x-name. ";
+        TEXT[14][6] = " Oczywiście chcę krwi. Przelej krew 4 Diabeuze(poziom 80)";
         //
         //NPC #16
         //hero
@@ -253,7 +256,7 @@ public class BaseDialogs {
         TEXT[15][7] = " Wykonałem zadanie.";
         //npc
         TEXT[15][8] = " Zatrzymaj się, nie idz dalej jeśli chcesz zachować życe.";
-        TEXT[15][9] = " Zabij x x-name, będzie to dobry sprawdzian twoich umiejętności.";
+        TEXT[15][9] = " Zabij 7 Hydr(poziom 87), będzie to dobry sprawdzian twoich umiejętności.";
         TEXT[15][10] = " Lodowa odchłań to kraina inna niż wszystkie, tu zło jest owiele potężniejsze i bardziej przebiegłe.";
         TEXT[15][11] = " Przygotuj się do tej walki, będzie ona wręcz najbardziej przerażająca, poleje się krew i bądz przygotowany na śmierć.";
         //
@@ -271,7 +274,7 @@ public class BaseDialogs {
         TEXT[16][7] = " Wykonałem zadanie.";
         //npc
         TEXT[16][8] = " Stój, Mam dla ciebie najtrudniejsze zadanie, któremu jeszcze nikt nie podołał";
-        TEXT[16][9] = " Zabij x x-name";
+        TEXT[16][9] = " Zabij 3 Xantessy(poziom 96)";
         TEXT[16][10] = " Tak, mam kilka epickich przedmiotów na miarę ciebie.";
     }
 
@@ -363,16 +366,17 @@ public class BaseDialogs {
         INDEX_OPTIONS[7][4] = new int[]{};
         //
         //NPC #9
-        INDEX_OPTIONS[8] = new int[3][];
+        INDEX_OPTIONS[8] = new int[2][];
         INDEX_OPTIONS[8][0] = new int[]{};
         INDEX_OPTIONS[8][1] = new int[]{};
-        INDEX_OPTIONS[8][2] = new int[]{};
         //
         //NPC #10
-        INDEX_OPTIONS[9] = new int[3][];
+        INDEX_OPTIONS[9] = new int[5][];
         INDEX_OPTIONS[9][0] = new int[]{};
         INDEX_OPTIONS[9][1] = new int[]{};
-        INDEX_OPTIONS[9][2] = new int[]{};
+        INDEX_OPTIONS[9][2] = new int[]{7, 3, 4};
+        INDEX_OPTIONS[9][3] = new int[]{};
+        INDEX_OPTIONS[9][4] = new int[]{};
         //
         //NPC #11
         INDEX_OPTIONS[10] = new int[4][];
@@ -532,16 +536,17 @@ public class BaseDialogs {
         INDEX_LISTENER[7][4] = 5;
         //
         //NPC #9
-        INDEX_LISTENER[8] = new int[3];
-        INDEX_LISTENER[8][0] = 3;
+        INDEX_LISTENER[8] = new int[2];
+        INDEX_LISTENER[8][0] = 1;
         INDEX_LISTENER[8][1] = 1;
-        INDEX_LISTENER[8][2] = 5;
         //
         //NPC #10
-        INDEX_LISTENER[9] = new int[3];
-        INDEX_LISTENER[9][0] = 3;
+        INDEX_LISTENER[9] = new int[5];
+        INDEX_LISTENER[9][0] = 2;
         INDEX_LISTENER[9][1] = 1;
-        INDEX_LISTENER[9][2] = 5;
+        INDEX_LISTENER[9][2] = 3;
+        INDEX_LISTENER[9][3] = 1;
+        INDEX_LISTENER[9][4] = 5;
         //
         //NPC #11
         INDEX_LISTENER[10] = new int[4];

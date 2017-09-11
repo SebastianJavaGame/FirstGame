@@ -142,7 +142,18 @@ public class Asset implements Disposable {
         manager.load("taskProgressBackground.png", Texture.class);
         manager.load("taskProgress.png", Texture.class);
         manager.load("buttonTaskCancel.png", Texture.class);
-
+        manager.load("enemy/map2/p3.png", Texture.class);
+        manager.load("enemy/map2/p5.png", Texture.class);
+        manager.load("enemy/map3/p2.png", Texture.class);
+        manager.load("enemy/map3/p4.png", Texture.class);
+        manager.load("enemy/map4/p3.png", Texture.class);
+        manager.load("enemy/map4/p5.png", Texture.class);
+        manager.load("enemy/map4/p9.png", Texture.class);
+        manager.load("enemy/map5/p5.png", Texture.class);
+        manager.load("enemy/map5/p7.png", Texture.class);
+        manager.load("enemy/map5/p10.png", Texture.class);
+        manager.load("enemy/map6/p3.png", Texture.class);
+        manager.load("enemy/map6/p8.png", Texture.class);
     }
 
     public void loadTransaction(){

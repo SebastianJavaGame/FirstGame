@@ -29,6 +29,7 @@ public class Task {
     private Image taskBackground;
     private Image taskProgressBackground;
     private Image taskProgressForefround;
+    private Image headIcon;
     public static final int MAX_PROGRESS_PERCENT = 264;
 
     private Label lNpcName;
@@ -56,6 +57,7 @@ public class Task {
 
             lNpcName = new Label(BaseTask.getNpcName(idTask), STYLE);
             lTarget = new Label(BaseTask.getTarget(idTask), STYLE);
+            headIcon = new Image(asset.manager.get(BaseTask.getPathTexture(idTask), Texture.class));
             lProgress = new Label("W toku   " + PREF.getInteger("TASK" + idTask + "_PROGRESS") + " / " + BaseTask.getProgressMax(idTask), STYLE);
             lNpcName.setFontScale(0.6f);
             lTarget.setFontScale(0.5f);
@@ -68,6 +70,10 @@ public class Task {
                     Menu.getSoundClick().play();
                     deleteTask(indexTask, idTask);
                     BaseTask.setTaskComplete(idTask, false);
+                    for(int i = 0; i < FieldDialogue.actualTask.size(); i++){
+                        if(FieldDialogue.actualTask.get(i) == idTask)
+                            FieldDialogue.actualTask.remove(i);
+                    }
                     return false;
                 }
             });
@@ -143,5 +149,9 @@ public class Task {
 
     public Image getTaskProgressForefround(){
         return taskProgressForefround;
+    }
+
+    public Image getHeadIcon(){
+        return headIcon;
     }
 }

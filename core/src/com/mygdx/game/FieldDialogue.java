@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+import java.util.ArrayList;
+
 import Screen.*;
 
 /**
@@ -26,6 +28,7 @@ public class FieldDialogue {
     private Image barVerticalRight;
     private Image barHorizontalUp;
     private Image barHorizontalDown;
+    public static ArrayList<Integer> actualTask;
     private final Stage STAGE = BaseMap.getStageUi();
     private static final BitmapFont FONT = MyGdxGame.createDistanceFont();
     private static final Label.LabelStyle STYLE_WHITE = new Label.LabelStyle();
@@ -39,6 +42,7 @@ public class FieldDialogue {
         STYLE_WHITE.font = FONT;
         STYLE_GREEN.font = FONT;
         STYLE_GREEN.fontColor = new Color(Color.OLIVE);
+        actualTask = new ArrayList<Integer>();
     }
 
     private static Label lExp;
@@ -220,9 +224,15 @@ public class FieldDialogue {
                 Hero.setActiveMove(false);
                 Hero3D.setRenderHero3d(true);
                 for(int i = 0;; i++){
+                    for(Integer a: actualTask)
+                        if (a == idTask)
+                            return false;
 
                     if(PREF.getInteger("TASK" + i, -1) == -1) {
                         PREF.putInteger("TASK" + i, idTask).flush();
+                        actualTask.add(idTask);
+                        BaseMap.addRedLight();
+                        Bag.addRedLight(2);
                         break;
                     }
                 }
@@ -260,6 +270,11 @@ public class FieldDialogue {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 textDialog.play(0.5f);
                 clearFieldDialogue();
+
+                for(int i = 0; i < actualTask.size(); i++){
+                    if(actualTask.get(i) == idTask)
+                        actualTask.remove(i);
+                }
 
                 for(int j = 0; j != -1; j++) {
                     if (PREF.getInteger("TASK" + j) == idTask) {

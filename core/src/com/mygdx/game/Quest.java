@@ -65,17 +65,19 @@ public class Quest {
             Task task = new Task(idTaskList.get(i), indexArray[i]);
             scrollTable.add(task.getTaskBackground());
             scrollTable.row();
-            scrollTable.add(task.getCancel()).padTop(-150).align(Align.right);
+            scrollTable.add(task.getCancel()).padTop(-375).align(Align.right).padLeft(-2);
             scrollTable.row();
-            scrollTable.add(task.getNpcName()).padTop(-150).padLeft((task.getProgress().getWidth() -task.getCancel().getWidth()) /2 -task.getNpcName().getWidth() -5);
+            scrollTable.add(task.getNpcName()).padTop(-400).padLeft((task.getProgress().getWidth() -task.getCancel().getWidth()) /2 -task.getNpcName().getWidth() -30);
             scrollTable.row();
-            scrollTable.add(task.getTarget()).padTop(-90);
+            scrollTable.add(task.getTarget()).padTop(-320);
             scrollTable.row();
             scrollTable.add(task.getTaskProgressBackground()).padTop(-20);
             scrollTable.row();
             scrollTable.add(task.getTaskProgressForefround()).padTop(-20).width(task.getProgressPercent()).expandX().align(Align.left);
             scrollTable.row();
-            scrollTable.add(task.getProgress()).padTop(-20);
+            scrollTable.add(task.getHeadIcon()).padTop(-170).size(task.getHeadIcon().getWidth() /2, task.getHeadIcon().getHeight() /2);
+            scrollTable.row().padTop(10);
+            scrollTable.add(task.getProgress()).padTop(-22);
             scrollTable.row().padTop(30);
         }
 

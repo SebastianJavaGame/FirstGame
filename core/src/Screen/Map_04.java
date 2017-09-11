@@ -227,19 +227,19 @@ public class Map_04 extends BaseMap {
 
     @Override
     public void addNpcToMap() {
-        Npc npc9 = new Npc(new Texture(Gdx.files.internal("npc/10.png")), new Image(new Texture(Gdx.files.internal("npc/10h.png"))), "Tumvill", 55, 3, 5, 9);
+        Npc npc9 = new Npc(new Texture(Gdx.files.internal("npc/10.png")), new Image(new Texture(Gdx.files.internal("npc/10h.png"))), "Tumvill", 55, 3, 4, 9);
         npc9.setPosition(937, 1075);
         characters.add(npc9);
         npc9.setRectangle(8, 2, -16, -8);
         npc9.collisionUpdate();
 
-        Npc npc10 = new Npc(new Texture(Gdx.files.internal("npc/11.png")), new Image(new Texture(Gdx.files.internal("npc/11h.png"))), "Simza", 57, 3, 6, 10);
+        Npc npc10 = new Npc(new Texture(Gdx.files.internal("npc/11.png")), new Image(new Texture(Gdx.files.internal("npc/11h.png"))), "Simza", 57, 3, 5, 10);
         npc10.setPosition(1031, 1473);
         characters.add(npc10);
         npc10.setRectangle(8, 2, -16, -8);
         npc10.collisionUpdate();
 
-        Npc npc11 = new Npc(new Texture(Gdx.files.internal("npc/12.png")), new Image(new Texture(Gdx.files.internal("npc/12h.png"))), "Tahar", 64, 3, 7, 11);
+        Npc npc11 = new Npc(new Texture(Gdx.files.internal("npc/12.png")), new Image(new Texture(Gdx.files.internal("npc/12h.png"))), "Tahar", 64, 3, 6, 11);
         npc11.setPosition(1944, 1626);
         characters.add(npc11);
         npc11.setRectangle(8, 2, -16, -8);
