@@ -183,6 +183,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
             stageCard.draw();
         }
 
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
+            System.out.println("Hero: " + (hero.getX() + hero.getWidth() /2) + " " + (hero.getY() + hero.getHeight() /2));
+
         if(hero.isMoveStop())
             hero.objectCollision();
 

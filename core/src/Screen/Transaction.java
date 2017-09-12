@@ -227,7 +227,7 @@ public class Transaction {
         iMoneyLeft.setPosition(lMoneyLeft.getX() + lMoneyLeft.getWidth()*0.5f + 5, lMoneyLeft.getY() +8);
 
         lTextRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lTextRight.getWidth()*0.5f /2 -16, bSell.getY() + 25);
-        lMoneyRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lMoneyRight.getWidth()*0.5f -iMoneyRight.getWidth() /2, bSell.getY());
+        lMoneyRight.setPosition(bSell.getX() + bSell.getWidth() / 2 - lMoneyRight.getWidth()*0.5f /2 -iMoneyRight.getWidth() /2, bSell.getY());
         iMoneyRight.setPosition(lMoneyRight.getX() + lMoneyRight.getWidth()*0.5f + 5, lMoneyRight.getY() +10);
 
         addActors(lTextLeft, lMoneyLeft, iMoneyLeft, lTextRight, lMoneyRight, iMoneyRight);

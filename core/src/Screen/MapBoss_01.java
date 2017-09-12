@@ -23,8 +23,6 @@ public class MapBoss_01 extends BaseMap {
     public static final int STARTING_POS_X = 250;
     public static final int STARTING_POS_Y = 350;
     private static final Image bgFight = new Image(new Texture(Gdx.files.internal("zielen.jpg")));
-    public static final int DEAD_POS_X = 350;
-    public static final int DEAD_POS_Y = 350;
     private static Image mapImage;
     private static int mapWidth;
     private static int mapHeight;
@@ -45,6 +43,8 @@ public class MapBoss_01 extends BaseMap {
     public MapBoss_01(Game g) {
         super(g, mapImage);
         bossInstance = true;
+        deadPosX = 1977;
+        deadPosY = 1896;
     }
 
     @Override
@@ -196,6 +196,7 @@ public class MapBoss_01 extends BaseMap {
         mapView = new Image(new Texture("map01BossView.jpg"));
         mapName = NAME;
 
+        actualMap = this;
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;
         charactersList = characters;

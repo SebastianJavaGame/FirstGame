@@ -102,7 +102,7 @@ public class Map_01 extends BaseMap {
         countEnemy = 4;
         enemies[3] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[3][i] = new Enemy("enemy/map1/p4.png", "enemy/map1/4.png", "enemy/map1/w4.png", false, "Zombie" ,7 ,        150, 9, 15, 1.6f, 8, 13,       22.8f, 240, 131, 95);//75
+            enemies[3][i] = new Enemy("enemy/map1/p4.png", "enemy/map1/4.png", "enemy/map1/w4.png", false, "Zombie" ,7 ,        150, 9, 15, 1.6f, 8, 13,       22.8f, 240, 81, 95);//75
             enemies[3][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[3][i]);
             enemies[3][i].setDropItemName("wapons2");
@@ -116,7 +116,7 @@ public class Map_01 extends BaseMap {
         countEnemy = 5;
         enemies[4] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[4][i] = new Enemy("enemy/map1/p5.png", "enemy/map1/5.png", "enemy/map1/w5.png", false, "Toksyk" ,10 ,       280, 18, 27, 3.3f, 14, 24,      20, 330, 185, 100);//140
+            enemies[4][i] = new Enemy("enemy/map1/p5.png", "enemy/map1/5.png", "enemy/map1/w5.png", false, "Toksyk" ,10 ,       280, 18, 27, 3.3f, 14, 24,      20, 330, 185, 80);//140
             enemies[4][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[4][i]);
             enemies[4][i].setDropItemName("rekawice2", "helmet2");
@@ -131,7 +131,7 @@ public class Map_01 extends BaseMap {
         countEnemy = 5;
         enemies[5] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[5][i] = new Enemy("enemy/map1/p6.png", "enemy/map1/6.png", "enemy/map1/w6.png", false, "Trol" ,11 ,     300, 28, 18, 3.8f, 25, 15,        21, 315, 205, 100);//150
+            enemies[5][i] = new Enemy("enemy/map1/p6.png", "enemy/map1/6.png", "enemy/map1/w6.png", false, "Trol" ,11 ,     300, 28, 18, 3.8f, 25, 15,        21, 315, 205, 90);//150
             enemies[5][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[5][i]);
             enemies[5][i].setDropItemName("ring2", "tarcza2");
@@ -146,7 +146,7 @@ public class Map_01 extends BaseMap {
         countEnemy = 5;
         enemies[6] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[6][i] = new Enemy("enemy/map1/p7.png", "enemy/map1/7.png", "enemy/map1/w7.png", false, "Gadzina" ,12 ,      330, 26, 20, 3.5f, 24, 20,         17.4f, 330, 226, 100);//154
+            enemies[6][i] = new Enemy("enemy/map1/p7.png", "enemy/map1/7.png", "enemy/map1/w7.png", false, "Gadzina" ,12 ,      330, 26, 20, 3.5f, 24, 20,         17.4f, 330, 226, 95);//154
             enemies[6][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[6][i]);
             enemies[6][i].setDropItemName("shoes2", "helmet3");
@@ -161,7 +161,7 @@ public class Map_01 extends BaseMap {
         countEnemy = 5;
         enemies[7] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[7][i] = new Enemy("enemy/map1/p8.png", "enemy/map1/8.png", "enemy/map1/w8.png", true, "Czerwony pająk" ,13 ,        340, 18, 30, 3.9f, 18, 27,       19.2f, 415, 248, 105);//159
+            enemies[7][i] = new Enemy("enemy/map1/p8.png", "enemy/map1/8.png", "enemy/map1/w8.png", true, "Czerwony pająk" ,13 ,        340, 18, 30, 3.9f, 18, 27,       19.2f, 415, 248, 95);//159
             enemies[7][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[7][i]);
             enemies[7][i].setDropItemName("wapon4");
@@ -176,7 +176,7 @@ public class Map_01 extends BaseMap {
         countEnemy = 8;
         enemies[8] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[8][i] = new Enemy("enemy/map1/p9.png", "enemy/map1/9.png", "enemy/map1/w9.png", true, "Ropuchacz" ,15 ,     410, 34, 48, 4.6f, 31, 42,        13.9f, 500, 295, 110);//215
+            enemies[8][i] = new Enemy("enemy/map1/p9.png", "enemy/map1/9.png", "enemy/map1/w9.png", true, "Ropuchacz" ,15 ,     410, 34, 48, 4.6f, 31, 42,        13.9f, 500, 295, 80);//215
             enemies[8][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[8][i]);
             enemies[8][i].setDropItemName("wapons4", "wapons3");
@@ -194,7 +194,7 @@ public class Map_01 extends BaseMap {
         countEnemy = 8;
         enemies[9] = new Enemy[countEnemy];
         for (int i = 0; i < countEnemy; i++) {
-            enemies[9][i] = new Enemy("enemy/map1/p10.png", "enemy/map1/10.png", "enemy/map1/w10.png", true, "Zerd" ,17 ,       450, 50, 35, 5f, 42, 30,      16.3f, 555, 346, 110); //225
+            enemies[9][i] = new Enemy("enemy/map1/p10.png", "enemy/map1/10.png", "enemy/map1/w10.png", true, "Zerd" ,17 ,       450, 50, 35, 5f, 42, 30,      16.3f, 555, 346, 90); //225
             enemies[9][i].setRectangle(5, 5, -10, -10);
             characters.add(enemies[9][i]);
             enemies[9][i].setDropItemName("armor3", "ring3", "rekawice3");
@@ -292,7 +292,6 @@ public class Map_01 extends BaseMap {
     public void generateMap() {
         if(!firstRun) {
             characters = new ArrayList<Character>();
-            actualMap = this;
             firstRun = true;
 
             bgTexture.setSize(mapWidth, mapHeight);
@@ -308,6 +307,7 @@ public class Map_01 extends BaseMap {
         mapView = new Image(new Texture("map01View.jpg"));
         mapName = NAME;
 
+        actualMap = this;
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;
         optimiseMap = positionOptimalise;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -30,6 +31,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.StatsHero;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Sebastian on 2017-07-09.
@@ -776,7 +778,7 @@ public class FightScreen extends BaseScreen {
                     expMinus *= (temporary /100);
 
                     musicBattle.stop();
-                    game.setScreen(new FightLose(game, hero, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), -1000, -(int)expMinus));
+                    game.setScreen(new FightLose(game, hero, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), -(int)(100 *Hero.getLevel() +hero.getMoneyNoStatic()*0.35f), -(int)expMinus));
                 }
             })));
         }
@@ -810,11 +812,11 @@ public class FightScreen extends BaseScreen {
                     int sizeListDropItem = enemy.getDropItem().size();
                     String dropItemName = "";
 
-
+                    Random fortune = new Random();
                     if(sizeListDropItem > 0) {
                         float chanceOnDrop = enemy.getRandomDrop();
-                        chanceOnDrop *= 20;
-                        int temporaryRandom = MathUtils.random(0, 999) + MathUtils.random(0, 999);
+                        chanceOnDrop *= 10;
+                        int temporaryRandom = fortune.nextInt(1000);
                         if(temporaryRandom <= (int)chanceOnDrop) {
                             int random = MathUtils.random(0, sizeListDropItem - 1);
                             dropItemName = enemy.getDropItem().get(random);

@@ -19,7 +19,7 @@ public class CheckConnected extends Activity {
     @Override
     protected void onCreate(Bundle saveInstanceBundle){
         super.onCreate(saveInstanceBundle);
-
+        startActivity(new Intent(getApplicationContext(), AndroidLauncher.class));
         if(!isConnected()){
             setContentView(R.layout.layout_connection);
         }else{

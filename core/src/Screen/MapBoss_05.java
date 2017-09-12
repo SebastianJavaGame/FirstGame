@@ -43,6 +43,8 @@ public class MapBoss_05 extends BaseMap {
     public MapBoss_05(Game g) {
         super(g, mapImage);
         bossInstance = true;
+        deadPosX = 1661;
+        deadPosY = 1496;
     }
 
     @Override
@@ -193,6 +195,7 @@ public class MapBoss_05 extends BaseMap {
 
         stage.addActor(bgTexture);
 
+        actualMap = this;
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;
         charactersList = characters;

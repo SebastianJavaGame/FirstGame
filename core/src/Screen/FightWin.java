@@ -160,8 +160,8 @@ public class FightWin extends BaseScreen {
         lFull.setFontScale(0.4f);
 
         lExpText.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExpText.getWidth()*0.9f /2, 440);
-        lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() *lenghtText / 2, Gdx.app.getGraphics().getHeight() *0.67f);
-        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth() /2, Gdx.app.getGraphics().getHeight() *0.615f);
+        lExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lExp.getWidth() *lenghtText / 2, BaseScreen.VIEW_HEIGHT *0.67f);
+        lWordExp.setPosition(BaseScreen.VIEW_WIDTH / 2 - lWordExp.getWidth() /2, BaseScreen.VIEW_HEIGHT *0.615f);
         lMoney.setPosition(BaseScreen.VIEW_WIDTH / 2 - lMoney.getWidth()*0.8f /2, 238);
         lDrop.setPosition(BaseScreen.VIEW_WIDTH / 2 - lDrop.getWidth()*0.6f /2, 207);
         lStatsDmgAverrage.setPosition(BaseScreen.VIEW_WIDTH / 2 - lStatsDmgAverrage.getWidth()*0.5f /2, 69);
@@ -323,10 +323,10 @@ public class FightWin extends BaseScreen {
             TextureRegion texture = loadImage(minValue);
 
             emptyCircleProgressBar.setSize(screenX * texture.getRegionWidth(), screenY * texture.getRegionHeight());
-            emptyCircleProgressBar.setPosition(BaseScreen.VIEW_WIDTH / 2 - screenX * texture.getRegionWidth() / 2, height * 0.545f);
+            emptyCircleProgressBar.setPosition(BaseScreen.VIEW_WIDTH / 2 - screenX * texture.getRegionWidth() / 2, BaseScreen.VIEW_HEIGHT * 0.535f);
 
             sprite = new ProgressCircle(texture, pbatch);
-            sprite.setPosition(width / 2 - sprite.getWidth() / 2, height * 0.545f);
+            sprite.setPosition(width / 2 - sprite.getWidth() / 2, height * 0.535f);
         } else {  //Desktop and others
             int width = Gdx.app.getGraphics().getWidth();
             int height = Gdx.app.getGraphics().getHeight();
@@ -336,7 +336,7 @@ public class FightWin extends BaseScreen {
 
             TextureRegion texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp320.png")));
             sprite = new ProgressCircle(texture, pbatch);
-            sprite.setPosition(screenX * width / 2 - sprite.getWidth() / 2, screenY * height * 0.545f);
+            sprite.setPosition(screenX * width / 2 - sprite.getWidth() / 2, screenY * height * 0.535f);
             emptyCircleProgressBar.setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         }
         addActors(emptyCircleProgressBar, lExp, lWordExp, sprite);
@@ -445,13 +445,15 @@ public class FightWin extends BaseScreen {
             for (int i = 2; i >= 0; i--) {
                 for (int j = 0; j < 6; j++) {
                     if (slotNr == slot) {
-                    Equipment.slotEmpty = new boolean[18];
-                    for (int k = 0; k < 18; k++) {
-                        if (!prefItem.getString("SLOT" + k, "").equals(""))
-                            Equipment.slotEmpty[k] = true;
-                        else
-                            Equipment.slotEmpty[k] = false;
-                    }
+                        //TODO add in menu screen seting and set true/false this bit code, becouse you show testers how look error
+                        Equipment.slotEmpty = new boolean[18];
+                        for (int k = 0; k < 18; k++) {
+                            if (!prefItem.getString("SLOT" + k, "").equals(""))
+                                Equipment.slotEmpty[k] = true;
+                            else
+                                Equipment.slotEmpty[k] = false;
+                        }
+                        //TODO #end
                         Equipment.slotEmpty[slotNr] = true;
                         prefItem.putString("SLOT" + slotNr, item);
                         prefItem.flush();
@@ -461,6 +463,7 @@ public class FightWin extends BaseScreen {
                 }
             }
         }catch (Exception e) {
+
         }
     }
 
@@ -475,8 +478,8 @@ public class FightWin extends BaseScreen {
         else if (minValue > 510 && minValue <= 600)
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp540.png")));
         else if (minValue > 600 && minValue <= 750)
-            texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp720.png")));
-        else if (minValue > 750 && minValue <= 790)
+            texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp720.png")));//TODO optimalize choose 720 or 768 and save to two resolution screen
+        else if (minValue > 750 && minValue <= 790)                       //TODO reschear all image and look at resolution x,y sometimes two images have the same resolution
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp768.png")));
         else if (minValue > 790 && minValue <= 950)
             texture = new TextureRegion(new Texture(Gdx.files.internal("circleExp/circleExp800.png")));
