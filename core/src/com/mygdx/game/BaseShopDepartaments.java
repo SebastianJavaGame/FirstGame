@@ -8,11 +8,16 @@ import com.badlogic.gdx.Preferences;
  */
 
 public class BaseShopDepartaments {
-    private static Preferences[][] pref = new Preferences[5][8];
+    private static Preferences[][] pref = new Preferences[6 ][8];
     private static String[] items = new String[10];
 
     public BaseShopDepartaments(){
         loadFirstShop();
+        loadSecondShop();
+        loadThirdShop();
+        loadFourthShop();
+        loadFivthShop();
+        loadSixthShop();
     }
 
     /**
@@ -112,8 +117,6 @@ public class BaseShopDepartaments {
         pref[1][1].putString("SLOT2", "armor6").flush();
         pref[1][1].putString("SLOT3", "armor7").flush();
         pref[1][1].putString("SLOT4", "armor8").flush();
-        //pref[1][1].putString("SLOT8", "armor2pay").flush();
-        //pref[1][1].putString("SLOT9", "armor3pay").flush();
 
         //Pants
         pref[1][2] = Gdx.app.getPreferences("SHOP_1_PANTS");

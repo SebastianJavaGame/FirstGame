@@ -778,7 +778,7 @@ public class FightScreen extends BaseScreen {
                     expMinus *= (temporary /100);
 
                     musicBattle.stop();
-                    game.setScreen(new FightLose(game, hero, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), -(int)(100 *Hero.getLevel() +hero.getMoneyNoStatic()*0.35f), -(int)expMinus));
+                    game.setScreen(new FightLose(game, hero, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), -(int)(100 *Hero.getLevel() +hero.getMoneyNoStatic()*0.20f), -(int)expMinus));
                 }
             })));
         }

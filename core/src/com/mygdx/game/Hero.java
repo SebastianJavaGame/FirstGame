@@ -43,7 +43,7 @@ import Screen.Map_06;
  */
 
 public class Hero extends Character {
-    public final static int SPEED_MOVE = 30;
+    public final static int SPEED_MOVE = 32;
     private Texture arm;
 
     private final Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);

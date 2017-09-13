@@ -205,6 +205,8 @@ public class FieldDialogue {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 textDialog.play(0.5f);
                 DialogNpc.removeAll();
+                Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+                preferences.putInteger("HP", preferences.getInteger("HP")).flush();
                 BaseScreen.getGame().setScreen(new Screen.Shop(BaseScreen.getGame(), image, name, level, idShop));
                 return false;
             }

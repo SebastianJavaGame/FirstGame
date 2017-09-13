@@ -38,6 +38,7 @@ public class Npc extends Character{
         Preferences preferences = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
         preferences.putInteger("POS_X", (int)hero.getX()).flush();
         preferences.putInteger("POS_Y", (int)hero.getY()).flush();
+        preferences.putInteger("HP", hero.getFullHp()).flush();
         Menu.setIsFirstSpawnHeroPosition(true);
         new DialogNpc(this);
     }
