@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -340,8 +341,10 @@ public class StatsHero {
             stage.addActor(expLabel);
             stage.addActor(expirience);
 
-            for (Label attribute : attributeStats)
+            for (Label attribute : attributeStats) {
                 stage.addActor(attribute);
+                attribute.setTouchable(Touchable.disabled);
+            }
         }
     }
 

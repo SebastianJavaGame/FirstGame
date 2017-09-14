@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
 
+import Screen.BaseMap;
 import Screen.BaseScreen;
 
 /**
@@ -108,6 +109,8 @@ public class Quest {
                         if(percent >= 1) {
                             soundComplite.play();
                             BaseTask.setTaskComplete(idTask, true);
+                            BaseMap.addRedLight();
+                            Bag.addRedLight(2);
                         }
                     }
                     if(preferences.getInteger("TASK" +j, -1) == -1) {

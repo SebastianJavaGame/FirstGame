@@ -116,8 +116,6 @@ public class Task {
             lProgress.setText("Zrobione! Odbierz nagrode");
             lProgress.setColor(Color.OLIVE);
             BaseTask.setTaskComplete(idTask, true);
-            BaseMap.addRedLight();
-            Bag.addRedLight(2);
         }
 
         return (int)(MAX_PROGRESS_PERCENT *percent);

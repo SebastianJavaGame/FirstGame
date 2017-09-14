@@ -238,6 +238,7 @@ public class FieldDialogue {
                         break;
                     }
                 }
+                Compass.appear();
                 return false;
             }
         });
@@ -314,9 +315,16 @@ public class FieldDialogue {
                 }
                 while(Hero.getExp() +exp >= Hero.getMaxExp());
 
-                lExp = new Label("Otrzymales " + exp + " doswiadczenia", STYLE_WHITE);
+                lExp = new Label("Otrzymales " + exp + " dos.", STYLE_WHITE);
                 lMoney = new Label("Otrzymales " + money + " zlota", STYLE_WHITE);
                 lClose = new Label("Ruszam dalej", STYLE_GREEN);
+
+                lExp.setFontScale(0.6f);
+                lMoney.setFontScale(0.6f);
+                lClose.setFontScale(0.6f);
+
+                lExp.setColor(new Color(Color.OLIVE));
+                lMoney.setColor(new Color(Color.GOLD));
 
                 barLeft = new Image(asset.manager.get("dialogueShortBar.png", Texture.class));
                 barRight = new Image(asset.manager.get("dialogueShortBar.png", Texture.class));
@@ -331,7 +339,7 @@ public class FieldDialogue {
                 iMoney = new Image(asset.manager.get("uiMoney.png", Texture.class));
                 iExp = new Image(asset.manager.get("uiExp.png", Texture.class));
 
-                lExp.setPosition(POSITION_X +4, (int)BaseScreen.camera.position.y - BaseMap.VIEW_HEIGHT /2 +360 -lExp.getHeight());
+                lExp.setPosition(POSITION_X +4, 360 -lExp.getHeight());
                 lMoney.setPosition(POSITION_X +4, lExp.getY() -25);
                 lClose.setPosition(POSITION_X +4, lMoney.getY() -45);
 
@@ -353,10 +361,10 @@ public class FieldDialogue {
                 barRight.setSize(barRight.getWidth(), lExp.getHeight() +lExp.getHeight());
                 barRight.setPosition(POSITION_X +barDown.getWidth() +1, barDown.getY());
 
-                iExp.setSize(lExp.getHeight() +5, lExp.getHeight() +5);
-                iExp.setPosition(lExp.getX() + lExp.getWidth() +5, lExp.getY() -3);
-                iMoney.setSize(lMoney.getHeight() +5, lMoney.getHeight() +5);
-                iMoney.setPosition(lMoney.getX() + lMoney.getWidth() +5, lMoney.getY() -3);
+                iExp.setSize(lExp.getHeight()/2, lExp.getHeight()/2);
+                iExp.setPosition(lExp.getX() + lExp.getWidth()*0.6f +4, lExp.getY() +4);
+                iMoney.setSize(lMoney.getHeight()/2, lMoney.getHeight()/2);
+                iMoney.setPosition(lMoney.getX() + lMoney.getWidth()*0.6f +4, lMoney.getY() +4);
 
                 barUpTwo.setPosition(POSITION_X +2, lClose.getY() +lClose.getHeight() -6);
                 barDownTwo.setPosition(POSITION_X +2, lClose.getY() -2);
@@ -409,10 +417,6 @@ public class FieldDialogue {
         barVerticalRight.remove();
         barHorizontalDown.remove();
         label.remove();
-    }
-
-    public int getHeightFieldText(){
-        return (int) barHorizontalUp.getY() +(int) barHorizontalUp.getHeight() -(int) barHorizontalDown.getY();
     }
 
     public Label getLabel(){

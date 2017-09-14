@@ -1058,11 +1058,11 @@ public class FightScreen extends BaseScreen {
             case 2:
                 return 1.3f;
             case 3:
-                return 1.8f;
+                return 2.1f;
             case 4:
-                return 2.2f;
+                return 2.7f;
             case 5:
-                return 2.5f;
+                return 3.3f;
             default:
                 return 0.01f;
         }

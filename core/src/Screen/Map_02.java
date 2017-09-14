@@ -230,7 +230,7 @@ public class Map_02 extends BaseMap {
     @Override
     public void addNpcToMap() {
         Npc npc3 = new Npc(new Texture(Gdx.files.internal("npc/4.png")), new Image(new Texture(Gdx.files.internal("npc/4h.png"))), "Herald", 23, 1, 0, 3);
-        npc3.setPosition(1300, 1245);
+        npc3.setPosition(1300, 1225);
         characters.add(npc3);
         npc3.setRectangle(8, 2, -16, -8);
         npc3.collisionUpdate();
