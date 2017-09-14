@@ -28,7 +28,7 @@ public class BaseTask {
         REWARD_TASK[0][0] = 2390;
         REWARD_TASK[0][1] = 1150;
 
-        LIST_PROGRESS[0] = 1;//TODO change to five
+        LIST_PROGRESS[0] = 5;
         ENEMIES[0] = "enemy/map2/p3.png";
 
         //task #2

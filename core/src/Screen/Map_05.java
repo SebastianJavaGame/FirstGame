@@ -324,6 +324,7 @@ public class Map_05 extends BaseMap {
         mapView = new Image(new Texture("map05View.jpg"));
         mapName = NAME;
 
+        mapId = 4;
         actualMap = this;
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;

@@ -253,7 +253,6 @@ public class Menu extends BaseScreen {
 
     public static void setMap(){
         Preferences pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
-
         int idMap = pref.getInteger("MAP", 0);
         switch (idMap){
             case 0:

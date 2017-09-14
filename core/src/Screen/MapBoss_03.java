@@ -28,8 +28,6 @@ public class MapBoss_03 extends BaseMap {
     private static int mapHeight;
     private Preferences pref;
 
-    private static boolean firstRun;
-
     private static ArrayList<Polygon> objectCollision;
     private static ArrayList<Vector2[]> verticalCollision;
     private static ArrayList<Character> characters;
@@ -179,23 +177,18 @@ public class MapBoss_03 extends BaseMap {
 
     @Override
     public void generateMap() {
-        if(!firstRun) {
-            characters = new ArrayList<Character>();
-            firstRun = true;
-
-            bgTexture.setSize(mapWidth, mapHeight);
-
-            mapView = new Image(new Texture("map03BossView.jpg"));
-            mapName = NAME;
-
-            addEnemyToMap();
-            addNpcToMap();
-            addCollisionToMap();
-        }
+        characters = new ArrayList<Character>();
+        bgTexture.setSize(mapWidth, mapHeight);
+        mapView = new Image(new Texture("map03BossView.jpg"));
+        addCollisionToMap();
+        addEnemyToMap();
+        addNpcToMap();
         addEntranceToMap();
 
         stage.addActor(bgTexture);
 
+        mapName = NAME;
+        mapId = 8;
         actualMap = this;
         objectPolygon = objectCollision;
         verticalPolygon = verticalCollision;

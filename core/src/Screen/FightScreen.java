@@ -825,7 +825,7 @@ public class FightScreen extends BaseScreen {
 
                     musicBattle.stop();
 
-                    game.setScreen(new FightWin(game, hero, enemy, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), (int)moneyDrop *20, (int)expDrop*10, dropItemName));//TODO delete *10
+                    game.setScreen(new FightWin(game, hero, enemy, (int)calculateAverageWithArrey(avergeDmgFight), calculateAverageWithArrey(avergePercentsFight), (int)(moneyDrop *2.5f), (int)(expDrop*2.5f), dropItemName));
                 }
             })));
         }

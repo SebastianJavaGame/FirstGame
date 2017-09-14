@@ -293,13 +293,14 @@ public class StatsHero {
             attributeStats[1].setPosition(224 - attributeStats[1].getWidth()*scale / 2, 263);
             attributeStats[1].setFontScale(scale);
 
-            attributeStats[2] = new Label(String.format("%, .2f", hero.getArmor()) + "%", styleWhite);
+            attributeStats[2] = new Label(String.format("%, .2f", hero.getArmorEq() -hero.getArmor()) + "%", styleWhite);
             attributeStats[2].setPosition(123 - attributeStats[2].getWidth()*scale / 2, 217);
             attributeStats[2].setFontScale(scale);
 
             attributeStats[3] = new Label(String.format("%, .2f", hero.getArmorEq()) + "%", styleGreen);
             attributeStats[3].setPosition(224 - attributeStats[3].getWidth()*scale / 2, 217);
             attributeStats[3].setFontScale(scale);
+            attributeStats[3].setTouchable(Touchable.disabled);
 
             attributeStats[4] = new Label(String.valueOf(hero.getStrong()), styleWhite);
             attributeStats[4].setPosition(123 - attributeStats[4].getWidth()*scale / 2, 177);

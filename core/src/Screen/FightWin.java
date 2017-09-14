@@ -236,7 +236,22 @@ public class FightWin extends BaseScreen {
                                 this.cancel();
                             }
                         }
-                    }, oryginalEnemy.getSpawnSecond(), 2, 9999);
+                    }, oryginalEnemy.getSpawnSecond(), 2, 99999);
+                }else{
+                    oryginalEnemy.setRectangle(5, 5, -10, -10);
+                    BaseMap.getActualMap().getCharacter().add(oryginalEnemy);
+
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            if (!BaseMap.bossInstance) {
+                                oryginalEnemy.setPosition(orginalPosition.x, orginalPosition.y);
+                                oryginalEnemy.collisionUpdate();
+                                oryginalEnemy.setDropItemName(itemList);
+                                this.cancel();
+                            }
+                        }
+                    }, oryginalEnemy.getSpawnSecond(), 2, 99999);
                 }
 
                 expMax = ExperienceRequired.getMaxExperience(twoBase);
@@ -269,8 +284,15 @@ public class FightWin extends BaseScreen {
                                 }
                             }
                         }
-                        if(!BaseScreen.getException())
+                        if(!BaseScreen.getException()) {
+                            if(BaseMap.bossInstance) {
+                                Preferences pref = Gdx.app.getPreferences(StatsHero.PREF_NAME_STATS);
+                                pref.putInteger("POS_X", pref.getInteger("POS_X", (int) orginalPosition.x)).flush();
+                                pref.putInteger("POS_Y", pref.getInteger("POS_Y", (int) orginalPosition.y)).flush();
+                                pref.putInteger("MAP", BaseMap.getMapId()).flush();
+                            }
                             Menu.setMap();
+                        }
                         break;
                     } else {
                         resultPrecent = 100 - precentStart;
@@ -445,7 +467,6 @@ public class FightWin extends BaseScreen {
             for (int i = 2; i >= 0; i--) {
                 for (int j = 0; j < 6; j++) {
                     if (slotNr == slot) {
-                        //TODO add in menu screen seting and set true/false this bit code, becouse you show testers how look error
                         Equipment.slotEmpty = new boolean[18];
                         for (int k = 0; k < 18; k++) {
                             if (!prefItem.getString("SLOT" + k, "").equals(""))
@@ -453,7 +474,6 @@ public class FightWin extends BaseScreen {
                             else
                                 Equipment.slotEmpty[k] = false;
                         }
-                        //TODO #end
                         Equipment.slotEmpty[slotNr] = true;
                         prefItem.putString("SLOT" + slotNr, item);
                         prefItem.flush();

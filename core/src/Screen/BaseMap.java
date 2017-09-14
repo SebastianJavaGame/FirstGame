@@ -55,6 +55,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
     protected static Image backgroundFight;
     protected static BaseMap actualMap;
     protected static String mapName;
+    protected static int mapId;
 
     private Preferences preferences;
     private Compass compass;
@@ -157,6 +158,7 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
         new Bag(BaseScreen.getStage());
         hero = new Hero(asset.manager.get("hero.png", Texture.class), objectPolygon, verticalPolygon, optimiseMap, optimiseToward, camera, hero3D, charactersList);
         hero.setPosition(preferences.getInteger("POS_X"), preferences.getInteger("POS_Y"));
+        //hero.setPosition(900, 1000);
         hero.setSize(8, 8);
         hero.setOrigin(hero.getWidth() /2, hero.getHeight() /2);
         stage.addActor(hero);
@@ -446,5 +448,9 @@ public abstract class BaseMap extends BaseScreen implements ImplementObjectMap{
 
     public static Image getBackgroundFight(){
         return  backgroundFight;
+    }
+
+    public static int getMapId(){
+        return mapId;
     }
 }
